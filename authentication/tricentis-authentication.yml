@@ -1,0 +1,99 @@
+generated: '2026-08-02'
+method: searched
+source: openapi/tricentis-neoload-openapi.yaml, openapi/tricentis-qtest-analytics-openapi.json,
+  openapi/tricentis-qtest-manager-openapi.yaml, openapi/tricentis-qtest-parameters-openapi.yaml,
+  openapi/tricentis-qtest-pulse-openapi.yaml, openapi/tricentis-qtest-sessions-openapi.yaml, openapi/tricentis-ttm4j-openapi.json
+  + provider auth documentation
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  - query
+  oauth2_flows: []
+  note: Tricentis authenticates every REST product with a header-carried credential and declares
+    none of them as oauth2 in the specs, even where an OAuth token endpoint exists. qTest issues
+    a bearer token from POST /oauth/token but models it as an apiKey header named Authorization.
+    The only true OAuth surface is the Tosca Cloud identity service used by the Tosca Cloud MCP
+    server and toscactl - see scopes/tricentis-scopes.yml.
+schemes:
+- name: NeoloadAuthorizer
+  type: apiKey
+  in: header
+  parameter: accountToken
+  sources:
+  - openapi/tricentis-neoload-openapi.yaml
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/tricentis-qtest-analytics-openapi.json
+- name: ApiKeyAuth
+  type: apiKey
+  in: query
+  parameter: apikey
+  sources:
+  - openapi/tricentis-qtest-analytics-openapi.json
+- name: Authorization
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/tricentis-qtest-manager-openapi.yaml
+  - openapi/tricentis-qtest-pulse-openapi.yaml
+  - openapi/tricentis-qtest-sessions-openapi.yaml
+  - openapi/tricentis-ttm4j-openapi.json
+- name: token
+  type: apiKey
+  in: header
+  parameter: x-access-token
+  sources:
+  - openapi/tricentis-qtest-parameters-openapi.yaml
+- name: qtestUrl
+  type: apiKey
+  in: header
+  parameter: x-qtest-url
+  sources:
+  - openapi/tricentis-qtest-pulse-openapi.yaml
+docs:
+- https://docs.tricentis.com/qtest-saas/content/apis/overview/qtest_api_specification.htm
+- https://docs.tricentis.com/ttm-for-jira/content/developer/api_authorization.htm
+- https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm
+token_endpoints:
+- api: qTest Manager
+  operation: postAccessToken
+  path: POST /oauth/token
+  summary: Log in
+  source: openapi/tricentis-qtest-manager-openapi.yaml
+- api: qTest Manager
+  operation: tokenStatus
+  path: GET /oauth/status
+  summary: Gets status of access token
+  source: openapi/tricentis-qtest-manager-openapi.yaml
+credential_sources:
+- api: qTest
+  where: qTest Resources page, API & SDK section
+  docs: https://docs.tricentis.com/qtest-saas/content/apis/overview/how_to_use_interactive_api_documentation.htm
+- api: Tricentis Test Management for Jira
+  where: TTM4J API authorization settings in Jira
+  docs: https://docs.tricentis.com/ttm-for-jira/content/developer/api_authorization.htm
+  validate: HEAD /v1/api-key/is-alive
+- api: NeoLoad
+  where: NeoLoad Web account settings (accountToken)
+non_spec_surfaces:
+- surface: Tosca Cloud identity
+  type: oauth2
+  flows:
+  - authorizationCode+PKCE
+  - deviceCode
+  - clientCredentials
+  client_id: MCPServer
+  scope: tta
+  docs: https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm
+- surface: Tosca Commander in-process MCP
+  type: none
+  note: localhost-bound on default port 46248
+mfa_sso:
+  note: Tricentis cloud products support enterprise SSO/SAML at the tenant level; no SSO metadata
+    is published anonymously.

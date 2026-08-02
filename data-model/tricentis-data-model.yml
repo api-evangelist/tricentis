@@ -1,0 +1,134 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/tricentis-qtest-manager-openapi.yaml + openapi/tricentis-ttm4j-openapi.json
+  + openapi/tricentis-qtest-analytics-openapi.json
+summary: >-
+  The Tricentis quality-engineering data model is the same object graph expressed
+  three times: as the qTest Manager REST resources (164 schema definitions, 190
+  operations), as the Jira-scoped TTM4J resources, and as the read-only Tricentis
+  Analytics OData entity sets. The spine is Project -> Release -> Test Cycle ->
+  Test Suite -> Test Run -> Test Log, with Module (the folder tree) holding Test
+  Cases and Requirements, and Defects linking back to failed Test Logs.
+identifiers:
+  scheme: numeric integer ids, project-scoped
+  human_keys: >-
+    qTest artifacts also carry a human key of the form <PROJECT>-TC-123 / -RQ- / -TR- /
+    -DF-, and most read operations accept {idOrKey} interchangeably.
+  ttm4j: >-
+    TTM4J is keyed by the Jira project-key plus a per-artifact test-case key, not by a
+    numeric id.
+entities:
+- name: Project
+  schema: ProjectResource
+  root: true
+  description: The top-level container. Almost every qTest URI is /api/v3/projects/{projectId}/...
+- name: Release
+  schema: ReleaseResource
+  description: A time-boxed delivery increment inside a project.
+- name: Build
+  schema: BuildResource
+  description: A build within a release; test cycles and runs can be attributed to one.
+- name: Module
+  schema: ProjectModule
+  description: The folder tree that organizes test cases and requirements. Self-referencing
+    via parentId.
+- name: Requirement
+  schema: RequirementResource
+  description: A requirement or user story, usually synchronized from Jira.
+- name: TestCase
+  schema: TestCaseWithCustomFieldResource
+  description: A versioned, approvable test case owned by a module.
+- name: TestStep
+  schema: TestStepResource
+  description: An ordered step within a test case, optionally parameterized.
+- name: TestCycle
+  schema: TestCycle
+  description: An execution container inside a release. Self-nesting.
+- name: TestSuite
+  schema: TestSuite
+  description: A group of test runs inside a cycle or release.
+- name: TestRun
+  schema: TestRunWithCustomFieldResource
+  description: An instance of a test case scheduled for execution.
+- name: TestLog
+  schema: TestLogResource
+  description: The result of executing a test run — manual or automation.
+- name: TestStepLog
+  schema: TestStepLogResource
+  description: The per-step result inside a test log.
+- name: Defect
+  schema: DefectResource
+  description: An internal qTest defect or a linked issue in an external tracker.
+- name: Attachment
+  schema: AttachmentResource
+  description: A file attached to a test case, run, log or defect.
+- name: Field
+  schema: FieldResource
+  description: System and custom field definitions, per artifact type and project.
+- name: User
+  schema: UserProfile
+  description: A qTest user with site and project roles.
+- name: Webhook
+  schema: null
+  description: A registered event callback. See asyncapi/tricentis-qtest-webhooks.yml.
+- name: Parameter
+  schema: ParameterInfo
+  description: A named data-driven parameter (qTest Parameters product) bound to test
+    steps.
+  source: openapi/tricentis-qtest-parameters-openapi.yaml
+- name: Dataset
+  description: A table of parameter values used to drive test runs.
+  source: openapi/tricentis-qtest-parameters-openapi.yaml
+relationships:
+- {from: Project, type: has_many, to: Release, via: projectId}
+- {from: Project, type: has_many, to: Module, via: projectId}
+- {from: Project, type: has_many, to: Requirement, via: projectId}
+- {from: Project, type: has_many, to: TestCase, via: projectId}
+- {from: Project, type: has_many, to: Defect, via: projectId}
+- {from: Project, type: has_many, to: User, via: assigned projects}
+- {from: Release, type: has_many, to: Build, via: releaseId}
+- {from: Release, type: has_many, to: TestCycle, via: parentId}
+- {from: Module, type: has_one, to: Module, via: parentId, note: self-referencing folder
+    tree}
+- {from: Module, type: has_many, to: TestCase, via: parentId}
+- {from: Module, type: has_many, to: Requirement, via: parentId}
+- {from: TestCase, type: has_many, to: TestStep, via: test_steps}
+- {from: TestCase, type: has_many, to: Requirement, via: object link (requirement trace)}
+- {from: TestCase, type: has_many, to: TestRun, via: test_case}
+- {from: TestCycle, type: has_one, to: TestCycle, via: parentId, note: cycles nest}
+- {from: TestCycle, type: has_many, to: TestSuite, via: parentId}
+- {from: TestSuite, type: has_many, to: TestRun, via: parentId}
+- {from: TestRun, type: belongs_to, to: TestCase, via: test_case.id}
+- {from: TestRun, type: has_many, to: TestLog, via: testRunId}
+- {from: TestLog, type: has_many, to: TestStepLog, via: test_step_logs}
+- {from: TestLog, type: has_many, to: Defect, via: defects}
+- {from: TestStepLog, type: belongs_to, to: TestStep, via: test_step_id}
+- {from: Defect, type: belongs_to, to: DefectTrackingSystem, via: defect tracking system
+    id}
+- {from: TestRun, type: has_many, to: Attachment, via: attachments}
+- {from: TestLog, type: belongs_to, to: Build, via: build}
+- {from: TestRun, type: has_many, to: Parameter, via: parameter value assignment}
+- {from: Dataset, type: has_many, to: Parameter, via: dataset columns}
+projections:
+- surface: TTM4J (Jira-native)
+  root: Jira project-key
+  entities: [Folder, TestCase, Requirement, Cycle, TestRun, Defect, Attachment, Job]
+  note: A flattened version of the same graph — Folder replaces Module, and Defects are
+    Jira issues rather than internal qTest artifacts.
+  source: openapi/tricentis-ttm4j-openapi.json
+- surface: Tricentis Analytics (OData v4, read-only)
+  entity_sets: [projects, releases, builds, defects, folders, folderhierarchies, executionsummaries,
+    latesttestrunstatuses, latestrunlogs, requirementreleases, requirementsetlinks, bridgerequirementsetlinks]
+  note: The reporting projection of the same graph, denormalized for BI joins.
+  source: openapi/tricentis-qtest-analytics-openapi.json
+- surface: NeoLoad
+  entities: [Workspace, Project, Test Setting, Test Result, Scenario, SLA Profile, Monitor,
+    Zone, Infrastructure Provider, Resource]
+  note: A separate model entirely — performance testing, not test management. Not joined
+    to the qTest graph by any published foreign key.
+  source: openapi/tricentis-neoload-openapi.yaml
+counts:
+  qtest_manager_schemas: 164
+  qtest_manager_operations: 190
+  ttm4j_operations: 34
+  analytics_entity_sets: 40

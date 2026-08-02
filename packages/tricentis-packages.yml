@@ -1,0 +1,107 @@
+generated: '2026-08-02'
+method: searched
+source: PyPI, npm, Maven Central, GitHub (Tricentis + Neotys-Labs orgs) registry searches
+summary: >-
+  Tricentis does not ship a general-purpose first-party client SDK for the qTest
+  REST APIs (the Java SDK 1.4.9 was end-of-supported in June 2020, with users
+  directed to generate clients from the published Swagger). The first-party
+  packages that DO exist are runtime/automation clients: the NeoLoad CLI on PyPI,
+  the NeoLoad as-code Java API clients and Maven plugin on Maven Central, the
+  Testim CLI on npm, and the Tosca Execution Client and qTest Helm charts on the
+  Tricentis GitHub organization.
+packages:
+- language: python
+  registry: pypi
+  name: neoload
+  url: https://pypi.org/project/neoload/
+  install: pip install neoload
+  repository: https://github.com/Neotys-Labs/neoload-cli
+  license: Apache 2.0
+  version_seen: 1.3.18
+  official: true
+  description: Command-line client for the NeoLoad Web platform — run tests, stream
+    results and report from a workstation or CI pipeline.
+- language: java
+  registry: maven
+  name: com.neotys.ascode:api-client-v3
+  url: https://central.sonatype.com/artifact/com.neotys.ascode/api-client-v3
+  install: 'maven: com.neotys.ascode:api-client-v3'
+  version_seen: 1.0.20
+  official: true
+  description: Generated Java client for the NeoLoad Web API v3.
+- language: java
+  registry: maven
+  name: com.neotys.ascode:api-client-v2
+  url: https://central.sonatype.com/artifact/com.neotys.ascode/api-client-v2
+  install: 'maven: com.neotys.ascode:api-client-v2'
+  version_seen: 1.0.20
+  official: true
+  description: Generated Java client for the NeoLoad Web API v2.
+- language: java
+  registry: maven
+  name: com.neotys.ascode:neoload-maven-plugin
+  url: https://central.sonatype.com/artifact/com.neotys.ascode/neoload-maven-plugin
+  install: 'maven: com.neotys.ascode:neoload-maven-plugin'
+  version_seen: 1.0.20
+  official: true
+  description: Maven plugin for running NeoLoad as-code performance tests in a build.
+- language: java
+  registry: maven
+  name: com.neotys.neoload:neoload-models
+  url: https://central.sonatype.com/artifact/com.neotys.neoload/neoload-models
+  install: 'maven: com.neotys.neoload:neoload-models'
+  version_seen: 3.3.6
+  official: true
+  repository: https://github.com/Neotys-Labs/neoload-models
+  description: NeoLoad project model libraries plus JMeter and LoadRunner readers/writers.
+- language: javascript
+  registry: npm
+  name: '@testim/testim-cli'
+  url: https://www.npmjs.com/package/@testim/testim-cli
+  install: npm install -g @testim/testim-cli
+  version_seen: 4.192.7
+  official: true
+  description: CLI for running Tricentis Testim suites in CI. Published by Tricentis
+    maintainers.
+- language: shell
+  registry: github
+  name: ToscaExecutionClient
+  url: https://github.com/Tricentis/ToscaExecutionClient
+  install: 'git clone https://github.com/Tricentis/ToscaExecutionClient'
+  official: true
+  description: First-party client for triggering and polling Tosca test executions
+    through the Tosca Distributed Execution / Tosca Server REST interface.
+- language: helm
+  registry: github
+  name: qTest.Charts
+  url: https://github.com/Tricentis/qTest.Charts
+  install: 'helm repo add: https://github.com/Tricentis/qTest.Charts'
+  official: true
+  description: qTest Helm charts for on-premises Kubernetes deployment.
+- language: helm
+  registry: github
+  name: helm-neoload-web
+  url: https://github.com/Neotys-Labs/helm-neoload-web
+  official: true
+  description: Helm chart for deploying NeoLoad Web on a Kubernetes cluster.
+- language: markdown
+  registry: github
+  name: mcp-skills
+  url: https://github.com/Tricentis/mcp-skills
+  official: true
+  license: Apache 2.0
+  description: Open-source installable agent-skill packs for automating Tosca Commander
+    and Tosca Cloud through MCP servers and CLIs. See skills/.
+not_found:
+- registry: pypi
+  query: tricentis, qtest
+  note: no first-party Tricentis or qTest package
+- registry: npm
+  query: tricentis, qtest, tosca
+  note: 'only third-party/community reporters and an unofficial qTest MCP server;
+    @pipedream/tricentis_qtest is a Pipedream integration, not first-party'
+- registry: nuget
+  query: tricentis
+  note: no first-party public package found
+- registry: rubygems, packagist, crates.io, pkg.go.dev
+  note: no first-party packages found

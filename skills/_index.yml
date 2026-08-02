@@ -1,0 +1,276 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/Tricentis/mcp-skills (Apache-2.0) + openapi/ in this repo
+summary: Tricentis publishes an open-source, Apache-2.0 catalog of installable agent skills for
+  driving Tosca Commander and Tosca Cloud from AI coding assistants (Cursor, Claude, VS Code, Windsurf).
+  Those 27 provider-authored skills are saved here verbatim. Three further skills are generated
+  from the OpenAPI in this repo to cover the qTest and TTM4J REST surfaces, which the provider skill
+  catalog does not reach.
+provider_repository:
+  url: https://github.com/Tricentis/mcp-skills
+  license: Apache-2.0
+  harvested: '2026-08-02'
+skills:
+- file: tricentis-cli-api-commander.md
+  name: cli-api-commander
+  description: Automates Tosca Commander via TCShell.exe, .tcs batch scripts, TCAPI (.NET), or Remote
+    Control. Use for /cli-api-commander, JumpToNode, checkout/checkinall, workspace locked, batch
+    mode, .tws workspaces, execution lists, or GUI RC. Detects runtimes first. Does NOT cover Data
+    Integrity or in-process Commander automation.
+  product: Tosca Commander
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Commander/CLI/claude/skills/cli-api-commander/SKILL.md
+  method: searched
+- file: tricentis-commander-mcp.md
+  name: commander-mcp
+  description: ''
+  product: Tosca Commander
+  runtime: MCP
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Commander/MCP/claude/skills/commander-mcp/SKILL.md
+  method: searched
+- file: tricentis-tosca-agents.md
+  name: tosca-agents
+  description: List, view, shut down, or delete execution agents in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-agents/SKILL.md
+  method: searched
+- file: tricentis-tosca-analyzing-execution-history.md
+  name: tosca-analyzing-execution-history
+  description: Analyzes Tosca Cloud execution trends over multiple playlist runs — flakiness, recurring
+    failures, and pass-rate changes via toscactl. Use for trends, flaky tests, or historical failures.
+    Read-only. Does NOT cover single-run diagnosis (use tosca-analyzing-execution-results).
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-analyzing-execution-history/SKILL.md
+  method: searched
+- file: tricentis-tosca-analyzing-execution-results.md
+  name: tosca-analyzing-execution-results
+  description: Analyzes the latest Tosca Cloud playlist run via toscactl, diagnoses failures, and
+    proposes confidence-rated remediations. Use when the user asks what went wrong or why tests
+    failed. Read-only via toscactl. Does NOT apply fixes (hand off to tosca-remediating-from-results).
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-analyzing-execution-results/SKILL.md
+  method: searched
+- file: tricentis-tosca-authoring-automated-testcase.md
+  name: tosca-authoring-automated-testcase
+  description: Creates an automated test case in Tosca Cloud from a description, reusing modules.
+    Module discovery via toscactl; scaffold via tn (CLI gap). Does NOT cover manual-only tests or
+    UI module scanning.
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-authoring-automated-testcase/SKILL.md
+  method: searched
+- file: tricentis-tosca-authoring-manual-testcase.md
+  name: tosca-authoring-manual-testcase
+  description: Creates a manual test case in Tosca Cloud from a written specification. Uses tn for
+    scaffold (CLI gap). Does NOT cover automated module-based authoring (use tosca-authoring-automated-testcase).
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-authoring-manual-testcase/SKILL.md
+  method: searched
+- file: tricentis-tosca-cloud-basics.md
+  name: tosca-cloud-basics
+  description: 'Explains how to work with Tricentis Tosca Cloud through toscactl: workspaces, assets,
+    playlists, runs, and the core command loop. Use as foundation before other Tosca Cloud skills.
+    Builder/DI/mobile gaps use tn — see runtime-routing.md. Does NOT cover detailed DI orchestration
+    (use tosca-cloud).'
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-cloud-basics/SKILL.md
+  method: searched
+- file: tricentis-tosca-cloud-connect.md
+  name: tosca-cloud-connect
+  description: Connects toscactl to Tosca Cloud — login, workspace selection, and connectivity check.
+    Use when setting up toscactl, fixing auth errors, or before any other Tosca Cloud skill. For
+    tn gap workflows only, also run configure_tn_connection.py. Does NOT cover direct IDE MCP.
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-cloud-connect/SKILL.md
+  method: searched
+- file: tricentis-tosca-cloud-mcp.md
+  name: tosca-cloud-mcp
+  description: Automates Tosca Cloud via the cloud MCP server — inventory search, playlists, execution
+    runs, Builder test cases, and Data Integrity. Use for Tosca Cloud automation, /tosca-cloud-mcp,
+    hosted Tosca Cloud MCP, or when Tosca Cloud MCP tools connect. Does NOT cover tester journey
+    workflows (see AGENTS.md journey skills).
+  product: Tosca Cloud
+  runtime: MCP
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/MCP/cursor/skills/tosca-cloud-mcp/SKILL.md
+  method: searched
+- file: tricentis-tosca-cloud.md
+  name: tosca-cloud
+  description: Automates Tosca Cloud via toscactl (default) and tn for CLI gaps. Use for Tosca Cloud
+    CLI, toscactl commands, or tn --loop for Builder/DI/mobile gaps. Does NOT cover on-prem Commander
+    (use Commander CLI pack in this repository — ../../../../../Commander/CLI/README.md).
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-cloud/SKILL.md
+  method: searched
+- file: tricentis-tosca-create-playlist.md
+  name: tosca-create-playlist
+  description: Create a new playlist in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-create-playlist/SKILL.md
+  method: searched
+- file: tricentis-tosca-create-workspace.md
+  name: tosca-create-workspace
+  description: Create a new workspace in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-create-workspace/SKILL.md
+  method: searched
+- file: tricentis-tosca-datasets.md
+  name: tosca-datasets
+  description: List, view, create, and manage test data sets in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-datasets/SKILL.md
+  method: searched
+- file: tricentis-tosca-delete-playlist.md
+  name: tosca-delete-playlist
+  description: Delete a playlist in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-delete-playlist/SKILL.md
+  method: searched
+- file: tricentis-tosca-delete-workspace.md
+  name: tosca-delete-workspace
+  description: Delete a workspace in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-delete-workspace/SKILL.md
+  method: searched
+- file: tricentis-tosca-execution.md
+  name: tosca-execution
+  description: View test steps, logs, or JUnit results for a test case execution
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-execution/SKILL.md
+  method: searched
+- file: tricentis-tosca-explaining-testcase.md
+  name: tosca-explaining-testcase
+  description: Explains what a Tosca Cloud test case does in plain language. Uses toscactl for discovery
+    and tn for Builder step-tree read (CLI gap). Read-only. Does NOT cover execution failure diagnosis
+    (use tosca-analyzing-execution-results).
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-explaining-testcase/SKILL.md
+  method: searched
+- file: tricentis-tosca-export-dataset.md
+  name: tosca-export-dataset
+  description: Export a data set to CSV, Excel, or JSON from Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-export-dataset/SKILL.md
+  method: searched
+- file: tricentis-tosca-find.md
+  name: tosca-find
+  description: Search for assets or playlists in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-find/SKILL.md
+  method: searched
+- file: tricentis-tosca-import-dataset.md
+  name: tosca-import-dataset
+  description: Import a CSV, Excel, or JSON file as a new data set in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-import-dataset/SKILL.md
+  method: searched
+- file: tricentis-tosca-login.md
+  name: tosca-login
+  description: Log in to Tosca Cloud, detecting configured URL from current config or prompting
+    for one
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-login/SKILL.md
+  method: searched
+- file: tricentis-tosca-remediating-from-results.md
+  name: tosca-remediating-from-results
+  description: Applies fixes to Tosca Cloud test artifacts after failure analysis. Verify via toscactl;
+    mutations via tn (Builder/playlist-item CLI gaps). Requires user approval for destructive changes.
+    Does NOT cover read-only analysis (use tosca-analyzing-execution-results).
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-remediating-from-results/SKILL.md
+  method: searched
+- file: tricentis-tosca-run.md
+  name: tosca-run
+  description: Run a Tosca playlist and wait for results
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-run/SKILL.md
+  method: searched
+- file: tricentis-tosca-setup.md
+  name: tosca-setup
+  description: Set up toscactl authentication and workspace selection
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-setup/SKILL.md
+  method: searched
+- file: tricentis-tosca-status.md
+  name: tosca-status
+  description: View playlist details, run results, or run history in Tosca Cloud
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/tosca-status/SKILL.md
+  method: searched
+- file: tricentis-toscactl-reference.md
+  name: toscactl-reference
+  description: Use when the user mentions Tosca, toscactl, test automation, playlists, test cases,
+    modules, workspaces, or any Tricentis Tosca Cloud concepts. Provides the full toscactl CLI reference
+    for answering questions and using the tool correctly.
+  product: Tosca Cloud
+  runtime: CLI
+  source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/toscactl-reference/SKILL.md
+  method: searched
+- file: tricentis-qtest-submit-automation-results.md
+  name: qtest-submit-automation-results
+  description: Authenticate against qTest, locate or create the test run for a build, and submit
+    automation results.
+  api: openapi/tricentis-qtest-manager-openapi.yaml
+  operations:
+  - postAccessToken
+  - getProjects
+  - searchArtifact
+  - createTestRun
+  - getStatusValuable
+  - submitAutomationLog
+  - submitAutomationTestLogsWithTreeStructure
+  - track
+  method: generated
+- file: tricentis-qtest-register-webhook.md
+  name: qtest-register-webhook
+  description: Register, verify and maintain a qTest webhook for test-case, test-run, test-log,
+    defect, requirement and project events.
+  api: openapi/tricentis-qtest-manager-openapi.yaml
+  operations:
+  - postAccessToken
+  - getAllEventNames
+  - createWebhook
+  - getAllWebhooks
+  - getWebhookById
+  - updateWebhook
+  - deleteWebhookById
+  method: generated
+- file: tricentis-ttm4j-author-and-execute.md
+  name: ttm4j-author-and-execute
+  description: Author folders, test cases and requirement links in TTM4J, then create a cycle, import
+    JUnit results and file defects.
+  api: openapi/tricentis-ttm4j-openapi.json
+  operations:
+  - HEAD /v1/api-key/is-alive
+  - GET /v1/projects
+  - POST /v1/projects/{project-key}/folders
+  - POST /v1/projects/{project-key}/test-cases
+  - POST /v1/projects/{project-key}/test-cases/requirements
+  - POST /v1/projects/{project-key}/test-cases/{key}/requirement/link
+  - POST /v1/projects/{project-key}/cycles
+  - POST /v1/projects/{project-key}/import/execution/junit
+  - POST /v1/projects/{project-key}/test-runs/search
+  - POST /v1/projects/{project-key}/test-runs/{test-run-key}/defects
+  - GET /v1/projects/{project-key}/jobs/{job-id}
+  method: generated

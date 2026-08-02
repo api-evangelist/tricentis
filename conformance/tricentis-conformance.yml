@@ -1,0 +1,107 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/ (8 parseable specs) + https://www.tricentis.com/trust/security
+summary: >-
+  Tricentis' API estate is conventional REST-over-JSON with header credentials. It
+  adopts almost none of the cross-cutting HTTP/API standards — no RFC 9457 problem
+  details, no RFC 8594 Sunset headers, no OAuth2 or OIDC declared in any spec, no
+  JSON:API, no SCIM. The one genuine standard adoption is OData v4 in Tricentis
+  Analytics. On the compliance side the posture is strong and independently attested.
+standards:
+- id: openapi-3
+  conforms: true
+  evidence: 'openapi/tricentis-ttm4j-openapi.json is OpenAPI 3.0.3; tricentis-neoload-openapi.yaml
+    is 3.0.1; tricentis-qtest-analytics-openapi.json is 3.0.2'
+- id: swagger-2
+  conforms: true
+  evidence: qTest Manager, Parameters, Pulse, Scenario, Sessions and Data Export are all
+    still published as Swagger 2.0
+- id: odata-v4
+  conforms: true
+  evidence: 'Tricentis Analytics serves /odata/v4/ with OData entity sets (projects,
+    releases, builds, defects, folders, executionsummaries, latestrunlogs, ...)'
+  source: openapi/tricentis-qtest-analytics-openapi.json
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    No spec declares an oauth2 securityScheme. qTest exposes POST /oauth/token and
+    GET /oauth/status but models the resulting bearer token as an apiKey header. The
+    Tosca Cloud identity service documents authorizationCode+PKCE, deviceCode and
+    clientCredentials flows outside any spec.
+- id: oidc
+  conforms: false
+  evidence: no openIdConnect securityScheme; /.well-known/openid-configuration returns
+    404 on every anonymous host
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every host despite a published
+    disclosure policy and a vdp@tricentis.com contact
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: every error response is declared application/json with a {code, message}
+    envelope; no application/problem+json anywhere
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: deprecations are announced on a documentation page; no Sunset or Deprecation
+    response headers are declared or observed
+- id: rfc7807-idempotency
+  conforms: false
+  evidence: no Idempotency-Key header or idempotency contract in any spec or doc
+- id: json-api
+  conforms: false
+- id: scim2
+  conforms: false
+- id: fhir
+  conforms: false
+- id: fapi
+  conforms: false
+- id: rate-limit-headers
+  conforms: partial
+  evidence: >-
+    qTest returns 429 and documents x-ratelimit-remaining-minute and
+    x-ratelimit-remaining-month, but these are non-standard names (not the IETF
+    RateLimit-* draft) and are documented outside the spec.
+- id: pagination
+  conforms: partial
+  evidence: 'page/pageSize across the qTest family, offset/limit in TTM4J and NeoLoad,
+    OData $top/$skip in Analytics — consistent within a product, not across the estate'
+- id: webhooks
+  conforms: true
+  evidence: qTest publishes a registered-webhook event surface with 15 named event types
+    and an x-qTest-signature payload signature
+  artifact: asyncapi/tricentis-qtest-webhooks.yml
+- id: asyncapi
+  conforms: false
+  evidence: no AsyncAPI document published for any product; /asyncapi.yaml 404 on all
+    hosts
+- id: mcp
+  conforms: true
+  evidence: >-
+    Remote MCP servers for Tosca Cloud, qTest and Tricentis Test Management for Jira,
+    plus an in-process Tosca Commander MCP server, and an Apache-2.0 open-source agent
+    skill catalogue at github.com/Tricentis/mcp-skills
+  artifact: mcp/tricentis-mcp.yml
+- id: a2a
+  conforms: false
+  evidence: no agent card at /.well-known/agent-card.json or /.well-known/agent.json on
+    any Tricentis host
+compliance:
+  published: true
+  page: https://www.tricentis.com/trust/security
+  trust_center: https://security.tricentis.com/
+  certifications:
+  - {id: soc2-type2, name: SOC 2 Type 2, cadence: annual, scope: 'qTest, Testim, NeoLoad,
+      Vera, VisionAI, Tosca Cloud, Tricentis Testim Salesforce, Tricentis Test Management
+      for JIRA'}
+  - {id: iso-27001, name: 'ISO/IEC 27001:2022', system: ISMS, cadence: 'annual, 3-year
+      cycle'}
+  - {id: iso-27701, name: 'ISO/IEC 27701:2019', system: PIMS, cadence: 'annual, 3-year
+      cycle'}
+  - {id: iso-9001, name: ISO 9001, system: QMS, cadence: 'annual, 3-year cycle'}
+  - {id: gdpr, name: GDPR, kind: regulatory posture}
+  artifact: security/tricentis-trust-center.yml
+regulated_use:
+  note: >-
+    Tricentis Vera is positioned for regulated-industry validation (life sciences,
+    21 CFR Part 11-style compliance workflows). That is a product capability, not a
+    certification of the Tricentis APIs, and is recorded here as context only.

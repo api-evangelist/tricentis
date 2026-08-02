@@ -1,0 +1,101 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.tricentis.com/qtest-saas/content/apis/webhooks.htm
+spec_type: Webhooks
+asyncapi_published: false
+asyncapi_note: >-
+  No AsyncAPI document is published for any Tricentis product. The event surface is
+  documented as REST-registered webhooks in qTest, plus the qTest Pulse rules engine
+  which generates per-rule trigger webhook URLs for third-party tools. Probes of
+  /asyncapi.yaml and /asyncapi.json on the Tricentis and qTest hosts returned 404.
+summary: >-
+  qTest webhooks are user-defined POST callbacks fired when an event occurs in a
+  project. They are registered and managed through the qTest Manager REST API, and
+  signed with a per-webhook secret when one is configured.
+registration:
+  list: GET /api/v3/webhooks
+  create: POST /api/v3/webhooks
+  read: GET /api/v3/webhooks/{webhookId}
+  update: PUT /api/v3/webhooks/{webhookId}
+  delete: DELETE /api/v3/webhooks/{webhookId}
+  list_event_names: GET /api/v3/webhooks/events
+  spec: openapi/tricentis-qtest-manager-openapi.yaml
+  operation_ids: [getAllWebhooks, createWebhook, getWebhookById, updateWebhook, deleteWebhookById,
+    getAllEventNames]
+transport:
+  protocol: [https, http]
+  method: POST
+  content_type: application/json
+security:
+  signature_header: x-qTest-signature
+  scheme: hash signature of the payload, computed with the webhook's configured Secret
+    Key
+  note: A secret key is optional; without one, payloads are unsigned.
+payload:
+  fields:
+  - event_timestamp
+  - event_type
+  - object (the affected artifact id plus project_id)
+events:
+- name: project_created
+  object: project
+  description: A new project is created in qTest.
+- name: project_updated
+  object: project
+  description: A project is updated in qTest.
+- name: testcase_created
+  object: test case
+  description: A new test case is created in qTest.
+- name: testcase_updated
+  object: test case
+  description: A test case is updated — property changes, approval, test-step modification
+    or type conversion.
+- name: testcase_deleted
+  object: test case
+  description: A test case is deleted in qTest.
+- name: testrun_created
+  object: test run
+  description: A new test run is created in qTest.
+- name: testrun_updated
+  object: test run
+  description: A test run is updated in qTest.
+- name: testrun_deleted
+  object: test run
+  description: A test run is deleted in qTest.
+- name: testlog_submitted
+  object: test log
+  description: A new test log, manual or automation, is submitted in qTest.
+- name: testlog_modified
+  object: test log
+  description: A test log is updated in qTest.
+- name: requirement_created
+  object: requirement
+  description: A new requirement is created in qTest.
+- name: requirement_updated
+  object: requirement
+  description: A requirement is updated in qTest.
+- name: requirement_deleted
+  object: requirement
+  description: A requirement is deleted in qTest.
+- name: defect_submited
+  object: defect
+  description: A new internal defect is submitted in qTest. Spelling is the provider's.
+- name: defect_modified
+  object: defect
+  description: A defect is updated in qTest.
+related_surfaces:
+- name: qTest Pulse
+  kind: rules engine
+  description: >-
+    Pulse Rules pair a Trigger (a uniquely generated webhook URL that an external tool
+    such as Jira, Jenkins or GitHub posts to) with an Action (executable code). This is
+    the inbound half of the qTest event surface.
+  spec: openapi/tricentis-qtest-pulse-openapi.yaml
+  docs: https://docs.tricentis.com/qtest-saas/content/pulse/qtest_pulse_quick_start_guide.htm
+delivery_semantics:
+  retries: unpublished
+  ordering: unpublished
+  note: >-
+    Tricentis publishes no delivery guarantee, retry schedule or ordering contract for
+    webhooks. Consumers should treat callbacks as hints and reconcile against the REST
+    API.

@@ -1,0 +1,203 @@
+generated: '2026-08-02'
+method: derived
+source: mcp/tricentis-mcp.yml + openapi/tricentis-ttm4j-openapi.json + openapi/tricentis-qtest-manager-openapi.yaml
+summary: >-
+  Binds Tricentis' published MCP tools to the REST operations that back them. The
+  Tricentis Test Management for Jira (TTM4J) MCP tool list maps cleanly onto the
+  TTM4J OpenAPI, which is the only Tricentis surface where the same product publishes
+  both an MCP tool list and a machine-readable REST contract. The Tosca Cloud MCP
+  registry (51 tools) has NO public REST counterpart — Tosca Cloud publishes no
+  OpenAPI — so every Tosca tool is recorded as mcp_only, which is a real surface
+  divergence, not a gap to paper over. The TTM4J OpenAPI declares no operationIds,
+  so REST operations are identified by "METHOD path" as published.
+surfaces:
+  openapi:
+  - file: openapi/tricentis-ttm4j-openapi.json
+    title: TTM for Jira
+    operations: 34
+    gated: false
+    note: operationIds absent throughout the spec
+  - file: openapi/tricentis-qtest-manager-openapi.yaml
+    title: qTest Manager API v3
+    operations: 190
+    gated: false
+  graphql: null
+  mcp:
+  - server: ttm4j
+    url: https://ttm4j.tricentis.com/v1/mcp
+    gated: true
+    gate_evidence: 'tools/list returned HTTP 401 "Invalid or missing token." on 2026-08-02'
+    tools_named: 9
+  - server: tosca-cloud
+    url_template: https://<tenant>.my.tricentis.com/<workspace>/_mcp/api/mcp
+    gated: true
+    gate_evidence: tenant-scoped URL; OAuth client_id MCPServer, scope tta
+    tools_named: 51
+  - server: qtest
+    url_template: https://<tenant>.qtestnet.com/mcp
+    gated: true
+    tools_named: 0
+    note: capability set documented narratively, no published tool names
+crosswalk:
+- tool: GetTestCasesByProject
+  server: ttm4j
+  category: test-cases
+  rest:
+  - GET /v1/projects/{project-key}/test-cases/bulk
+  - GET /v1/projects/{project-key}/test-cases
+  binding: rest
+  confidence: high
+  note: >-
+    The non-bulk read operation is marked deprecated: true in the spec, so the bulk
+    read is the live backing operation. Pagination and field selection parameters on
+    those operations are the tool's real input contract.
+- tool: CreateTestCases
+  server: ttm4j
+  category: test-cases
+  rest:
+  - POST /v1/projects/{project-key}/test-cases
+  binding: rest
+  confidence: high
+- tool: UpdateTestCase
+  server: ttm4j
+  category: test-cases
+  rest:
+  - PUT /v1/projects/{project-key}/test-cases/{key}
+  binding: rest
+  confidence: high
+- tool: DeleteTestCase
+  server: ttm4j
+  category: test-cases
+  rest:
+  - DELETE /v1/projects/{project-key}/test-cases/{key}
+  binding: rest
+  confidence: high
+- tool: LinkRequirementsToTestCase
+  server: ttm4j
+  category: requirements
+  rest:
+  - POST /v1/projects/{project-key}/test-cases/{key}/requirement/link
+  binding: rest
+  confidence: high
+- tool: CreateRequirements
+  server: ttm4j
+  category: requirements
+  rest:
+  - POST /v1/projects/{project-key}/test-cases/requirements
+  - POST /v1/projects/{project-key}/test-cases/{key}/requirements
+  binding: rest
+  confidence: medium
+  note: >-
+    Two REST operations create requirements — one standalone, one that also links to a
+    test case. The published tool description ("establishes new requirements in projects")
+    does not say which it calls, so both are recorded.
+- tool: GetTestCaseFolders
+  server: ttm4j
+  category: folders
+  rest:
+  - GET /v1/projects/{project-key}/folders
+  binding: rest
+  confidence: high
+- tool: CreateTestCaseFolders
+  server: ttm4j
+  category: folders
+  rest:
+  - POST /v1/projects/{project-key}/folders
+  binding: rest
+  confidence: high
+- tool: UpdateTestCaseFolders
+  server: ttm4j
+  category: folders
+  rest:
+  - PUT /v1/projects/{project-key}/folders/{folderId}
+  binding: rest
+  confidence: high
+mcp_only:
+- tools_pattern: tosca_apiexecution_*
+  count: 5
+  server: tosca-cloud
+  reason: Tosca Cloud publishes no public OpenAPI; API-execution connection management
+    exists only as MCP tools.
+- tools_pattern: tosca_builder_*
+  count: 6
+  server: tosca-cloud
+  reason: Test-case scaffolding, module summaries and API-message authoring are MCP-only
+    Tosca Cloud capabilities.
+- tools_pattern: tosca_dataintegrity_*
+  count: 9
+  server: tosca-cloud
+  reason: Tosca Data Integrity connection, schema and comparison workflows have no public
+    REST contract.
+- tools_pattern: tosca_execution_*
+  count: 2
+  server: tosca-cloud
+  reason: Playlist lookup and recent-run logs are MCP-only.
+- tools_pattern: tosca_inventory_*
+  count: 6
+  server: tosca-cloud
+  reason: Workspace inventory search, folder CRUD and artifact moves are MCP-only.
+- tools_pattern: tosca_mobile_*
+  count: 10
+  server: tosca-cloud
+  reason: Appium and cloud-device connection/capability management is MCP-only.
+- tools_pattern: tosca_organization_*
+  count: 1
+  server: tosca-cloud
+  reason: Workspace listing is MCP-only.
+- tools_pattern: tosca_playlist_*
+  count: 9
+  server: tosca-cloud
+  reason: Playlist creation, execution, scheduling and failure analysis are MCP-only.
+- tools_pattern: tosca_simulation_*
+  count: 3
+  server: tosca-cloud
+  reason: Service-virtualization simulation authoring and deployment is MCP-only.
+rest_only:
+- capability: test runs and execution
+  operations:
+  - POST /v1/projects/{project-key}/test-runs
+  - POST /v1/projects/{project-key}/test-runs/search
+  - PUT /v1/projects/{project-key}/test-runs/{test-run-key}
+  - DELETE /v1/projects/{project-key}/test-runs/{test-run-key}
+  - POST /v1/projects/{project-key}/import/execution/junit
+  note: TTM4J exposes full test-run lifecycle over REST with no MCP tool.
+- capability: test cycles
+  operations:
+  - POST /v1/projects/{project-key}/cycles
+  - PUT /v1/projects/{project-key}/cycles/{cycleId}
+  - GET /v1/projects/{project-key}/cycles/search
+- capability: attachments
+  operations:
+  - GET /v1/projects/{project-key}/test-runs/{test-run-key}/attachments
+  - POST /v1/projects/{project-key}/test-runs/{test-run-key}/attachments
+  - GET /v1/projects/{project-key}/test-runs/attachments/{attachmentId}
+  - POST /v1/projects/{project-key}/test-runs/{test-run-key}/steps/{step-number}/attachments
+  - PUT /v1/projects/{project-key}/test-runs/attachments/{id}
+- capability: defects
+  operations:
+  - POST /v1/projects/{project-key}/test-runs/{test-run-key}/defects
+  - POST /v1/projects/{project-key}/test-runs/{test-run-key}/defects/link
+- capability: search, automation, jobs, schemes, projects, key validation
+  operations:
+  - POST /v1/test-cases/search/jql
+  - POST /v1/test-cases/search
+  - PUT /v1/projects/{project-key}/test-cases/{key}/automation
+  - GET /v1/projects/{project-key}/jobs/{job-id}
+  - GET /v1/projects
+  - HEAD /v1/api-key/is-alive
+  - POST /v1/test-runs/scheme/{schemeName}/allowed-values
+  - DELETE /v1/test-runs/scheme/{schemeName}/allowed-values/{allowedValueName}
+- capability: entire qTest Manager REST surface
+  operations_count: 190
+  source: openapi/tricentis-qtest-manager-openapi.yaml
+  note: >-
+    The qTest MCP server is documented but publishes no tool names, so none of the 190
+    qTest Manager operations can be bound to a named tool without fabricating one.
+coverage:
+  mcp_tools_named: 60
+  mcp_tools_bound_to_rest: 9
+  mcp_only_tools: 51
+  rest_operations_total: 224
+  rest_operations_with_tool: 11
+  rest_operations_ttm4j: 34
+  rest_operations_qtest_manager: 190

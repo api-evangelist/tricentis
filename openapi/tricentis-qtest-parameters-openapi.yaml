@@ -1,0 +1,2253 @@
+swagger: "2.0"
+info:
+  title: "qTest Parameters API"
+  version: "2025.2"
+  description: "qTest Parameters API documentation"
+host: "parameter-1.qtestnet.com"
+basePath: "/"
+schemes:
+  - https
+tags:
+  - name: "Authentication"
+    description: "Authentication public APIs"
+  - name: "Parameters"
+    description: "Parameter public APIs"
+  - name: "Datasets"
+    description: "Dataset public APIs"
+  - name: "Tasks"
+    description: "Tasks public APIs"
+security:
+  - token: []
+paths:
+  ### Authentication
+  /oauth/v1/login:
+    post:
+      description: Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request.
+      tags:
+        - Authentication
+      parameters:
+        - name: body
+          in: body
+          description: qTest Manager URL and user credentials used to login to qTest Parameters
+          required: true
+          schema:
+            type: object
+            description: qTest Manager URL and user credentials.
+            required:
+              - qtest_url
+              - username
+              - password
+            properties:
+              qtest_url:
+                type: string
+                description: qTest Manager URL
+                example: https://apitryout.qtestnet.com
+              username:
+                type: string
+                description: Username to authenticate with qTest Manager
+                example: api-test@qasymphony.com
+              password:
+                type: string
+                description: Password to authenticate with qTest Manager
+                example: admin123
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Successfully logged in to qTest Manager"
+          schema:
+            type: object
+            properties:
+              access_token:
+                description: The access token that will be used in subsequence API calls
+                type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /oauth/v1/token-login:
+    post:
+      description: Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request.
+      tags:
+        - Authentication
+      parameters:
+        - name: body
+          in: body
+          description: qTest Manager URL and qTest Manager API token used to login to qTest Parameters
+          required: true
+          schema:
+            type: object
+            description: qTest Manager URL and qTest Manager API token.
+            required:
+              - qtest_url
+              - qtest_token
+            properties:
+              qtest_url:
+                type: string
+                description: qTest Manager URL
+                example: https://apitryout.qtestnet.com
+              qtest_token:
+                type: string
+                description: API token to authenticate with qTest Manager
+                example: YXBpdHJ5b3V0fGFwaS10ZXN0QHFhc3ltcGhvbnkuY29tOjE1NTQ3OTYxMjE4NDk6MDIwNTkwZTIzNDA3MmQ4NjVkMjhhODAxNTM3ZDUzZWM
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Successfully logged in to qTest Manager"
+          schema:
+            type: object
+            properties:
+              access_token:
+                description: The access token that will be used in subsequence API calls
+                type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /oauth/v1/logout:
+    get:
+      description: Logout of qTest
+      tags:
+        - Authentication
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Successfully logged out"
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  ### Parameter endpoints
+  /api/v1/parameters/create:
+    post:
+      description: Create a new parameter
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          description: Parameter object that needs to be created
+          required: true
+          schema:
+            $ref: "#/definitions/CreateParameterModel"
+      produces:
+        - application/json
+      responses:
+        201:
+          description: "Parameter has been created successfully"
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: id of the newly created parameter
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        403:
+          description: "Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        409:
+          description: "Identifier already exists."
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/query:
+    post:
+      description: Query parameters
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          description: Parameter query object.
+          required: true
+          schema:
+            $ref: "#/definitions/SearchParameterModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation was successful"
+          schema:
+            type: object
+            properties:
+              offset:
+                type: number
+                example: 1
+              limit:
+                type: number
+                example: 50
+              total_items:
+                type: number
+                example: 120
+              total_pages:
+                type: number
+                example: 3
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/ParameterModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/bulk-query:
+    post:
+      description: Query parameters by identifiers
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          description: Parameters query object.
+          required: true
+          schema:
+            $ref: "#/definitions/BulkQueryParametersRequestModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation was successful"
+          schema:
+            $ref: "#/definitions/BulkQueryParametersResponseModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/{id}:
+    get:
+      description: Get a parameter by id
+      tags:
+        - Parameters
+      parameters:
+        - name: id
+          in: path
+          description: id of parameter
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation was successful and parameter object is returned (if found)"
+          schema:
+            $ref: "#/definitions/ParameterModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        404:
+          description: "Not Found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    delete:
+      description: Delete/Archive a parameter by id
+      tags:
+        - Parameters
+      parameters:
+        - name: id
+          in: path
+          description: parameter id
+          type: string
+          required: true
+        - name: force
+          in: query
+          description: set to true to force delete, set to false or undefined to archive
+          type: boolean
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Parameter deleted/archived"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    put:
+      description: Update a parameter by id
+      tags:
+        - Parameters
+      parameters:
+        - name: id
+          in: path
+          description: parameter id
+          type: string
+          required: true
+        - name: body
+          in: body
+          description: Parameter object that needs to be updated
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateParameterModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Parameter updated successfully"
+          schema:
+            type: object
+            properties:
+              updated:
+                type: number
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        403:
+          description: "Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        409:
+          description: "Identifier already exists."
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/bulk-delete:
+    post:
+      description: Delete multiple parameters
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: List of parameter ids to be deleted
+          schema:
+            type: object
+            required:
+              - ids
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+                  example: 5a17c935b015841767bbec64
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              deleted:
+                type: number
+                description: number of parameters being deleted
+                example: 1
+              skipped:
+                type: array
+                description: parameters ids being skipped or empty []
+                items:
+                  type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/bulk-archive:
+    post:
+      description: Archive multiple parameters
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: List of parameter ids to be archived
+          schema:
+            type: object
+            required:
+              - ids
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+                  example: 5a17c935b015841767bbec64
+              force:
+                type: boolean
+                description: if true, force to archive the Parameter even it is being used by testcases
+                default: false
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              archived:
+                type: number
+                description: number of parameters being archived
+                example: 1
+              in_used:
+                type: array
+                description: parameters being skipped or empty []
+                items:
+                  $ref: "#/definitions/ParameterModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/status:
+    put:
+      description: Update status of one or multiple parameters
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: List of parameter ids whose status are going to be updated
+          schema:
+            type: object
+            required:
+              - status
+              - ids
+            properties:
+              status:
+                type: string
+                enum:
+                  - Active
+                  - Inactive
+              ids:
+                type: array
+                items:
+                  type: string
+                  example: 5a17c935b015841767bbec64
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              updated:
+                type: number
+                description: Number of parameters being successfully updated to new status
+                example: 1
+              skipped:
+                type: array
+                description: Parameters ids being skipped or empty []
+                items:
+                  type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/import:
+    post:
+      description: Import parameters from excel file. The result is an import task id that the caller can poll to check for the importing progress/result
+      tags:
+        - Parameters
+      parameters:
+        - name: file
+          in: formData
+          type: file
+          required: true
+          description: Excel file containing parameters to be imported
+        - name: config
+          in: formData
+          type: string
+          required: true
+          description: Specified import options {"duplicateOption":"skip/add/overwrite","projects":[]}
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation was successful"
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 5a17c935b015841767bbec64
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/export:
+    post:
+      description: Export parameters to Excel file. The result is an export task id that the caller can poll to check for the exporting progress
+      tags:
+        - Parameters
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: name and parameter ids need to export
+          schema:
+            type: object
+            required:
+              - name
+              - ids
+            properties:
+              name:
+                type: string
+                description: export file name
+                example: export_file.xlsx
+              ids:
+                type: array
+                description: list of parameter ids to export
+                items:
+                  type: string
+                  example: 5a17c935b015841767bbec64
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Export successfully"
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: "Id of exporting task being used to check for exporting status"
+                example: 5a17c935b015841767bbec64
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/download/parameters/export/{id}:
+    get:
+      description: Download exported Parameters in Excel file.
+      tags:
+        - Parameters
+      parameters:
+        - name: id
+          in: path
+          description: export task id
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Download successfully"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  ### Parameter value endpoints
+  /api/v1/parameters/{pid}/values:
+    post:
+      description: Add new value to a parameter
+      tags:
+        - Parameters
+      parameters:
+        - name: pid
+          in: path
+          description: parameter id
+          type: string
+          required: true
+        - name: body
+          in: body
+          required: true
+          description: Multiple parameter value strings that needs to be added to the parameter, seperated by a new line character (\n)
+          schema:
+            type: object
+            required:
+              - value
+            properties:
+              value:
+                type: string
+                description: value seperated by new line character (\n)
+                example: "sample parameter value 1\nsample parameter value 2\nsample parameter value 3"
+      produces:
+        - application/json
+      responses:
+        201:
+          description: "Parameter object successfully created"
+          schema:
+            type: object
+            properties:
+              created:
+                type: number
+                description: number of parameter values is created
+                example: 3
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/{pid}/values/{id}:
+    put:
+      description: Update a parameter value
+      tags:
+        - Parameters
+      parameters:
+        - name: pid
+          in: path
+          description: parameter id
+          type: string
+          required: true
+        - name: id
+          in: path
+          description: parameter value id
+          type: string
+          required: true
+        - name: body
+          in: body
+          required: true
+          description: Parameter value object that needs to be updated
+          schema:
+            $ref: "#/definitions/UpdateParameterValueModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Parameter value has been updated successfully"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        404:
+          description: "Not Founded"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/{pid}/values/delete:
+    post:
+      description: Delete multiple parameter values
+      tags:
+        - Parameters
+      parameters:
+        - name: pid
+          in: path
+          description: parameter id
+          type: string
+          required: true
+        - name: body
+          in: body
+          required: true
+          description: List of parameter value ids that needs to be deleted
+          schema:
+            type: array
+            items:
+              type: string
+              example: 5a17c935b015841767bbec68
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              deleted:
+                type: number
+                description: number of parameter values being deleted
+                example: 1
+              skipped:
+                type: array
+                description: parameter values ids being skipped or empty []
+                items:
+                  type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/parameters/{pid}/values/query:
+    post:
+      description: Query parameter value
+      tags:
+        - Parameters
+      parameters:
+        - name: pid
+          in: path
+          description: parameter id
+          type: string
+          required: true
+        - name: body
+          in: body
+          description: Parameter value query object.
+          schema:
+            $ref: "#/definitions/SearchParameterValueModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation was successful"
+          schema:
+            type: object
+            properties:
+              offset:
+                type: number
+                example: 1
+              limit:
+                type: number
+                example: 50
+              total_items:
+                type: number
+                example: 70
+              total_pages:
+                type: number
+                example: 2
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/ParameterValueModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  ### Dataset endpoints
+  /api/v1/data-sets/create:
+    post:
+      description: Create a new datatset
+      tags:
+        - Datasets
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: Dataset object that needs to be created
+          schema:
+            $ref: "#/definitions/CreateDatasetModel"
+      produces:
+        - application/json
+      responses:
+        201:
+          description: "Dataset successfully created"
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 5a17c935b015841767bbec66
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/data-sets/{id}:
+    get:
+      description: Retrieve a dataset by id
+      tags:
+        - Datasets
+      parameters:
+        - name: id
+          in: path
+          description: dataset id need to retrieve
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Dataset object"
+          schema:
+            $ref: "#/definitions/DatasetModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        404:
+          description: "Not Found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    delete:
+      description: Delete a dataset by id
+      tags:
+        - Datasets
+      parameters:
+        - name: id
+          in: path
+          description: dataset id
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Dataset deleted"
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    put:
+      description: Update a dataset by id
+      tags:
+        - Datasets
+      parameters:
+        - name: id
+          in: path
+          description: dataset id
+          type: string
+          required: true
+        - name: body
+          in: body
+          required: true
+          description: Dataset object that needs to be updated
+          schema:
+            $ref: "#/definitions/CreateDatasetModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Dataset successfully updated"
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        404:
+          description: "Not Founded"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/data-sets/query:
+    post:
+      description: Query datasets
+      tags:
+        - Datasets
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: Dataset query object.
+          schema:
+            $ref: "#/definitions/SearchDatasetModel"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Operation was successful and a list of datasets matching the query filter (if any) are returned"
+          schema:
+            type: object
+            properties:
+              offset:
+                type: number
+                example: 1
+              limit:
+                type: number
+                example: 50
+              total_items:
+                type: number
+                example: 120
+              total_pages:
+                type: number
+                example: 3
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/DatasetModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/data-sets/bulk-delete:
+    post:
+      description: Delete multiple datasets
+      tags:
+        - Datasets
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: List of dataset ids that need to be deleted
+          schema:
+            type: array
+            items:
+              type: string
+              example: 5a17c935b015841767bbec66
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              deleted:
+                type: number
+                description: number of datasets being deleted
+                example: 1
+              skipped:
+                type: array
+                description: dataset ids being skipped or empty []
+                items:
+                  type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/data-sets/status:
+    put:
+      description: Update status of mulitple datasets speficied by dataset ids
+      tags:
+        - Datasets
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: List of dataset ids whose status is going to be updated
+          schema:
+            type: object
+            required:
+              - status
+              - ids
+            properties:
+              status:
+                type: string
+                enum:
+                  - Active
+                  - Inactive
+              ids:
+                type: array
+                items:
+                  type: string
+                  example: 5a17c935b015841767bbec66
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Dataset status has been successfully updated"
+          schema:
+            type: object
+            properties:
+              updated:
+                type: number
+                description: Number of datasets updated with new status
+                example: 1
+              skipped:
+                type: array
+                description: Datasets ids being skipped status update or empty []
+                items:
+                  type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/data-sets/import:
+    post:
+      description: Import dataset(s) from excel file. The result is an import task id that the caller can poll to check for the importing progress/result
+      tags:
+        - Datasets
+      parameters:
+        - name: file
+          in: formData
+          type: file
+          required: true
+          description: Excel file containg datasets to be imported
+        - name: config
+          in: formData
+          type: string
+          required: true
+          description: Import options {"skipNotActiveParameters":true/false,"projects":[]}
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Import task successfully created"
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  ### Dataset value endpoints
+  /api/v1/data-sets/{dsId}/rows:
+    post:
+      description: Create multiple dataset values
+      tags:
+        - Datasets
+      parameters:
+        - name: dsId
+          in: path
+          description: dataset id
+          type: string
+          required: true
+        - name: body
+          in: body
+          required: true
+          description: Multiple dataset value objects to be created
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/CreateDatasetValueModel"
+      produces:
+        - application/json
+      responses:
+        201:
+          description: "Dataset value objects created"
+          schema:
+            type: object
+            properties:
+              created:
+                type: number
+                description: number of dataset values being created
+                example: 1
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    get:
+      description: Query dataset rows
+      tags:
+        - Datasets
+      parameters:
+        - name: dsId
+          in: path
+          description: dataset id
+          type: string
+          required: true
+        - name: offset
+          in: query
+          type: number
+          description: page index. If this parameter is omitted or no value is set then system returns first page by default
+        - name: limit
+          in: query
+          type: number
+          description: page size. If this parameter is omitted or no value is set then system returns max 500 datasets
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Operation was successful and a list of dataset value return by page"
+          schema:
+            type: object
+            properties:
+              offset:
+                type: number
+                example: 1
+              limit:
+                type: number
+                example: 50
+              total_items:
+                type: number
+                example: 120
+              total_pages:
+                type: number
+                example: 3
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/DatasetValueModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/data-sets/{dsId}/rows/delete:
+    post:
+      description: Delete multiple dataset values
+      tags:
+        - Datasets
+      parameters:
+        - name: dsId
+          in: path
+          description: dataset id
+          type: string
+          required: true
+        - name: body
+          in: body
+          required: true
+          description: Dataset value ids to be deleted
+          schema:
+            type: array
+            items:
+              type: string
+      produces:
+        - application/json
+      responses:
+        201:
+          description: "Dataset values successfully deleted"
+          schema:
+            type: object
+            properties:
+              deleted:
+                type: number
+                description: number of dataset values being deleted
+                example: 1
+              skipped:
+                type: array
+                description: dataset value ids being skipped or empty []
+                items:
+                  type: string
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  ### Tasks endpoints
+  /api/v1/tasks/{id}:
+    get:
+      description: Get a task by id
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          description: task id
+          type: number
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation was successful and task object is returned (if found)"
+          schema:
+            $ref: "#/definitions/TaskModel"
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        404:
+          description: "Not Found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /api/v1/tasks/{id}/result:
+    get:
+      description: Get task result
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          description: id of the task to get result
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The operation is successful and returns a task result object"
+          schema:
+            type: object
+        400:
+          description: "Bad Request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        401:
+          description: "Unauthorized"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        404:
+          description: "Not Found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: "Internal Server Error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+definitions:
+  ### Parameter definitions
+  ParameterModel:
+    type: object
+    properties:
+      id:
+        type: string
+        description: parameter id
+        example: 5a17c935b015841767bbec64
+      identifier:
+        type: string
+        description: parameter name
+        example: Sample Parameter Name
+      description:
+        type: string
+        description: parameter description
+        example: Sample Prameter Description
+      created:
+        type: string
+        description: created date in ISODate format
+        format: date-time
+      modified:
+        type: string
+        description: modified date in ISODate format
+        format: date-time
+      status:
+        type: string
+        description: parameter status active/inactive/archived
+        enum:
+          - Active
+          - Inactive
+          - Archived
+      project_ids:
+        type: array
+        description: ids of qTest Manager projects that this parameters belongs to
+        items:
+          type: number
+          example: 62592
+      tc_ids:
+        type: array
+        description: ids of qTest Manager Test Cases that this parameter is used
+        items:
+          type: string
+          example: 364482
+      ds_ids:
+        type: array
+        description: ids of datasets that this parameter is used
+        items:
+          type: string
+          example: 5a17c935b015841767bbec64
+  CreateParameterModel:
+    type: object
+    required:
+      - identifier
+      - project_ids
+    properties:
+      identifier:
+        type: string
+        description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
+        example: Sample Parameter Name
+      description:
+        type: string
+        description: The description of the new parameter
+        example: Sample Parameter Description
+      status:
+        type: string
+        description: The parameter status, must be one of the following
+        enum:
+          - Active
+      project_ids:
+        type: array
+        description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
+        items:
+          type: number
+          example: 62592
+  UpdateParameterModel:
+    type: object
+    required:
+      - identifier
+      - status
+      - project_ids
+    properties:
+      identifier:
+        type: string
+        description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
+        example: Sample Parameter Name
+      description:
+        type: string
+        description: The description of the new parameter
+        example: Sample Parameter Description
+      status:
+        type: string
+        description: The parameter status, must be one of the following
+        enum:
+          - Active
+          - Inactive
+      project_ids:
+        type: array
+        description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
+        items:
+          type: number
+          example: 62592
+  SearchParameterModel:
+    type: object
+    properties:
+      identifier:
+        type: string
+        description: the parameter identifier to search for. If specified, system searches for parameters that has identifier containing the keyword, in case insensitive
+        example: param
+      exactly:
+        type: boolean
+        default: false
+        description: Set this parameter to true to search for parameter identifier in case sensitive
+      project_ids:
+        type: array
+        description: list of project ids to search for parameters that are associated to it. If no project ids is specified, query for parameters associated with any project of this client
+        items:
+          type: number
+          example: 62592
+      statuses:
+        type: array
+        description: If specified, query for parameters having one of the status in the array. If not specified at all (null or undefined), search for parameters having any status
+        items:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - Archived
+      used:
+        type: boolean
+        description: If specified, query for parameters are being used / not being used by testcases or datasets. If not specified at all (null or undefined), search for all parameters
+      offset:
+        type: number
+        description: page index. If this parameter is omitted or value is not set then first page will be returned
+        example: 1
+      limit:
+        type: number
+        description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
+        example: 50
+      sort_by:
+        type: string
+        description: field name to sort. Possible values are identifier | description | status | created. If this parameter is omitted or no field name is specified, system sorts parameters by last created date
+        enum:
+          - identifier
+          - description
+          - status
+          - created
+          - modified
+      sort_order:
+        type: string
+        description: either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
+        enum:
+          - asc
+          - desc
+      statistic:
+        type: boolean
+        default: false
+        description: Set this parameter to true to get statistics in the response
+  UpdateParameterValueModel:
+    type: object
+    required:
+      - order
+      - value
+    properties:
+      order:
+        type: number
+        description: parameter value order
+        example: 0
+      value:
+        type: string
+        description: parameter value
+        example: Update Sample Parameter Value
+  SearchParameterValueModel:
+    type: object
+    properties:
+      offset:
+        type: number
+        description: page index. If this parameter is omitted or value is not set then first page will be returned
+        example: 1
+      limit:
+        type: number
+        description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
+        example: 50
+      sort_order:
+        type: string
+        description: default sort by value, either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
+        enum:
+          - asc
+          - desc
+  ParameterValueModel:
+    type: object
+    properties:
+      id:
+        type: string
+        description: parameter value identifier
+        example: 5a17c935b015841767bbec68
+      value:
+        type: string
+        description: parameter value
+        example: Sample Parameter Value
+      order:
+        type: number
+        description: value order
+        example: 0
+      param_id:
+        type: string
+        description: parameter identifier
+        example: 5a17c935b015841767bbec64
+  BulkQueryParametersRequestModel:
+    type: object
+    required:
+      - identifiers
+    properties:
+      identifiers:
+        type: array
+        description: the parameter identifiers to search for. System searches for parameter identifiers in case insensitive
+        items:
+          type: string
+          example: [Param 1, Param 2, not found param]
+      project_ids:
+        type: array
+        description: list of project ids to search for parameters that are associated to it. If no project ids is specified, query for parameters associated with any project of this client
+        items:
+          type: number
+          example: 62592
+      statuses:
+        type: array
+        description: If specified, query for parameters having one of the status in the array. If not specified at all (null or undefined), search for parameters having any status
+        items:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - Archived
+      used:
+        type: boolean
+        description: If specified, query for parameters are being used / not being used by testcases or datasets. If not specified at all (null or undefined), search for all parameters
+        example: false
+      offset:
+        type: number
+        description: page index. If this parameter is omitted or value is not set then first page will be returned
+        example: 1
+      limit:
+        type: number
+        description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
+        example: 50
+      sort_by:
+        type: string
+        description: field name to sort. Possible values are identifier | description | status | created. If this parameter is omitted or no field name is specified, system sorts parameters by last created date
+        enum:
+          - identifier
+          - description
+          - status
+          - created
+          - modified
+      sort_order:
+        type: string
+        description: either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
+        enum:
+          - asc
+          - desc
+  BulkQueryParametersResponseModel:
+    type: object
+    properties:
+      offset:
+        type: number
+        example: 1
+      limit:
+        type: number
+        example: 50
+      total_items:
+        type: number
+        example: 120
+      total_pages:
+        type: number
+        example: 3
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              description: parameter id
+              example: 5a17c935b015841767bbec64
+            identifier:
+              type: string
+              description: parameter name
+              example: Sample Parameter Name
+            description:
+              type: string
+              description: parameter description
+              example: Sample Prameter Description
+            created:
+              type: string
+              description: created date in ISODate format
+              format: date-time
+            modified:
+              type: string
+              description: modified date in ISODate format
+              format: date-time
+            status:
+              type: string
+              description: parameter status active/inactive/archived
+              enum:
+                - Active
+                - Inactive
+                - Archived
+            project_ids:
+              type: array
+              description: ids of qTest Manager projects that this parameters belongs to
+              items:
+                type: number
+                example: 62592
+            tc_ids:
+              type: array
+              description: ids of qTest Manager Test Cases that this parameter is used
+              items:
+                type: string
+                example: 364482
+            ds_ids:
+              type: array
+              description: ids of datasets that this parameter is used
+              items:
+                type: string
+                example: 5a17c935b015841767bbec64
+            values:
+              type: array
+              description: values of this parameter, sorting ascending by text
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: parameter value identifier
+                    example: 5a17c935b015841767bbec68
+                  value:
+                    type: string
+                    description: parameter value
+                    example: Sample Parameter Value
+  ### Dataset definitions
+  DatasetModel:
+    type: object
+    properties:
+      id:
+        type: string
+        description: dataset id
+        example: 5a17c935b015841767bbec64
+      name:
+        type: string
+        description: dataset name
+        example: Sample Dataset name
+      description:
+        type: string
+        description: dataset description
+        example: Sample Dataset Description
+      status:
+        type: string
+        description: dataset status active/inactive
+        enum:
+          - Active
+          - Inactive
+      project_ids:
+        type: array
+        description: list of projects specified by projects id that this dataset belongs to
+        items:
+          type: number
+          example: 62592
+      created:
+        type: string
+        description: created date in ISODate format
+        format: date-time
+      modified:
+        type: string
+        description: modified date in ISODate format
+        format: date-time
+      header:
+        type: array
+        description: list of parameters
+        items:
+          type: object
+          properties:
+            col:
+              type: number
+              description: column index
+              example: 0
+            param_id:
+              type: string
+              description: parameter id
+              example: 5a17c935b015841767bbec64
+            param_name:
+              type: string
+              description: parameter name
+              example: Sample Parameter Name
+  CreateDatasetModel:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: dataset name
+        example: Sample Dataset Name
+      description:
+        type: string
+        description: dataset description
+        example: Sample Dataset Description
+      status:
+        type: string
+        description: dataset status active/inactive
+        enum:
+          - Active
+          - Inactive
+      project_ids:
+        type: array
+        description: list of linked project id
+        items:
+          type: number
+          example: 62592
+      header:
+        type: array
+        description: list of parameter header
+        items:
+          type: object
+          properties:
+            col:
+              type: number
+              description: column index
+              example: 0
+            param_id:
+              type: string
+              description: parameter id
+              example: 5a17c935b015841767bbec64
+  SearchDatasetModel:
+    type: object
+    properties:
+      offset:
+        type: number
+        description: page index. If this parameter is omitted or no value is set then system returns first page by default
+        example: 1
+      limit:
+        type: number
+        description: page size. If this parameter is omitted or no value is set then system returns max 500 datasets
+        example: 50
+      sort_by:
+        type: string
+        description: field names to sort, possible values are [name | description | status | created]. If no field name is specified, system sorts resukt by last created date
+        enum:
+          - created
+          - name
+          - description
+          - status
+          - modified
+      sort_order:
+        type: string
+        description: either asc or desc. If this parameter is omitted, or no value is specified, or value is not in either asc nor desc, then asc is used as default sort order.
+        enum:
+          - asc
+          - desc
+      project_ids:
+        type: array
+        description: a list of project ids to search for datasets associated to it. If no project ids is specified, serach for datasets associated with any (or no) project
+        items:
+          type: number
+          example: 62592
+      name:
+        type: string
+        description: if specified, query for datasets having name containing the keyword, case insensitive
+        example: dataset
+      statuses:
+        type: array
+        description: if specified, query for datasets having one of the status in the array. If not specified at all (null or undefined), search for datasets in any status
+        items:
+          type: string
+          enum:
+            - Active
+            - Inactive
+  CreateDatasetValueModel:
+    type: object
+    properties:
+      cells:
+        type: array
+        description: list of data values
+        items:
+          type: object
+          properties:
+            col:
+              type: number
+              description: column index
+              example: 0
+            param_id:
+              type: string
+              description: parameter id
+              example: 5a17c935b015841767bbec64
+            value_id:
+              type: string
+              description: parameter value id
+              example: 5a17c935b015841767bbec68
+            value_text:
+              type: string
+              description: parameter value
+              example: Sample Parameter Value
+  DatasetValueModel:
+    type: object
+    properties:
+      id:
+        type: string
+        description: dataset value id
+        example: 5a17c935b015841767bbec68
+      ds_id:
+        type: string
+        description: dataset id
+        example: 5a17c935b015841767bbec66
+      cells:
+        type: array
+        description: list of data values
+        items:
+          type: object
+          properties:
+            col:
+              type: number
+              description: column index
+              example: 0
+            param_id:
+              type: string
+              description: parameter id
+              example: 5a17c935b015841767bbec64
+            value_id:
+              type: string
+              description: parameter value id
+              example: 5a17c935b015841767bbec68
+            value_text:
+              type: string
+              description: parameter value
+              example: Sample Parameter Value
+  TaskModel:
+    type: object
+    properties:
+      id:
+        type: number
+        description: task id
+        example: 1
+      name:
+        type: string
+        description: task name
+        example: ImportParameter
+      status:
+        type: string
+        description: task status
+        enum:
+          - NEW
+          - IN_PROGRESS
+          - SUCCESS
+          - FAIL
+          - AV_SCANNING
+          - AV_CLEAN
+          - AV_INFECTED
+          - AV_CANCEL
+          - AV_ERROR
+      input:
+        type: string
+        description: task input
+      output:
+        type: string
+        description: task output
+securityDefinitions:
+  token:
+    name: x-access-token
+    type: apiKey
+    in: header

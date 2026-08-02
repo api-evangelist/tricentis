@@ -1,0 +1,116 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.tricentis.com/qtest-saas/content/apis/overview/qtest_api_specification.htm
+docs:
+- https://docs.tricentis.com/qtest-saas/content/apis/overview/qtest_api_specification.htm
+- https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/end_of_support_announcements.htm
+- https://docs.tricentis.com/qtest-saas/content/apis/webhooks.htm
+- https://docs.tricentis.com/ttm-for-jira/content/developer/api_authorization.htm
+summary: >-
+  Tricentis does not run one API programme — it runs a federation of product APIs
+  (qTest Manager, Parameters, Pulse, Scenario, Sessions, Data Export, Analytics,
+  NeoLoad, TTM4J) inherited from separate acquisitions, and the cross-cutting
+  semantics differ per product. What IS consistent: a header-carried credential,
+  JSON everywhere, project-scoped URIs, and page/pageSize pagination on the qTest
+  family. What is absent everywhere: idempotency keys, a request-id trace header,
+  field expansion, and RFC 9457 errors.
+authentication:
+  style: header credential, per product
+  profiles:
+  - api: qTest (Manager, Pulse, Sessions)
+    header: Authorization
+    value: bearer <access_token>
+    token_endpoint: POST /oauth/token
+    token_status_endpoint: GET /oauth/status
+  - api: qTest Parameters
+    header: x-access-token
+  - api: qTest Pulse
+    extra_header: x-qtest-url
+    note: Pulse additionally requires the tenant qTest URL in a header.
+  - api: TTM4J
+    header: Authorization
+    value: <api key>
+    validate: HEAD /v1/api-key/is-alive
+  - api: NeoLoad
+    header: accountToken
+  - api: Tricentis Analytics
+    schemes: [HTTP Basic, apikey query parameter]
+  artifact: authentication/tricentis-authentication.yml
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, no idempotency parameter and no idempotency language
+    appears in any of the nine harvested Tricentis specs, nor in the qTest, TTM4J or
+    NeoLoad developer documentation.
+  consequence: >-
+    Writes are not safely retryable. A timed-out create must be reconciled by reading
+    back before resending. The only near-signal is HTTP 409 "Identifier already exists."
+    on a small number of qTest operations.
+pagination:
+  qtest:
+    style: page-number
+    params: [page, pageSize]
+    base: 1
+    note: page/pageSize appear on 44 qTest operations; some list operations also accept
+      size.
+  ttm4j:
+    style: offset-limit
+    params: [offset, limit]
+    note: also exposes a nextPage cursor on the bulk test-case read.
+  neoload:
+    style: offset-limit
+    params: [offset, limit]
+  analytics:
+    style: OData
+    params: [$top, $skip, $filter, $orderby, $select]
+    note: Tricentis Analytics is an OData v4 service, so it follows OData query
+      conventions rather than the qTest ones.
+field_expansion:
+  supported: false
+  note: >-
+    No expand/include/fields query convention. TTM4J is the closest — its test-case
+    reads accept an explicit field list to shape the response.
+metadata:
+  supported: partial
+  note: qTest exposes user-defined "custom fields" and "site fields" per artifact type,
+    read through the field operations, rather than a free-form metadata bag.
+request_tracing:
+  request_id_header: null
+  note: No request-id / correlation-id header is documented or declared in any spec.
+versioning:
+  scheme: uri-path
+  examples:
+  - qTest Manager - /api/v3/ (with a small number of /api/v3.1/ operations)
+  - TTM4J - /v1/
+  - NeoLoad - /v3/ (v1 and v2 still published)
+  - Analytics - /odata/v4/
+  note: >-
+    Version is pinned in the path per product; there is no version header, no date
+    versioning, and no single platform-wide version.
+error_envelope:
+  format: application/json
+  shape: '{ "code": <int>, "message": "<string>" }'
+  rfc9457: false
+  artifact: errors/tricentis-problem-types.yml
+rate_limiting:
+  enforced: true
+  scope: qTest SaaS APIs
+  effective: '2026-06-26'
+  announced: '2026-02-18'
+  status_code: 429
+  headers:
+  - x-ratelimit-remaining-minute
+  - x-ratelimit-remaining-month
+  guidance: >-
+    Inspect x-ratelimit-remaining-minute to pace calls within the current minute and
+    x-ratelimit-remaining-month to plan monthly consumption; clients must handle 429.
+  neoload_note: NeoLoad's error schema carries a retry-after integer.
+  published_limits: null
+  published_limits_note: Tricentis documents that throttling exists and how to observe
+    the remaining budget, but does not publish the numeric ceilings.
+events:
+  webhooks: true
+  artifact: asyncapi/tricentis-qtest-webhooks.yml
+  signature_header: x-qTest-signature
+lifecycle:
+  artifact: lifecycle/tricentis-lifecycle.yml

@@ -1,23 +1,281 @@
 aid: tricentis
 name: Tricentis
-description: 'Tricentis is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: Tricentis is an enterprise continuous testing and quality engineering company, founded
+  in Austria in 2007 and headquartered in Vienna with US operations in Austin, Texas. Its platform
+  spans model-based UI and API test automation (Tosca, Tosca Cloud), AI-driven test management (qTest),
+  performance testing (NeoLoad), Jira-native test management (Tricentis Test Management for Jira),
+  SAP change impact analysis (LiveCompare), data and ETL validation (Data Integrity), regulated-industry
+  validation (Vera), and quality analytics. Tricentis exposes machine-readable REST contracts for
+  qTest Manager, Parameters, Pulse, Scenario, Sessions, Data Export and Analytics, for NeoLoad Web,
+  and for Tricentis Test Management for Jira, and it was among the first enterprise quality-engineering
+  vendors to ship remote Model Context Protocol (MCP) servers plus an open-source, Apache-2.0 catalog
+  of agent skills for driving Tosca and qTest from AI coding assistants.
+image: https://be.tricentis.com/media-assets/2022/08/Tricentis-Logo-1-1120x446-1.png
 url: https://raw.githubusercontent.com/api-evangelist/tricentis/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
-apis: []
+- Testing
+- Test Automation
+- Quality Engineering
+- Test Management
+- Performance Testing
+- Continuous Testing
+- DevOps
+- SAP
+- Data Integrity
+- Agentic Testing
+apis:
+- aid: tricentis:qtest-manager
+  name: qTest Manager API v3
+  description: The core Tricentis qTest test management REST API — projects, releases, modules, requirements,
+    test cases, test steps, test cycles, test suites, test runs, test logs, defects, attachments,
+    users, fields and search. Authentication is a bearer token issued by the qTest login endpoint.
+  humanURL: https://docs.tricentis.com/qtest-saas/content/apis/overview/qtest_api_specification.htm
+  baseURL: https://apitryout.qtestnet.com/
+  tags:
+  - Test Management
+  - Testing
+  - Quality Engineering
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-manager-openapi.yaml
+  - type: Documentation
+    url: https://docs.tricentis.com/qtest-saas/content/apis/overview/qtest_api_specification.htm
+  - type: APIReference
+    url: https://api.qasymphony.com/
+  - type: Overlay
+    url: overlays/tricentis-qtest-manager-overlay.yaml
+  - type: Webhooks
+    url: asyncapi/tricentis-qtest-webhooks.yml
+  - type: DataModel
+    url: data-model/tricentis-data-model.yml
+- aid: tricentis:qtest-parameters
+  name: qTest Parameters API
+  description: The Tricentis qTest Parameters REST API for data-driven testing — parameters, parameter
+    values, datasets, dataset rows and asynchronous tasks, scoped per qTest project.
+  humanURL: https://documentation.tricentis.com/qtest/9910/en/content/qtest_apis/apis_sdks/parameters_apis.htm
+  baseURL: https://parameter-1.qtestnet.com/
+  tags:
+  - Test Management
+  - Test Data
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-parameters-openapi.yaml
+  - type: Overlay
+    url: overlays/tricentis-qtest-parameters-overlay.yaml
+- aid: tricentis:qtest-pulse
+  name: qTest Pulse API
+  description: The Tricentis qTest Pulse REST API for event-driven test automation orchestration —
+    rules, triggers, actions, constants, executions and projects.
+  humanURL: https://docs.tricentis.com/qtest-saas/content/pulse/pulse.htm
+  baseURL: https://pulse-us-east-1.qtestnet.com/api
+  tags:
+  - Automation
+  - Webhooks
+  - Test Management
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-pulse-openapi.yaml
+  - type: Overlay
+    url: overlays/tricentis-qtest-pulse-overlay.yaml
+- aid: tricentis:qtest-scenario
+  name: qTest Scenario API
+  description: The Tricentis qTest Scenario REST API for BDD/Gherkin assets — features and steps synchronized
+    between qTest and Jira.
+  humanURL: https://docs.tricentis.com/qtest-saas/content/scenario/scenario.htm
+  baseURL: https://scenario-1.qtestnet.com/api
+  tags:
+  - BDD
+  - Test Management
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-scenario-openapi.yaml
+  - type: Overlay
+    url: overlays/tricentis-qtest-scenario-overlay.yaml
+- aid: tricentis:qtest-sessions
+  name: qTest Explorer Sessions API
+  description: The Tricentis qTest Explorer Sessions REST API for exploratory testing — sessions,
+    screens, application and system information, resources, coverage, view settings and script generation.
+  humanURL: https://docs.tricentis.com/qtest-saas/content/explorer/explorer.htm
+  baseURL: https://session-js.qtestnet.com/
+  tags:
+  - Exploratory Testing
+  - Test Management
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-sessions-openapi.yaml
+  - type: Overlay
+    url: overlays/tricentis-qtest-sessions-overlay.yaml
+- aid: tricentis:qtest-data-export
+  name: qTest Data Export API
+  description: The Tricentis qTest Data Export API, which issues signed access to exported qTest data
+    files for downstream analytics and reporting warehouses.
+  humanURL: https://docs.tricentis.com/qtest-saas/content/apis/data_export/use_data_export_api.htm
+  baseURL: https://dataexport-0.qtestnet.com/uta/api/v1
+  tags:
+  - Data Export
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-data-export-openapi.yaml
+  - type: Documentation
+    url: https://docs.tricentis.com/qtest-saas/content/apis/data_export/use_data_export_api.htm
+  - type: Overlay
+    url: overlays/tricentis-qtest-data-export-overlay.yaml
+- aid: tricentis:analytics
+  name: Tricentis Analytics API
+  description: The Tricentis Analytics OData v4 API exposing quality-engineering entity sets — projects,
+    releases, builds, defects, folders, execution summaries, test runs, run logs, requirements and
+    traceability links — for BI and reporting tools.
+  humanURL: https://docs.tricentis.com/analytics/content/home.htm
+  baseURL: https://u8.analytics.api.tricentis.com/odata/v4/
+  tags:
+  - Analytics
+  - OData
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-qtest-analytics-openapi.json
+  - type: Overlay
+    url: overlays/tricentis-analytics-overlay.yaml
+- aid: tricentis:neoload
+  name: NeoLoad API v3
+  description: The Tricentis NeoLoad Web REST API for continuous performance testing — workspaces,
+    projects, test settings, test results, scenarios, SLA profiles, monitors, infrastructure providers,
+    zones and resources.
+  humanURL: https://neoload-api.saas.neotys.com/explore/
+  baseURL: https://neoload-api.saas.neotys.com/v3
+  tags:
+  - Performance Testing
+  - Load Testing
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-neoload-openapi.yaml
+  - type: APIReference
+    url: https://neoload-api.saas.neotys.com/explore/
+  - type: Overlay
+    url: overlays/tricentis-neoload-overlay.yaml
+- aid: tricentis:ttm4j
+  name: Tricentis Test Management for Jira API
+  description: The Tricentis Test Management for Jira (TTM4J) REST API — test-case folders, test cases,
+    test-case search (including JQL), requirements linking, automation results, test cycles and jobs,
+    scoped by Jira project key and secured with an API key.
+  humanURL: https://docs.tricentis.com/ttm-for-jira/content/developer/api_overview.htm
+  baseURL: https://api.ttm4j.tricentis.com
+  tags:
+  - Test Management
+  - Jira
+  - Testing
+  properties:
+  - type: OpenAPI
+    url: openapi/tricentis-ttm4j-openapi.json
+  - type: APIReference
+    url: https://api.ttm4j.tricentis.com/
+  - type: Documentation
+    url: https://docs.tricentis.com/ttm-for-jira/content/developer/api_overview.htm
+  - type: MCPServer
+    url: mcp/tricentis-mcp.yml
+  - type: Overlay
+    url: overlays/tricentis-ttm4j-overlay.yaml
+  - type: ToolCrosswalk
+    url: mcp/tricentis-tool-crosswalk.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/tricentis-agentic-access.yml
+- type: TrustCenter
+  url: security/tricentis-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/tricentis-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/tricentis-domain-security.yml
+- type: Authentication
+  url: authentication/tricentis-authentication.yml
 - type: Website
-  url: https://forgeglobal.com/tricentis_stock/
+  url: https://www.tricentis.com/
+- type: DeveloperPortal
+  url: https://docs.tricentis.com/all/home.htm
+- type: Documentation
+  url: https://documentation.tricentis.com/
+- type: APIReference
+  url: https://api.qasymphony.com/
+- type: GettingStarted
+  url: https://docs.tricentis.com/qtest-saas/content/apis/overview/how_to_use_interactive_api_documentation.htm
+- type: Blog
+  url: https://www.tricentis.com/blog
+- type: Support
+  url: https://support.tricentis.com/
+- type: HelpCenter
+  url: https://shiftsync.tricentis.com/
+- type: GitHubOrganization
+  url: https://github.com/Tricentis
+- type: Pricing
+  url: https://www.tricentis.com/products/unified-test-management-qtest/pricing
+- type: SignUp
+  url: https://www.tricentis.com/software-testing-tool-trial-demo/qtest-trial
+- type: TermsOfService
+  url: https://www.tricentis.com/legal-information/general-terms-of-use/
+- type: PrivacyPolicy
+  url: https://www.tricentis.com/legal-information/privacy-policy
+- type: StatusPage
+  url: https://status.tricentis.com/
+- type: Compliance
+  url: https://www.tricentis.com/trust/security
+- type: Security
+  url: https://www.tricentis.com/trust/vulnerability-disclosure-policy
+- type: ChangeLog
+  url: https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/release_notes_landing_page.htm
+- type: LLMsTxt
+  url: llms/tricentis-llms.txt
+- type: Packages
+  url: packages/tricentis-packages.yml
+- type: SDKs
+  url: packages/tricentis-packages.yml
+- type: WellKnown
+  url: well-known/tricentis-well-known.yml
+- type: MCPServer
+  url: mcp/tricentis-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/tricentis-tool-crosswalk.yml
+- type: Conformance
+  url: conformance/tricentis-conformance.yml
+- type: ErrorCatalog
+  url: errors/tricentis-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/tricentis-lifecycle.yml
+- type: Deprecation
+  url: https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/end_of_support_announcements.htm
+- type: OAuthScopes
+  url: scopes/tricentis-scopes.yml
+- type: Conventions
+  url: conventions/tricentis-conventions.yml
+- type: RateLimits
+  url: conventions/tricentis-conventions.yml
+- type: ChangeLog
+  url: changelog/tricentis-changelog.yml
+- type: CLI
+  url: cli/tricentis-cli.yml
+- type: Sandbox
+  url: sandbox/tricentis-sandbox.yml
+- type: DataModel
+  url: data-model/tricentis-data-model.yml
+- type: Webhooks
+  url: asyncapi/tricentis-qtest-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/tricentis-qtest-manager-overlay.yaml
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 70
+  pass: local-v1

@@ -1,0 +1,4951 @@
+swagger: "2.0"
+info:
+  title: "qTest Explorer | Sessions API"
+  version: "1.0.0"
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to 	support@tricentis.com."
+host: "session-js.qtestnet.com"
+basePath: "/"
+tags:
+### V2 tags
+- name: v2-session
+  description: "Session V2 APIs"
+- name: v2-screen
+  description: "Screen V2 APIs"
+- name: v2-application-information
+  description: "Application Information V2 APIs"
+- name: v2-system-information
+  description: "System Information V2 APIs"
+- name: v2-resource
+  description: "Resource V2 APIs"
+- name: v2-view-setting
+  description: "view settings V2 APIs"
+- name: v2-coverage
+  description: "Coverage V2 APIs"
+- name: v2-script-generator-plugin
+  description: "Plugin V2 APIs"
+- name: v2-project-settings
+  description: "Project settings V2 APIs"
+- name: v2-project
+  description: "Project V2 APIs"
+
+### V3 tags
+- name: v3-application-information
+  description: "Application Information V3 APIs"
+- name: v3-session
+  description: "Session V3 APIs"
+- name: v3-screen
+  description: "Screen V3 APIs"
+- name: v3-system-information
+  description: "System Information V3 APIs"
+- name: v3-coverage
+  description: "Coverage V3 APIs"  
+- name: v3-resource
+  description: "Resource V3 APIs"
+- name: v3-query
+  description: "Query V3 APIs"
+- name: v3-upload
+  description: "Upload V3 APIs"
+- name: v3-config
+  description: "Config V3 APIs"
+- name: v3-search
+  description: "Search V3 APIs"
+- name: v3-export
+  description: "Export V3 APIs"
+- name: v3-project-settings
+  description: "Project settings V3 APIs"
+
+### V4 tags
+- name: v4-query
+  description: "Query V4 APIs" 
+  
+paths:
+  ### V2 APIs
+  /view-settings:
+    get:
+      tags: 
+      - v2-view-setting
+      summary: Get view settings of sessions list in qTest Manager
+      parameters:
+      - name: "projectId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager project's id
+        required: true
+      - name: "objectId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager object's id
+        required: true
+      - name: "objectTypeId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager object type's id
+        required: true
+      responses:
+        200:
+          description: "View settings of sessions list in qTest Manager"
+          schema:
+            $ref: "#/definitions/ViewSettings"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.customView
+    put:
+      tags: 
+      - v2-view-setting
+      summary: Update view settings of sessions list in qTest Manager
+      parameters:
+      - name: "projectId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager project's id
+        required: true  
+      - name: "body"
+        in: body
+        description: "Application information object"
+        required: true
+        schema:
+          type: "object"
+          $ref: "#/definitions/ViewSettings"
+      responses:
+        201:
+          description: "aplication information is created successful"
+          schema:
+            $ref: "#/definitions/ViewSettings"
+        401:
+          description: "Unauthorized"      
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.customView
+  /sessions:
+    post:
+      tags: 
+      - v2-session
+      summary: Create a session.
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Session object that needs to be created."
+        required: true
+        schema:
+          $ref: "#/definitions/CreateSession"
+      responses:
+        201:
+          description: "Session object"
+          schema:
+            $ref: "#/definitions/Session"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+  /sessions/{sessionId}:
+    get:
+      tags:
+      - v2-session
+      summary: "Get session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "include"
+        in: "query"
+        description: "Get more infos of session, chain query with comma, Ex: time-line,app-infos"
+        type: "string"
+        default: "all"
+        items:
+          type: string    
+        enum:
+        - "all"
+        - "time-lines"
+        - "app-infos"
+        - "sys-infos"
+      responses:
+        200:
+          description: "session object"
+          schema:
+            $ref: "#/definitions/Session"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+    put:
+      tags:
+      - v2-session
+      summary: "Update session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          $ref: "#/definitions/Session"
+      responses:
+        200:
+          description: "Ok"    
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+    delete:
+      tags: 
+      - v2-session
+      summary: "Delete a session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to delete"
+        required: true
+        type: integer
+        format: "int64"
+      responses:
+        200: 
+          description: "OK"
+        400:
+          description: "Bad request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+  /sessions/{sessionId}/status:
+    get:
+      tags: 
+      - v2-session
+      summary: "Get status of session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to get status"
+        required: true
+        type: integer
+        format: "int64"
+      responses:
+        200: 
+          description: "status of session"
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+    put:
+      tags:
+      - v2-session
+      summary: "Change status of session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "Id of session to change status"
+        required: true
+        type: integer
+        format: "int64"
+      - name: "body"
+        in: "body"
+        description: "status string that want to change to"
+        required: true
+        schema:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              type: string
+              enum:
+              - "running"
+              - "completed"
+              - "reviewed"
+      responses:
+        200: 
+          description: "operation succeed"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500: 
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+  /coverages/sessions:
+    get:
+      tags: 
+      - v2-session
+      summary: Get all sessions relate to a qTest manager object
+      description: ""
+      parameters:
+      - name: publisherName
+        in: query
+        description: publisher name
+        required: true
+        type: string
+      - name: extId
+        in: query
+        description: external object's Id
+        required: true
+        type: string
+      - name: type
+        in: query
+        description: object's type
+        required: true
+        type: string
+      - name: projectId
+        in: query
+        description: project's Id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: "Session object"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: integer
+              sessions:
+                type: array
+                items:
+                  $ref: "#/definitions/Session"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+  /sessions/{sessionId}/history:
+    get:
+      tags: 
+      - v2-session
+      summary: Get all session's histories
+      description: ""
+      parameters:
+      - name: sessionId
+        in: path
+        description: Session's id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: "Session's histories"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: integer
+              item:
+                type: array
+                items:
+                  $ref: "#/definitions/History"
+              links:
+                $ref: "#/definitions/Links"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+  /sessions/{sessionId}/app-infos:
+    get:
+      tags: 
+      - v2-application-information
+      summary: Get a list of application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session to get application information list"
+        required: true
+        type: number
+      responses:
+        200:
+          description: "Application information list"
+          schema:
+            type: object
+            properties:
+              app_infos:
+                $ref: "#/definitions/AppInfos"
+              links:
+                $ref: "#/definitions/Links"
+              total:
+                type: number
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    post:
+      tags: 
+      - v2-application-information
+      summary: Create an application information for a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "body"
+        in: body
+        description: "Application information object"
+        required: true
+        schema:
+          $ref: "#/definitions/AppInfo"
+      responses:  
+        201:
+          description: "aplication information is created successful"
+          schema:
+            type: object
+            properties:
+              links:
+                $ref: "#/definitions/Links"
+              id:
+                type: number
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.applicationInformation  
+    put:
+      tags: 
+      - v2-application-information
+      summary: Update list of application information for a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "body"
+        in: body
+        description: "List of application information object"
+        required: true
+        schema:
+          $ref: "#/definitions/AppInfos"
+      responses:  
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.applicationInformation
+  /sessions/{sessionId}/app-infos/{appInfoId}:
+    delete:
+      tags: 
+      - v2-application-information
+      summary: Delete an application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "appInfoId"
+        in: path
+        description: "application information Id"
+        required: true
+        type: number
+      responses:  
+        200:
+          description: "Operation successful"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    get:
+      tags: 
+      - v2-application-information
+      summary: Get an application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "appInfoId"
+        in: path
+        description: "application information Id"
+        required: true
+        type: number
+      responses:  
+        200:
+          description: "Operation successful"
+          schema:
+            $ref: "#/definitions/Links"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    put:
+      tags: 
+      - v2-application-information
+      summary: update an application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "appInfoId"
+        in: path
+        description: "application information Id"
+        required: true
+        type: number
+      - name: "body"
+        in: body
+        required: true
+        schema:
+          $ref: "#/definitions/AppInfo"
+      responses:  
+        200:
+          description: "Operation successful"
+          schema:
+            $ref: "#/definitions/Links"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.applicationInformation
+  /sessions/{sessionId}/sys-infos:
+    post:
+      tags: 
+      - v2-system-information
+      summary: Create system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: body
+        in: body
+        description: "System information object"
+        required: true
+        schema:
+          type: "object"
+          $ref: "#/definitions/CreateSysInfo"
+      responses:
+        201:
+          description: "System infomation"
+          schema:
+            type: object
+            properties:
+              links: 
+                $ref: "#/definitions/Links"
+              id: 
+                type: number
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.systemInfomation
+  /sessions/{sessionId}/sys-infos/{sysInfoId}:
+    get:
+      tags: 
+      - v2-system-information
+      summary: Get system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "sysInfoId"
+        in: path
+        type: integer
+        format: "int64"
+        description: system infomation's id
+        required: true  
+      responses:
+        200:
+          description: "System infomation"
+          schema:
+            $ref: "#/definitions/SysInfo"          
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.systemInfomation
+    put:
+      tags: 
+      - v2-system-information
+      summary: Update system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "sysInfoId"
+        in: path
+        type: integer
+        format: "int64"
+        description: system infomation's id
+        required: true
+      - name: body
+        in: body
+        schema:
+          type: object
+          $ref: "#/definitions/SysInfo"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.systemInfomation
+    delete:
+      tags: 
+      - v2-system-information
+      summary: Delete system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "sysInfoId"
+        in: path
+        type: integer
+        format: "int64"
+        description: system infomation's id
+        required: true    
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.systemInfomation
+  /sessions/{sessionId}/coverages:
+    get:
+      tags:
+      - v2-coverage
+      summary: Gets all Coverages by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Coverages"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+    put:
+      tags:
+      - v2-coverage
+      summary: Updates all Coverages by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/Coverages"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+    post:
+      tags:
+      - v2-coverage
+      summary: Creates a Coverage by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/Coverage"
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: "#/definitions/Coverage"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+  /sessions/{sessionId}/coverages/{coverageId}:
+    get:
+      tags:
+      - v2-coverage
+      summary: Gets a Coverage by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Coverage"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+    put:
+      tags:
+      - v2-coverage
+      summary: Updates a Coverage by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/Coverage"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+    delete:
+      tags:
+      - v2-coverage
+      summary: Deletes a Coverage by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+  /sessions/{sessionId}/resources:
+    get:
+      tags:
+      - v2-resource
+      summary: Gets all Resources by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Resources"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+  /sessions/{sessionId}/resources/{resourceId}:
+    get:
+      tags:
+      - v2-resource
+      summary: Gets a Resource by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: resourceId
+        in: path
+        description: resource id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Resource"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+    delete:
+      tags:
+      - v2-resource
+      summary: Deletes a Resource by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: resourceId
+        in: path
+        description: resource id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+  /sessions/{sessionId}/resources/{resourceId}/download:
+    get:
+      tags:
+      - v2-resource
+      summary: Downloads a Resource by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: resourceId
+        in: path
+        description: resource id
+        required: true
+        type: integer
+      responses:
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+  /sessions/{sessionId}/resources/upload:
+    post:
+      tags:
+      - v2-resource
+      summary: Uploads a Resource
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: file
+        in: formData
+        description: file to upload
+        required: true
+        type: file
+      responses:
+        201:
+          description: Created
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.resource
+  /plugins:
+    get:
+      tags:
+      - v2-script-generator-plugin
+      summary: Get an array of script generator plugins
+      responses:
+        200:
+          description: "Array of script generator plugins"
+          schema:
+            type: object
+            properties:
+              plugins:
+                type: array
+                items:
+                  $ref: "#/definitions/ScriptGeneratorPlugin"
+              types:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+    post:
+      tags:
+      - v2-script-generator-plugin
+      summary: Create an array of script generator plugins
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            $ref: "#/definitions/CreateScriptGeneratorPlugin"
+      responses:
+        200:
+          description: "Array of script generator plugins"
+          schema:
+            $ref: "#/definitions/ScriptGeneratorPlugin"            
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+  /plugins/{pluginid}:
+    delete:
+      tags:
+      - v2-script-generator-plugin
+      summary: Delete script generator plugin
+      parameters:
+      - name: "pluginid"
+        in: path
+        type: integer
+        description: plugin's id
+        required: true
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+  /plugins/{pluginid}/file:
+    get:
+      tags:
+      - v2-script-generator-plugin
+      summary: Download script generator plugin by id
+      produces:
+      - application/json
+      parameters:
+      - name: "pluginid"
+        in: path
+        type: integer
+        description: plugin's id
+        required: true
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+  /sessions/{sessionId}/screens:
+    get:
+      tags: 
+      - v2-screen
+      summary: Get all screens of session
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true  
+      responses:
+        200:
+          description: "screens"
+          schema:
+            type: object
+            properties:
+              links:
+                $ref: "#/definitions/Links"
+              total:
+                type: integer
+              screens:
+                type: array
+                items:
+                  $ref: "#/definitions/Screen"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    post:
+      tags: 
+      - v2-screen
+      summary: Create screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: body
+        in: body
+        description: "Screen need to be created"
+        required: true
+        schema:          
+          type: object
+          $ref: "#/definitions/CreateScreen"
+      responses:
+        201:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    put:
+      tags: 
+      - v2-screen
+      summary: Update multiple screens
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: body
+        in: body
+        description: "Screens need to be updated"
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: "#/definitions/UpdateScreen"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}:
+    get:
+      tags: 
+      - v2-screen
+      summary: Get screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen"
+          schema:
+            $ref: "#/definitions/Screen"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    put:
+      tags: 
+      - v2-screen
+      summary: Update screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      - name: body
+        in: body
+        description: "Screen need to be updated"
+        required: true
+        schema:
+          type: object      
+          $ref: "#/definitions/UpdateScreen"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    delete:
+      tags: 
+      - v2-screen
+      summary: Delete screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "Ok"        
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/images:
+    get:
+      tags: 
+      - v2-screen
+      summary: Get screen image
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen image"
+          schema:
+            type: file
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    post:
+      tags: 
+      - v2-screen
+      summary: Upload screen image
+      consumes:
+      - multipart/form-data
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      - name: file
+        in: formData
+        type: file
+        description: image data
+        required: true
+      responses:
+        200:
+          description: "screen image"
+          schema:
+            type: object
+            properties:
+              url:
+                type: string
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/image-url:
+    get:
+      tags: 
+      - v2-screen
+      summary: Get screen image url
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen image url"
+          schema:
+            type: string                 
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/thumbnail:
+    get:
+      tags: 
+      - v2-screen
+      summary: Get screen thumbnail
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen thumbnail"
+          schema:
+            type: file
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/thumbnail-url:
+    get:
+      tags:
+      - v2-screen
+      summary: Get screen thumbnail url
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen thumbnail url"
+          schema:
+            type: string                 
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /project-settings/{projectId}:
+    get:
+      tags: 
+      - v2-project-settings
+      summary: Get project settings by id
+      parameters:
+      - name: projectId
+        in: path
+        type: integer
+        description: project's id
+        required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: object
+            properties:
+              client_id:
+                type: string
+              system_id:
+                type: string
+              total:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/ProjectSettingsV2"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.projectSetting
+    put:
+      tags: 
+      - v2-project-settings
+      summary: Update project settings by id
+      parameters:
+      - name: projectId
+        in: path
+        type: integer
+        description: project's id
+        required: true
+      - name: body
+        in: body
+        description: "Project settings need to be updated"
+        required: true
+        schema:
+          type: object      
+          $ref: "#/definitions/ProjectSettingsV2"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.projectSetting
+  /project-settings:
+    get:
+      tags: 
+      - v2-project-settings
+      summary: Get projects settings
+      parameters:
+      - name: projectIds
+        in: query
+        type: string
+        description: list project ids
+        required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: object
+            properties:
+              client_id:
+                type: string
+              system_id:
+                type: string
+              total:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/ProjectSettingsV2"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.projectSetting
+  /permissions:
+    get:
+      tags: 
+      - v2-project
+      summary: Get projects permissions
+      parameters:
+      - name: projectIds
+        in: query
+        type: string
+        description: list project ids
+        required: true
+      - name: system
+        in: query
+        type: string
+        enum:
+          - qtest
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: object
+            properties:
+              links:
+                $ref: "#/definitions/Links"
+              total_record:
+                type: integer
+              total:
+                type: integer
+              permission:
+                type: array
+                items:
+                  $ref: "#/definitions/ProjectPermission"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.project
+  /projects/{projectId}/reset:
+    get:
+      tags: 
+      - v2-project
+      summary: Reset Sample project data
+      parameters:
+      - name: projectId
+        in: path
+        type: integer
+        description: Sample project's id
+        required: true
+      - name: oldId
+        in: query
+        type: integer
+        description: Old Sample project's id
+        required: true
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        406:
+          description: "Not Acceptable"
+        500:
+          description: "Server error"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.project
+
+  ### V3 APIs
+  /api/sessions:
+    post:
+      tags: 
+      - v3-session
+      summary: Create a session.
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Session object that needs to be created."
+        required: true
+        schema:
+          $ref: "#/definitions/CreateSession"
+      responses:
+        201:
+          description: "Session object"
+          schema:
+            $ref: "#/definitions/Session"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+  /api/sessions/batch:
+    put:
+      tags: 
+      - v3-session
+      summary: Update multiple sessions.
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sessions object that needs to be updated."
+        required: true
+        schema:
+          type: array
+          items:
+            type: object
+            $ref: "#/definitions/Session"
+      responses:
+        200:
+          description: "Session object"
+          schema:
+            type: "object"
+            properties:
+              success: 
+                type: integer
+                description: number of sessions updated successfull
+              failed:
+                type: integer
+                description: number of sessions updated unsuccessfull
+              errors:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: id of session cannot be updated
+                  error:
+                    type: string
+                    description: error message
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+    delete:
+      tags: 
+      - v3-session
+      summary: Delete multiple sessions.
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sessions id."
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            description: session's id        
+      responses:
+        200:
+          description: "Session object"
+          schema:
+            type: "object"
+            properties:
+              success: 
+                type: integer
+                description: number of sessions deleted successfull
+              failed:
+                type: integer
+                description: number of sessions deleted unsuccessfull
+              errors:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: id of sessions cannot be deleted
+                  error:
+                    type: string
+                    description: error message
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+  /api/sessions/{sessionId}:
+    get:
+      tags:
+      - v3-session
+      summary: "Get session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "include"
+        in: "query"
+        description: "Get more infos of session, chain query with comma, Ex: time-line,app-infos"
+        type: "string"
+        default: "all"
+        items:
+          type: string    
+        enum:
+        - "all"
+        - "time-lines"
+        - "app-infos"
+        - "sys-infos"
+      responses:
+        200:
+          description: "session object"
+          schema:
+            $ref: "#/definitions/Session"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+    put:
+      tags:
+      - v3-session
+      summary: "Update session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          $ref: "#/definitions/Session"
+      responses:
+        200:
+          description: "Ok"    
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+    delete:
+      tags: 
+      - v3-session
+      summary: "Delete a session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to delete"
+        required: true
+        type: integer
+        format: "int64"
+      responses:
+        200: 
+          description: "OK"
+        400:
+          description: "Bad request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+  /api/sessions/{sessionId}/status:
+    get:
+      tags: 
+      - v3-session
+      summary: "Get status of session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "ID of session to get status"
+        required: true
+        type: integer
+        format: "int64"
+      responses:
+        200: 
+          description: "status of session"
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+    put:
+      tags:
+      - v3-session
+      summary: "Change status of session by Id"
+      parameters:
+      - name: "sessionId"
+        in: "path"
+        description: "Id of session to change status"
+        required: true
+        type: integer
+        format: "int64"
+      - name: "body"
+        in: "body"
+        description: "status string that want to change to"
+        required: true
+        schema:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              type: string
+              enum:
+              - "running"
+              - "completed"
+              - "reviewed"
+      responses:
+        200: 
+          description: "operation succeed"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500: 
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+  /api/sessions/{sessionId}/app-infos:
+    get:
+      tags: 
+      - v3-application-information
+      summary: Get a list of application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session to get application information list"
+        required: true
+        type: number
+      responses:
+        200:
+          description: "Application information list"
+          schema:
+            type: object
+            properties:
+              app_infos:
+                $ref: "#/definitions/AppInfos"
+              links:
+                $ref: "#/definitions/Links"
+              total:
+                type: number
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    post:
+      tags: 
+      - v3-application-information
+      summary: Create an application information for a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "body"
+        in: body
+        description: "Application information object"
+        required: true
+        schema:
+          $ref: "#/definitions/AppInfo"
+      responses:  
+        201:
+          description: "aplication information is created successful"
+          schema:
+            type: object
+            properties:
+              links:
+                $ref: "#/definitions/Links"
+              id:
+                type: number
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation  
+    put:
+      tags: 
+      - v3-application-information
+      summary: Update list of application information for a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "body"
+        in: body
+        description: "List of application information object"
+        required: true
+        schema:
+          $ref: "#/definitions/AppInfos"
+      responses:  
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+  /api/sessions/{sessionId}/app-infos/{appInfoId}:
+    delete:
+      tags: 
+      - v3-application-information
+      summary: Delete an application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "appInfoId"
+        in: path
+        description: "application information Id"
+        required: true
+        type: number
+      responses:  
+        200:
+          description: "Operation successful"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    get:
+      tags: 
+      - v3-application-information
+      summary: Get an application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "appInfoId"
+        in: path
+        description: "application information Id"
+        required: true
+        type: number
+      responses:  
+        200:
+          description: "Operation successful"
+          schema:
+            $ref: "#/definitions/Links"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    put:
+      tags: 
+      - v3-application-information
+      summary: update an application information of a session by session Id
+      parameters:
+      - name: "sessionId"
+        in: path
+        description: "Id of session"
+        required: true
+        type: number
+      - name: "appInfoId"
+        in: path
+        description: "application information Id"
+        required: true
+        type: number
+      - name: "body"
+        in: body
+        required: true
+        schema:
+          $ref: "#/definitions/AppInfo"
+      responses:  
+        200:
+          description: "Operation successful"
+          schema:
+            $ref: "#/definitions/Links"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+  /api/sessions/{sessionId}/sys-infos:
+    post:
+      tags: 
+      - v3-system-information
+      summary: Create system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: body
+        in: body
+        description: "System information object"
+        required: true
+        schema:
+          type: "object"
+          $ref: "#/definitions/CreateSysInfo"
+      responses:
+        201:
+          description: "System infomation"
+          schema:
+            type: object
+            properties:
+              links: 
+                $ref: "#/definitions/Links"
+              id: 
+                type: number
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+  /api/sessions/{sessionId}/sys-infos/{sysInfoId}:
+    get:
+      tags: 
+      - v3-system-information
+      summary: Get system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "sysInfoId"
+        in: path
+        type: integer
+        format: "int64"
+        description: system infomation's id
+        required: true  
+      responses:
+        200:
+          description: "System infomation"
+          schema:
+            $ref: "#/definitions/SysInfo"          
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+    put:
+      tags: 
+      - v3-system-information
+      summary: Update system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "sysInfoId"
+        in: path
+        type: integer
+        format: "int64"
+        description: system infomation's id
+        required: true
+      - name: body
+        in: body
+        schema:
+          type: object
+          $ref: "#/definitions/SysInfo"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+    delete:
+      tags: 
+      - v3-system-information
+      summary: Delete system infomation
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "sysInfoId"
+        in: path
+        type: integer
+        format: "int64"
+        description: system infomation's id
+        required: true    
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+  /api/sessions/{sessionId}/coverages:
+    get:
+      tags:
+      - v3-coverage
+      summary: Gets all Coverages by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Coverages"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    put:
+      tags:
+      - v3-coverage
+      summary: Updates all Coverages by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/Coverages"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    post:
+      tags:
+      - v3-coverage
+      summary: Creates a Coverage by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/Coverage"
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: "#/definitions/Coverage"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+  /api/sessions/{sessionId}/coverages/{coverageId}:
+    get:
+      tags:
+      - v3-coverage
+      summary: Gets a Coverage by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Coverage"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    put:
+      tags:
+      - v3-coverage
+      summary: Updates a Coverage by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/Coverage"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    delete:
+      tags:
+      - v3-coverage
+      summary: Deletes a Coverage by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+  /api/sessions/{sessionId}/resources:
+    get:
+      tags:
+      - v3-resource
+      summary: Gets all Resources by session id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Resources"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+  /api/sessions/{sessionId}/resources/{resourceId}:
+    get:
+      tags:
+      - v3-resource
+      summary: Gets a Resource by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: resourceId
+        in: path
+        description: resource id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Resource"
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    delete:
+      tags:
+      - v3-resource
+      summary: Deletes a Resource by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: resourceId
+        in: path
+        description: resource id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+  /api/sessions/{sessionId}/resources/{resourceId}/download:
+    get:
+      tags:
+      - v3-resource
+      summary: Downloads a Resource by id
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: resourceId
+        in: path
+        description: resource id
+        required: true
+        type: integer
+      responses:
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+  /api/sessions/{sessionId}/resources/upload:
+    post:
+      tags:
+      - v3-resource
+      summary: Uploads a Resource
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        type: integer
+      - name: file
+        in: formData
+        description: file to upload
+        required: true
+        type: file
+      responses:
+        201:
+          description: Created
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+  /api/query/sessions/tree:
+    get:
+      tags:
+      - v3-query
+      summary: Get tree of querries
+      parameters:   
+      - name: "projectId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager project's id
+        required: true
+      responses:
+        200:
+          description: "Querries tree"
+          schema:
+            $ref: "#/definitions/Query"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/query/sessions/{queryid}:
+    get:
+      tags:
+      - v3-query
+      summary: Execute a query
+      parameters:
+      - name: "queryid"
+        in: path
+        type: integer      
+        description: query's id
+        required: true
+      - name: "projectId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager project's id
+        required: true
+      - name: "p"
+        in: query
+        type: integer      
+        description: page index
+        required: true
+      - name: "recs"
+        in: query
+        type: integer      
+        description: page size
+        required: true
+      - name: "sortBy"
+        in: query
+        type: string      
+        description: sort by column
+        required: true
+      - name: "sortOrder"
+        in: query
+        type: string
+        enum:
+        - "desc"
+        - "asc"
+        description: sort order by descending or ascending
+        required: true      
+      responses:
+        200:
+          description: "Sessions list"
+          schema:
+            $ref: "#/definitions/Session"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/query/sessions/{queryid}/statistic:
+    get:
+      tags:
+      - v3-query
+      summary: Get statistic of a query
+      parameters:
+      - name: "queryid"
+        in: path
+        type: integer      
+        description: query's id
+        required: true
+      - name: "projectId"
+        in: query
+        type: integer
+        format: "int64"
+        description: qTest Manager project's id
+        required: true
+      responses:
+        200:
+          description: "Query statistic"
+          schema:
+            $ref: "#/definitions/QueryStatistic"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/sessions/{sessionId}/screens:
+    get:
+      tags: 
+      - v3-screen
+      summary: Get all screens of session
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true  
+      responses:
+        200:
+          description: "screens"
+          schema:
+            type: object
+            properties:
+              links:
+                $ref: "#/definitions/Links"
+              total:
+                type: integer
+              screens:
+                type: array
+                items:
+                  $ref: "#/definitions/Screen"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+    post:
+      tags: 
+      - v3-screen
+      summary: Create screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: body
+        in: body
+        description: "Screen need to be created"
+        required: true
+        schema:          
+          type: object
+          $ref: "#/definitions/CreateScreen"
+      responses:
+        201:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+    put:
+      tags: 
+      - v3-screen
+      summary: Update multiple screens
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: body
+        in: body
+        description: "Screens need to be updated"
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: "#/definitions/UpdateScreen"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+  /api/sessions/{sessionId}/screens/{screenId}:
+    get:
+      tags: 
+      - v3-screen
+      summary: Get screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen"
+          schema:
+            $ref: "#/definitions/Screen"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+    put:
+      tags: 
+      - v3-screen
+      summary: Update screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      - name: body
+        in: body
+        description: "Screen need to be updated"
+        required: true
+        schema:
+          type: object      
+          $ref: "#/definitions/UpdateScreen"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+    delete:
+      tags: 
+      - v3-screen
+      summary: Delete screen
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "Ok"        
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+  /api/sessions/{sessionId}/screens/{screenId}/images:
+    get:
+      tags: 
+      - v3-screen
+      summary: Get screen image
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen image"
+          schema:
+            type: file
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+    post:
+      tags: 
+      - v3-screen
+      summary: Upload screen image
+      consumes:
+      - multipart/form-data
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      - name: file
+        in: formData
+        type: file
+        description: image data
+        required: true
+      responses:
+        200:
+          description: "screen image"
+          schema:
+            type: object
+            properties:
+              url:
+                type: string
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+  /api/sessions/{sessionId}/screens/{screenId}/image-url:
+    get:
+      tags: 
+      - v3-screen
+      summary: Get screen image url
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen image url"
+          schema:
+            type: string                 
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+  /api/sessions/{sessionId}/screens/{screenId}/thumbnail:
+    get:
+      tags: 
+      - v3-screen
+      summary: Get screen thumbnail
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen thumbnail"
+          schema:
+            type: file
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+  /api/sessions/{sessionId}/screens/{screenId}/thumbnail-url:
+    get:
+      tags:
+      - v3-screen
+      summary: Get screen thumbnail url
+      parameters:
+      - name: "sessionId"
+        in: path
+        type: integer
+        format: "int64"
+        description: session's id
+        required: true
+      - name: "screenId"
+        in: path
+        type: integer
+        format: "int64"
+        description: screen's id
+        required: true
+      responses:
+        200:
+          description: "screen thumbnail url"
+          schema:
+            type: string                 
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.screen
+  /api/export/image:
+    post:
+      tags: 
+      - v3-export
+      summary: Export screens to images
+      parameters:  
+      - name: "body"
+        in: body
+        description: "Export session object"
+        required: true
+        schema:
+          $ref: "#/definitions/ExportSession"
+      responses:  
+        200:
+          description: "Export task"
+          schema:
+            $ref: "#/definitions/ExportResult"        
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.export
+  /api/export/doc:
+    post:
+      tags: 
+      - v3-export
+      summary: Export screens to word document
+      parameters:  
+      - name: "body"
+        in: body
+        description: "Export session object"
+        required: true
+        schema:
+          $ref: "#/definitions/ExportSession"
+      responses:  
+        200:
+          description: "Export task"
+          schema:
+            $ref: "#/definitions/ExportResult"        
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.export
+  /api/export/pdf:
+    post:
+      tags: 
+      - v3-export
+      summary: Export screens to pdf
+      parameters:  
+      - name: "body"
+        in: body
+        description: "Export session object"
+        required: true
+        schema:
+          $ref: "#/definitions/ExportSession"
+      responses:  
+        200:
+          description: "Export task"
+          schema:
+            $ref: "#/definitions/ExportResult"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.export
+  /api/export/testcase:
+    post:
+      tags: 
+      - v3-export
+      summary: Export test cases
+      parameters:
+      - name: "body"
+        in: body
+        description: "Export testcase"
+        required: true
+        schema:
+          $ref: "#/definitions/ExportTestCase"
+      responses:  
+        200:
+          description: "Export task"
+          schema:
+            $ref: "#/definitions/ExportResult"        
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.export
+  /session/export/{exportId}:
+    get:
+      tags: 
+      - v3-export
+      summary: Download exported file
+      parameters:  
+      - name: exportId
+        in: path
+        description: "Export id"
+        required: true
+        type: integer
+      responses:  
+        200:
+          description: "Exported file"
+          schema:
+            type: file
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.export
+  /api/upload:
+    get:
+      tags:
+      - v3-upload
+      summary: Gets a Resource by key
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        type: string
+        description: Resource key
+        required: true
+      - name: action
+        in: query
+        type: string
+        description: Resource key
+        enum:
+        - link
+        - attachment
+        - public
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.upload
+    delete:
+      tags:
+      - v3-upload
+      summary: Deletes a Resource by key
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        type: string
+        description: Resource key
+        required: true
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.upload
+    post:
+      tags:
+      - v3-upload
+      summary: Uploads a Resource
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        in: formData
+        description: file to upload
+        required: true
+        type: file
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              key:
+                type: string
+              url:
+                type: string
+              content-type:
+                type: string
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.upload
+  /upload-objects:
+    post:
+      tags:
+      - v3-upload
+      summary: Uploads a Media
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        in: formData
+        description: file to upload
+        required: true
+        type: file
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              key:
+                type: string
+              url:
+                type: string
+              content-type:
+                type: string
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.upload
+  /media:
+    get:
+      tags:
+      - v3-upload
+      summary: Gets a Media by key
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        type: string
+        description: Media key
+        required: true
+      - name: action
+        in: query
+        type: string
+        description: Media key
+        enum:
+        - link
+        - attachment
+        - public
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested Media does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.upload
+    delete:
+      tags:
+      - v3-upload
+      summary: Deletes a Media by key
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        type: string
+        description: Media key
+        required: true
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested Media does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.upload
+  /api/config:
+    get:
+      tags:
+      - v3-config
+      summary: Gets current Config
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+              explorer_token:
+                type: string
+              qtest_url:
+                type: string
+              url:
+                type: string
+              useriq_site_id:
+                type: string
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api
+  /api/user-settings:
+    get:
+      tags:
+      - v3-config
+      summary: Gets current User settings
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/UserSettings"
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api
+    put:
+      tags:
+      - v3-config
+      summary: Updates current User settings
+      produces:
+      - application/json
+      parameters:
+      - name: body
+        in: body
+        description: body
+        required: true
+        schema: 
+          $ref: "#/definitions/UserSettings"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api
+  /api/field:
+    get:
+      tags:
+      - v3-search
+      summary: Search Sessions
+      produces:
+      - application/json
+      parameters:
+      - name: project_id
+        in: query
+        type: integer
+      - name: field
+        in: query
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: string
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.search
+  /api/search/list:
+    get:
+      tags:
+      - v3-search
+      summary: Search Sessions
+      produces:
+      - application/json
+      parameters:
+      - name: project_id
+        in: query
+        type: integer
+      - name: field
+        in: query
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: string
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.search
+  /api/project-settings/{projectId}:
+    get:
+      tags: 
+      - v3-project-settings
+      summary: Get project settings by id
+      parameters:
+      - name: projectId
+        in: path
+        type: integer
+        description: project's id
+        required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProjectSettingsV3"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.projectSetting
+    put:
+      tags: 
+      - v3-project-settings
+      summary: Update project settings by id
+      parameters:
+      - name: projectId
+        in: path
+        type: integer
+        description: project's id
+        required: true
+      - name: body
+        in: body
+        description: "Project settings need to be updated"
+        required: true
+        schema:
+          type: object      
+          $ref: "#/definitions/ProjectSettingsV3"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.projectSetting
+
+  ### V4 APIs
+  /api/v4/query:
+    post:
+      tags:
+      - v4-query
+      summary: Create query
+      parameters:
+      - name: "queryid"
+        in: body
+        description: "Create query model"
+        required: true
+        schema:
+          type: "object"
+          $ref: "#/definitions/CreateQuery"
+      responses:
+        201:        
+          $ref: "#/definitions/Query"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/v4/query/{queryid}:
+    put:
+      tags:
+      - v4-query
+      summary: Update query
+      parameters:
+      - name: "queryid"
+        in: path
+        type: integer      
+        description: query's id
+        required: true
+      - name: "body"
+        in: body
+        description: "Update query"
+        required: true
+        schema:
+          type: "object"
+          $ref: "#/definitions/Query"
+      responses:
+        200:        
+          $ref: "#/definitions/Query"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "NotFound"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+    delete:
+      tags:
+      - v4-query
+      summary: Delete query
+      parameters:
+      - name: "queryid"
+        in: path
+        type: integer
+        description: query's id
+        required: true   
+      responses:
+        200:        
+          description: "Ok"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/v4/query/share:
+    put:
+      tags:
+      - v4-query
+      summary: Share queries
+      parameters:   
+      - name: "body"
+        in: body
+        description: "Share queries"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: object
+            properties:
+              queryId:              
+                type: string
+              isShared: 
+                type: boolean
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              success: 
+                description: number of queries
+                type: integer
+              failed:
+                description: number of queries
+                type: integer
+              errors:
+                description: error
+                type: object
+                properties:
+                  id:
+                    description: query's id
+                    type: integer
+                  error:
+                    type: string
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "NotFound"
+        500:
+          description: "Server error"
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+
+definitions:
+  Link:
+    type: object
+    properties:
+      rel:
+        type: string
+      href:
+        type: string
+  Links:
+    type: array
+    items:
+      $ref: "#/definitions/Link"
+  AppInfo:
+    type: object
+    required:
+      - name
+      - first_action_time
+    properties:
+      id:
+        type: string
+      name: 
+        type: string
+      file_size:
+        type: string
+      file_version:
+        type: string
+      path:
+        type: string
+      version:
+        type: string
+      first_action_time:
+        type: string
+      file_last_modified:
+        type: string
+      created_date:
+        type: string
+      modified_date:
+        type: string
+      incl_file_last_modified:
+        type: boolean
+      incl_file_size:
+        type: boolean
+      incl_file_version:
+        type: boolean
+      incl_path:
+        type: boolean
+      incl_version:
+        type: boolean
+      session_id:
+        type: string
+      links:
+        $ref: "#/definitions/Links"
+  AppInfos:
+    type: array
+    items:
+      $ref: "#/definitions/AppInfo"
+  SysInfo:
+    type: object
+    properties:
+      id:
+        type: string
+      ado:
+        type: string
+      incl_ado:
+        type: boolean
+      app_version:
+        type: string
+      incl_app_version:
+        type: boolean
+      available_ram:
+        type: string
+      incl_available_ram:
+        type: boolean
+      cpu:
+        type: string
+      incl_cpu:
+        type: boolean
+      ie:
+        type: string
+      incl_ie:
+        type: boolean
+      os:
+        type: string
+      incl_os:
+        type: boolean
+      ram:
+        type: string
+      incl_ram:
+        type: boolean
+      resolutions:
+        type: string
+      incl_resolutions:
+        type: boolean
+      user:
+        type: string
+      incl_user:
+        type: boolean
+      computer_name:
+        type: string
+      incl_computer_name:
+        type: boolean
+      session_id:
+        type: string
+      links:
+        $ref: "#/definitions/Links"
+  CreateSysInfo:
+    type: object
+    properties:
+      ado:
+        type: string
+      incl_ado:
+        type: boolean
+      app_version:
+        type: string
+      incl_app_version:
+        type: boolean
+      available_ram:
+        type: string
+      incl_available_ram:
+        type: boolean
+      cpu:
+        type: string
+      incl_cpu:
+        type: boolean
+      ie:
+        type: string
+      incl_ie:
+        type: boolean
+      os:
+        type: string
+      incl_os:
+        type: boolean
+      ram:
+        type: string
+      incl_ram:
+        type: boolean
+      resolutions:
+        type: string
+      incl_resolutions:
+        type: boolean
+      user:
+        type: string
+      incl_user:
+        type: boolean
+      computer_name:
+        type: string
+      incl_computer_name:
+        type: boolean
+  TimeType:
+    type: object
+    properties:
+      id: 
+        type: string
+      name: 
+        type: string
+      color: 
+        type: string
+  ActionMetadata:
+    type: object
+    properties:
+      element_type: 
+        type: string
+      id:
+        type: string 
+      name:
+        type: string
+      css_selector: 
+        type: string
+      tag_name:
+        type: string
+      xpath:
+        type: array
+        items:
+          type: string  
+      value:
+        type: string
+      ctrl_type:
+        type: integer
+      action_type:
+        type: string
+      details:
+        type: object
+  Point:
+    type: object
+    properties:
+      x:
+        type: number
+        format: double
+      y:
+        type: number
+        format: double
+  Annotation:
+    type: object
+    properties:
+      annotation_type: 
+        type: string
+        enum:
+        - Action
+        - Rectangle
+        - Ellipse
+        - Callout
+        - Pencil
+        - Arrow
+        - Blackout
+        - TextBox
+      type:
+        type: string
+        enum:
+        - square
+        - round
+        - oval
+        - cloud
+        - line1
+        - line2
+        - line3
+        - line1AccentBar
+        - line2AccentBar
+        - line3AccentBar
+      order_number: 
+        type: integer
+      desc: 
+        type: string
+      meta_data:
+        $ref: "#/definitions/ActionMetadata"
+      left: 
+        type: number
+        format: double
+      top:
+        type: number
+        format: double    
+      width:
+        type: number
+        format: double
+      height:
+        type: number
+        format: double
+      hotspotx:
+        type: number
+        format: double
+      hotspoty:
+        type: number
+        format: double
+      anchor_point:
+        $ref: "#/definitions/Point"
+      background_color:
+        type: string
+      border_color: 
+        type: string
+      border_size:
+        type: integer
+      content:
+        type: string
+      font_name:
+        type: string
+      font_size:
+        type: integer
+      text_color:
+        type: string
+      points: 
+        type: array
+        items:
+          $ref: "#/definitions/Point"
+      start_point:
+        $ref: "#/definitions/Point"
+      end_point:
+        $ref: "#/definitions/Point"
+      zindex:
+        type: integer
+      drop_shadow:
+        type: boolean
+      timestamp: 
+        type: string
+        description: "timestamp, Ex: 2018-01-16T04:46:30+07"
+      is_visible_on_screen:
+        type: boolean
+  Screen:
+    type: object
+    properties:
+      links:    
+        $ref: "#/definitions/Links"        
+      id:
+        type: string       
+      ext_screen_id:
+        type: string
+      order: 
+        type: string
+      capture_mode: 
+        type: string
+        enum:
+        - Desktop
+        - Application
+        - Form
+      screenshot_filename:
+        type: string
+      thumbnail_filename: 
+        type: string
+      title:
+        type: string
+      browser_url: 
+        type: string
+      is_deleted: 
+        type: boolean
+      time_type:
+        $ref: "#/definitions/TimeType"
+      finished_timestamp: 
+        type: string
+        description: "finished timestamp, Ex: 2018-01-15T21:46:30.000Z"
+      timestamp: 
+        type: string
+        description: "timestamp, Ex: 2018-01-15T21:46:30.000Z"
+      created_date: 
+        type: string
+        description: "created date, Ex: 2018-01-16T09:46:30.265Z"
+      modified_date: 
+        type: string
+        description: "modified date, Ex: 2018-04-05T15:30:09.865Z"
+      original_title: 
+        type: string
+      app_height: 
+        type: number
+        format: double
+      app_left:
+        type: number
+        format: double
+      app_top:
+        type: number
+        format: double
+      app_width:
+        type: number
+        format: double
+      height: 
+        type: number
+        format: double
+      left:
+        type: number
+        format: double
+      top:
+        type: number
+        format: double
+      width:
+        type: number
+        format: double
+      screen_height:
+        type: number
+        format: double
+      screen_width:
+        type: number
+        format: double
+      annotations:
+        type: array
+        items:
+          $ref: "#/definitions/Annotation"        
+      image_url:
+        type: string
+      thumbnail: 
+        type: string
+      direct_image_url:
+        type: string
+      direct_thumbnail:
+        type: string
+  CreateScreen:
+    type: object
+    properties:
+      id:
+        type: string
+      order:
+        type: integer
+      capture_mode: 
+          type: string
+          enum:
+          - Desktop
+          - Application
+          - Form
+      title:
+        type: string
+      time_type:
+        $ref: "#/definitions/TimeType"
+      timestamp: 
+        type: string
+        description: "timestamp, Ex: 2018-01-15T21:46:30.000Z"
+      app_height: 
+        type: number
+        format: double
+      app_left:
+        type: number
+        format: double
+      app_top:
+        type: number
+        format: double
+      app_width:
+        type: number
+        format: double
+      height: 
+        type: number
+        format: double
+      left:
+        type: number
+        format: double
+      top:
+        type: number
+        format: double
+      width:
+        type: number
+        format: double
+      screen_height: 
+        type: number
+        format: double
+      screen_width: 
+        type: number
+        format: double
+      annotations:
+        type: array
+        items:
+          $ref: "#/definitions/Annotation"
+      is_deleted:
+        type: boolean
+  UpdateScreen:
+    type: object
+    properties:
+      id:
+        type: string
+      order:
+        type: integer
+      capture_mode: 
+          type: string
+          enum:
+          - Desktop
+          - Application
+          - Form
+      title:
+        type: string
+      time_type:
+        $ref: "#/definitions/TimeType"
+      timestamp: 
+        type: string
+        description: "timestamp, Ex: 2018-01-15T21:46:30.000Z"
+      app_height: 
+        type: number
+        format: double
+      app_left:
+        type: number
+        format: double
+      app_top:
+        type: number
+        format: double
+      app_width:
+        type: number
+        format: double
+      height: 
+        type: number
+        format: double
+      left:
+        type: number
+        format: double
+      top:
+        type: number
+        format: double
+      width:
+        type: number
+        format: double
+      screen_height: 
+        type: number
+        format: double
+      screen_width: 
+        type: number
+        format: double
+      annotations:
+        type: array
+        items:
+          $ref: "#/definitions/Annotation"
+      is_deleted:
+        type: boolean
+  History:
+    type: object
+    properties:
+      type: 
+        type: string
+      value:
+        type: array
+        items:
+          type: object
+          properties:      
+            field:
+              type: string
+            val_old:
+              type: string
+            val_new:
+              type: string
+      editby:
+        type: string
+      tracked_date: 
+        type: string
+        description: "tracked date ex: 2018-07-26T09:19:13.829Z"
+  Session:
+    type: object
+    properties:
+      id:
+        type: number
+      system_id: 
+        type: string
+      owner_user:
+        type: string
+      edit_user:
+        type: string
+      tester_name:
+        type: string
+      assigned_user:
+        type: string
+      title:
+        type: string
+      desc:
+        type: string
+      actual_duration:
+        type: number
+      planned_duration:
+        type: number
+      other_env_info:
+        type: string
+      executor:
+        type: string
+      overall_summary:
+        type: string
+      type: 
+        type: string
+      tags:
+        type: string
+      test_charter:
+        type: string
+      test_objectives:
+        type: string
+      created_date:
+        type: string
+      modified_date:
+        type: string
+      client_name:
+        type: string
+      captured_date:
+        type: string
+      has_meta_data:  
+        type: boolean
+      status:
+        type: string
+      sufix_pid:
+        type: string
+      client_id:
+        type: number
+      project_id:
+        type: number
+      settings:
+        type: object
+        properties:
+          reset_trace_step_number:
+            type: boolean
+          show_timestamp:
+            type: boolean
+      doc:
+        type: object
+        properties:
+          captured_date:
+            type: string
+          incl_sys_info_to_output:
+            type: boolean
+          version:
+            type: string
+      links:
+        $ref: "#/definitions/Links"
+      time_lines:
+        type: array
+        items:  
+          properties:
+            id:
+              type: string
+            modifiled_date:
+              type: string
+            total_time:
+              type: number
+            order:
+              type: number
+            time_type:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                color:
+                  type: string
+                catagory_name:
+                  type: string
+      app_infos:
+        $ref: "#/definitions/AppInfos"
+      sys_info:
+        $ref: "#/definitions/SysInfo"
+  CreateSession:
+    type: "object"
+    required: 
+      - title
+      - project_id
+    properties:
+      title:
+        type: "string"
+      captured_date: 
+        type: "string"
+      client_name:
+        type: "string"
+      doc:
+        type: "object"
+        properties:
+          captured_date:
+            type: "string"
+          incl_sys_info_to_output:
+            type: "boolean"
+          version: 
+            type: "string"
+      settings:
+        type: "object"
+        properties:
+          reset_trace_step_numbers:
+            type: "boolean"
+          show_timestamp:
+            type: "boolean"
+      sys_info:
+        $ref: "#/definitions/SysInfo"
+      app_infos:
+        $ref: "#/definitions/AppInfos"
+      edit_user: 
+        type: "string"
+      has_meta_data:
+        type: "boolean"
+      owner_user:
+        type: "string"
+      planned_duration:
+        type: "string"
+      project_id:
+        type: "number"
+      status:
+        type: "string"
+      tester_name:
+        type: "string"
+      client_id:
+        type: "number"
+      desc: 
+        type: "string"
+      assigned_user:
+        type: "string"
+      other_env_info:
+        type: "string"
+      overall_summary:
+        type: "string"
+      tags:
+        type: "string"
+      test_charter:
+        type: "string"
+      test_objectives:
+        type: "string"
+  Coverage:
+    type: object
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      id:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+      ext_id:
+        type: string
+      ext_url:
+        type: string
+      publisher_name:
+        type: string
+      screens: 
+        type: array
+        items:
+          type: object
+          properties:
+            created_date:
+              type: string
+            id:
+              type: string
+            modified_date:
+              type: string
+      submitted_date:
+        type: string
+      created_date:
+        type: string
+      modified_date:
+        type: string
+      order:
+        type: integer
+      connection_name:
+        type: string
+      connection_url:
+        type: string
+      ext_sys_id:
+        type: string
+  Coverages:
+    type: object
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      total:
+        type: integer
+      coverages:
+        type: array
+        items:
+          $ref: "#/definitions/Coverage"
+  Resource:
+    type: object
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      id:
+        type: string
+      name:
+        type: string
+      key:
+        type: string
+      mime:
+        type: string
+      created_date:
+        type: string
+      modified_date:
+        type: string
+  Resources:
+    type: object
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      total: 
+        type: integer
+      resources:
+        type: array
+        items:
+          $ref: "#/definitions/Resource"
+  ViewSettings:
+    type: object
+    properties:
+      object_id:
+        type: integer
+      object_type_id:
+        type: integer
+      extsystemid:
+        type: integer
+      id:
+        type: integer
+      fields: 
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+            field: 
+              type: string
+            name: 
+              type: string
+            sort: 
+              type: boolean
+            order: 
+              type: integer
+            default: 
+              type: boolean
+  QueryClause:
+    type: object
+    properties:
+      leftGroup:
+        type: string
+      rightGroup: 
+        type: string
+      criteria: 
+        type: string
+      operator: 
+        type: string
+      value: 
+        type: string
+  Query:
+    type: object
+    properties:
+      id: 
+        type: string
+      parent_id: 
+        type: string
+      name: 
+        type: string
+      summary:
+        type: string
+      type: 
+        type: integer
+      is_system: 
+        type: boolean
+      is_team:
+        type: boolean
+      qid: 
+        type: string
+      query_clauses: 
+        type: array
+        items:
+          $ref: "#/definitions/QueryClause"
+      children:
+        type: array    
+        description: Queries array
+        items:
+          type: object
+  QueryStatistic:
+    type: object
+    properties:
+      sessions:
+        type: string
+      completed_sessions:
+        type: string
+      planned_durations:
+        type: string
+      actual_durations:
+        type: string
+      defects:
+        type: string
+      test_cases:
+        type: string
+  CreateQuery:
+    type: object
+    properties:  
+      name: 
+        type: string
+      queryClauses: 
+        type: array
+        items:      
+          $ref: "#/definitions/QueryClause"
+      isTeam:
+        type: boolean
+      projectId: 
+        type: integer
+  ScriptGeneratorPlugin:
+    type: object
+    properties:
+      category_id: 
+        type: integer
+      category_name: 
+        type: string
+      desc: 
+        type: string
+      id:     
+        type: string
+      is_builtin: 
+        type: boolean
+      main_file_name: 
+        type: string
+      main_file_path: 
+        type: string
+      name: 
+        type: string
+  CreateScriptGeneratorPlugin:
+    type: object
+    properties:
+      name: 
+        type: string
+      desc: 
+        type: string
+      category_id: 
+        type: integer
+      main_file_name:
+        type: string
+      main_file_content: 
+        type: string
+      main_file_content_type:
+        type: string
+  AnnotationSettings:
+    type: object
+    properties:
+      borderSize:
+        type: integer
+      borderColor:
+        type: string
+      backgroundColor:
+        type: string
+      fontName:
+        type: string
+      fontSize:
+        type: integer
+      textColor:
+        type: string
+  UserSettings:
+    type: object
+    properties:
+      session:
+        type: object
+        properties:
+          columnSettings:
+            type: array
+            items:
+              type: object
+              properties:
+                value:
+                  type: string
+                name:
+                  type: string
+                isSelected:
+                  type: boolean
+          showTimestamp:
+            type: boolean
+          resetTraceStepNumbers:
+            type: boolean
+          formatAnnotationSettings:
+            type: object
+            properties:
+              select:
+                $ref: "#/definitions/AnnotationSettings"
+              blackout:
+                $ref: "#/definitions/AnnotationSettings"
+              crop:
+                $ref: "#/definitions/AnnotationSettings"
+              arrow:
+                $ref: "#/definitions/AnnotationSettings"
+              pencil:
+                $ref: "#/definitions/AnnotationSettings"
+              rectangle:
+                $ref: "#/definitions/AnnotationSettings"
+              ellipse:
+                $ref: "#/definitions/AnnotationSettings"
+              rounded-rectangular-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              rectangular-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              oval-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              cloud-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              line1-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              line2-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              line3-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              line1-accent-bar-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              line2-accent-bar-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              line3-accent-bar-callout:
+                $ref: "#/definitions/AnnotationSettings"
+              text:
+                $ref: "#/definitions/AnnotationSettings"
+          remindToInstallDesktopExplorer:
+            type: boolean
+          remindTestCaseResetingUnsavedSteps:
+            type: boolean
+          defaultProject:
+            type: integer
+          sessionFilters:
+            type: object
+          notifiedVersion:
+            type: string
+          filterCollapsed:
+            type: boolean
+  ExportScreen:
+    type: object
+    properties:
+      title:
+        type: string
+      image_key:
+        type: string
+      width":
+        type: number
+        format: double
+      height:
+        type: number
+        format: double
+      url:
+        type: string
+      steps:
+        type: array
+        items:
+          type: object
+          properties:
+            name: 
+              type: string
+            value: 
+              type: string
+  ExportSession:    
+    type: object
+    properties:
+      session_id:
+        type: string
+      title:
+        type: string
+      screens:
+        type: array
+        items:
+          $ref: "#/definitions/ExportScreen"
+  ExportResult:    
+    type: object
+    properties:
+      id:
+        type: string
+        description: task id
+      url:
+        type: string
+  ExportTestCase:
+    type: object
+    properties:
+      session_id:
+        type: string
+      export_type:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      precondition:
+        type: string
+      steps:
+        type: array
+        items:
+          type: object
+          properties:
+            step_description:
+              type: string
+            expected_result:
+              type: string  
+            screen:
+              type: object
+              properties:
+                image_key:
+                  type: string
+                width:
+                  type: number
+                  format: double
+                height:
+                  type: number
+                  format: double
+  NoteTimeType:
+    type: object
+    properties:
+      active:
+        type: boolean
+      category_id:
+        type: integer
+      category_name:
+        type: string
+      color:
+        type: string
+      ext_sys_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+  CategoryNoteTimeType:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      type:
+        type: string
+  ProjectSettingsV2:
+    type: object
+    properties:
+      links:    
+        $ref: "#/definitions/Links"        
+      project_id:
+        type: string       
+      always_on:
+        type: string
+      note_types: 
+        type: array
+        items:
+          $ref: "#/definitions/NoteTimeType"
+      time_types: 
+        type: array
+        items:
+          $ref: "#/definitions/NoteTimeType"
+  ProjectSettingsV3:
+    type: object
+    properties:
+      always_on: 
+        type: string
+      category: 
+        type: object
+        properties:
+          note_types:
+            type: array
+            items:
+              $ref: "#/definitions/CategoryNoteTimeType"
+          time_types:
+            type: array
+            items:
+              $ref: "#/definitions/CategoryNoteTimeType"
+      note_types: 
+        type: array
+        items:
+          $ref: "#/definitions/NoteTimeType"
+      time_types: 
+        type: array
+        items:
+          $ref: "#/definitions/NoteTimeType"
+  ProjectPermission:
+    type: object
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      system_id: 
+        type: string
+      project_id: 
+        type: string
+      client_id: 
+        type: string
+      session:
+        type: object
+        properties:
+          can_create:
+            type: boolean
+          can_view:
+            type: boolean
+          can_delete:
+            type: boolean
+          can_edit:
+            type: boolean
+securityDefinitions:
+  v2_auth:
+    type: apiKey
+    name: Authorization
+    in: header
+  v3_auth:
+    type: apiKey
+    name: Authorization
+    in: header

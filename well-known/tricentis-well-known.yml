@@ -1,0 +1,78 @@
+generated: '2026-08-02'
+method: probed
+source: live GET probes of /.well-known/* across every Tricentis apis.yml and OpenAPI servers[] host
+summary: >-
+  No RFC 8615 well-known discovery documents are published on any Tricentis host.
+  Every probe below returned 404. Tricentis does publish a vulnerability disclosure
+  policy and a security contact, but not via /.well-known/security.txt (RFC 9116) —
+  see security/tricentis-vulnerability-disclosure.yml. An llms.txt IS published, at
+  the marketing host root rather than under /.well-known/ — see llms/tricentis-llms.txt.
+documents: []
+probes:
+- host: https://www.tricentis.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /llms.txt, status: 200, file: ../llms/tricentis-llms.txt}
+- host: https://tricentis.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://documentation.tricentis.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://docs.tricentis.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://api.ttm4j.tricentis.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://apitryout.qtestnet.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://neoload-api.saas.neotys.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://my.tricentis.com
+  results:
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+x-notes: >-
+  Tosca Cloud OIDC/OAuth discovery is tenant-scoped (https://<tenant>.my.tricentis.com/_identity/...)
+  and cannot be probed anonymously without a tenant name, so no OIDC discovery document
+  could be confirmed. The Tosca Cloud MCP server is documented as OAuth-protected with
+  client_id "MCPServer" and scope "tta" — see scopes/tricentis-scopes.yml.

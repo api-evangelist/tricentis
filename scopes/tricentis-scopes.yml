@@ -1,0 +1,56 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm
+docs: https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm
+summary: >-
+  None of the nine harvested Tricentis OpenAPI/Swagger documents declares an oauth2
+  security scheme — every REST surface is header-credential based (bearer token,
+  API key, accountToken, x-access-token, HTTP Basic). The only OAuth surface Tricentis
+  documents is the Tosca Cloud identity service, used by the Tosca Cloud MCP server
+  and the toscactl CLI. Its published scope surface is a single coarse scope; no
+  granular per-resource scope catalogue is published.
+oauth_in_specs: false
+schemes:
+- name: Tosca Cloud identity
+  kind: oauth2
+  source: docs
+  docs: https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm
+  authorization_server: https://<tenant>.my.tricentis.com/_identity
+  clients:
+  - client_id: MCPServer
+    used_by: Tosca Cloud MCP server (via npx mcp-remote, local callback port 56874)
+  flows_documented:
+  - flow: authorizationCode
+    pkce: true
+    note: toscactl login opens a browser for PKCE authentication by default.
+  - flow: deviceCode
+    note: toscactl login --headless, for CI and headless environments.
+  - flow: clientCredentials
+    note: non-interactive, via TOSCA_CLIENT_ID and TOSCA_CLIENT_SECRET.
+scopes:
+- scope: tta
+  description: >-
+    The scope requested by the Tosca Cloud MCP client (client_id MCPServer). Tricentis
+    publishes the value but no description of what it grants; it appears to cover the
+    Tosca Test Automation surface as a whole rather than a specific resource.
+  flows: [authorizationCode]
+  sources: [https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm]
+key_auth_products:
+  note: >-
+    These products have no scope surface at all — they authenticate with a single
+    credential carrying the caller's full role-based permissions. See
+    authentication/tricentis-authentication.yml.
+  products:
+  - {product: qTest, credential: bearer token from POST /oauth/token, authorization: qTest
+      project and site roles, not scopes}
+  - {product: Tricentis Test Management for Jira, credential: API key in Authorization
+      header, authorization: Jira project permissions}
+  - {product: NeoLoad, credential: accountToken header}
+  - {product: qTest Parameters, credential: x-access-token header}
+  - {product: Tricentis Analytics, credential: HTTP Basic or apikey query parameter}
+gaps:
+- No /.well-known/oauth-authorization-server or /.well-known/openid-configuration is
+  reachable on any anonymous Tricentis host, so the Tosca Cloud scope list could not be
+  read from discovery metadata.
+- qTest exposes an /oauth/token endpoint and an /oauth/status endpoint but declares no
+  oauth2 scheme or scopes in its Swagger; the token is modelled as an apiKey header.

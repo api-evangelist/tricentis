@@ -1,0 +1,60 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/end_of_support_announcements.htm
+versioning:
+  scheme: uri-path
+  per_product:
+  - {api: qTest Manager, current: v3, path: /api/v3/, note: a small number of operations
+      sit on /api/v3.1/}
+  - {api: TTM for Jira, current: v1, path: /v1/}
+  - {api: NeoLoad, current: v3, path: /v3/, prior: [v1, v2], note: v1 and v2 remain
+      published in the same Swagger UI}
+  - {api: Tricentis Analytics, current: v4, path: /odata/v4/}
+  - {api: qTest Data Export, current: v1, path: /uta/api/v1}
+  product_release_train: YYYY.N calendar versioning per product
+  docs: https://docs.tricentis.com/all/home.htm
+deprecation:
+  policy_url: https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/end_of_support_announcements.htm
+  policy_name: qTest End of Support Announcements
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notice_period: variable
+  notice_evidence:
+  - {item: Jira Data Center v8/v9 support, announced: '2026-07-09', effective: '2026-08-18',
+    notice_days: 40}
+  - {item: Firefox plug-ins, announced: '2025-10-31', effective: '2026-01-01', notice_days: 62}
+  - {item: iOS/Windows apps, announced: '2024-02-05', effective: '2025-05-31', notice_days: 481}
+  - {item: qTest Java SDK 1.4.9, announced: '2020-03-10', effective: '2020-06-08', notice_days: 90}
+  - {item: qTest SaaS API rate limiting, announced: '2026-02-18', effective: '2026-06-26',
+    notice_days: 128}
+  practice: >-
+    Deprecations are announced as dated entries with migration guidance on a single
+    documentation page. Tricentis states it aims to give customers "sufficient time to
+    adapt" but publishes no committed minimum notice window, and serves no RFC 8594
+    Sunset or Deprecation response headers.
+deprecated_operations:
+- spec: openapi/tricentis-ttm4j-openapi.json
+  operation: GET /v1/projects/{project-key}/test-cases
+  summary: Read test case(s).
+  replacement: GET /v1/projects/{project-key}/test-cases/bulk
+- spec: openapi/tricentis-ttm4j-openapi.json
+  operation: POST /v1/test-cases/search
+  summary: Search test case(s).
+  replacement: POST /v1/test-cases/search/jql
+deprecated_operations_note: >-
+  These are the only two operations flagged deprecated: true across all nine harvested
+  Tricentis specs. The qTest Manager, Parameters, Pulse, Scenario, Sessions, Data Export,
+  Analytics and NeoLoad specs carry no deprecation flags at all.
+status_page:
+  url: https://status.tricentis.com/
+  scope: Tricentis cloud products
+  publishes: [current status, incident history, scheduled maintenance announcements]
+sla:
+  url: null
+  note: No public uptime SLA or uptime target is published; SLAs are contractual, via
+    the general terms of use at https://www.tricentis.com/legal-information/general-terms-of-use/.
+support:
+  customer_support: https://support.tricentis.com/
+  community: https://shiftsync.tricentis.com/
+  documentation: https://docs.tricentis.com/all/home.htm

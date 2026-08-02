@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Tricentis Test Management for Jira API
+  version: 1.0.0
+extends: openapi/tricentis-ttm4j-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enrichment:
+      harvested: '2026-08-02'
+      provider: Tricentis
+      artifacts:
+        authentication: authentication/tricentis-authentication.yml
+        conventions: conventions/tricentis-conventions.yml
+        errors: errors/tricentis-problem-types.yml
+        lifecycle: lifecycle/tricentis-lifecycle.yml
+        data_model: data-model/tricentis-data-model.yml
+        conformance: conformance/tricentis-conformance.yml
+      idempotency:
+        supported: false
+        note: No idempotency key is published for any Tricentis API; writes are not safely retryable.
+- target: $.paths['/v1/projects/{project-key}/test-cases'].get
+  update:
+    x-replacement: GET /v1/projects/{project-key}/test-cases/bulk
+    x-deprecation-note: Marked deprecated in the provider spec; use the bulk read.
+- target: $.paths['/v1/test-cases/search'].post
+  update:
+    x-replacement: POST /v1/test-cases/search/jql
+    x-deprecation-note: Marked deprecated in the provider spec; use the JQL search.
+- target: $.info
+  update:
+    x-mcp:
+      server: https://ttm4j.tricentis.com/v1/mcp
+      transport: streamable-http
+      crosswalk: mcp/tricentis-tool-crosswalk.yml

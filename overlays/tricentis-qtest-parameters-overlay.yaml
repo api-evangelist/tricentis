@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for qTest Parameters API
+  version: 1.0.0
+extends: openapi/tricentis-qtest-parameters-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enrichment:
+      harvested: '2026-08-02'
+      provider: Tricentis
+      artifacts:
+        authentication: authentication/tricentis-authentication.yml
+        conventions: conventions/tricentis-conventions.yml
+        errors: errors/tricentis-problem-types.yml
+        lifecycle: lifecycle/tricentis-lifecycle.yml
+        data_model: data-model/tricentis-data-model.yml
+        conformance: conformance/tricentis-conformance.yml
+      idempotency:
+        supported: false
+        note: No idempotency key is published for any Tricentis API; writes are not safely retryable.
+- target: $.info
+  update:
+    x-rate-limits:
+      enforced: true
+      status_code: 429
+      effective: '2026-06-26'
+      headers:
+      - x-ratelimit-remaining-minute
+      - x-ratelimit-remaining-month
+      docs: https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/end_of_support_announcements.htm

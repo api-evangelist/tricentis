@@ -1,0 +1,104 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/ (8 parseable specs) + https://docs.tricentis.com/qtest-saas/content/release_notes_and_announcements/end_of_support_announcements.htm
+format: json
+format_note: >-
+  Tricentis does NOT use RFC 9457 problem+json anywhere. Every 4xx/5xx response body
+  across all Tricentis specs is declared as `application/json` with a product-specific
+  envelope. There is no `type` URI, no problem registry, and no machine-readable error
+  code taxonomy published for the qTest, TTM4J or NeoLoad APIs — the status code plus a
+  human-readable message is the whole contract.
+envelopes:
+- api: qTest Manager / Pulse / Sessions / Parameters
+  shape: '{ "code": <int>, "message": "<string>" }'
+  source: openapi/tricentis-qtest-manager-openapi.yaml
+- api: NeoLoad
+  shape: '{ "code": <int>, "message": "<string>", "retry-after": <int seconds> }'
+  source: openapi/tricentis-neoload-openapi.yaml
+  note: NeoLoad is the only Tricentis API whose error schema carries a retry hint.
+problems:
+- status: 400
+  title: Bad Request
+  occurrences: 187
+  specs: 7
+  descriptions:
+  - Bad Request
+  - Invalid parameters.
+  remediation: Validate required fields, id types and enum values against the spec before
+    resending; the body is not re-readable for a field pointer.
+- status: 401
+  title: Unauthorized
+  occurrences: 278
+  specs: 7
+  descriptions:
+  - Unauthorized
+  remediation: >-
+    Re-authenticate. For qTest call postAccessToken (POST /oauth/token) and resend with
+    "Authorization: bearer <token>"; for TTM4J check the API key with
+    HEAD /v1/api-key/is-alive; for NeoLoad resend the accountToken header.
+- status: 403
+  title: Forbidden
+  occurrences: 225
+  specs: 5
+  descriptions:
+  - Forbidden
+  - User does not have permission to get Site Field
+  remediation: The token is valid but the qTest project/site role lacks the permission.
+    Grant the role rather than retrying.
+- status: 404
+  title: Not Found
+  occurrences: 201
+  specs: 6
+  descriptions:
+  - Not Found
+  - The requested resource does not exist
+  remediation: Confirm projectId / project-key scoping — most Tricentis resources are
+    project-scoped and a cross-project id reads as missing rather than forbidden.
+- status: 406
+  title: Not Acceptable
+  occurrences: 1
+  specs: 1
+  remediation: Set an Accept header the operation declares.
+- status: 409
+  title: Conflict — identifier already exists
+  occurrences: 2
+  specs: 1
+  descriptions:
+  - Identifier already exists.
+  remediation: >-
+    The nearest thing Tricentis has to a duplicate-suppression signal. Because no API
+    supports an idempotency key, treat 409 as "the earlier request landed" rather than
+    as a failure.
+- status: 413
+  title: Request Entity Too Large
+  occurrences: 25
+  specs: 2
+  descriptions:
+  - The attachment is too large
+  remediation: Split or compress the attachment; the per-file ceiling is a site setting.
+- status: 429
+  title: Too Many Requests
+  occurrences: 62
+  specs: 1
+  remediation: >-
+    qTest began throttling SaaS API calls on 2026-06-26 (announced 2026-02-18). Read
+    x-ratelimit-remaining-minute and x-ratelimit-remaining-month and slow down before
+    you are cut off; on 429, back off and resend. See conventions/tricentis-conventions.yml.
+- status: 500
+  title: Internal Server Error
+  occurrences: 180
+  specs: 5
+  descriptions:
+  - Server error
+  - Internal Server Error - Unexpected error occurred
+  remediation: Retry with backoff, but only for GETs — writes are not idempotent, so a
+    retried create may duplicate.
+- status: 501
+  title: Not Implemented
+  occurrences: 1
+  specs: 1
+gaps:
+- No RFC 9457 application/problem+json anywhere in the estate.
+- No published error-code registry or numeric error taxonomy for qTest, TTM4J or NeoLoad.
+- Only NeoLoad models a retry hint (retry-after) in its error schema; qTest signals
+  throttling through headers documented outside the spec.

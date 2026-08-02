@@ -1,0 +1,691 @@
+swagger: "2.0"
+info:
+  version: "2025.2.0"
+  title: qTest Pulse
+externalDocs:
+  description: "Introduction to qTest Pulse API"
+  url: "https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm"
+# during dev, should point to your local machine
+host: pulse-us-east-1.qtestnet.com
+# basePath prefixes all resource paths
+# this must match with REST_ENDPOINT in config
+basePath: /api
+#
+schemes:
+  # tip: remove http to make production-grade
+  #- http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+  - application/x-www-form-urlencoded
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+securityDefinitions:
+  qtestToken:
+    type: apiKey
+    in: header
+    name: Authorization
+  qtestUrl:
+    type: apiKey
+    in: header
+    name: x-qtest-url
+security:
+  - qtestToken: []
+    qtestUrl: []
+paths:
+  /swagger:
+    x-swagger-pipe: swagger_raw
+  /me:
+    get:
+      tags:
+        - "user"
+      summary: Get current logged-in user
+      description: To get current logged-in user
+      responses:
+        <<: &default_responses
+          400:
+            $ref: "#/responses/BadRequest"
+          401:
+            $ref: "#/responses/Unauthorized"
+          403:
+            $ref: "#/responses/Forbidden"
+          default:
+            $ref: "#/responses/Default"
+        200:
+          description: OK
+          schema: &user_schema
+            $ref: "#/definitions/User"
+    put: &me_put
+      tags:
+        - "user"
+      summary: Update current user
+      parameters:
+        - name: user
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/UserInput"
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *user_schema
+    patch: *me_put
+  /projects:
+    get:
+      tags:
+        - "project"
+      summary: Get all projects
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: array
+            items: &project_schema
+              $ref: "#/definitions/Project"
+  /projects/{id}:
+    parameters: &id_path_param
+      - $ref: "#/parameters/IdPath"
+    get:
+      tags:
+        - "project"
+      summary: Get a project
+      description: To get a project by id
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *project_schema
+  /constants:
+    get:
+      tags:
+        - "constant"
+      summary: Get all constants of a project
+      description: To get all constants of a project
+      parameters: &pagination_query_params
+        - $ref: "#/parameters/ProjectIdQuery"
+        - $ref: "#/parameters/FirstQuery"
+        - $ref: "#/parameters/OffsetQuery"
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: array
+            items: &constant_schema
+              $ref: "#/definitions/Constant"
+    post:
+      tags:
+        - "constant"
+      summary: Create a constant
+      description: To create a constant
+      parameters: &constant_body_param
+        - name: constant
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ConstantInput"
+      responses:
+        <<: *default_responses
+        201:
+          description: Created
+          schema: *constant_schema
+  /constants/{id}:
+    parameters: *id_path_param
+    get:
+      tags:
+        - "constant"
+      summary: Get a constant
+      description: To get a constant by id
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *constant_schema
+    put: &constant_put
+      tags:
+        - "constant"
+      summary: Update a constant
+      description: To update a constant
+      parameters: *constant_body_param
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *constant_schema
+    patch: *constant_put
+    delete:
+      tags:
+        - "constant"
+      summary: Delete a constant
+      description: To delete a constant
+      responses: &delete_responses
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: string
+  /triggers:
+    get:
+      tags:
+        - "trigger"
+      summary: Get all triggers of a project
+      description: To get all triggers of a project
+      parameters: *pagination_query_params
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: array
+            items: &trigger_schema
+              $ref: "#/definitions/Trigger"
+    post:
+      tags:
+        - "trigger"
+      summary: Create a trigger
+      description: To create a trigger
+      parameters: &trigger_body_param
+        - name: trigger
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/TriggerInput"
+      responses:
+        <<: *default_responses
+        201:
+          description: Created
+          schema: *trigger_schema
+  /triggers/{id}:
+    parameters: *id_path_param
+    get:
+      tags:
+        - "trigger"
+      summary: Get a trigger
+      description: To get a trigger by id
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *trigger_schema
+    put: &trigger_put
+      tags:
+        - "trigger"
+      summary: Update a trigger
+      description: To update a trigger
+      parameters: *trigger_body_param
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *trigger_schema
+    patch: *trigger_put
+    delete:
+      tags:
+        - "trigger"
+      summary: Delete a trigger
+      description: To delete a trigger
+      responses: *delete_responses
+  /actions:
+    get:
+      tags:
+        - "action"
+      summary: Get all actions of a project
+      description: To get all actions of a project
+      parameters: *pagination_query_params
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: array
+            items: &action_schema
+              $ref: "#/definitions/Action"
+    post:
+      tags:
+        - "action"
+      summary: Create an action
+      description: To create an action
+      parameters: &action_body_param
+        - name: action
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ActionInput"
+      responses:
+        <<: *default_responses
+        201:
+          description: Created
+          schema: *action_schema
+  /actions/{id}:
+    parameters: *id_path_param
+    get:
+      tags:
+        - "action"
+      summary: Get an action
+      description: To get an action by id
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *action_schema
+    put: &action_put
+      tags:
+        - "action"
+      summary: Update an action
+      description: To update an action
+      parameters: *action_body_param
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *action_schema
+    patch: *action_put
+    delete:
+      tags:
+        - "action"
+      summary: Delete an action
+      description: To delete an action
+      responses: *delete_responses
+  /rules:
+    get:
+      tags:
+        - "rule"
+      summary: Get all rules of a project
+      description: To get all rules of a project
+      parameters: *pagination_query_params
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: array
+            items: &rule_schema
+              $ref: "#/definitions/Rule"
+    post:
+      tags:
+        - "rule"
+      summary: Create a rule
+      description: To create a rule
+      parameters: &rule_body_param
+        - name: rule
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/RuleInput"
+      responses:
+        <<: *default_responses
+        201:
+          description: Created
+          schema: *rule_schema
+  /rules/{id}:
+    parameters: *id_path_param
+    get:
+      tags:
+        - "rule"
+      summary: Get a rule
+      description: To get a rule by id
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *rule_schema
+    put: &rule_put
+      tags:
+        - "rule"
+      summary: Update a rule
+      parameters: *rule_body_param
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema: *rule_schema
+    patch: *rule_put
+    delete:
+      tags:
+        - "rule"
+      summary: Delete a rule
+      description: To delete a rule
+      responses: *delete_responses
+  /executions:
+    get:
+      tags:
+        - "execution"
+      summary: Get all executions of an action
+      description: To get all execution of an action
+      parameters:
+        - $ref: "#/parameters/ProjectIdQuery"
+        - $ref: "#/parameters/ActionIdQuery"
+        - $ref: "#/parameters/FromQuery"
+        - $ref: "#/parameters/ToQuery"
+        - $ref: "#/parameters/FirstQuery"
+        - $ref: "#/parameters/OffsetQuery"
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BasicExecution"
+  /executions/{id}:
+    parameters: *id_path_param
+    get:
+      tags:
+        - "execution"
+      summary: Get an execution
+      description: To get an execution by id
+      responses:
+        <<: *default_responses
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Execution"
+# common parameters
+parameters:
+  IdPath:
+    name: id
+    in: path
+    required: true
+    type: string
+    description: ID of the project
+  ProjectIdQuery:
+    name: projectId
+    in: query
+    required: true
+    type: string
+    description: ID of the project
+  ActionIdQuery:
+    name: actionId
+    in: query
+    type: string
+    description: ID of the action in the project
+  FromQuery:
+    name: from
+    in: query
+    type: integer
+    format: int64
+    description: Timestamp of the begining of an execution in milliseconds
+  ToQuery:
+    name: to
+    in: query
+    type: integer
+    format: int64
+    description: Timestamp of the begining of an execution in milliseconds
+  FirstQuery:
+    name: first
+    in: query
+    type: integer
+    format: int64
+    description: Return only the first N results
+  OffsetQuery:
+    name: offset
+    in: query
+    type: integer
+    format: int64
+    description: Skip the first N results
+# common reponses
+responses:
+  Default:
+    description: Error
+    schema: &error_schema
+      $ref: "#/definitions/Error"
+  BadRequest:
+    description: Bad Request
+    schema: *error_schema
+  Unauthorized:
+    description: Unauthorized
+    schema: *error_schema
+  Forbidden:
+    description: Forbidden
+    schema: *error_schema
+# complex objects have schema definitions
+definitions:
+  Error:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  Application:
+    required:
+      - name
+      - logoUrl
+      - displayOrder
+      - url
+      - hasLicense
+      - hasPermission
+    properties:
+      name:
+        type: string
+      logoUrl:
+        type: string
+      displayOrder:
+        type: integer
+        format: int32
+      url:
+        type: string
+      hasLicense:
+        type: boolean
+      hasPermission:
+        type: boolean
+  Account:
+    required:
+      - qtestClientId
+      - name
+    properties:
+      qtestClientId:
+        type: string
+      name:
+        type: string
+  UserSettings:
+    properties:
+      notifiedVersion:
+        type: string
+  UserInput:
+    properties:
+      settings:
+        $ref: "#/definitions/UserSettings"
+  User:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - $ref: "#/definitions/UserInput"
+      - required:
+          - qtestUserId
+          - username
+          - firstName
+          - lastName
+          - avatar
+          - account
+          - applications
+          - projects
+        properties:
+          qtestUserId:
+            type: string
+          username:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          avatar:
+            type: string
+          account:
+            $ref: "#/definitions/Account"
+          applications:
+            type: array
+            items:
+              $ref: "#/definitions/Application"
+          projects:
+            type: array
+            items:
+              $ref: "#/definitions/Project"
+  Doc:
+    required:
+      - id
+    properties:
+      id:
+        type: string
+  ProjectDoc:
+    required:
+      - projectId
+    properties:
+      projectId:
+        type: string
+  Project:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - required:
+          - qtestProjectId
+          - name
+        properties:
+          qtestProjectId:
+            type: integer
+            format: int64
+          name:
+            type: string
+  ConstantInput:
+    allOf:
+      - $ref: "#/definitions/ProjectDoc"
+      - required:
+          - name
+          - hidden
+        properties:
+          name:
+            type: string
+          hidden:
+            type: boolean
+          value:
+            type: string
+  Constant:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - $ref: "#/definitions/ConstantInput"
+  TriggerInput:
+    allOf:
+      - $ref: "#/definitions/ProjectDoc"
+      - required:
+          - name
+        properties:
+          name:
+            type: string
+  Trigger:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - $ref: "#/definitions/TriggerInput"
+  ActionInput:
+    allOf:
+      - $ref: "#/definitions/ProjectDoc"
+      - required:
+          - name
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          code:
+            type: string
+  Action:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - $ref: "#/definitions/ActionInput"
+  RuleInput:
+    allOf:
+      - $ref: "#/definitions/ProjectDoc"
+      - required:
+          - name
+          - active
+        properties:
+          name:
+            type: string
+          active:
+            type: boolean
+          triggerId:
+            type: string
+          actionIds:
+            type: array
+            items:
+              type: string
+  Rule:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - $ref: "#/definitions/RuleInput"
+  BasicExecution:
+    allOf:
+      - $ref: "#/definitions/Doc"
+      - required:
+          - actionId
+          - status
+        properties:
+          actionId:
+            type: string
+          status:
+            type: string
+            enum: [pending, executing, failed, completed]
+          payload:
+            properties:
+              sample:
+                type: string
+          start:
+            type: integer
+            format: int64
+          end:
+            type: integer
+            format: int64
+          out:
+            type: string
+          err:
+            type: string
+          result:
+            type: string
+          createAt:
+            type: string
+  Execution:
+    allOf:
+      - $ref: "#/definitions/BasicExecution"
+      - required:
+          - actionId
+          - status
+        properties:
+          actionId:
+            type: string
+          status:
+            type: string
+            enum: [pending, executing, failed, completed]
+          payload:
+            properties:
+              sample:
+                type: string
+          start:
+            type: integer
+            format: int64
+          end:
+            type: integer
+            format: int64
+          out:
+            type: string
+          err:
+            type: string
+          result:
+            type: string
+          createAt:
+            type: string
+# API groups
+tags:
+  - name: "user"
+    description: "User API"
+  - name: "project"
+    description: "Project API"
+  - name: "constant"
+    description: "Constant API"
+  - name: "trigger"
+    description: "Trigger API"
+  - name: "action"
+    description: "Action API"
+  - name: "rule"
+    description: "Rule API"
+  - name: "execution"
+    description: "Execution API"

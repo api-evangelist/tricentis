@@ -1,0 +1,3517 @@
+openapi: 3.0.1
+info: {version: '3.0', title: NeoLoad API}
+paths:
+  /v3/workspaces:
+    get:
+      operationId: GetWorkspaceList
+      summary: Get the list of all accessible Workspaces
+      description: Lists all accessible Workspaces.
+      tags: [Workspaces]
+      parameters:
+      - name: allWorkspaces
+        in: query
+        required: false
+        description: If true (reserved to admin users), returns all existing workspaces,
+          including the workspaces I am not member of. If false, returns only the
+          workspaces I am a member of.
+        schema: {type: boolean, default: false}
+      - {$ref: '#/components/parameters/page_limit'}
+      - {$ref: '#/components/parameters/page_offset'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/WorkspaceDefinitionList'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    post:
+      tags: [Workspaces]
+      summary: Create a new Workspace
+      description: Create a new Workspace
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/WorkspaceCreateRequest'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FullWorkspaceDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/tests:
+    get:
+      operationId: GetTestList
+      summary: Get a test list
+      description: |
+        Lists the tests of the Workspace.
+        ___
+        *Sortable fields :*
+          - name
+          - projectName
+          - lastUpdateDate (descending sort by default : the most recent first)
+          - lastRunDate
+          - userModifierName
+      tags: [Tests]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/page_limit'}
+      - {$ref: '#/components/parameters/page_offset'}
+      - {$ref: '#/components/parameters/single_sort'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestDefinitionList'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    post:
+      operationId: PostCreateTest
+      summary: Create a new test
+      description: Create a new test with the specified name
+      tags: [Tests]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestCreate'}
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestCreated'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/tests/{testId}:
+    get:
+      operationId: GetTest
+      summary: Get a test
+      description: Get the test
+      tags: [Tests]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/GetTestDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    patch:
+      operationId: PatchTest
+      summary: Partially update a test
+      description: Update only the specified fields of the test
+      tags: [Tests]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      requestBody:
+        description: The fields to update. No field is required, only those supplied
+          will be updated.
+        required: false
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestUpdate'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    put:
+      operationId: PutTest
+      summary: Fully update a test
+      description: Update all fields of the test
+      tags: [Tests]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      requestBody:
+        description: The fields to update. All fields are required and will be updated.
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestUpdate'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    delete:
+      operationId: DeleteTest
+      summary: Delete a test
+      description: Delete the test with the specified id
+      tags: [Tests]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      - name: deleteResults
+        in: query
+        required: false
+        description: Also delete related Test Results, including locked Test Results.
+          Default is true.
+        example: true
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/tests/{testId}/project:
+    servers:
+    - {url: 'https://neoload-files.saas.neotys.com'}
+    post:
+      operationId: PostUploadProject
+      summary: Uploads a NeoLoad project zip file or a standalone as-code file
+      description: Uploads a NeoLoad project of the Workspace corresponding to the
+        parameters. The maximum size file is 250 MB
+      tags: [Tests|Projects]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file: {type: string, format: binary}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    get:
+      operationId: ReadProjectMetadata
+      summary: Get project's metadata
+      description: Get project's metadata
+      tags: [Tests|Projects]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/tests/{testId}/start:
+    post:
+      operationId: GetTestsRun
+      summary: Starts a test
+      description: Starts a test of the Workspace according to the method parameters.
+      tags: [Tests|Runtime]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/test-id'}
+      - name: testResultName
+        in: query
+        required: true
+        description: The name of the Test Result
+        schema: {type: string}
+      - name: testResultDescription
+        in: query
+        required: false
+        description: The description of the Test Result
+        schema: {type: string}
+      - name: asCode
+        in: query
+        required: false
+        description: The comma-separated as-code files to use for the test. Those
+          files must be part of the uploaded project.
+        schema: {type: string}
+      - name: reservationId
+        in: query
+        required: false
+        description: The reservation identifier to use for the test that can be retrieved
+          from the NeoLoad Web reservation calendar URL. If the reservation mode is
+          enabled and "reservationId" value is defined, "reservationDuration", "reservationWebVUs"
+          and "reservationSAPVUs" values will be ignored, otherwise if the reservation
+          mode is disabled the value will be ignored.
+        schema: {type: string}
+      - name: reservationDuration
+        in: query
+        required: false
+        description: The duration of the reservation for the test. If the reservation
+          mode is enabled, this value or "reservationDuration", "reservationWebVUs",
+          "reservationSAPVUs" must be defined, otherwise if the reservation mode is
+          disabled the value will be ignored. The value (in seconds) is optional when
+          the reservation mode is enabled and ignored when reservationId value is
+          defined or if the reservation mode is disabled. The default value is the
+          selected scenario duration + 1200 seconds (20 minutes). All reserved resources
+          will be released when the test ends.
+        schema: {type: integer, format: int64}
+      - name: reservationWebVUs
+        in: query
+        required: false
+        description: The number of Web Virtual Users to be reserved for the test.
+          The value is optional when the reservation mode is enabled and ignored when
+          "reservationId" value is defined or if the reservation mode is disabled.
+        schema: {type: integer, format: int32}
+      - name: reservationSAPVUs
+        in: query
+        required: false
+        description: The number of SAP Virtual Users to be reserved for the test.
+          The value is optional when the reservation mode is enabled and ignored when
+          "reservationId" value is defined or if the reservation mode is disabled.
+        schema: {type: integer, format: int32}
+      - name: publishTestResult
+        in: query
+        required: false
+        description: When "true" and the project is a collaborative project (other
+          than git) then the Test Result is published onto the server. If empty, the
+          default value is "false".
+        schema: {type: boolean}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunTestDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+        '501': {$ref: '#/components/responses/error_501'}
+  /v3/workspaces/{workspaceId}/test-results:
+    get:
+      operationId: GetTestResultList
+      summary: Lists Test Results
+      description: |
+        Lists the Test Results of the Workspace according to the method parameters.
+        ___
+        *Sortable fields :*
+          - name
+          - project
+          - startDate (descending sort by default : the most recent first)
+          - qualityStatus
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - name: status
+        in: query
+        required: false
+        description: Returns only the Test Results with the specified status.
+        schema:
+          type: string
+          enum: [STARTING, RUNNING, TERMINATED]
+      - name: project
+        in: query
+        required: false
+        description: Project name. Returns only the Test Results of the specified
+          project.
+        schema: {type: string}
+      - name: author
+        in: query
+        required: false
+        description: The author of the Test Result. Returns only the Test Results
+          launched by the specified author.
+        schema: {type: string}
+      - {$ref: '#/components/parameters/page_limit'}
+      - {$ref: '#/components/parameters/page_offset'}
+      - {$ref: '#/components/parameters/single_sort'}
+      - name: fields
+        in: query
+        required: false
+        description: Comma-separated list of fields to include in the json Test Result
+          definition.
+        schema: {type: string}
+      - name: pretty
+        in: query
+        required: false
+        description: If true the Json returned is human readable.
+        schema: {type: boolean}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfTestResultDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}:
+    get:
+      operationId: GetTestResult
+      summary: Test Result description
+      description: Provides a Test Result description using a unique Test Result identifier.
+        Provides name, dates, owner ...
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestResultDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    delete:
+      operationId: DeleteTestResult
+      summary: Deletes a Test Result
+      description: Deletes a Test Result and all the associated statistics. This action
+        cannot be undone.
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '204':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    patch:
+      operationId: UpdateTestResult
+      summary: Partially update a Test Result
+      description: Updates the specified fields of a Test Result. All fields are optional.
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestResultDefinition'}
+        '204':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestResultUpdateRequest'}
+        required: true
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/stop:
+    post:
+      operationId: StopTestResult
+      summary: Stop a running Test Result
+      description: Stop the running Test Result with the specified id
+      tags: [Tests|Runtime]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestResultStopRequest'}
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testResultId: {type: string, description: The unique identifier
+                      of the stopped Test Result.}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/logs:
+    get:
+      operationId: GetTestResultLogs
+      summary: Get the logs from a test result
+      description: The 1000th first lines of logs (timestamp, content and source)
+        about a specified test result. If the test result does not have any logs the
+        result will be an empty list.
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestResultLogs'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/events:
+    get:
+      operationId: GetTestResultEvents
+      summary: Test Result events
+      description: |
+        List the events of the specified Test Result according to the method parameters.
+        ___
+        *Sortable fields :*
+          - offset
+          - fullname
+          - code
+          - source
+      tags: [Results|Events]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/event_types'}
+      - {$ref: '#/components/parameters/page_limit'}
+      - {$ref: '#/components/parameters/page_offset'}
+      - {$ref: '#/components/parameters/single_sort'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfEventDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    post:
+      operationId: PostTestResultCustomEvent
+      summary: Create a Test Result custom event
+      description: |
+        Creates a Test Result custom event.
+
+        Custom events stored by this endpoint can be retrieved using the [GetTestResultEvents](#/Results/GetTestResultEvents) endpoint.
+
+        Custom events allow you to associate to a Test Result events that occurred outside of NeoLoad.
+
+        Custom events can have two different kinds of timeframe:
+          - INSTANT: an event having a timestamp and a duration of 0 seconds.
+          - TIME_RANGE: an event having a start timestamp and an end timestamp.
+
+        Custom events timestamps are in seconds.
+
+        The maximum of custom events per Test Result is 1000.
+
+        Custom events must match some constraints, see <a href="#model-PostCustomEventRequest">PostCustomEventRequest model</a> to get more details.
+        ____
+      tags: [Results|Events]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/PostCustomEventRequest'}
+        description: The custom event
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PostCustomEventResponse'}
+        '400':
+          description: An error occurred while processing the request. Please verify
+            the parameters and try again.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PostCustomEventError'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/events/{eventId}:
+    patch:
+      operationId: PatchTestResultCustomEvent
+      summary: Partially update a Test Result custom event
+      description: |
+        Update a field of an existing custom event:
+          - endTimestamp
+          - description
+          - url
+
+        Custom events with INSTANT timeframe can be patched to TIME_RANGE timeframe by setting an endTimestamp different than the startTimestamp.
+
+        Custom events with TIME_RANGE timeframe can be patched to INSTANT timeframe by setting an endTimestamp equals to the startTimestamp.
+
+        Custom events timestamps are in seconds.
+
+        Request to patch a custom event has some constraints, see <a href="#model-PatchCustomEventRequest">PatchCustomEventRequest model</a> to get more details.
+        ____
+      tags: [Results|Events]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/event-id'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/PatchCustomEventRequest'}
+        description: The patch of an existing custom event.
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PatchCustomEventResponse'}
+        '400':
+          description: An error occurred while processing the request. Please verify
+            the parameters and try again.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PatchCustomEventError_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404':
+          description: Resource not found. Please verify the parameters and try again.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PatchCustomEventError_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/statistics:
+    get:
+      operationId: GetTestResultStatistics
+      summary: Test Result main statistics
+      description: Provides the main statistics of a Test Result. For a runnning test,
+        these statistics are live, for a Test Result, those are average for the all
+        Test Result.
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestResultStatistics'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements:
+    get:
+      operationId: GetTestResultElements
+      summary: Test Result elements
+      description: Provides the tests elements of a Test Result. The elements type
+        must be provided.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - name: category
+        in: query
+        required: true
+        description: Category of the elements to return.
+        schema:
+          type: string
+          enum: [TRANSACTION, ACTION, PAGE, REQUEST]
+          default: TRANSACTION
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfElementDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/values:
+    get:
+      operationId: GetTestResultAllElementsValues
+      summary: Values for all elements of a Test Result
+      description: Provides the values for all elements of a Test Result.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - name: category
+        in: query
+        required: true
+        description: Category of elements to return.
+        schema:
+          type: string
+          enum: [TRANSACTION, ACTION, PAGE, REQUEST]
+          default: TRANSACTION
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Values'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/{elementId}:
+    get:
+      operationId: GetTestResultElementDefinition
+      summary: Test Result element definition
+      description: Provides a Test Result element definition.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/element_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ElementDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/{elementId}/values:
+    get:
+      operationId: GetTestResultElementsValues
+      summary: Test Result elements values
+      description: Provides the values of a Test Result element.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/element_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ElementValues'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/{elementId}/points:
+    get:
+      operationId: GetTestResultElementsPoints
+      summary: Test Results elements points since the beginning of the Test Result
+      description: Provides all the points of a Test Result element for the selected
+        statistics.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/element_id'}
+      - name: statistics
+        in: query
+        required: true
+        description: 'Comma-separated list of statistics to get. Available statistics
+          are: AVG_DURATION (ms), MIN_DURATION (ms), MAX_DURATION (ms), COUNT, THROUGHPUT
+          (Byte/s), ELEMENTS_PER_SECOND, ERRORS, ERRORS_PER_SECOND, ERROR_RATE (%),
+          AVG_TTFB (ms), MIN_TTFB (ms), MAX_TTFB (ms).<br/> Example: AVG_DURATION,ELEMENTS_PER_SECOND'
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Points'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/{elementId}/percentiles:
+    get:
+      operationId: GetTestResultElementsPercentiles
+      summary: Test Result percentiles transaction since the beginning of the Test
+        Result
+      description: Provides the percentiles of a Test Result transaction.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/element_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Percentiles'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/{elementId}/raw:
+    get:
+      operationId: GetTestRawResultElement
+      summary: Test Result raw data of a TRANSACTION element
+      description: |
+        Provides the Test Result raw data for an element of category TRANSACTION, with a content as CSV or JSON file. <br /><br /> <b><i>Retention period for raw data is 7 days after which this will be permanently deleted.</i></b>
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/element_id'}
+      - {$ref: '#/components/parameters/result-format'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+                allOf:
+                - {$ref: '#/components/schemas/TestElementRawResult'}
+            application/json:
+              schema:
+                type: string
+                format: binary
+                allOf:
+                - {$ref: '#/components/schemas/TestElementRawResult'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/elements/{elementId}/sla:
+    get:
+      operationId: GetTestResultElementsSla
+      summary: Test Result elements SLA status since the beginning of the Test Result
+      description: Provides the SLA status of a Test Result element.
+      tags: [Results|Elements]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/element_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Sla'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/monitors:
+    get:
+      operationId: GetTestResultMonitors
+      summary: Test Result monitors
+      description: Provides all the Test Result counters of all monitors for a Test
+        Result.
+      tags: [Results|Monitors]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CounterDefinitionArray'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    post:
+      operationId: PostTestResultMonitors
+      summary: Create custom monitors
+      description: |
+        Pushes monitoring data (external data) for a given running test. <br/><br/>
+        <b>Resolution limitation</b>: <ul>
+          <li>Maximum resolution for a monitor value is <b>1 per second</b>, otherwise <b>the first value is kept</b>.</li>
+        </ul>
+        <b>Maximum paths and monitors</b>: <ul>
+          <li>Maximum 100 different <b>unique</b> paths.</li>
+          <li>Maximum 50 different monitors for a given path.</li>
+          <li>Maximum length is 10 for a path.</li>
+        </ul>
+        <b>Other requirements</b>: <ul>
+          <li>'/' character is not allowed in path element.</li>
+          <li>The test must be <b>running</b> while pushing the data.</li>
+          <li>For a given timestamp, all monitors relative to a path must be sent in the same request.</li>
+          <li>These elements must not be empty: <b>monitor name</b>, <b>a path element</b> and <b>values</b>.</li>
+        </ul>
+      tags: [Results|Monitors]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '201': {description: Created}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/MonitorPostRequest'}
+        description: List of custom monitors
+        required: true
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/monitors/{counterId}:
+    get:
+      operationId: GetTestResultMonitorDefinition
+      summary: Test Result counter definition
+      description: Provides the definition of a Test Result counter.
+      tags: [Results|Monitors]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/counter_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CounterDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/monitors/{counterId}/values:
+    get:
+      operationId: GetTestResultMonitorsValues
+      summary: Test Result monitors values
+      description: Provides the values of a Test Result counter.
+      tags: [Results|Monitors]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/counter_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CounterValues'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/monitors/{counterId}/points:
+    get:
+      operationId: GetTestResultMonitorsPoints
+      summary: Test Result monitors points
+      description: Provides all the points of a Test Result counter. The values are
+        the average on the specified interval.
+      tags: [Results|Monitors]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/counter_id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Points'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/graph:
+    post:
+      operationId: GetTestResultGraph
+      summary: Test Result Graph
+      description: |
+        Provides a graph from some stats of a Test Result.
+
+        Element statistics can be mixed with monitor statistics. Only limitation is around PERCENTILES_DURATION element statistic that cannot be mixed with other element statistics neither with monitor statistics.
+        The graph width is limited to 800 pixels and the graph height is limited to 400 pixels.
+      tags: [Results|Reporting]
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestResultRasterConfiguration'}
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            image/png:
+              schema: {type: string, format: binary}
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/raw:
+    get:
+      operationId: GetTestRawResult
+      summary: Test Result raw data
+      description: |
+        Provides all the Test Result raw data, with a content as CSV or JSON file. <br /><br /> <b><i>This endpoint may produce large files depending on Test Results. For production purposes please prefer using an API client rather than the browser.</i></b> Provides the Test Result raw data for an element of category TRANSACTION, with a content as CSV or JSON file. <br /><br /> <b><i>Retention period for raw data is 7 days after which this will be permanently deleted.</i></b>
+      tags: [Results]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/result-format'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+                allOf:
+                - {$ref: '#/components/schemas/TestRawResult'}
+            application/json:
+              schema:
+                type: string
+                format: binary
+                allOf:
+                - {$ref: '#/components/schemas/TestRawResult'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/report:
+    post:
+      operationId: GetTestReportResult
+      summary: Test Result report
+      description: |
+        Provides the PDF Test Result report.
+      tags: [Results|Reporting]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestResultReportBody'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/pdf:
+              schema: {type: string, format: binary, description: A PDF file report
+                  of a Test Result.}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/graph:
+    post:
+      operationId: GetTestResultMultiGraph
+      summary: Test Results MultiGraph
+      description: Provides a graph from some stats of some Tests Result. The graph
+        width is limited to 800 pixels and the graph height is limited to 400 pixels.
+      tags: [Results|Reporting]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestResultRasterMultiConfiguration'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            image/png:
+              schema: {type: string, format: binary}
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/slas/statistics:
+    get:
+      operationId: GetTestResultSLAGlobalIndicators
+      summary: SLAs global indicators
+      description: Provides the SLAs global indicators of the Test Result.
+      tags: [Results|SLAs]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/sla_status'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfSLAGlobalIndicatorDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/slas/per-test:
+    get:
+      operationId: GetTestResultSLAPerTest
+      summary: SLAs per test
+      description: Provides the SLAs per test of a specific Test Result.
+      tags: [Results|SLAs]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/sla_status'}
+      - {$ref: '#/components/parameters/sla_category'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfSLAPerTestResultDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/slas/per-interval:
+    get:
+      operationId: GetTestResultSLAPerInterval
+      summary: SLAs per time interval
+      description: Provides the SLAs per time interval of a specific Test Result.
+      tags: [Results|SLAs]
+      parameters:
+      - {$ref: '#/components/parameters/workspace-id'}
+      - {$ref: '#/components/parameters/result-id'}
+      - {$ref: '#/components/parameters/sla_status'}
+      - {$ref: '#/components/parameters/sla_category'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfSLAPerIntervalDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/resources/zones:
+    get:
+      operationId: GetZones
+      summary: List all zones
+      description: Lists the zones.
+      tags: [Resources|Zones]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfZoneDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/resources/reservations:
+    get:
+      operationId: GetReservations
+      summary: Lists reservations
+      description: Lists the reservations.
+      tags: [Resources|Reservations]
+      parameters:
+      - {$ref: '#/components/parameters/from_date_time'}
+      - {$ref: '#/components/parameters/to_date_time'}
+      - {$ref: '#/components/parameters/page_limit'}
+      - {$ref: '#/components/parameters/page_offset'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ArrayOfReservationDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/resources/reservations/mode:
+    get:
+      operationId: GetReservationsMode
+      summary: Gives the current reservation mode
+      description: Gives the current reservation mode status of the account. The reservation
+        mode status is true if the reservation mode is ON else it is false.
+      tags: [Resources|Reservations]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ReservationModeDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    post:
+      operationId: switchReservationMode
+      summary: Changes the current reservation mode
+      description: Changes the current reservation mode by entering the wanted mode.
+        Enter true to switch on or false to switch off.
+      tags: [Resources|Reservations]
+      responses:
+        '200':
+          description: Successful
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+        '202': {$ref: '#/components/responses/success_202'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SwitchReservationPostRequest'}
+        description: Reservation mode wanted
+        required: true
+  /v3/information:
+    get:
+      operationId: GetInformation
+      summary: Lists information
+      description: Returns relevant information regarding Neoload Web resources and
+        version.
+      tags: [Information]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/InformationDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/usage:
+    get:
+      operationId: GetUsage
+      summary: Lists usage
+      description: |
+        Returns relevant usage. <br /><br /> <b><i>This endpoint may produce large files. For production purposes please prefer using an API client rather than the browser.</i></b> <br /><br />
+      tags: [Information]
+      parameters:
+      - {$ref: '#/components/parameters/from_date_time'}
+      - {$ref: '#/components/parameters/to_date_time'}
+      - {$ref: '#/components/parameters/usage_event_group'}
+      - {$ref: '#/components/parameters/usage_event_sub_group'}
+      - {$ref: '#/components/parameters/usage_page_limit'}
+      - {$ref: '#/components/parameters/page_offset'}
+      - {$ref: '#/components/parameters/usage-format'}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema: {type: string}
+          content:
+            text/csv:
+              schema: {$ref: '#/components/schemas/Usage'}
+            application/json:
+              schema: {$ref: '#/components/schemas/Usage'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/infrastructure-providers:
+    get:
+      tags: [Infrastructure Providers]
+      summary: Get all infrastructure providers of the current account
+      description: Get all infrastructure providers of the current account with its
+        information in a JSON format, one object per infrastructure providers
+      operationId: list_1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/DynamicInfrastructureProviderApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/users/{login}:
+    delete:
+      tags: [Administration of users]
+      summary: Delete a user
+      description: Delete a user with the specified login
+      operationId: delete_2
+      parameters:
+      - name: login
+        in: path
+        required: true
+        schema: {type: string}
+      - name: removeFromNeotysSaaSAccount
+        in: query
+        description: 'SaaS Account-Admin-only option: Remove the user from your Account
+          on the Neotys user platform'
+        schema: {type: boolean, default: false}
+      responses:
+        '204': {description: OK}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}:
+    get:
+      tags: [Workspaces]
+      summary: Get a Workspace
+      description: Get a Workspace
+      operationId: find
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FullWorkspaceDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    patch:
+      tags: [Workspaces]
+      summary: Update a Workspace
+      description: Update only the specified fields of the Workspace
+      operationId: patch_1
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/WorkspaceUpdateRequest'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FullWorkspaceDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/deletion-policies:
+    get:
+      tags: [Deletion Policies]
+      summary: Get all Policies of a Workspace
+      operationId: list
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/BenchDeletionPolicyApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    post:
+      tags: [Deletion Policies]
+      summary: Create a new deletion policy
+      description: Create a new deletion policy
+      operationId: create
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiFullRequestDto'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/deletion-policies/{deletionPolicyId}:
+    get:
+      tags: [Deletion Policies]
+      summary: Get one deletion policy
+      description: Get one deletion policy
+      operationId: get
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: deletionPolicyId
+        in: path
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    put:
+      tags: [Deletion Policies]
+      summary: Update a deletion policy
+      description: Update all field of the deletion policy
+      operationId: put
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: deletionPolicyId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiFullRequestDto'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    delete:
+      tags: [Deletion Policies]
+      summary: Delete a deletion policy
+      description: Delete a deletion policy
+      operationId: delete
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: deletionPolicyId
+        in: path
+        required: true
+        schema: {type: string}
+      responses:
+        '204': {description: OK}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    patch:
+      tags: [Deletion Policies]
+      summary: Partially Update a deletion policy
+      description: Update only the specified fields of the deletion policy
+      operationId: patch
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: deletionPolicyId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiUpdateRequestDto'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/BenchDeletionPolicyApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/members/add:
+    patch:
+      tags: [Workspaces]
+      summary: Add member(s) to a Workspace
+      description: Add member(s) to a Workspace
+      operationId: addMembersToWorkspace
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/MemberListDefinition'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FullWorkspaceDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/members/remove:
+    patch:
+      tags: [Workspaces]
+      summary: Remove member(s) from a Workspace
+      description: Remove member(s) from a Workspace
+      operationId: removeMembersFromWorkspace
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/MemberListDefinition'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FullWorkspaceDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/name/{workspaceName}:
+    delete:
+      tags: [Workspaces]
+      summary: Delete a Workspace
+      description: 'WARNING: All related resources will be deleted and definitively
+        lost. Delete the Workspace with the specified id. The Workspace name is also
+        required to make sure you actually delete the good Workspace.'
+      operationId: delete_1
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: workspaceName
+        in: path
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FullWorkspaceDefinition'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+  /v3/workspaces/{workspaceId}/tests/{testId}/analysis:
+    get:
+      tags: [Tests|Test Analysis]
+      summary: Get Test Analysis configuration
+      description: Get the Test Analysis configuration for the specified Test
+      operationId: get_1
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: testId
+        in: path
+        required: true
+        schema: {type: string}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestSettingsApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+    put:
+      tags: [Tests|Test Analysis]
+      summary: Update Test Analysis configuration
+      description: Update the Test Analysis configuration for the specified Test
+      operationId: put_1
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema: {type: string}
+      - name: testId
+        in: path
+        required: true
+        schema: {type: string}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TestSettingsApiFullRequestDto'}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TestSettingsApiResponseDto'}
+        '400': {$ref: '#/components/responses/error_400'}
+        '401': {$ref: '#/components/responses/error_401'}
+        '403': {$ref: '#/components/responses/error_403'}
+        '404': {$ref: '#/components/responses/error_404'}
+        '413': {$ref: '#/components/responses/error_413'}
+        '429': {$ref: '#/components/responses/error_429'}
+        '500': {$ref: '#/components/responses/error_500'}
+security:
+- NeoloadAuthorizer: []
+components:
+  parameters:
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema: {type: string}
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema: {type: string}
+    result-format:
+      name: format
+      in: query
+      required: true
+      schema:
+        type: string
+        enum: [CSV, JSON]
+        default: CSV
+      description: The format of the Test Result data.
+    usage-format:
+      name: format
+      in: query
+      required: true
+      schema:
+        type: string
+        enum: [JSON, CSV]
+        default: JSON
+      description: The format of the Usage data.
+    element_id:
+      name: elementId
+      in: path
+      required: true
+      description: Unique identifier representing a specific element.
+      schema: {type: string}
+    counter_id:
+      name: counterId
+      in: path
+      required: true
+      description: Unique identifier representing a specific counter.
+      schema: {type: string}
+    test-id:
+      name: testId
+      in: path
+      required: true
+      description: Unique identifier representing a specific test.
+      schema: {type: string}
+    event_types:
+      name: types
+      in: query
+      required: false
+      style: form
+      explode: false
+      description: |
+        The types of the events you expect to get. It will return all the types if the field is left empty. (Ctrl+click to select multiple values)
+      schema:
+        type: array
+        items: {$ref: '#/components/schemas/EventType'}
+    usage_event_group:
+      name: groups
+      in: query
+      required: false
+      style: form
+      explode: false
+      description: |
+        The types of the usage data you expect to get. It will return all the types if the field is left empty. (Ctrl+click to select multiple values)
+      schema:
+        type: array
+        items: {$ref: '#/components/schemas/UsageEventGroup'}
+    usage_event_sub_group:
+      name: subGroups
+      in: query
+      required: false
+      style: form
+      explode: false
+      description: |
+        The sub types of the usage data you expect to get. It will return all the types if the field is left empty. (Ctrl+click to select multiple values)
+      schema:
+        type: array
+        items: {$ref: '#/components/schemas/UsageEventSubGroup'}
+    page_limit:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of elements returned by this call. The maximum
+        must be less than or equal to 200.
+      schema: {type: integer, maximum: 200, default: 50}
+    usage_page_limit:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of elements returned by this call.
+      schema: {type: integer, default: 0}
+    page_offset:
+      name: offset
+      in: query
+      required: false
+      description: The offset of the first element to return. Starting at this offset,
+        the query will return a maximum of 'limit' elements.
+      schema: {type: integer, default: 0}
+    single_sort:
+      name: sort
+      in: query
+      required: false
+      description: The key to sort the elements on. It may begin with a '+' or a '-'
+        to specify an ascending or descending sort order. The list of available keys
+        can be found in the endpoint description.
+      schema: {type: string}
+    multi_sort:
+      name: sort
+      in: query
+      required: false
+      description: Comma-separated list of keys to sort the elements on. Each key
+        may begin with a '+' or a '-' to specify an ascending or descending sort order.
+        The list of available keys can be found in the endpoint description.
+      schema: {type: string}
+    sla_status:
+      name: status
+      in: query
+      schema:
+        type: string
+        enum: [PASSED, WARNING, FAILED]
+      description: The status of the element you expect to get the SLA for. It will
+        return all the statuses if the field is left empty.
+    sla_category:
+      name: category
+      in: query
+      schema:
+        type: string
+        enum: [TRANSACTION, ACTION, PAGE, REQUEST]
+      description: The category of the element you expect to get the SLA for. It will
+        return all the categories if the field is left empty.
+    from_date_time:
+      name: fromDateTime
+      in: query
+      required: false
+      description: Date-time with an offset of the beginning of the search. Format
+        YYYY-MM-DDTHH:mm:ssZ<br/> Example 2020-01-01T09:00:00+00:00
+      schema: {type: string}
+    to_date_time:
+      name: toDateTime
+      in: query
+      required: false
+      description: Date-time with an offset of the end of the search. Format YYYY-MM-DDTHH:mm:ssZ<br/>
+        Example 2020-01-01T09:00:00+00:00
+      schema: {type: string}
+    event-id:
+      name: eventId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result event.
+      schema: {type: string}
+  responses:
+    success_202:
+      description: The request has been processed, but no changes have been made due
+        to internal reasons.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Success_202_schemas'}
+    error_400:
+      description: An error occurred while processing the request. Please verify the
+        parameters and try again.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    error_403:
+      description: You are not allowed to process this request. Please verify the
+        parameters and try again.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is
+        reached. Try again soon.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/RateLimitError'}
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    error_501:
+      description: Not Implemented
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+  securitySchemes:
+    NeoloadAuthorizer: {type: apiKey, name: accountToken, in: header}
+  schemas:
+    Empty: {type: object, title: Empty Schema}
+    TestCreateRequest:
+      type: object
+      properties:
+        name: {type: string, description: Name of the test., example: New Test 1}
+        description: {type: string, description: Description of the test., example: My
+            description}
+    TestUpdate:
+      type: object
+      properties:
+        name: {type: string, description: Name of the test., example: New Test 1}
+        description: {type: string, description: Description of the test., example: My
+            description}
+        scenarioName: {type: string, description: The name of the selected scenario.,
+          example: scenario1}
+        controllerZoneId: {type: string, description: The identifier of the controller.,
+          example: defaultzone}
+        lgZoneIds:
+          description: The LG zones with the number of the LGs.
+          type: object
+          additionalProperties: {type: integer}
+          example: {defaultzone: 10, ZoneId: 5}
+        testResultNamingPattern: {type: string, description: Pattern of the Test Results
+            name., example: '#${runID}'}
+        controllerEnvironmentVariables:
+          description: The environment variables to set on the Controller machine
+            before starting the test. Allows to override controller.properties with
+            for example key NL_PROPERTY_[CATEGORY]_[MY_PROPERTY] and value [VALUE].
+            This functionality requires a Controller of version 2023.4 or higher.
+          type: object
+          additionalProperties: {type: string}
+          example: {NL_PROPERTY_MONITORS_LG_MONITORING_DELAY: '1000', NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY: '1000'}
+    TestCreate:
+      type: object
+      properties:
+        name: {type: string, description: Name of the test., example: New Test 1}
+        description: {type: string, description: Description of the test., example: My
+            description}
+        controllerZoneId: {type: string, description: The identifier of the controller.,
+          example: defaultzone}
+        lgZoneIds:
+          description: The LG zones with the number of the LGs.
+          type: object
+          additionalProperties: {type: integer}
+          example: {defaultzone: 10, ZoneId: 5}
+        loadInjectionProvider: {$ref: '#/components/schemas/LoadInjectionProvider'}
+        testResultNamingPattern: {type: string, description: Pattern of the Test Results
+            name., example: '#${runID}'}
+        controllerEnvironmentVariables:
+          description: The environment variables to set on the Controller machine
+            before starting the test. Allows to override controller.properties with
+            for example key NL_PROPERTY_[CATEGORY]_[MY_PROPERTY] and value [VALUE].
+            This functionality requires a Controller of version 2023.4 or higher.
+          type: object
+          additionalProperties: {type: string}
+          example: {NL_PROPERTY_MONITORS_LG_MONITORING_DELAY: '1000', NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY: '1000'}
+    TestCreated:
+      type: object
+      properties:
+        id: {type: string, description: Unique identifier of the test., example: 5ed5350f-9f2f-4e2a-9acb-cdbcee874256}
+        name: {type: string, description: Name of the test., example: New Test 1}
+        description: {type: string, description: Description of the test., example: My
+            description}
+        userModifierName: {type: string, description: Identifier of the user who modified
+            the test.}
+        creationDate: {type: integer, format: int64, description: 'Timestamp when
+            the test was created. Number of seconds since January 1, 1970.', example: 1582550441}
+        lastUpdateDate: {type: integer, format: int64, description: 'Timestamp when
+            the test was updated for the last time. Number of seconds since January
+            1, 1970.', example: 1582550442}
+        controllerZoneId: {type: string, description: The identifier of the controller.,
+          example: defaultzone}
+        lgZoneIds:
+          description: The LG zones with the number of the LGs.
+          type: object
+          additionalProperties: {type: integer}
+          example: {defaultzone: 10, ZoneId: 5}
+        nextRunId: {type: number, description: The next run number. The value is incremented
+            at each execution of the test.}
+        testResultNamingPattern: {type: string, description: Pattern of the Test Results
+            name., example: '#${runID}'}
+        controllerEnvironmentVariables:
+          description: The environment variables to set on the Controller machine
+            before starting the test. Allows to override controller.properties with
+            for example key NL_PROPERTY_[CATEGORY]_[MY_PROPERTY] and value [VALUE].
+            This functionality requires a Controller of version 2023.4 or higher.
+          type: object
+          additionalProperties: {type: string}
+          example: {NL_PROPERTY_MONITORS_LG_MONITORING_DELAY: '1000', NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY: '1000'}
+        loadInjectionProvider: {$ref: '#/components/schemas/LoadInjectionProvider'}
+    LoadInjectionProvider:
+      description: Test injection provider type
+      type: string
+      default: NEOLOAD
+      enum: [NEOLOAD, JMETER]
+    TestDefinitionList:
+      type: array
+      description: The list of TestDefinition.
+      items: {$ref: '#/components/schemas/TestDefinition'}
+    TestDefinition:
+      type: object
+      properties:
+        id: {type: string, description: Unique identifier of the test., example: 5ed5350f-9f2f-4e2a-9acb-cdbcee874256}
+        name: {type: string, description: Name of the test., example: New Test 1}
+        description: {type: string, description: Description of the test., example: My
+            description}
+        userModifierName: {type: string, description: Identifier of the user who modified
+            the test.}
+        creationDate: {type: integer, format: int64, description: 'Timestamp when
+            the test was created. Number of seconds since January 1, 1970.', example: 1582550441}
+        lastUpdateDate: {type: integer, format: int64, description: 'Timestamp when
+            the test was updated for the last time. Number of seconds since January
+            1, 1970.', example: 1582550442}
+        scenarioName: {type: string, description: The name of the selected scenario.,
+          example: scenario1}
+        controllerZoneId: {type: string, description: The identifier of the controller.,
+          example: defaultzone}
+        projectId: {type: string, description: Id of project file., example: 5e5fc0102cc4f82e5d9e18d4}
+        projectName: {type: string, description: Name of the project., example: Sample
+            Project}
+        lgZoneIds:
+          description: The LG zones with the number of the LGs.
+          type: object
+          additionalProperties: {type: integer}
+          example: {defaultzone: 10, ZoneId: 5}
+        lastRunDate: {type: integer, format: int64, description: 'Timestamp when the
+            test was ran for the last time. Number of seconds since January 1, 1970.',
+          example: 1582550442}
+        nextRunId: {type: number, description: The next run number. The value is incremented
+            at each execution of the test.}
+        testResultNamingPattern: {type: string, description: Pattern of the Test Results
+            name., example: '#${runID}'}
+        controllerEnvironmentVariables:
+          description: The environment variables to set on the Controller machine
+            before starting the test. Allows to override controller.properties with
+            for example key NL_PROPERTY_[CATEGORY]_[MY_PROPERTY] and value [VALUE].
+            This functionality requires a Controller of version 2023.4 or higher.
+          type: object
+          additionalProperties: {type: string}
+          example: {NL_PROPERTY_MONITORS_LG_MONITORING_DELAY: '1000', NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY: '1000'}
+        loadInjectionProvider: {$ref: '#/components/schemas/LoadInjectionProvider'}
+    GetTestDefinition:
+      allOf:
+      - {$ref: '#/components/schemas/TestDefinition'}
+      - type: object
+        properties:
+          scenario:
+            description: Custom scenario from the test, additional info on as-code
+              scenario can be found on http://www.neotys.com/redirect/redirect.php?target=doc-yaml-scenario
+            type: object
+            required: [name, populations]
+            properties:
+              name: {type: string, description: 'Unique name/identifier of the scenario,
+                  identical to the name of the test.', example: New Test 1}
+              store_variables_for_raw_data: {type: boolean, default: false, description: This
+                  option allows storing variables for raw data.}
+              populations:
+                type: array
+                description: The list of runtime settings per population
+                items:
+                  oneOf:
+                  - type: object
+                    required: [name, rampup_load]
+                    properties:
+                      name: {type: string, description: The name of the population
+                          from NeoLoad project., example: populationRampup}
+                      rampup_load:
+                        type: object
+                        description: A load that generates a number of Virtual Users
+                          that increases throughout the test. Useful for checking
+                          the server behavior under an increasing load.
+                        required: [min_users, max_users, increment_users, increment_every,
+                          duration]
+                        properties:
+                          min_users: {type: number, description: The initial number
+                              of Virtual Users., example: 2}
+                          max_users: {type: number, description: The maximum number
+                              of Virtual Users., example: 10}
+                          increment_users: {type: number, description: The number
+                              of Virtual Users to increment., example: 2}
+                          increment_every: {type: string, description: 'The incrementation
+                              frequency: time length (XhXmXs) or number of iterations
+                              (X iteration or X iterations).', example: 1m}
+                          duration: {type: string, description: 'The duration of the
+                              load policy: time length (XhXmXs) or number of iterations
+                              (X iteration or X iterations).', example: 4m30s}
+                          increment_rampup: {type: string, description: 'Define how
+                              Virtual Users should be started: simultaneously or with
+                              a preset delay (XhXmXs). This rule is used each time
+                              new Virtual Users are created, at each load increase
+                              for a ramp-up load policy.', example: 30s}
+                  - type: object
+                    required: [name, constant_load]
+                    properties:
+                      name: {type: string, description: The name of the population
+                          from NeoLoad project., example: populationConstant}
+                      constant_load:
+                        type: object
+                        description: A load that generates a fixed number of Virtual
+                          Users.
+                        required: [users, duration]
+                        properties:
+                          users: {type: number, description: The fixed number of Virtual
+                              Users., example: 10}
+                          duration: {type: string, description: 'The duration of the
+                              load policy: time length (XhXmXs) or number of iterations
+                              (X iteration or X iterations).', example: 1h}
+                          rampup: {type: string, description: 'Define how Virtual
+                              Users should be started: simultaneously or with a preset
+                              delay (XhXmXs).', example: 10m}
+    TestResultDefinition:
+      type: object
+      properties:
+        id: {type: string, description: Unique identifier of the Test Result.}
+        name: {type: string, description: Name of the Test Result.}
+        description: {type: string, description: Description of the Test Result.}
+        author: {type: string, description: First and Last name of the person who
+            launched the test.}
+        terminationReason:
+          type: string
+          enum: [POLICY, VARIABLE, MANUAL, LG_AVAILABILITY, LICENSE, FAILED_TO_START,
+            CANCELLED, RESERVATION_ENDED, UNKNOWN]
+          description: Reason that caused the test to end.
+        lgCount: {type: integer, description: Total number of Load Generators used
+            in the Test Result.}
+        project: {type: string, description: Name of the project.}
+        scenario: {type: string, description: Name of the scenario.}
+        status:
+          type: string
+          enum: [INIT, STARTING, RUNNING, TERMINATED, UNKNOWN]
+          description: Status of the Test Result.
+        qualityStatus:
+          type: string
+          enum: [PASSED, FAILED, COMPUTING, UNKNOWN]
+          description: Quality status of the Test Result.
+        startDate: {type: integer, format: int64, description: Timestamp when the
+            test started.}
+        endDate: {type: integer, format: int64, description: Timestamp when the test
+            ended.}
+        duration: {type: integer, format: int64, description: Test duration in seconds.}
+        testId: {type: string, description: Unique identifier of the test., example: 5ed5350f-9f2f-4e2a-9acb-cdbcee874256}
+        externalUrl: {type: string, description: 'Optional URL to an external system,
+            for example the CI job''s link.', example: 'https://dev.azure.com/myorg/myproject/_build?definitionId=123'}
+        externalUrlLabel: {type: string, description: 'Optional label to describe
+            the external URL, for example the CI name or job ID.', example: AzureDevOps#123}
+        isLocked: {type: boolean, description: Locks a Test Result (avoid automatic
+            deletion).}
+    TestResultStopRequest:
+      type: object
+      properties:
+        stopPolicy:
+          type: string
+          enum: [GRACEFUL, TERMINATE]
+          description: How to stop the Test Result. Default is GRACEFUL.<ul><li>GRACEFUL
+            stops gently the Test Result.</li><li>TERMINATE terminates the Test Result
+            (kill it).</li></ul>
+          example: GRACEFUL
+    TestResultLogs:
+      type: object
+      properties:
+        content: {type: string, description: The content of the log.}
+        timestamp: {type: integer, format: int64, description: The timestamp (GMT+0)
+            in millisecond of the operation described by the content.}
+        type: {type: string, description: The source of the log line.}
+    TestResultUpdateRequest:
+      type: object
+      properties:
+        name: {type: string, description: Name of the Test Result.}
+        description: {type: string, description: Description of the Test Result.}
+        qualityStatus:
+          type: string
+          enum: [PASSED, FAILED]
+          description: Quality status of the Test Result.
+        externalUrl: {type: string, description: 'Optional URL to an external system,
+            for example the CI job''s link.'}
+        externalUrlLabel: {type: string, description: 'Optional label to describe
+            the external URL, for example the CI name or job ID.'}
+        isLocked: {type: boolean, description: Locks a Test Result (avoid automatic
+            deletion).}
+        workspaceId: {type: string, description: 'Workspace of the Test Result. WARNING
+            ! When moving a Test Result to another Workspace, all the dashboards data
+            linked to the selected Test Results will be deleted! Running Test Results
+            will not be moved.'}
+        testId: {type: string, description: Test of the Test Result.}
+    SwitchReservationPostRequest:
+      type: object
+      properties:
+        enabled: {type: boolean}
+    MonitorPostRequest:
+      type: object
+      properties:
+        monitors:
+          type: array
+          items: {$ref: '#/components/schemas/CustomMonitor'}
+    TestResultStatistics:
+      type: object
+      properties:
+        totalRequestCountSuccess: {type: integer, format: int64, description: Total
+            number of requests in the scenario that did not encounter any error.}
+        totalRequestCountFailure: {type: integer, format: int64, description: Total
+            number of requests in the scenario that encountered errors.}
+        totalRequestDurationAverage: {type: number, format: float, description: Average
+            time in seconds for all requests of the scenario to be performed (from
+            first byte sent to last byte received).}
+        totalRequestCountPerSecond: {type: number, format: float, description: Total
+            number of requests in the scenario that are performed per second.}
+        totalTransactionCountSuccess: {type: integer, format: int64, description: Total
+            number of the scenario Transactions executed without encountering any
+            error.}
+        totalTransactionCountFailure: {type: integer, format: int64, description: Total
+            number of the scenario Transactions executed with errors.}
+        totalTransactionDurationAverage: {type: number, format: float, description: Average
+            time in seconds for all Transactions of the scenario to be executed.}
+        totalTransactionCountPerSecond: {type: number, format: float, description: Total
+            number of the scenario Transactions executed per second.}
+        totalIterationCountSuccess: {type: integer, format: int64, description: Total
+            number of times when the 'Actions' Container was run for each Virtual
+            User without encountering any error.}
+        totalIterationCountFailure: {type: integer, format: int64, description: Total
+            number of times when the 'Actions' Container was run for each Virtual
+            User and encountered an error.}
+        totalGlobalDownloadedBytes: {type: integer, format: int64, description: Total
+            size of http traffic received in bytes.}
+        totalGlobalDownloadedBytesPerSecond: {type: number, format: float, description: Average
+            size of http traffic received in bytes per second.}
+        totalGlobalCountFailure: {type: integer, format: int64, description: ''}
+        lastRequestCountPerSecond: {type: number, format: float, description: Last
+            value received for the number of requests in the scenario that are performed
+            per second.}
+        lastTransactionDurationAverage: {type: number, format: float, description: Last
+            value received for the average time in milliseconds for all Transactions
+            of the scenario.}
+        lastVirtualUserCount: {type: integer, format: int32, description: Last value
+            received for the total number of Virtual Users executed in the test.}
+    ElementDefinition:
+      type: object
+      properties:
+        id: {type: string, description: Unique identifier of the element., example: a6f2f595-7b62-4dc4-9368-a1cf670cd924}
+        name: {type: string, description: Name of the element., example: /home/login}
+        path:
+          type: array
+          description: Full path of the element including the element itself.
+          items: {type: string}
+          example: [UserPath, Actions, Transaction login, Login page, /home/login]
+        type: {type: string, description: Type of the element.}
+    Values:
+      type: array
+      items:
+        type: object
+        properties:
+          elementId: {type: string, description: Unique identifier of the element.,
+            example: a6f2f595-7b62-4dc4-9368-a1cf670cd924}
+          userpath: {type: string, description: The name of the user path in which
+              the element is., example: MyUserpath}
+          count: {type: integer, format: int64, description: 'Count statistics are
+              the number of full executions of an element of a User Path. If the element
+              is interrupted (because of error or end of test), then the count number
+              is not incremented.'}
+          elementPerSecond: {type: number, format: float, description: Number of iterations
+              of the element per second.}
+          minDuration: {type: integer, format: int64, description: 'Shortest response
+              time, in milliseconds.'}
+          maxDuration: {type: integer, format: int64, description: 'Longest response
+              time, in milliseconds.'}
+          avgDuration: {type: number, format: float, description: 'Average response
+              time, in milliseconds.'}
+          minTTFB: {type: integer, format: int64, description: 'Shortest time to first
+              byte, in milliseconds.'}
+          maxTTFB: {type: integer, format: int64, description: 'Longest time to first
+              byte, in milliseconds.'}
+          avgTTFB: {type: number, format: float, description: 'Average time to first
+              byte, in milliseconds.'}
+          failureCount: {type: integer, format: int64, description: Count of failed
+              iterations.}
+          failureRate: {type: number, format: float, description: Percentage of failed
+              iterations out of count.}
+          percentile50: {type: number, format: float, description: '50th percentile
+              of the element duration, in milliseconds.'}
+          percentile90: {type: number, format: float, description: '90th percentile
+              of the element duration, in milliseconds.'}
+          percentile95: {type: number, format: float, description: '95th percentile
+              of the element duration, in milliseconds.'}
+          percentile99: {type: number, format: float, description: '99th percentile
+              of the element duration, in milliseconds.'}
+          standardDeviation: {type: number, format: float, description: 'Standard
+              deviation of the element duration, in milliseconds.'}
+    ElementValues:
+      type: object
+      properties:
+        count: {type: integer, format: int64, description: 'Count statistics are the
+            number of full executions of an element of a User Path. If the element
+            is interrupted (because of error or end of test), then the count number
+            is not incremented.'}
+        elementPerSecond: {type: number, format: float, description: Number of iterations
+            of the element per second.}
+        minDuration: {type: integer, format: int64, description: 'Shortest response
+            time, in milliseconds.'}
+        maxDuration: {type: integer, format: int64, description: 'Longest response
+            time, in milliseconds.'}
+        sumDuration: {type: integer, format: int64, description: 'Sum of response
+            time of all iterations, in milliseconds.'}
+        avgDuration: {type: number, format: float, description: 'Average response
+            time, in milliseconds.'}
+        minTTFB: {type: integer, format: int64, description: 'Shortest time to first
+            byte, in milliseconds.'}
+        maxTTFB: {type: integer, format: int64, description: 'Longest time to first
+            byte, in milliseconds.'}
+        sumTTFB: {type: integer, format: int64, description: 'Sum of time to first
+            byte of all iterations, in milliseconds.'}
+        avgTTFB: {type: number, format: float, description: 'Average time to first
+            byte, in milliseconds.'}
+        sumDownloadedBytes: {type: integer, format: int64, description: 'Total size
+            of network traffic for the element, in bytes.'}
+        downloadedBytesPerSecond: {type: number, format: float, description: 'Average
+            size of network traffic for the element, in bytes per seconds.'}
+        successCount: {type: integer, format: int64, description: Count of succeeded
+            iterations.}
+        successPerSecond: {type: number, format: float, description: Count of succeeded
+            iterations per second.}
+        successRate: {type: number, format: float, description: Percentage of succeeded
+            iterations out of count.}
+        failureCount: {type: integer, format: int64, description: Count of failed
+            iterations.}
+        failurePerSecond: {type: number, format: float, description: Count of failed
+            iterations per second.}
+        failureRate: {type: number, format: float, description: Percentage of failed
+            iterations out of count.}
+        percentile50: {type: number, format: float, description: '50th percentile
+            of the element duration, in milliseconds.'}
+        percentile90: {type: number, format: float, description: '90th percentile
+            of the element duration, in milliseconds.'}
+        percentile95: {type: number, format: float, description: '95th percentile
+            of the element duration, in milliseconds.'}
+        percentile99: {type: number, format: float, description: '99th percentile
+            of the element duration, in milliseconds.'}
+        standardDeviation: {type: number, format: float, description: 'Standard deviation
+            of the element duration, in milliseconds.'}
+    Sla:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [PASSED, WARNING, FAILED, NO SLA]
+    CustomMonitorValues:
+      type: array
+      items:
+        type: object
+        properties:
+          timestamp: {type: integer, format: int64, description: Timestamp in seconds
+              for the value.}
+          value: {type: number, format: float, description: Number for the value.}
+    Points:
+      type: array
+      items: {$ref: '#/components/schemas/Point'}
+    Point:
+      type: object
+      properties:
+        from: {type: integer, format: int64, description: ''}
+        to: {type: integer, format: int64, description: ''}
+        AVG_DURATION: {type: number, format: float, description: ''}
+        MIN_DURATION: {type: number, format: float, description: ''}
+        MAX_DURATION: {type: number, format: float, description: ''}
+        COUNT: {type: number, format: float, description: ''}
+        THROUGHPUT: {type: number, format: float, description: ''}
+        ELEMENTS_PER_SECOND: {type: number, format: float, description: ''}
+        ERRORS: {type: number, format: float, description: ''}
+        ERRORS_PER_SECOND: {type: number, format: float, description: ''}
+        ERROR_RATE: {type: number, format: float, description: ''}
+        AVG_TTFB: {type: number, format: float, description: ''}
+        MIN_TTFB: {type: number, format: float, description: ''}
+        MAX_TTFB: {type: number, format: float, description: ''}
+        AVG: {type: number, format: float, description: ''}
+    CounterDefinitionArray:
+      type: array
+      items: {$ref: '#/components/schemas/CounterDefinition'}
+    CounterDefinition:
+      type: object
+      properties:
+        id: {type: string, description: Unique identifier of the counter.}
+        name: {type: string, description: Name of the counter.}
+        path:
+          type: array
+          description: Full path of the counter including the counter itself.
+          items: {type: string}
+    CustomMonitor:
+      type: object
+      properties:
+        name: {type: string, description: Name of custom monitor.}
+        path:
+          type: array
+          description: Path of the custom monitor.
+          items: {type: string}
+        unit: {type: string, description: Unit of the custom monitor.}
+        values: {type: object, required: true, $ref: '#/components/schemas/CustomMonitorValues'}
+    CounterValues:
+      type: object
+      properties:
+        count: {type: integer, format: int64, description: ''}
+        min: {type: integer, format: int64, description: ''}
+        max: {type: integer, format: int64, description: ''}
+        sum: {type: integer, format: int64, description: ''}
+        avg: {type: number, format: float, description: ''}
+    Success_202_schemas:
+      type: object
+      properties:
+        code: {type: integer}
+        message: {type: string}
+      description: |
+        Existing error codes are:
+        - HTTP 202 | Code: 501 | Message : All connected resources must be available.
+        - HTTP 202 | Code: 502 | Message : Your license does not allow you to turn on the reservation mode.
+    Error:
+      type: object
+      properties:
+        code: {type: integer}
+        message: {type: string}
+      description: |
+        Existing error codes are:
+        - HTTP 401 | Code: 101 | Message : Unauthorized, please provide an API token.
+        - HTTP 429 | Code: 102 | Message : Too many requests, you reached your maximum number of requests per minute.
+        - HTTP 403 | Code: 103 | Message : Unauthorized operation for the given API token, please provide an API token with sufficient privilege
+        - HTTP 400 | Code: 104 | Message : Error while parsing json body.
+        - HTTP 400 | Code: 105 | Message : Entity not in the specified Workspace.
+        - HTTP 404 | Code: 201 | Message : Test Result not found.
+        - HTTP 400 | Code: 202 | Message : Error while requesting the Test Result
+        - HTTP 400 | Code: 203 | Message : Error while searching the Test Result
+        - HTTP 400 | Code: 204 | Message : Type is mandatory as request parameter.
+        - HTTP 400 | Code: 205 | Message : Invalid element type in request.
+        - HTTP 400 | Code: 206 | Message : Error requesting aggregated values.
+        - HTTP 400 | Code: 207 | Message : Error requesting elements.
+        - HTTP 400 | Code: 208 | Message : Element ID is mandatory in request path.
+        - HTTP 400 | Code: 209 | Message : Invalid element id in request.
+        - HTTP 400 | Code: 210 | Message : Statistics is mandatory in request path.
+        - HTTP 400 | Code: 211 | Message : Invalid statistic in request.
+        - HTTP 400 | Code: 212 | Message : Error getting monitors.
+        - HTTP 400 | Code: 213 | Message : Error getting monitor values.
+        - HTTP 400 | Code: 214 | Message : Error getting monitor points.
+        - HTTP 400 | Code: 215 | Message : Monitor ID is mandatory in request path.
+        - HTTP 400 | Code: 216 | Message : Test ID is mandatory in request path.
+        - HTTP 400 | Code: 217 | Message : Error while deleting the test. This test is not TERMINATED.
+        - HTTP 400 | Code: 218 | Message : Error while deleting the test.
+        - HTTP 400 | Code: 219 | Message : Error requesting aggregated points.
+        - HTTP 400 | Code: 220 | Message : Error requesting SLA status for element.
+        - HTTP 400 | Code: 221 | Message : Error updating a Test Result.
+        - HTTP 404 | Code: 222 | Message : Fail to attach the Test Result to a Test because Test not found.
+        - HTTP 204 | Code: 223 | Message : Update successful, no content.
+        - HTTP 400 | Code: 224 | Message : Error while parsing json body for updating a test.
+        - HTTP 400 | Code: 225 | Message : Error while parsing json body for custom monitors.
+        - HTTP 400 | Code: 226 | Message : Error while creating custom monitors.
+        - HTTP 400 | Code: 227 | Message : Path too long.
+        - HTTP 400 | Code: 228 | Message : Clock Synchronization Issue: timestamp received before the beginning of the test.
+        - HTTP 400 | Code: 229 | Message : Clock Synchronization Issue: timestamp received more than 10 minutes in the future.
+        - HTTP 400 | Code: 230 | Message : Duplicate key: same timestamp and same path received in multiple requests.
+        - HTTP 400 | Code: 231 | Message : Max number of Paths reached.
+        - HTTP 400 | Code: 232 | Message : Max number of Monitors reached.
+        - HTTP 400 | Code: 233 | Message : '|' character is not allowed.
+        - HTTP 400 | Code: 234 | Message : A test is already launching.
+        - HTTP 400 | Code: 235 | Message : Error while parsing the LG zones parameter.
+        - HTTP 400 | Code: 236 | Message : NeoLoad project file ID does not exist.
+        - HTTP 400 | Code: 237 | Message : NeoLoad project not found.
+        - HTTP 400 | Code: 238 | Message : Upload project URL not found.
+        - HTTP 400 | Code: 239 | Message : The scenario does not exist.
+        - HTTP 400 | Code: 240 | Message : The size of the image to generate is invalid.
+        - HTTP 400 | Code: 241 | Message : Reservation parameters are invalid.
+        - HTTP 400 | Code: 242 | Message : Reservation duration must be at least 60 seconds.
+        - HTTP 400 | Code: 243 | Message : Reservation not found.
+        - HTTP 400 | Code: 244 | Message : Reservation is failed or not ready to use.
+        - HTTP 400 | Code: 245 | Message : Reservation not matching scenario requirements: Number of virtual users.
+        - HTTP 400 | Code: 246 | Message : Unauthorized Reservation
+        - HTTP 400 | Code: 247 | Message : Error requesting SLA Per-Run of the Test Result.
+        - HTTP 400 | Code: 248 | Message : Error requesting SLA Per-Run while the test is not terminated.
+        - HTTP 400 | Code: 249 | Message : As-code file extension must be yaml, yml or json.
+        - HTTP 400 | Code: 250 | Message : Error getting Test Results events.
+        - HTTP 400 | Code: 251 | Message : Error requesting element.
+        - HTTP 400 | Code: 252 | Message : Error requesting counter.
+        - HTTP 400 | Code: 253 | Message : Invalid monitor id in request.
+        - HTTP 400 | Code: 254 | Message : Invalid as-code file path.
+        - HTTP 400 | Code: 255 | Message : Error requesting all zones.
+        - HTTP 400 | Code: 256 | Message : Error requesting all reservations.
+        - HTTP 400 | Code: 257 | Message : The date is not in the right format.
+        - HTTP 400 | Code: 306 | Message : Date range invalid, start date should be before end date.
+        - HTTP 400 | Code: 260 | Message : Requested statistics are not valid, PERCENTILES_DURATION must not be mixed with other element statistics neither with monitor statistic.
+        - HTTP 400 | Code: 261 | Message : A test with the same name already exists.
+        - HTTP 400 | Code: 262 | Message : Error while processing json body. It is not a valid json.
+        - HTTP 400 | Code: 263 | Message : The name property is required.
+        - HTTP 400 | Code: 264 | Message : The property lgZones is a bad format.
+        - HTTP 404 | Code: 265 | Message : Test not found.
+        - HTTP 400 | Code: 266 | Message : Format is mandatory as request parameter.
+        - HTTP 400 | Code: 267 | Message : Invalid format in request.
+        - HTTP 400 | Code: 268 | Message : This name is already used for a scenario in the project.
+        - HTTP 400 | Code: 270 | Message : Fail to move to Workspace and attach to a Test because Test not in destination Workspace.
+        - HTTP 400 | Code: 271 | Message : Fail to move to Workspace and attach to a Test.
+        - HTTP 400 | Code: 272 | Message : The Test Result has been successfully moved to the specified Workspace and Test but other fields update failed.
+        - HTTP 400 | Code: 275 | Message : Unknown stopPolicy value. Allowed are TERMINATE or GRACEFUL.
+        - HTTP 400 | Code: 276 | Message : Error stopping the test.
+        - HTTP 400 | Code: 277 | Message : Error stopping the test. The test is not running.
+        - HTTP 400 | Code: 278 | Message : Zone does not exist.
+        - HTTP 400 | Code: 279 | Message : Error starting the test.
+        - HTTP 400 | Code: 280 | Message : The workspace id is mandatory.
+        - HTTP 400 | Code: 281 | Message : The workspace name can't be empty.
+        - HTTP 400 | Code: 282 | Message : The workspace name already exist.
+        - HTTP 400 | Code: 283 | Message : Can not delete default workspace.
+        - HTTP 400 | Code: 284 | Message : The workspace can not be deleted : One or more tests are running.
+        - HTTP 400 | Code: 285 | Message : Login(s) don't exist : ${loginList}
+        - HTTP 400 | Code: 286 | Message : Workspace id and name do not match, not proceeding.
+        - HTTP 400 | Code: 287 | Message : Workspace is public (allUsersEnabled) : can not specify members.
+        - HTTP 404 | Code: 288 | Message : The workspace does not exist.
+        - HTTP 404 | Code: 289 | Message : No data found.
+        - HTTP 400 | Code: 290 | Message : This user is still in the LDAP, to remove it from NLWeb, remove it from the LDAP. No need to call this endpoint.
+        - HTTP 404 | Code: 291 | Message : This user does not exist.
+        - HTTP 400 | Code: 292 | Message : This option is only allowed in NLWeb SaaS.
+        - HTTP 400 | Code: 293 | Message : User self-deletion is forbidden.
+        - HTTP 400 | Code: 294 | Message : Only allowed for users with Account Administrator roles (SaaS only role).
+        - HTTP 400 | Code: 295 | Message : User "admin" cannot be deleted.
+        - HTTP 400 | error: FILE_ID_NOT_FOUND | Message : File ID not found.
+        - HTTP 400 | error: FILE_CANCELED | Message : Upload for file ID has been canceled.
+        - HTTP 400 | error: INVALID_FILE_STATUS | Message : File status is invalid.
+        - HTTP 400 | error: INVALID_FILE_ID | Message : Invalid file ID.
+        - HTTP 400 | error: FILE_TOO_LARGE | Message : File is too large.
+        - HTTP 400 | error: MAX_UPLOADED_FILES_REACHED | Message : Maximum uploaded files is reached.
+        - HTTP 400 | error: PARSING_ERROR_NO_NLP | Message : No .nlp file found in project archive.
+        - HTTP 400 | error: PARSING_ERROR_NO_SCENARIO_DEFINED | Message : No NeoLoad scenario found in project archive.
+        - HTTP 400 | error: PARSING_INVALID_ZIP_STREAM | Message : Invalid stream, not a zip.
+        - HTTP 400 | error: PARSING_INVALID_AS_CODE_FILE | Message : Invalid as-code file.
+        - HTTP 400 | error: PARSING_INVALID_AS_CODE_FILE_PATH | Message : Invalid as-code file path found.
+        - HTTP 400 | Code: 304 | Message : Invalid color in request.
+        - HTTP 400 | Code: 305 | Message : The field elementPath is mandatory.
+        - HTTP 400 | Code: 450 | Message : No Controller available in the given zone.
+        - HTTP 400 | Code: 451 | Message : Controllers in the given zone can not be used, minimum version requirement not fulfilled.
+        - HTTP 400 | Code: 452 | Message : Not enough Load Generator for available Controller versions, Controller and Load Generator need to have the same version in a run.
+        - HTTP 400 | Code: 454 | Message : Not enough VU from license for running the test.
+        - HTTP 400 | Code: 456 | Message : Not enough VU from reservation for running the test.
+        - HTTP 400 | Code: 457 | Message : Reservation duration is not enough for running the test, it must be longer than the test duration increased by 20 minutes.
+        - HTTP 400 | Code: 458 | Message : The number of Cloud Load Generators exceeds the current capacity. Please contact your NeoLoad representative.
+        - HTTP 400 | Code: 459 | Message : The number of Dynamic Load Generators exceeds the current capacity. Please contact your NeoLoad representative.
+        - HTTP 400 | Code: 460 | Message : The Neoload cloud platform is not available.
+        - HTTP 400 | Code: 461 | Message : Not enough cloud credits available to start NCP infrastructure.
+        - HTTP 400 | Code: 462 | Message : Not enough VUH available for running the test.
+        - HTTP 400 | Code: 463 | Message : Not enough concurrent runs available.
+        - HTTP 503 | Code: 300 | Message : An unexpected error occurred while processing the request.
+        - HTTP 501 | Code: 301 | Message : Not supported when the reservation mode is enabled.
+        - HTTP 501 | Code: 302 | Message : Not supported when the reservation mode is OFF.
+        - HTTP 413 | Message : Request Entity Too Large.
+    PostCustomEventError:
+      type: object
+      properties:
+        code: {type: integer, example: 404}
+        message: {type: string, example: Event start timestamp is after the bench
+            end timestamp. Make sure the timestamp is in seconds.}
+      description: |
+        - HTTP 400 | Code: 400 | Message : Error while parsing json body for custom event.
+        - HTTP 400 | Code: 401 | Message : Bench did not start yet.
+        - HTTP 400 | Code: 402 | Message : Event start timestamp is before bench start timestamp.
+        - HTTP 400 | Code: 403 | Message : Event start timestamp is in the future. Make sure the timestamp is in seconds.
+        - HTTP 400 | Code: 404 | Message : Event start timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+        - HTTP 400 | Code: 405 | Message : Event end timestamp is before the event start timestamp.
+        - HTTP 400 | Code: 406 | Message : Event end timestamp is in the future. Make sure the timestamp is in seconds.
+        - HTTP 400 | Code: 407 | Message : Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+        - HTTP 400 | Code: 408 | Message : Event with INSTANT timeframe cannot have a end timestamp.
+        - HTTP 400 | Code: 409 | Message : Event name is empty.
+        - HTTP 400 | Code: 410 | Message : Event name is too long.
+        - HTTP 400 | Code: 411 | Message : Event code is too long.
+        - HTTP 400 | Code: 412 | Message : Event source is too long.
+        - HTTP 400 | Code: 413 | Message : Event description is too long.
+        - HTTP 400 | Code: 414 | Message : Event url is too long.
+        - HTTP 400 | Code: 415 | Message : Max count of custom event reached.
+    PatchCustomEventError_400:
+      type: object
+      properties:
+        code: {type: integer, example: 404}
+        message: {type: string, example: Event end timestamp is after the bench end
+            timestamp. Make sure the timestamp is in seconds.}
+      description: |
+        - HTTP 400 | Code: 400 | Message : Error while parsing json body for custom event.
+        - HTTP 400 | Code: 405 | Message : Event end timestamp is before the event start timestamp.
+        - HTTP 400 | Code: 406 | Message : Event end timestamp is in the future. Make sure the timestamp is in seconds.
+        - HTTP 400 | Code: 407 | Message : Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+        - HTTP 400 | Code: 413 | Message : Event description is too long.
+        - HTTP 400 | Code: 414 | Message : Event url is too long.
+    PatchCustomEventError_404:
+      type: object
+      properties:
+        code: {type: integer, example: 417}
+        message: {type: string, example: Event with this eventId cannot be found for
+            this bench.}
+      description: |
+        - HTTP 404 | Code: 417 | Message : Event with this eventId cannot be found for this bench.
+    RateLimitError:
+      type: object
+      properties:
+        code: {type: integer}
+        message: {type: string}
+        retry-after: {type: integer}
+    ArrayOfTestResultDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/TestResultDefinition'}
+    ArrayOfElementDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/ElementDefinition'}
+    ProjectDefinition:
+      type: object
+      properties:
+        projectId: {type: string, description: Id of project file., example: 5e5fc0102cc4f82e5d9e18d4}
+        projectName: {type: string, description: Neoload Project name.}
+        projectVersion: {type: string, description: Neoload Project version.}
+        asCodeFiles:
+          type: array
+          items: {$ref: '#/components/schemas/AsCodeFile'}
+        scenarios:
+          type: array
+          items: {$ref: '#/components/schemas/ScenarioDefinition'}
+    ScenarioDefinition:
+      type: object
+      properties:
+        scenarioName: {type: string, description: Scenario name.}
+        scenarioDuration: {type: integer, format: int64, description: Duration (in
+            seconds) of the scenario.}
+        scenarioVUs: {type: integer, format: int32, description: Total Virtual User
+            number of the scenario. Return 0 if the Virtual User number is not determined.}
+        scenarioSource: {type: string, description: The scenarion location. Can be
+            a yaml file or NLP path.}
+    AsCodeFile:
+      type: object
+      properties:
+        path: {type: string, description: The yaml file path}
+        includes:
+          type: array
+          description: List of yaml files included
+          items: {type: string}
+    RunTestDefinition:
+      type: object
+      properties:
+        resultId: {type: string, description: Unique identifier of the Test Result.}
+    ArrayOfEventDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/EventDefinition'}
+    EventDefinition:
+      type: object
+      properties:
+        id: {type: string}
+        code: {type: string}
+        elementid: {type: string, format: uuid}
+        fullname: {type: string}
+        offset: {type: integer, format: int64}
+        type: {$ref: '#/components/schemas/EventType'}
+        duration: {type: integer}
+        source: {type: string}
+    EventType:
+      type: string
+      enum: [ERROR, SLA, ALERT, CUSTOM, OBJECTIVE]
+      description: Type of the event
+    UsageEventGroup:
+      type: string
+      enum: [Licensing, Runtime]
+      description: Group of the event
+    UsageEventSubGroup:
+      type: string
+      enum: [Lease, Result, VUH]
+      description: Sub Group of the event
+    TestResultRasterConfiguration:
+      type: object
+      properties:
+        width: {type: integer, format: int32, description: The width of the generated
+            graph., example: 600}
+        height: {type: integer, format: int32, description: The height of the generated
+            graph., example: 200}
+        title: {type: string, description: The main title of the generated graph.,
+          example: My Test}
+        rasterType:
+          type: string
+          enum: [PNG, JPEG]
+          description: The type of the generated graph. Can be PNG or JPEG. Default
+            is PNG.
+          example: PNG
+        xAxisLabel: {type: string, description: The xAxis label of the generated graph.,
+          example: X Axis}
+        yAxisLabel: {type: string, description: The yAxis label of the generated graph.,
+          example: Y Axis}
+        legend: {type: boolean, description: If true the legend is displayed. Default
+            is true., example: true}
+        multiYAxis: {type: boolean, description: 'If true, display one axis per serie.
+            Default is false.', example: true}
+        theme:
+          type: string
+          enum: [DARK, LIGHT, TRANSPARENT]
+          description: The theme of the graph. Default is TRANSPARENT.
+          example: DARK
+        elementIds:
+          type: array
+          description: The list of elements.
+          items: {$ref: '#/components/schemas/ElementIdDefinition'}
+          example:
+          - id: all-requests
+            statistics: [AVG_DURATION]
+        counterIds:
+          type: array
+          description: The list of counters.
+          items: {type: string}
+          example: [a4bed45a-06b2-48e1-94fd-3ea979e4f360, b5be82ff-3563-4812-93a5-4ea888e4e254]
+    TestResultRasterMultiConfiguration:
+      type: object
+      properties:
+        width: {type: integer, format: int32, description: The width of the generated
+            graph., example: 600}
+        height: {type: integer, format: int32, description: The height of the generated
+            graph., example: 200}
+        title: {type: string, description: The main title of the generated graph.,
+          example: My Test}
+        rasterType:
+          type: string
+          enum: [PNG, JPEG]
+          description: The type of the generated graph. Can be PNG or JPEG. Default
+            is PNG.
+          example: PNG
+        xAxisLabel: {type: string, description: The xAxis label of the generated graph.,
+          example: X Axis}
+        yAxisLabel: {type: string, description: The yAxis label of the generated graph.,
+          example: Y Axis}
+        legend: {type: boolean, description: If true the legend is displayed. Default
+            is true., example: true}
+        multiYAxis: {type: boolean, description: 'If true, display one axis per serie.
+            Default is false.', example: true}
+        theme:
+          type: string
+          enum: [DARK, LIGHT, TRANSPARENT]
+          description: The theme of the graph. Default is TRANSPARENT.
+          example: DARK
+        resultIds:
+          type: object
+          additionalProperties: {$ref: '#/components/schemas/TestResultIdDefinition'}
+          example:
+            d30fdcc2-319e-4be5-818e-f1978907a3ce:
+              elementIds:
+              - id: all-requests
+                statistics: [AVG_DURATION]
+              - id: b8bfc48e-b7ed-48f8-b5ea-404d3faf15cb
+                statistics: [AVG_DURATION, ELEMENTS_PER_SECOND]
+            dbe589d4-a10c-48d1-999e-da1fafa5df28:
+              elementIds:
+              - id: all-requests
+                statistics: [AVG_DURATION]
+              counterIds: [a4bed45a-06b2-48e1-94fd-3ea979e4f360, b5be82ff-3563-4812-93a5-4ea888e4e254]
+    TestResultIdDefinition:
+      type: object
+      description: The map of Test Result ids with their own statistics and counters
+        definition.
+      properties:
+        elementIds:
+          type: array
+          description: The list of elements.
+          items: {$ref: '#/components/schemas/ElementIdDefinition'}
+        counterIds:
+          type: array
+          description: The list of counters.
+          items: {type: string}
+    ElementIdDefinition:
+      type: object
+      properties:
+        id: {type: string, description: 'The id of the element. Can be a specific
+            element identifier or one of the following keywords: - all-requests -
+            all-pages - all-transactions', example: a6f2f595-7b62-4dc4-9368-a1cf670cd924}
+        statistics:
+          type: array
+          items:
+            type: string
+            enum: [AVG_DURATION, MIN_DURATION, MAX_DURATION, COUNT, THROUGHPUT, ELEMENTS_PER_SECOND,
+              ERRORS, ERRORS_PER_SECOND, ERROR_RATE, AVG_TTFB, MIN_TTFB, MAX_TTFB,
+              PERCENTILES_DURATION]
+            description: |
+              Comma-separated list of statistics to get.
+
+              Available statistics are:
+              - AVG_DURATION (ms)
+              - MIN_DURATION (ms)
+              - MAX_DURATION (ms)
+              - COUNT
+              - THROUGHPUT (Byte/s)
+              - ELEMENTS_PER_SECOND
+              - ERRORS
+              - ERRORS_PER_SECOND
+              - ERROR_RATE (%)
+              - AVG_TTFB (ms)
+              - MIN_TTFB (ms)
+              - MAX_TTFB (ms)
+              - PERCENTILES_DURATION (ms)
+
+              Warning: PERCENTILES_DURATION cannot be mixed with other statistics.
+            example: [AVG_DURATION, ELEMENTS_PER_SECOND]
+    ArrayOfSLAGlobalIndicatorDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/SLAGlobalIndicatorDefinition'}
+    SLAGlobalIndicatorDefinition:
+      type: object
+      properties:
+        kpi: {$ref: '#/components/schemas/SLAKPIDefinition'}
+        status: {$ref: '#/components/schemas/SLAStatusDefinition'}
+        value: {$ref: '#/components/schemas/SLAValueDefinition'}
+        warningThreshold: {$ref: '#/components/schemas/ThresholdDefinition'}
+        failedThreshold: {$ref: '#/components/schemas/ThresholdDefinition'}
+    ArrayOfSLAPerTestResultDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/SLAPerTestResultDefinition'}
+    SLAPerTestResultDefinition:
+      type: object
+      properties:
+        kpi: {$ref: '#/components/schemas/SLAKPIDefinition'}
+        status: {$ref: '#/components/schemas/SLAStatusDefinition'}
+        value: {$ref: '#/components/schemas/SLAValueDefinition'}
+        warningThreshold: {$ref: '#/components/schemas/ThresholdDefinition'}
+        failedThreshold: {$ref: '#/components/schemas/ThresholdDefinition'}
+        element: {$ref: '#/components/schemas/SLAElementDefinition'}
+    ArrayOfSLAPerIntervalDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/SLAPerIntervalDefinition'}
+    SLAPerIntervalDefinition:
+      type: object
+      properties:
+        kpi: {$ref: '#/components/schemas/SLAKPIDefinition'}
+        status: {$ref: '#/components/schemas/SLAStatusDefinition'}
+        warning: {type: number, format: float, description: Percentage of intervals
+            warning}
+        warningThreshold: {$ref: '#/components/schemas/ThresholdDefinition'}
+        failed: {type: number, format: float, description: Percentage of intervals
+            failed}
+        failedThreshold: {$ref: '#/components/schemas/ThresholdDefinition'}
+        element: {$ref: '#/components/schemas/SLAElementDefinition'}
+    ThresholdDefinition:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum: ['>=', <=, ==, btw]
+          description: The operator of threshold definition
+        values:
+          type: array
+          items: {type: number, format: float}
+          description: The values of threshold definition
+    SLAElementDefinition:
+      type: object
+      properties:
+        elementId: {type: string, description: Unique identifier of the element.}
+        name: {type: string, description: Name of the element.}
+        category:
+          type: string
+          enum: [TRANSACTION, ACTION, PAGE, REQUEST]
+        userpath: {type: string, description: The name of the user path in which the
+            element is.}
+        parent: {type: string, description: The parent name of the element.}
+    SLAKPIDefinition:
+      type: string
+      enum: [avg-request-resp-time, avg-page-resp-time, avg-transaction-resp-time,
+        perc-transaction-resp-time, avg-request-per-sec, avg-throughput-per-sec, errors-count,
+        count, throughput, avg-resp-time, errors-per-sec, error-rate]
+      description: KPI
+    SLAStatusDefinition:
+      type: string
+      enum: [PASSED, WARNING, FAILED]
+      description: Status of the SLA
+    SLAValueDefinition: {type: number, format: float, description: SLA value.}
+    Percentiles:
+      description: An array of object representing available percentiles.
+      example:
+      - {percent: 0.1, duration: 2.9}
+      - {percent: 0.2, duration: 3.0}
+      - {percent: 0.3, duration: 3.0}
+      - {percent: 0.4, duration: 3.0}
+      - {percent: 0.5, duration: 3.1}
+      - {percent: 0.6, duration: 3.1}
+      - {percent: 0.7, duration: 3.1}
+      - {percent: 0.8, duration: 3.2}
+      - {percent: 0.9, duration: 3.2}
+      - {percent: 1.0, duration: 3.5}
+      - {percent: 1.1, duration: 3.5}
+      - {percent: 99.9, duration: 18.0}
+      - {percent: 100.0, duration: 35.0}
+      type: array
+      items: {$ref: '#/components/schemas/PercentilesPoints'}
+    PercentilesPoints:
+      description: Representation of a percentile.
+      type: object
+      properties:
+        percent: {type: number, format: float, description: The k-th percentile where  0.0
+            < k <= 100.0.}
+        duration: {type: number, format: float, description: Value (duration in milliseconds)
+            of this k-th percentiles.}
+    TestRawResult:
+      description: An array of object representing raw results.
+      example: [Elapsed;Time;User Path;Virtual User ID;Parent;Element;Response time;Success;Population;Zone,
+        '5559;2020-06-04T12:40:07.278+02:00;"BrowserUser_Create_report";0-7;"Actions";"Home";2929;yes;"MyPopulationSmallCities";"Default
+          zone"', '5632;2020-06-04T12:40:07.351+02:00;"BrowserUser_Create_report";0-13;"Actions";"Home";3005;yes;"MyPopulationBigCities";"Default
+          zone"', '12855;2020-06-04T12:40:14.574+02:00;"BrowserUser_Create_report";0-7;"Actions";"submit
+          report";1968;yes;"MyPopulationSmallCities";"Default zone"', '29376;2020-06-04T12:40:31.095+02:00;"BrowserUser_Create_report";0-7;"Try";"submit";1377;yes;"MyPopulationSmallCities";"Default
+          zone"']
+      type: array
+      items: {type: object}
+    TestElementRawResult:
+      description: An array of object representing raw results.
+      example: [Elapsed;Time;User Path;Virtual User ID;Parent;Element;Response time;Success;Population;Zone,
+        '5559;2020-06-04T12:40:07.278+02:00;"BrowserUser_Create_report";0-7;"Actions";"Home";2929;yes;"MyPopulationSmallCities";"Default
+          zone"', '5632;2020-06-04T12:40:07.351+02:00;"BrowserUser_Create_report";0-13;"Actions";"Home";3005;yes;"MyPopulationBigCities";"Default
+          zone"', '6398;2020-06-04T12:40:08.117+02:00;"BrowserUser_Create_report";0-8;"Actions";"Home";2512;yes;"MyPopulationSmallCities";"Default
+          zone"', '7323;2020-06-04T12:40:09.042+02:00;"BrowserUser_Create_report";0-9;"Actions";"Home";1471;yes;"MyPopulationSmallCities";"Default
+          zone"']
+      type: array
+      items: {type: object}
+    TestResultReportBody:
+      type: object
+      properties:
+        language: {type: string, description: 'The language of the report, only en
+            and fr are supported. If none is set, default will be en.', example: en}
+        timeZone: {type: string, description: 'The timezone of the report. If none
+            is set, default will be UTC.', example: Europe/Paris}
+    ArrayOfZoneDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/ZoneDefinition'}
+    ZoneDefinition:
+      type: object
+      properties:
+        id: {type: string, description: Unique identifier of the zone, example: hIugt}
+        name: {type: string, description: Name of the zone, example: zone name}
+        type:
+          type: string
+          description: Type of the zone
+          enum: [STATIC, DYNAMIC]
+        controllers:
+          type: array
+          items: {$ref: '#/components/schemas/SimpleResourceApiDefinition'}
+        loadgenerators:
+          type: array
+          items: {$ref: '#/components/schemas/SimpleResourceApiDefinition'}
+    SimpleResourceApiDefinition:
+      type: object
+      description: This object can represent a Controller or a Load Generator
+      properties:
+        name: {type: string, description: Name of the controller or address of the
+            load generator, example: 'resource.domain.com:7100'}
+        version: {type: string, format: x.y.z, description: Version of the resource,
+          example: 7.0.2}
+        status:
+          type: string
+          description: Status of the resource
+          enum: [AVAILABLE, RESERVED, BUSY]
+    ArrayOfReservationDefinition:
+      type: array
+      items: {$ref: '#/components/schemas/ReservationDefinition'}
+    ReservationModeDefinition:
+      type: object
+      properties:
+        reservationStatus: {type: boolean, description: Reservation mode of the account.
+            True if ON else false.}
+    ReservationDefinition:
+      type: object
+      properties:
+        id: {type: string, example: 115c25af-f499-423f-a71e-63312601919e, description: Unique
+            identifier of the reservation.}
+        status:
+          type: string
+          description: Status of the reservation.
+          enum: [WAITING, RUNNING, PARTIALLY_RESERVED, FAILED_TO_RESERVE, RESERVED,
+            STOPPING, ENDED]
+        startDateTime: {type: number, format: int64, description: 'Timestamp when
+            the reservation begins. Number of seconds since January 1, 1970.'}
+        endDateTime: {type: number, format: int64, description: 'Timestamp when the
+            reservation ends. Number of seconds since January 1, 1970.'}
+        reservationWebVUs: {type: number, format: int32, description: The number of
+            Web Virtual Users to be reserved.}
+        reservationSAPVUs: {type: number, format: int32, description: The number of
+            SAP Virtual Users to be reserved.}
+        controllerZoneId: {type: string, example: hIugt, description: Name of the
+            zone.}
+        neoloadVersion: {type: string, example: 7.0.2-20191110-1, description: Neoload
+            version of the selected controller.}
+        lgZonesResourcesReservation:
+          type: array
+          items: {$ref: '#/components/schemas/LgByZones'}
+        author: {type: string, description: Name of the user who created the reservation.}
+        workspaceId: {type: string, example: 5e3acde2e860a132744ca916, description: Unique
+            identifier representing a Workspace.}
+        name: {type: string, description: Title of the reservation.}
+        description: {type: string, description: Description of the reservation.}
+        type:
+          type: string
+          description: How the reservation has been created. By a user or automatically
+            when a test started.
+          enum: [SCHEDULED, AUTO_RESERVATION]
+    LgByZones:
+      type: object
+      description: The number of load generators reserved for a specific zone.
+      properties:
+        zoneId: {type: string, example: hIugt, description: The unique identifier
+            of a zone.}
+        value: {type: number, example: 10, description: The number of load generators.}
+    WorkspaceDefinitionList:
+      type: array
+      items: {$ref: '#/components/schemas/WorkspaceDefinition'}
+    WorkspaceDefinition:
+      type: object
+      properties:
+        id: {type: string, example: 5e3acde2e860a132744ca916, description: Unique
+            identifier of the Workspace.}
+        name: {type: string, description: Name of the Workspace., example: Default
+            Workspace}
+        description: {type: string, description: Description of the Workspace., example: Workspace
+            description}
+        lastChange: {type: object, $ref: '#/components/schemas/LastChangeDefinition'}
+    InformationDefinition:
+      type: object
+      properties:
+        front_url: {type: string, example: 'https://preprod-neoload.saas.neotys.com',
+          description: 'Root URL where the NeoloadWeb application can be accessed,
+            used to reconstruct relative URLs.'}
+        filestorage_url: {type: string, example: 'https://preprod-neoload-files.saas.neotys.com',
+          description: URL for Neoload projects file upload and management.}
+        version: {type: string, example: SaaS, description: NeoloadWeb platform version.
+            Will be "SaaS" for official NeoLoad SaaS platform.}
+    PostCustomEventRequest:
+      type: object
+      properties:
+        startTimestamp: {type: number, example: 1600000000, description: 'Custom event
+            start epoch timestamp in seconds. If not provided, current time is used.'}
+        endTimestamp: {type: number, example: 1600000000, description: 'Custom event
+            end epoch timestamp in seconds. If not provided, then either startTimestamp
+            is used (when timeframe is INSTANT), or Test Result end timestamp is used
+            (when timeframe is TIME_RANGE).'}
+        timeframe:
+          type: string
+          enum: [TIME_RANGE, INSTANT]
+          default: TIME_RANGE
+        fullname: {type: string, example: myCustomEvent, description: Custom event
+            name. Max length 256 chars.}
+        code: {type: string, example: Application Error, description: Custom event
+            code. Max length 64 chars.}
+        source: {type: string, example: APM, description: 'Custom event source. Max
+            length 32 chars. If not set, source is set to ''External''.'}
+        description: {type: string, description: Custom event description. Max length
+            2048 chars.}
+        url: {type: string, description: Custom event URL. Max length 2048 chars.}
+      required: [fullname]
+    Usage:
+      description: An array of object representing audit events.
+      type: array
+      items: {type: object}
+    PostCustomEventResponse:
+      type: object
+      properties:
+        id: {type: string, description: The unique ID of the custom event created.}
+        offset: {type: number, example: 1000, description: 'Custom event start timestamp
+            in milliseconds, relative to bench start timestamp.'}
+        duration: {type: number, example: 1000, description: Custom event duration
+            in milliseconds.}
+        timeframe:
+          type: string
+          enum: [TIME_RANGE, INSTANT]
+          default: TIME_RANGE
+        fullname: {type: string, example: myCustomEvent, description: Custom event
+            name. Max length 256 chars.}
+        code: {type: string, example: Application Error, description: Custom event
+            code. Max length 64 chars.}
+        source: {type: string, example: APM, description: Custom event source. Max
+            length 32 chars.}
+        description: {type: string, description: Custom event description. Max length
+            512 chars.}
+        url: {type: string, description: Custom event URL. Max length 2048 chars.}
+    PatchCustomEventRequest:
+      type: object
+      properties:
+        endTimestamp: {type: number, example: 1600000000, description: Custom event
+            end epoch timestamp in seconds.}
+        description: {type: string, description: Custom event description. Max length
+            2048 chars.}
+        url: {type: string, description: Custom event URL. Max length 2048 chars.}
+      required: [id]
+    PatchCustomEventResponse:
+      type: object
+      properties:
+        id: {type: string, description: The unique ID of the custom event patched.}
+        offset: {type: number, example: 1000, description: 'Custom event start timestamp
+            in milliseconds, relative to bench start timestamp.'}
+        duration: {type: number, example: 1000, description: Custom event duration
+            in milliseconds.}
+        timeframe:
+          type: string
+          enum: [TIME_RANGE, INSTANT]
+          default: TIME_RANGE
+        fullname: {type: string, example: myCustomEvent, description: Custom event
+            name. Max length 256 chars.}
+        code: {type: string, example: Application Error, description: Custom event
+            code. Max length 64 chars.}
+        source: {type: string, example: APM, description: Custom event source. Max
+            length 32 chars.}
+        description: {type: string, description: Custom event description. Max length
+            512 chars.}
+        url: {type: string, description: Custom event URL. Max length 2048 chars.}
+    BenchDeletionFilter:
+      type: object
+      description: filter to select element for deletion.
+      example: {resultNamePattern: toRemove.*}
+      oneOf:
+      - {$ref: '#/components/schemas/BenchDeletionFilterByProject'}
+      - {$ref: '#/components/schemas/BenchDeletionFilterByTestDto'}
+      - {$ref: '#/components/schemas/BenchDeletionFilterByResultName'}
+    BenchDeletionFilterByProject:
+      type: object
+      properties:
+        projectName: {type: string}
+        scenarioName: {type: string}
+    BenchDeletionFilterByResultName:
+      type: object
+      properties:
+        resultNamePattern: {type: string}
+    BenchDeletionFilterByTestDto:
+      type: object
+      properties:
+        testSettingsId: {type: string, example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'}
+    BenchDeletionPolicyApiFullRequestDto:
+      type: object
+      properties:
+        deletionFilter: {$ref: '#/components/schemas/BenchDeletionFilter'}
+        deletionSetting: {$ref: '#/components/schemas/BenchDeletionSetting'}
+    BenchDeletionPolicyApiResponseDto:
+      type: object
+      properties:
+        deletionFilter: {$ref: '#/components/schemas/BenchDeletionFilter'}
+        deletionSetting: {$ref: '#/components/schemas/BenchDeletionSetting'}
+        id: {type: string}
+        lastModifiedDate: {type: string, format: date-time}
+        lastModifiedUserName: {type: string}
+        workspaceId: {type: string}
+    BenchDeletionPolicyApiUpdateRequestDto:
+      type: object
+      properties:
+        deletionFilter: {$ref: '#/components/schemas/BenchDeletionFilter'}
+        deletionSetting: {$ref: '#/components/schemas/BenchDeletionSetting'}
+    BenchDeletionSetting:
+      type: object
+      description: Delete by time or number
+      example: {retentionCount: 5}
+      oneOf:
+      - {$ref: '#/components/schemas/BenchDeletionSettingCount'}
+      - {$ref: '#/components/schemas/BenchDeletionSettingDurationDto'}
+    BenchDeletionSettingCount:
+      type: object
+      properties:
+        retentionCount: {type: integer, format: int32}
+    BenchDeletionSettingDurationDto:
+      type: object
+      properties:
+        retentionDays: {type: integer, description: number of days before deletion,
+          format: int32}
+    DynamicInfrastructureProviderApiResponseDto:
+      type: object
+      properties:
+        agentId: {type: string}
+        connectionType:
+          type: string
+          enum: [CLIENT_BASED, AGENT_BASED]
+        id: {type: string}
+        name: {type: string}
+        parameters:
+          type: object
+          additionalProperties: {type: string, description: parameters applied to
+              provider., example: '{"K8S_API_END_POINT":"https://example/api","K8S_NAMESPACE":"kubernetes-namespace","K8S_LABELS":"","K8S_ANNOTATIONS":"","K8S_NODE_SELECTORS":""}'}
+          description: parameters applied to provider.
+          example: {K8S_API_END_POINT: 'https://example/api', K8S_NAMESPACE: kubernetes-namespace,
+            K8S_LABELS: '', K8S_ANNOTATIONS: '', K8S_NODE_SELECTORS: ''}
+        type:
+          type: string
+          enum: [AWS, GCE, AZURE, KUBERNETES, OPEN_SHIFT, DOCKER_ENGINE, DOCKER_SWARM,
+            NCP]
+    FullWorkspaceDefinition:
+      type: object
+      properties:
+        allUsersEnabled: {type: boolean, description: True if all users of the Workspace
+            are enabled}
+        description: {type: string, description: Description of the Workspace, example: Workspace
+            description}
+        id: {type: string, description: Unique identifier of the Workspace, example: 5e3acde2e860a132744ca916}
+        lastChange: {$ref: '#/components/schemas/LastChangeDefinition'}
+        members:
+          uniqueItems: true
+          type: array
+          description: Members assigned to Workspace
+          items: {$ref: '#/components/schemas/MemberDefinition'}
+        name: {type: string, description: Name of the Workspace, example: Default
+            Workspace}
+        vuQuota: {$ref: '#/components/schemas/WorkspaceVuQuotaDefinition'}
+    FutureResponse:
+      type: object
+      properties:
+        complete: {type: boolean}
+    LastChangeDefinition:
+      type: object
+      properties:
+        lastAction:
+          type: string
+          description: Last action performed on the Workspace.
+          example: CREATE
+          enum: [CREATE, UPDATE, DELETE]
+        lastUpdateDate: {type: integer, description: 'Timestamp when the Workspace
+            was updated for the last time. Number of seconds since January 1, 1970.',
+          format: int64, example: 1582550442}
+      description: Workspace last change
+    MemberDefinition:
+      type: object
+      properties:
+        firstName: {type: string, description: User first name}
+        lastName: {type: string, description: User last name}
+        login: {type: string, description: User login}
+        userSource:
+          type: string
+          description: User source
+          enum: [SAAS, INTERNAL, LDAP, ONPREMISE_SSO, SCIM]
+      description: Members assigned to Workspace
+    MemberListDefinition:
+      type: object
+      properties:
+        logins:
+          type: array
+          description: Login list
+          items: {type: string, description: Login list}
+    TestSettingsApiFullRequestDto:
+      type: object
+      properties:
+        displayTestResultsCount: {type: integer, description: 'The maximum number
+            of Test Results to show in the Test Analysis graph. Allowed values: 10,
+            20, 50', format: int32, example: 10}
+        failOnObjective: {type: boolean, description: Make the Test Result fail as
+            soon as any of the configured objectives is exceeded, example: true}
+        metrics:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items: {$ref: '#/components/schemas/metrics'}
+        objectiveTolerance: {type: number, description: The tolerance for the AUTOMATED
+            objective type, format: double, example: 2}
+        objectiveType:
+          type: string
+          description: 'The type of objective. MANUAL means that the objective value
+            is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT
+            means that the objective value is the value of the metric for the test
+            result with id referenceTestResultId. AUTOMATED means that the objective
+            value is computed at the end of the Test Result based on the metric value
+            for the latest 50 previous PASSED Test Results with this formula: mean()
+            + objectiveTolerance x standardDeviation()'
+          example: MANUAL
+          enum: [MANUAL, REFERENCE_TEST_RESULT, AUTOMATED]
+        referenceTestResultId: {type: string, description: 'The test result id that
+            is the reference for objectives. The objectiveValue is the value of the
+            metric for this test result if it exists, or else the user-defined value.
+            This field is mandatory for the REFERENCE_TEST_RESULT objective type,
+            it is ignored for other objective types', example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b}
+        referentialObjectiveTolerance: {type: integer, description: The tolerance
+            in percent for the REFERENCE_TEST_RESULT objective type, format: int32,
+          example: 10}
+    TestSettingsApiResponseDto:
+      type: object
+      properties:
+        displayTestResultsCount: {type: integer, description: 'The maximum number
+            of Test Results to show in the Test Analysis graph. Allowed values: 10,
+            20, 50', format: int32, example: 10}
+        failOnObjective: {type: boolean, description: Make the Test Result fail as
+            soon as any of the configured objectives is exceeded, example: true}
+        metrics:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items: {$ref: '#/components/schemas/metrics'}
+        objectiveTolerance: {type: number, description: The tolerance for the AUTOMATED
+            objective type, format: double, example: 2}
+        objectiveType:
+          type: string
+          description: 'The type of objective. MANUAL means that the objective value
+            is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT
+            means that the objective value is the value of the metric for the test
+            result with id referenceTestResultId. AUTOMATED means that the objective
+            value is computed at the end of the Test Result based on the metric value
+            for the latest 50 previous PASSED Test Results with this formula: mean()
+            + objectiveTolerance x standardDeviation()'
+          example: MANUAL
+          enum: [MANUAL, REFERENCE_TEST_RESULT, AUTOMATED]
+        referenceTestResultId: {type: string, description: 'The test result id that
+            is the reference for objectives. The objectiveValue is the value of the
+            metric for this test result if it exists, or else the user-defined value.
+            This field is mandatory for the REFERENCE_TEST_RESULT objective type,
+            it is ignored for other objective types', example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b}
+        referentialObjectiveTolerance: {type: integer, description: The tolerance
+            in percent for the REFERENCE_TEST_RESULT objective type, format: int32,
+          example: 10}
+    WorkspaceCreateRequest:
+      type: object
+      properties:
+        allUsersEnabled: {type: boolean, description: True if all users of the Workspace
+            are enabled, default: false}
+        description: {type: string, description: Description of the Workspace, example: Workspace
+            description}
+        name: {type: string, description: Name of the Workspace, example: My first
+            Workspace}
+        vuQuota: {$ref: '#/components/schemas/WorkspaceVuQuotaDefinition'}
+    WorkspaceUpdateRequest:
+      type: object
+      properties:
+        allUsersEnabled: {type: boolean, description: True if all users of the Workspace
+            are enabled}
+        description: {type: string, description: Description of the Workspace, example: Workspace
+            description}
+        name: {type: string, description: Name of the Workspace, example: Default
+            Workspace}
+        vuQuota: {$ref: '#/components/schemas/WorkspaceVuQuotaDefinition'}
+    WorkspaceVuQuotaDefinition:
+      type: object
+      properties:
+        sap: {type: integer, description: SAP quota, format: int32}
+        unlimited: {type: boolean, description: True if quotas are unlimited}
+        web: {type: integer, description: Web quota, format: int32}
+      description: Quotas assigned to Workspace
+    metrics:
+      type: object
+      properties:
+        color: {type: string, description: The color of the curve in the Test Analysis
+            graph. Format hexadecimal., example: '#d2b067'}
+        elementPath: {type: string, description: 'The full path to the element of
+            the metric, separated with /. The element must be a transaction. The special
+            value ''all-transactions'' means &lt;All Transactions&gt;. Note: for compatibility
+            reasons with older Test configurations, the elementPath may be a UUID,
+            prefer replace it with the path to the transaction.', example: scenario1/Actions/myTransaction}
+        isDisplayed: {type: boolean, description: True to display the line of this
+            metric in the overview graph. False to hide it.}
+        isObjective: {type: boolean, description: True if the objective is enabled
+            and will be used to determine the test result status.}
+        objectiveValue: {type: number, description: 'The user-defined value of the
+            objective of the metric. If referenceTestResultId is specified, it is
+            replaced by the value of the metric for this test result. This value is
+            ignored when objectiveType is not MANUAL. Required when isObjective is
+            true.', format: double, example: 0.5}
+        statistic:
+          type: string
+          description: The statistic of the metric
+          enum: [Perc 99, Perc 95, Perc 90, Perc 50, Min, Avg, Max, Count, Errors,
+            Elements per Second, Error rate, Min.TTFB, Avg.TTFB, Max.TTFB, Std Deviation]
+      description: The metrics shown in Test Analysis. One metric represents one objective
+        and is displayed as one curve in Test Analysis graph.

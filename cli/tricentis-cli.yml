@@ -1,0 +1,89 @@
+generated: '2026-08-02'
+method: searched
+source: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/toscactl-reference/SKILL.md
+summary: >-
+  Tricentis ships several first-party CLIs, one per product line rather than one
+  platform CLI: toscactl for Tosca Cloud, tn for the agentic Tosca Cloud runtime,
+  the Tosca Execution Client for Tosca Server/Distributed Execution, the neoload
+  CLI for NeoLoad Web, and the Testim CLI for Testim suites. qTest has no CLI —
+  its automation surface is the REST API and qTest Pulse.
+clis:
+- name: toscactl
+  product: Tricentis Tosca Cloud
+  docs: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/claude/skills/toscactl-reference/SKILL.md
+  auth:
+    default: browser PKCE — 'toscactl login --url <tenant>.my.tricentis.com'
+    headless: device-code flow via --headless
+    non_interactive: TOSCA_CLIENT_ID and TOSCA_CLIENT_SECRET environment variables
+  global_flags:
+  - {flag: --json, description: emit results as JSON}
+  - {flag: -s, --silent, description: suppress everything but results}
+  - {flag: --workspace <NAME_OR_ID>, description: override the active workspace for
+      one command without persisting it}
+  conventions:
+  - Always append --json --silent; never parse the human-readable table output.
+  - Destructive commands require --dangerously-skip-confirmation to run unattended.
+  command_groups:
+  - group: login / config
+    commands: [login, config]
+  - group: workspaces
+    commands: [workspaces list, workspaces create, workspaces set, workspaces view,
+      workspaces delete]
+  - group: assets
+    commands: [assets find]
+  - group: playlists
+    commands: [playlists create, playlists delete, playlists find, playlists view,
+      playlists history]
+  - group: playlist runs
+    commands: [playlists run start, playlists run view]
+  - group: agents
+    commands: [agents list, agents view, agents shutdown, agents delete, agents screenshot]
+  - group: executions
+    commands: [executions attachments]
+  - group: datasets
+    commands: [datasets create, datasets list, datasets view, datasets import, datasets
+        export, datasets add-column, datasets add-row, datasets delete-row, datasets
+        next-row, datasets list-subsets, datasets view-subset, datasets use-row, datasets
+        reuse-row, datasets lock, datasets unlock, datasets delete]
+  - group: interactive
+    commands: [ui]
+  key_flows:
+  - name: run a playlist in CI and fail the build on failure
+    command: toscactl playlists run start <name_or_id> --wait --assert-success --report
+      junit --report-path results.xml --json --silent
+  - name: pin a workspace in a pipeline without persisting config
+    command: toscactl --workspace "My Project" --json --silent playlists run start
+      <PLAYLIST_ID>
+- name: tn
+  product: Tricentis Tosca Cloud (agentic runtime)
+  docs: https://github.com/Tricentis/mcp-skills/blob/main/Tosca/Cloud/CLI/README.md
+  description: >-
+    The Tosca Cloud agentic CLI runtime — supports /tosca slash commands, --loop
+    autonomous execution and --robot mode, with multi-provider AI backends. Installed
+    and configured by the Tricentis mcp-skills Tosca Cloud CLI pack
+    (Install-TnCloudPack.ps1 + configure_tn_connection.py).
+- name: ToscaExecutionClient
+  product: Tricentis Tosca (Server / Distributed Execution)
+  repository: https://github.com/Tricentis/ToscaExecutionClient
+  description: First-party shell client that triggers a Tosca test execution, polls for
+    completion and retrieves the results — the standard CI entry point for on-premises
+    Tosca.
+- name: neoload
+  product: Tricentis NeoLoad Web
+  package: pypi:neoload
+  repository: https://github.com/Neotys-Labs/neoload-cli
+  install: pip install neoload
+  license: Apache 2.0
+  description: Runs and observes NeoLoad performance tests from a workstation or CI,
+    against the NeoLoad Web API.
+- name: testim
+  product: Tricentis Testim
+  package: npm:@testim/testim-cli
+  install: npm install -g @testim/testim-cli
+  description: Runs Testim suites in CI.
+not_present:
+- product: qTest
+  note: No first-party qTest CLI is published; qTest automation goes through the REST
+    API, the qTest Pulse rules engine, or the MCP server.
+- product: Tricentis Test Management for Jira
+  note: No CLI; REST API and MCP server only.

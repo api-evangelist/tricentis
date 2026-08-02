@@ -1,0 +1,66 @@
+generated: '2026-08-02'
+method: searched
+source: https://api.qasymphony.com/
+summary: >-
+  Tricentis has no test-vs-live key model and publishes no magic test values — this
+  is a testing-tools vendor, not a payments or comms provider, so the "sandbox" is a
+  time-boxed trial tenant plus a hosted interactive API console. Two real, publicly
+  reachable exploration surfaces exist: the qTest Swagger console (which points at a
+  dedicated try-out host) and the NeoLoad Swagger console.
+test_live_separation:
+  supported: false
+  note: >-
+    Credentials are per-tenant, not per-mode. There is no test/live key prefix, no
+    sandbox flag and no mode header on any Tricentis API. A trial tenant and a paid
+    tenant are distinguished only by the site hostname and the licence.
+consoles:
+- name: qTest interactive API documentation
+  url: https://api.qasymphony.com/
+  kind: Swagger UI
+  spec: https://qtest-config.s3.amazonaws.com/api-docs/manager/api-manager-v3.0.yaml
+  try_out_host: https://apitryout.qtestnet.com/
+  docs: https://docs.tricentis.com/qtest-saas/content/apis/overview/how_to_use_interactive_api_documentation.htm
+  auth_required: true
+  auth_note: >-
+    Calls from the console require a bearer token from the qTest Resources page
+    (API & SDK section); the console itself is anonymous and exports sample code in
+    Java, C#, Python and Ruby.
+- name: NeoLoad API explorer
+  url: https://neoload-api.saas.neotys.com/explore/
+  kind: Swagger UI
+  specs:
+  - https://neoload-api.saas.neotys.com/explore/v3/swagger.yaml
+  - https://neoload-api.saas.neotys.com/explore/v2/swagger.yaml
+  - https://neoload-api.saas.neotys.com/explore/v1/swagger.yaml
+  auth_required: true
+  auth_note: requires an accountToken header.
+- name: TTM4J API docs
+  url: https://api.ttm4j.tricentis.com/
+  kind: Swagger UI
+  spec: https://swagger.ttm4j.tricentis.com/swagger.json
+  auth_required: true
+trials:
+- product: qTest
+  url: https://www.tricentis.com/software-testing-tool-trial-demo/qtest-trial
+  duration: 14 days
+  credit_card_required: false
+  provisioning: form request; credentials arrive by email
+  docs: https://docs.tricentis.com/qtest-2026.2/content/overview/introduction/activate_your_qtest_manager_free_trial.htm
+- product: Tricentis (platform)
+  url: https://www.tricentis.com/trial
+  note: routes to per-product demo and trial requests
+test_values:
+  published: false
+  note: >-
+    No test cards, test identifiers, fixture generators or time-simulation tooling are
+    published, and none are expected for this product category. Nothing has been
+    invented here.
+staging_hosts_observed:
+- host: apitryout.qtestnet.com
+  role: qTest Manager Swagger try-out target, declared as the spec host
+- host: scenario-stage1.staging.qtestnet.com
+  role: >-
+    declared as the host in the provider's published qTest Scenario Swagger. This is
+    a staging hostname shipped in a production spec artifact — recorded as observed,
+    not recommended as a base URL.
+  source: openapi/tricentis-qtest-scenario-openapi.yaml
