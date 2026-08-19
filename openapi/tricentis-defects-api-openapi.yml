@@ -1,0 +1,857 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Defects API
+  version: '1.0'
+  description: 'Operations tagged defects across 2 of this provider''s published API definitions: tricentis-qtest-analytics-openapi.json, tricentis-ttm4j-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+- url: https://api.ttm4j.tricentis.com
+tags:
+- name: defects
+paths:
+  /defects:
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+    get:
+      summary: Get entities from defects
+      tags:
+      - defects
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - masterid
+            - masterid desc
+            - iscurrent
+            - iscurrent desc
+            - uiid
+            - uiid desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - projectname
+            - projectname desc
+            - defectfolderid
+            - defectfolderid desc
+            - defectfoldername
+            - defectfoldername desc
+            - category
+            - category desc
+            - type
+            - type desc
+            - name
+            - name desc
+            - priority
+            - priority desc
+            - status
+            - status desc
+            - rootcause
+            - rootcause desc
+            - severity
+            - severity desc
+            - createddate
+            - createddate desc
+            - createdtimestamp
+            - createdtimestamp desc
+            - creator
+            - creator desc
+            - lastmodifieddate
+            - lastmodifieddate desc
+            - lastmodifiedtimestamp
+            - lastmodifiedtimestamp desc
+            - lastmodifieduser
+            - lastmodifieduser desc
+            - reason
+            - reason desc
+            - closeddate
+            - closeddate desc
+            - closedtimestamp
+            - closedtimestamp desc
+            - targetdate
+            - targetdate desc
+            - targettimestamp
+            - targettimestamp desc
+            - assigneduser
+            - assigneduser desc
+            - summary
+            - summary desc
+            - description
+            - description desc
+            - affectedbuildname
+            - affectedbuildname desc
+            - affectedreleasename
+            - affectedreleasename desc
+            - targetbuildname
+            - targetbuildname desc
+            - targetreleasename
+            - targetreleasename desc
+            - fixedbuildname
+            - fixedbuildname desc
+            - fixedreleasename
+            - fixedreleasename desc
+            - islinked
+            - islinked desc
+            - externalissueid
+            - externalissueid desc
+            - externalissuesummary
+            - externalissuesummary desc
+            - externalissuestatus
+            - externalissuestatus desc
+            - externalprojectid
+            - externalprojectid desc
+            - externalissuetype
+            - externalissuetype desc
+            - externalissueuniqueid
+            - externalissueuniqueid desc
+            - viewinggroupname
+            - viewinggroupname desc
+            - external_integration
+            - external_integration desc
+            - extrainfo
+            - extrainfo desc
+            - customfields
+            - customfields desc
+            - ssor
+            - ssor desc
+            - roweffectivedate
+            - roweffectivedate desc
+            - rowexpirationdate
+            - rowexpirationdate desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - masterid
+            - iscurrent
+            - uiid
+            - clientid
+            - projectid
+            - projectname
+            - defectfolderid
+            - defectfoldername
+            - category
+            - type
+            - name
+            - priority
+            - status
+            - rootcause
+            - severity
+            - createddate
+            - createdtimestamp
+            - creator
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - reason
+            - closeddate
+            - closedtimestamp
+            - targetdate
+            - targettimestamp
+            - assigneduser
+            - summary
+            - description
+            - affectedbuildname
+            - affectedreleasename
+            - targetbuildname
+            - targetreleasename
+            - fixedbuildname
+            - fixedreleasename
+            - islinked
+            - externalissueid
+            - externalissuesummary
+            - externalissuestatus
+            - externalprojectid
+            - externalissuetype
+            - externalissueuniqueid
+            - viewinggroupname
+            - external_integration
+            - extrainfo
+            - customfields
+            - ssor
+            - roweffectivedate
+            - rowexpirationdate
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of defect
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.defect'
+        4XX:
+          $ref: '#/components/responses/error'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /defects({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+    get:
+      summary: Get entity from defects by key
+      tags:
+      - defects
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - masterid
+            - iscurrent
+            - uiid
+            - clientid
+            - projectid
+            - projectname
+            - defectfolderid
+            - defectfoldername
+            - category
+            - type
+            - name
+            - priority
+            - status
+            - rootcause
+            - severity
+            - createddate
+            - createdtimestamp
+            - creator
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - reason
+            - closeddate
+            - closedtimestamp
+            - targetdate
+            - targettimestamp
+            - assigneduser
+            - summary
+            - description
+            - affectedbuildname
+            - affectedreleasename
+            - targetbuildname
+            - targetreleasename
+            - fixedbuildname
+            - fixedreleasename
+            - islinked
+            - externalissueid
+            - externalissuesummary
+            - externalissuestatus
+            - externalprojectid
+            - externalissuetype
+            - externalissueuniqueid
+            - viewinggroupname
+            - external_integration
+            - extrainfo
+            - customfields
+            - ssor
+            - roweffectivedate
+            - rowexpirationdate
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.defect'
+        4XX:
+          $ref: '#/components/responses/error'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /v1/projects/{project-key}/test-runs/{test-run-key}/defects:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    post:
+      tags:
+      - defects
+      summary: Create defects and link to test run.
+      description: "## Create defects and link to test run.\n##### Note: In case issue type won't be provided, default value will be \"Bug\" issue type.\n            \n#### Query parameters:\n* **stepIndex** _(optional)_: if step index will be provided, the defect will be linked to the step.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the defect summary.\n* **description** _(optional)_: the defect description.\n* **issueType** _(optional)_: the defect issue type (for example: Task, Bug, etc..)."
+      parameters:
+      - name: test-run-key
+        in: path
+        description: Test Run Key.
+        required: true
+        schema:
+          type: string
+      - name: stepIndex
+        in: query
+        description: stepIndex .
+        schema:
+          type: integer
+          format: int32
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: defects to create.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              DefectsApiRequestData:
+                value:
+                - summary: Defect summary
+                  description: Defect description
+                  issueType: Bug
+                - summary: Defect summary
+                  description: Defect description
+                  issueType: Task
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    issueKey:
+                      type:
+                      - string
+                      - 'null'
+                    jiraIssueId:
+                      type:
+                      - string
+                      - 'null'
+                  additionalProperties: false
+              examples:
+                DefectsApiResponseData:
+                  value:
+                  - issueKey: Key-1
+                    jiraIssueId: '10001'
+                  - issueKey: Key-2
+                    jiraIssueId: '10002'
+        '401':
+          description: '`Unauthorized`.'
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs/{test-run-key}/defects/link:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    post:
+      tags:
+      - defects
+      summary: Link Defects to test run.
+      description: "## Link defects test run.\n            \n#### Query parameters:\n* **stepIndex** _(optional)_: if step index will be provided, the defect will be linked to the step.\n            \n#### Body fields:\n* **issueKey** _(mandatory)_: the issue key."
+      parameters:
+      - name: test-run-key
+        in: path
+        description: testRunKey.
+        required: true
+        schema:
+          type: string
+      - name: stepIndex
+        in: query
+        description: stepIndex.
+        schema:
+          type: integer
+          format: int32
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: defects.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  issueKey:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              DefectsApiData:
+                value:
+                - issueKey: Key-1
+                - issueKey: Key-2
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    issueKey:
+                      type:
+                      - string
+                      - 'null'
+                    jiraIssueId:
+                      type:
+                      - string
+                      - 'null'
+                  additionalProperties: false
+              examples:
+                DefectsApiResponseData:
+                  value:
+                  - issueKey: Key-1
+                    jiraIssueId: '10001'
+                  - issueKey: Key-2
+                    jiraIssueId: '10002'
+        '401':
+          description: '`Unauthorized`.'
+      security:
+      - api_key: []
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  schemas:
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.defect:
+      title: defect
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        masterid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        iscurrent:
+          type:
+          - boolean
+          - 'null'
+        uiid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        defectfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        defectfoldername:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        category:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        priority:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        status:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        rootcause:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        severity:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        createddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        createdtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        creator:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        lastmodifieddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        lastmodifiedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifieduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        reason:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        closeddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        closedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        targetdate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        targettimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        assigneduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        summary:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        affectedbuildname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        affectedreleasename:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        targetbuildname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        targetreleasename:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        fixedbuildname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        fixedreleasename:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        islinked:
+          type:
+          - boolean
+          - 'null'
+        externalissueid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        externalissuesummary:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        externalissuestatus:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        externalprojectid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        externalissuetype:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        externalissueuniqueid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        viewinggroupname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        external_integration:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        extrainfo:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        customfields:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 12
+        roweffectivedate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        rowexpirationdate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm
+x-refined-from:
+- tricentis-qtest-analytics-openapi.json
+- tricentis-ttm4j-openapi.json

@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Administration of users API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Administration of users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v3/users/:login",
+            "params": [
+              {
+                "name": "login",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "removeFromNeotysSaaSAccount",
+                "value": "",
+                "type": "query",
+                "description": "SaaS Account-Admin-only option: Remove the user from your Account on the Neotys user platform"
+              }
+            ]
+          },
+          "docs": "Delete a user with the specified login"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

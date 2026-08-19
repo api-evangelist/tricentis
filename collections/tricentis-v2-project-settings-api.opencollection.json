@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V2 Project Settings API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v2-project-settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project settings by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/project-settings/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "project's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get project settings by id"
+        },
+        {
+          "info": {
+            "name": "Update project settings by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/project-settings/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "project's id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update project settings by id"
+        },
+        {
+          "info": {
+            "name": "Get projects settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/project-settings",
+            "params": [
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "list project ids"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get projects settings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,846 @@
+openapi: 3.2.0
+info:
+  title: qTest Parameters Datasets API
+  version: '2025.2'
+  description: qTest Parameters API documentation
+servers:
+- url: https://parameter-1.qtestnet.com/
+security:
+- token: []
+tags:
+- name: Datasets
+  description: Dataset public APIs
+paths:
+  /api/v1/data-sets/create:
+    post:
+      description: Create a new datatset
+      tags:
+      - Datasets
+      responses:
+        201:
+          description: Dataset successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 5a17c935b015841767bbec66
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatasetModel'
+        description: Dataset object that needs to be created
+        required: true
+  /api/v1/data-sets/{id}:
+    get:
+      description: Retrieve a dataset by id
+      tags:
+      - Datasets
+      parameters:
+      - name: id
+        in: path
+        description: dataset id need to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Dataset object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetModel'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    delete:
+      description: Delete a dataset by id
+      tags:
+      - Datasets
+      parameters:
+      - name: id
+        in: path
+        description: dataset id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Dataset deleted
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      description: Update a dataset by id
+      tags:
+      - Datasets
+      parameters:
+      - name: id
+        in: path
+        description: dataset id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Dataset successfully updated
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        404:
+          description: Not Founded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatasetModel'
+        description: Dataset object that needs to be updated
+        required: true
+  /api/v1/data-sets/query:
+    post:
+      description: Query datasets
+      tags:
+      - Datasets
+      responses:
+        200:
+          description: Operation was successful and a list of datasets matching the query filter (if any) are returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type: number
+                    example: 1
+                  limit:
+                    type: number
+                    example: 50
+                  total_items:
+                    type: number
+                    example: 120
+                  total_pages:
+                    type: number
+                    example: 3
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatasetModel'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchDatasetModel'
+        description: Dataset query object.
+        required: true
+  /api/v1/data-sets/bulk-delete:
+    post:
+      description: Delete multiple datasets
+      tags:
+      - Datasets
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: number
+                    description: number of datasets being deleted
+                    example: 1
+                  skipped:
+                    type: array
+                    description: dataset ids being skipped or empty []
+                    items:
+                      type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                example: 5a17c935b015841767bbec66
+        description: List of dataset ids that need to be deleted
+        required: true
+  /api/v1/data-sets/status:
+    put:
+      description: Update status of mulitple datasets speficied by dataset ids
+      tags:
+      - Datasets
+      responses:
+        200:
+          description: Dataset status has been successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  updated:
+                    type: number
+                    description: Number of datasets updated with new status
+                    example: 1
+                  skipped:
+                    type: array
+                    description: Datasets ids being skipped status update or empty []
+                    items:
+                      type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              - ids
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - Active
+                  - Inactive
+                ids:
+                  type: array
+                  items:
+                    type: string
+                    example: 5a17c935b015841767bbec66
+        description: List of dataset ids whose status is going to be updated
+        required: true
+  /api/v1/data-sets/import:
+    post:
+      description: Import dataset(s) from excel file. The result is an import task id that the caller can poll to check for the importing progress/result
+      tags:
+      - Datasets
+      responses:
+        200:
+          description: Import task successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: Excel file containg datasets to be imported
+                  format: binary
+                config:
+                  type: string
+                  description: Import options {"skipNotActiveParameters":true/false,"projects":[]}
+              required:
+              - file
+              - config
+  /api/v1/data-sets/{dsId}/rows:
+    post:
+      description: Create multiple dataset values
+      tags:
+      - Datasets
+      parameters:
+      - name: dsId
+        in: path
+        description: dataset id
+        required: true
+        schema:
+          type: string
+      responses:
+        201:
+          description: Dataset value objects created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: number
+                    description: number of dataset values being created
+                    example: 1
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateDatasetValueModel'
+        description: Multiple dataset value objects to be created
+        required: true
+    get:
+      description: Query dataset rows
+      tags:
+      - Datasets
+      parameters:
+      - name: dsId
+        in: path
+        description: dataset id
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: page index. If this parameter is omitted or no value is set then system returns first page by default
+        schema:
+          type: number
+      - name: limit
+        in: query
+        description: page size. If this parameter is omitted or no value is set then system returns max 500 datasets
+        schema:
+          type: number
+      responses:
+        200:
+          description: Operation was successful and a list of dataset value return by page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type: number
+                    example: 1
+                  limit:
+                    type: number
+                    example: 50
+                  total_items:
+                    type: number
+                    example: 120
+                  total_pages:
+                    type: number
+                    example: 3
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatasetValueModel'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/data-sets/{dsId}/rows/delete:
+    post:
+      description: Delete multiple dataset values
+      tags:
+      - Datasets
+      parameters:
+      - name: dsId
+        in: path
+        description: dataset id
+        required: true
+        schema:
+          type: string
+      responses:
+        201:
+          description: Dataset values successfully deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: number
+                    description: number of dataset values being deleted
+                    example: 1
+                  skipped:
+                    type: array
+                    description: dataset value ids being skipped or empty []
+                    items:
+                      type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        description: Dataset value ids to be deleted
+        required: true
+components:
+  schemas:
+    DatasetValueModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: dataset value id
+          example: 5a17c935b015841767bbec68
+        ds_id:
+          type: string
+          description: dataset id
+          example: 5a17c935b015841767bbec66
+        cells:
+          type: array
+          description: list of data values
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
+              value_id:
+                type: string
+                description: parameter value id
+                example: 5a17c935b015841767bbec68
+              value_text:
+                type: string
+                description: parameter value
+                example: Sample Parameter Value
+    CreateDatasetValueModel:
+      type: object
+      properties:
+        cells:
+          type: array
+          description: list of data values
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
+              value_id:
+                type: string
+                description: parameter value id
+                example: 5a17c935b015841767bbec68
+              value_text:
+                type: string
+                description: parameter value
+                example: Sample Parameter Value
+    CreateDatasetModel:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: dataset name
+          example: Sample Dataset Name
+        description:
+          type: string
+          description: dataset description
+          example: Sample Dataset Description
+        status:
+          type: string
+          description: dataset status active/inactive
+          enum:
+          - Active
+          - Inactive
+        project_ids:
+          type: array
+          description: list of linked project id
+          items:
+            type: number
+            example: 62592
+        header:
+          type: array
+          description: list of parameter header
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
+    SearchDatasetModel:
+      type: object
+      properties:
+        offset:
+          type: number
+          description: page index. If this parameter is omitted or no value is set then system returns first page by default
+          example: 1
+        limit:
+          type: number
+          description: page size. If this parameter is omitted or no value is set then system returns max 500 datasets
+          example: 50
+        sort_by:
+          type: string
+          description: field names to sort, possible values are [name | description | status | created]. If no field name is specified, system sorts resukt by last created date
+          enum:
+          - created
+          - name
+          - description
+          - status
+          - modified
+        sort_order:
+          type: string
+          description: either asc or desc. If this parameter is omitted, or no value is specified, or value is not in either asc nor desc, then asc is used as default sort order.
+          enum:
+          - asc
+          - desc
+        project_ids:
+          type: array
+          description: a list of project ids to search for datasets associated to it. If no project ids is specified, serach for datasets associated with any (or no) project
+          items:
+            type: number
+            example: 62592
+        name:
+          type: string
+          description: if specified, query for datasets having name containing the keyword, case insensitive
+          example: dataset
+        statuses:
+          type: array
+          description: if specified, query for datasets having one of the status in the array. If not specified at all (null or undefined), search for datasets in any status
+          items:
+            type: string
+            enum:
+            - Active
+            - Inactive
+    DatasetModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: dataset id
+          example: 5a17c935b015841767bbec64
+        name:
+          type: string
+          description: dataset name
+          example: Sample Dataset name
+        description:
+          type: string
+          description: dataset description
+          example: Sample Dataset Description
+        status:
+          type: string
+          description: dataset status active/inactive
+          enum:
+          - Active
+          - Inactive
+        project_ids:
+          type: array
+          description: list of projects specified by projects id that this dataset belongs to
+          items:
+            type: number
+            example: 62592
+        created:
+          type: string
+          description: created date in ISODate format
+          format: date-time
+        modified:
+          type: string
+          description: modified date in ISODate format
+          format: date-time
+        header:
+          type: array
+          description: list of parameters
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
+              param_name:
+                type: string
+                description: parameter name
+                example: Sample Parameter Name
+  securitySchemes:
+    token:
+      name: x-access-token
+      type: apiKey
+      in: header

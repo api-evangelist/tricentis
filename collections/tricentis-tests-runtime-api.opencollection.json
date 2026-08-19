@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Tests|Runtime API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tests|Runtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Starts a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId/start",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific test."
+              },
+              {
+                "name": "testResultName",
+                "value": "",
+                "type": "query",
+                "description": "The name of the Test Result"
+              },
+              {
+                "name": "testResultDescription",
+                "value": "",
+                "type": "query",
+                "description": "The description of the Test Result"
+              },
+              {
+                "name": "asCode",
+                "value": "",
+                "type": "query",
+                "description": "The comma-separated as-code files to use for the test. Those files must be part of the uploaded project."
+              },
+              {
+                "name": "reservationId",
+                "value": "",
+                "type": "query",
+                "description": "The reservation identifier to use for the test that can be retrieved from the NeoLoad Web reservation calendar URL. If the reservation mode is enabled and \"reservationId\" value is defined, \"reservationDuration\", \"reservationWebVUs\" and \"reservationSAPVUs\" values will be ignored, otherwise if the reservation mode is disabled the value will be ignored."
+              },
+              {
+                "name": "reservationDuration",
+                "value": "",
+                "type": "query",
+                "description": "The duration of the reservation for the test. If the reservation mode is enabled, this value or \"reservationDuration\", \"reservationWebVUs\", \"reservationSAPVUs\" must be defined, otherwise if the reservation mode is disabled the value will be ignored. The value (in seconds) is optional when the reservation mode is enabled and ignored when reservationId value is defined or if the reservation mode is disabled. The default value is the selected scenario duration + 1200 seconds (20 minutes). All reserved resources will be released when the test ends."
+              },
+              {
+                "name": "reservationWebVUs",
+                "value": "",
+                "type": "query",
+                "description": "The number of Web Virtual Users to be reserved for the test. The value is optional when the reservation mode is enabled and ignored when \"reservationId\" value is defined or if the reservation mode is disabled."
+              },
+              {
+                "name": "reservationSAPVUs",
+                "value": "",
+                "type": "query",
+                "description": "The number of SAP Virtual Users to be reserved for the test. The value is optional when the reservation mode is enabled and ignored when \"reservationId\" value is defined or if the reservation mode is disabled."
+              },
+              {
+                "name": "publishTestResult",
+                "value": "",
+                "type": "query",
+                "description": "When \"true\" and the project is a collaborative project (other than git) then the Test Result is published onto the server. If empty, the default value is \"false\"."
+              }
+            ]
+          },
+          "docs": "Starts a test of the Workspace according to the method parameters."
+        },
+        {
+          "info": {
+            "name": "Stop a running Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/stop",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stop the running Test Result with the specified id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

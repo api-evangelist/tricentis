@@ -1,0 +1,1903 @@
+{
+  "item": [
+    {
+      "id": "6ef89199-3f2c-400c-9961-a6b0da2f1d56",
+      "name": "Results|Reporting",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "02d3130b-cdab-4270-9ad9-d799656c9c69",
+          "name": "Test Result Graph",
+          "request": {
+            "name": "Test Result Graph",
+            "description": {
+              "content": "Provides a graph from some stats of a Test Result.\n\nElement statistics can be mixed with monitor statistics. Only limitation is around PERCENTILES_DURATION element statistic that cannot be mixed with other element statistics neither with monitor statistics.\nThe graph width is limited to 800 pixels and the graph height is limited to 400 pixels.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "test-results",
+                ":resultId",
+                "graph"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resultId",
+                  "description": "(Required) Unique identifier representing a specific Test Result."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "image/png"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"width\": \"<integer>\",\n  \"height\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"rasterType\": \"<string>\",\n  \"xAxisLabel\": \"<string>\",\n  \"yAxisLabel\": \"<string>\",\n  \"legend\": \"<boolean>\",\n  \"multiYAxis\": \"<boolean>\",\n  \"theme\": \"<string>\",\n  \"elementIds\": [\n    {\n      \"id\": \"<string>\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff10a71f-17c8-46fe-9101-f4928ba172ff",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/png"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "image/png"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bf8b575-6e6a-48d1-85a8-da955195cea9",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecbc2777-f265-476e-9abf-bcbdc150ad28",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d4a6d5c-7dda-4825-9901-26407e3ae781",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b91d07d5-710c-4b46-b076-e4a074c898ce",
+              "name": "Resource not found. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "321c335b-b8d4-42a4-bbbd-01fc471b8714",
+              "name": "Request entity too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12fc2869-ba7b-45c5-badc-b7fb739eaa8c",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6434,\n  \"message\": \"string\",\n  \"retry-after\": 1290\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de7c68ef-d865-4656-832a-7b6d62cd5ceb",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"elementIds\": [\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n      \"statistics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"counterIds\": [\n    \"a4bed45a-06b2-48e1-94fd-3ea979e4f360\",\n    \"b5be82ff-3563-4812-93a5-4ea888e4e254\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03f1bd8b-8da0-4a27-80cc-e3f95fb53bb1",
+          "name": "Test Result report",
+          "request": {
+            "name": "Test Result report",
+            "description": {
+              "content": "Provides the PDF Test Result report.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "test-results",
+                ":resultId",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resultId",
+                  "description": "(Required) Unique identifier representing a specific Test Result."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language\": \"<string>\",\n  \"timeZone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "235eeaa5-fe4f-400b-8ea6-46af84622e02",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5f536e2e-c162-4af1-85ee-6cfa97d98283",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e88ebaf-6fab-4c9d-9f53-1211ae033cfd",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b925acf-f63d-481d-aba0-72aba79823dd",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8879c83c-5160-46f1-b007-49191cf0616f",
+              "name": "Resource not found. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9065ed92-7c53-4e8c-88e2-b55e6776346d",
+              "name": "Request entity too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9f2d49a-efdf-4a78-a97a-8d61e3abdc13",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6434,\n  \"message\": \"string\",\n  \"retry-after\": 1290\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c37173f-d057-4a28-b7c0-8024e2092f70",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    ":resultId",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resultId",
+                      "description": "(Required) Unique identifier representing a specific Test Result."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"en\",\n  \"timeZone\": \"Europe/Paris\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b98511fc-7733-4d35-b4a2-0416cfe7119d",
+          "name": "Test Results MultiGraph",
+          "request": {
+            "name": "Test Results MultiGraph",
+            "description": {
+              "content": "Provides a graph from some stats of some Tests Result. The graph width is limited to 800 pixels and the graph height is limited to 400 pixels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "test-results",
+                "graph"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "image/png"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"width\": \"<integer>\",\n  \"height\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"rasterType\": \"<string>\",\n  \"xAxisLabel\": \"<string>\",\n  \"yAxisLabel\": \"<string>\",\n  \"legend\": \"<boolean>\",\n  \"multiYAxis\": \"<boolean>\",\n  \"theme\": \"<string>\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"<string>\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<string>\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4852b1f6-bc58-4a0d-9c34-6f72974b8f86",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/png"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "image/png"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69a905f2-0da1-4bb1-851d-b1de70a5fe0f",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b4fc0ec-a5b4-4a00-8948-37a6924ef6f0",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a36cb238-75cf-4e7e-aac3-71c0630970db",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bab6a390-0b47-4af8-a0b0-b59434529239",
+              "name": "Resource not found. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e960b12c-8f6d-44d5-ae7a-b11d48636337",
+              "name": "Request entity too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "726e1e24-df81-4c26-ad4c-1deccb1c73bc",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6434,\n  \"message\": \"string\",\n  \"retry-after\": 1290\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e49405fa-bf30-4ed1-82e9-2e8863ad99da",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "test-results",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"width\": 600,\n  \"height\": 200,\n  \"title\": \"My Test\",\n  \"rasterType\": \"PNG\",\n  \"xAxisLabel\": \"X Axis\",\n  \"yAxisLabel\": \"Y Axis\",\n  \"legend\": true,\n  \"multiYAxis\": true,\n  \"theme\": \"DARK\",\n  \"resultIds\": {\n    \"key_0\": {\n      \"elementIds\": [\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"a6f2f595-7b62-4dc4-9368-a1cf670cd924\",\n          \"statistics\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"counterIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3084,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "accountToken"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "822c080f-10f4-45c3-b3f4-3ae845be6f82",
+    "name": "NeoLoad Results|Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V2 Script Generator Plugin API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v2-script-generator-plugin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an array of script generator plugins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/plugins",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an array of script generator plugins"
+        },
+        {
+          "info": {
+            "name": "Create an array of script generator plugins",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/plugins",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an array of script generator plugins"
+        },
+        {
+          "info": {
+            "name": "Delete script generator plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://session-js.qtestnet.com/plugins/:pluginid",
+            "params": [
+              {
+                "name": "pluginid",
+                "value": "",
+                "type": "path",
+                "description": "plugin's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete script generator plugin"
+        },
+        {
+          "info": {
+            "name": "Download script generator plugin by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/plugins/:pluginid/file",
+            "params": [
+              {
+                "name": "pluginid",
+                "value": "",
+                "type": "path",
+                "description": "plugin's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download script generator plugin by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

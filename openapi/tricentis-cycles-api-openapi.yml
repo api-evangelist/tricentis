@@ -1,0 +1,585 @@
+openapi: 3.2.0
+info:
+  title: TTM for Jira Cycles API
+  description: Tricentis Test Management for Jira
+  version: 1.0.0
+  termsOfService: https://www.tricentis.com/legal-information/general-terms-of-use/
+servers:
+- url: https://api.ttm4j.tricentis.com
+security:
+- api_key: []
+tags:
+- name: Cycles
+paths:
+  /v1/projects/{project-key}/cycles:
+    post:
+      tags:
+      - Cycles
+      summary: Create cycle(s).
+      description: "## Create cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycles** _(mandatory)_: Provide a list of cycles, with each test having the following fields:\n    * **name** _(mandatory)_: name of the cycle.\n    * **version** _(optional)_: cycle's version (if not provided the version will be under 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Environments and Builds are allowed. AllowedValueName must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).\n        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development)."
+      parameters:
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: cyclesApiData.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type:
+                    - string
+                    - 'null'
+                  assignee:
+                    type:
+                    - string
+                    - 'null'
+                  plannedStartDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                  plannedEndDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                  fields:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        schemeId:
+                          type: string
+                          format: uuid
+                        schemeType:
+                          enum:
+                          - List
+                          - String
+                          type: string
+                        schemeName:
+                          type:
+                          - string
+                          - 'null'
+                        alloweValueId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        allowedValueName:
+                          type:
+                          - string
+                          - 'null'
+                        value:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                  version:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              CyclesCreationApiData:
+                value:
+                - version: 1.0.0
+                  name: My Cycle
+                - name: My Second Cycle
+                  plannedStartDate: '2026-08-01T12:59:08.7785351Z'
+                  plannedEndDate: '2026-08-02T12:59:08.7785345Z'
+                - name: My Third Cycle
+                  fields:
+                  - schemeName: Environments
+                    allowedValueName: Development
+                  - schemeName: Builds
+                    allowedValueName: 1.9.9
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type:
+                      - string
+                      - 'null'
+                      format: uuid
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                    parentId:
+                      type:
+                      - string
+                      - 'null'
+                      format: uuid
+                    plannedStartDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    plannedEndDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    assignee:
+                      type:
+                      - string
+                      - 'null'
+                    version:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        jiraId:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                    fields:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: object
+                        properties:
+                          schemeId:
+                            type: string
+                            format: uuid
+                          schemeType:
+                            enum:
+                            - List
+                            - String
+                            type: string
+                          schemeName:
+                            type:
+                            - string
+                            - 'null'
+                          alloweValueId:
+                            type:
+                            - string
+                            - 'null'
+                            format: uuid
+                          allowedValueName:
+                            type:
+                            - string
+                            - 'null'
+                          value:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                  additionalProperties: false
+              examples:
+                CyclesApiDataResponseExample:
+                  value:
+                  - name: My Cycle
+                    version:
+                      name: 1.0.0
+                  - name: My Second Cycle
+                    plannedStartDate: '2026-08-01T12:59:08.7786418Z'
+                    plannedEndDate: '2026-08-02T12:59:08.7786417Z'
+                    version:
+                      name: UNVERSIONED
+                  - name: My Third Cycle
+                    version:
+                      name: UNVERSIONED
+                    fields:
+                    - schemeName: Environments
+                      allowedValueName: Development
+                    - schemeName: Builds
+                      value: 1.9.9
+        '400':
+          description: '`Invalid parameters`.'
+        '401':
+          description: Unauthorized
+        '404':
+          description: '`Not Found`.'
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/cycles/{cycleId}:
+    put:
+      tags:
+      - Cycles
+      summary: Update cycle.
+      description: "## Update cycle.\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycle** : Provide the cycle details to update:\n    * **name** _(optional)_: name of the cycle.\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Environments and Builds are allowed. AllowedValueName must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).\n        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development)."
+      parameters:
+      - name: cycleId
+        in: path
+        description: cycleId.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: cyclesApiData.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type:
+                  - string
+                  - 'null'
+                assignee:
+                  type:
+                  - string
+                  - 'null'
+                plannedStartDate:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                plannedEndDate:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                fields:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: object
+                    properties:
+                      schemeId:
+                        type: string
+                        format: uuid
+                      schemeType:
+                        enum:
+                        - List
+                        - String
+                        type: string
+                      schemeName:
+                        type:
+                        - string
+                        - 'null'
+                      alloweValueId:
+                        type:
+                        - string
+                        - 'null'
+                        format: uuid
+                      allowedValueName:
+                        type:
+                        - string
+                        - 'null'
+                      value:
+                        type:
+                        - string
+                        - 'null'
+                    additionalProperties: false
+              additionalProperties: false
+            examples:
+              CycleUpdateApiData:
+                value:
+                  name: My Third Cycle
+                  assignee: My User
+                  plannedStartDate: '2026-08-01T12:59:08.780012Z'
+                  plannedEndDate: '2026-08-02T12:59:08.7800117Z'
+                  fields:
+                  - schemeName: Environments
+                    allowedValueName: Development
+                  - schemeName: Builds
+                    allowedValueName: 1.9.9
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                  name:
+                    type:
+                    - string
+                    - 'null'
+                  parentId:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                  plannedStartDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                  plannedEndDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                  assignee:
+                    type:
+                    - string
+                    - 'null'
+                  version:
+                    type: object
+                    properties:
+                      id:
+                        type:
+                        - string
+                        - 'null'
+                        format: uuid
+                      jiraId:
+                        type:
+                        - string
+                        - 'null'
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                    additionalProperties: false
+                  fields:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        schemeId:
+                          type: string
+                          format: uuid
+                        schemeType:
+                          enum:
+                          - List
+                          - String
+                          type: string
+                        schemeName:
+                          type:
+                          - string
+                          - 'null'
+                        alloweValueId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        allowedValueName:
+                          type:
+                          - string
+                          - 'null'
+                        value:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                additionalProperties: false
+              examples:
+                CycleUpdateApiDataResponseExample:
+                  value:
+                    name: My Third Cycle
+                    plannedStartDate: '2026-08-01T12:59:08.7800949Z'
+                    plannedEndDate: '2026-08-02T12:59:08.7800948Z'
+                    version:
+                      name: 1.0.0
+                    fields:
+                    - schemeName: Environments
+                      allowedValueName: Development
+                    - schemeName: Builds
+                      value: 1.9.9
+        '400':
+          description: '`Invalid parameters`.'
+        '401':
+          description: Unauthorized
+        '404':
+          description: '`Not Found`.'
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/cycles/search:
+    get:
+      tags:
+      - Cycles
+      summary: Get cycles.
+      description: "## Get cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Query parameter fields:\n* **cycle** : Provide the cycle details to filter by:\n    * **name** _(optional)_: filter cycles that contains name.\n    * **version** _(optional)_: cycle's version (if not provided the default value is 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle is assigned to."
+      parameters:
+      - name: name
+        in: query
+        description: name.
+        schema:
+          type: string
+      - name: version
+        in: query
+        description: version.
+        schema:
+          type: string
+      - name: assignee
+        in: query
+        description: assignee.
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: offset
+        in: query
+        description: 'Numeric value that determines that the result list will start from result #N (zero based)'
+        schema:
+          type: Integer
+          default: 0
+          example: 0
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type:
+                      - string
+                      - 'null'
+                      format: uuid
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                    parentId:
+                      type:
+                      - string
+                      - 'null'
+                      format: uuid
+                    plannedStartDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    plannedEndDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    assignee:
+                      type:
+                      - string
+                      - 'null'
+                    version:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        jiraId:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                    fields:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: object
+                        properties:
+                          schemeId:
+                            type: string
+                            format: uuid
+                          schemeType:
+                            enum:
+                            - List
+                            - String
+                            type: string
+                          schemeName:
+                            type:
+                            - string
+                            - 'null'
+                          alloweValueId:
+                            type:
+                            - string
+                            - 'null'
+                            format: uuid
+                          allowedValueName:
+                            type:
+                            - string
+                            - 'null'
+                          value:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                  additionalProperties: false
+              examples:
+                CyclesApiDataResponseExample:
+                  value:
+                  - name: My Cycle
+                    version:
+                      name: 1.0.0
+                  - name: My Second Cycle
+                    plannedStartDate: '2026-08-01T12:59:08.7812546Z'
+                    plannedEndDate: '2026-08-02T12:59:08.7812544Z'
+                    version:
+                      name: UNVERSIONED
+                  - name: My Third Cycle
+                    version:
+                      name: UNVERSIONED
+                    fields:
+                    - schemeName: Environments
+                      allowedValueName: Development
+                    - schemeName: Builds
+                      value: 1.9.9
+        '400':
+          description: '`Invalid parameters`.'
+        '401':
+          description: Unauthorized
+        '404':
+          description: '`Not Found`.'
+      security:
+      - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

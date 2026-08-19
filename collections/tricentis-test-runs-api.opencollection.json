@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TTM for Jira Test Runs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Test Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create test runs from junit xml string.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/import/execution/junit",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "version."
+              },
+              {
+                "name": "cycleName",
+                "value": "",
+                "type": "query",
+                "description": "cycleName."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Import test run(s) (execution result) from JUnit XML string.\n#### Body:\nThe body should be the XML content of the JUnit XML file.\n#### Query parameters:\n* **version** _(optional)_: Specify the version name which the test runs will be under.\n* **cycleName** _(optional)_: cycle name to specify.\nif not provided, it will take the it from the \"name\" attribute of the \"testsuites\" XML tag in case it exists.\nif nothing provided, it will generate a name like \"Junit execution (current date)\"."
+        },
+        {
+          "info": {
+            "name": "Read test run(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/search",
+            "params": [
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Get or retrieve information from test run(s).\n            \n#### Body fields:\n* **cycles** _(optional)_: Specify the cycles to filter by the result.\n* **versions** _(optional)_: Specify the versions to filter by the result.\n* **keys** _(optional)_: Specify the test runs keys to filter by the result.\n* **testCasesKeys** _(optional)_: Specify the test cases keys to filter by the result.\n              When specified, only test runs that belong to these test cases will be returned.\n* **expand** _("
+        },
+        {
+          "info": {
+            "name": "Create test run(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs",
+            "params": [
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create or import test run(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **version** _(optional)_: Specify the version name which the test runs will be under.\nIf version won't be provided OR version will be equal to unversioned, the test runs will be created under unversioned.\n(creating and editing of releases (versions) are managed in Jira).\n* **cycleName** _(optional)_: Specify the cycle name which the test runs will be under.\n* **folderPath** _(optio"
+        },
+        {
+          "info": {
+            "name": "Update test run(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/:test-run-key",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "Test Run Key."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Update an existing test run.\n##### Note: Any values you enter will override existing values in the test run.\n            \n#### Body fields:\n* **testCategory** _(optional)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n* **executedBy** _(optional)_: the username or email which the test run is executed by.\n* **assignee** _(optional)_: the username or email which the test run will be assigned to.\n* **priority** _(optional)_: priority of the test run (\"Highes\",\"Low\",et"
+        },
+        {
+          "info": {
+            "name": "Delete test run(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/:test-run-key",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "Test Run Key."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Delete existing test run(s)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

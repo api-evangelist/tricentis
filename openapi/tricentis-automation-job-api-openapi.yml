@@ -1,0 +1,204 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Automation Job API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: automation-job
+  description: Automation Job API
+paths:
+  /api/v3/automation/automation-agents:
+    post:
+      tags:
+      - automation-job
+      summary: Search automation agents
+      description: "To search automation agents in projects that user is assigned to \n\n<em>fields:</em> specify which property of Automation Agent you want to include in the response. If you omit it or specify an asterisk (*), all of following fields are included: id, name, project_id, host_id, framework, active, configuration\n\n\n<em>query:</em> specify a structured query (criteria, operator and value) with one or multiple clauses to search for Automation Agents. Following are supporting criteria\n\n| Criteria | Operators | Value |\n|-----|-----|-------|\n| name, framework   |  <>, ~, is empty, =, !~, is not empty   | string     |\n |host_name | <>, ~, =, !~ | string | \n| id, project_id, host_id | <>, >, <, <=, >=, =| id \n | active | = | active, inactive\n\n"
+      operationId: searchAutomationAgents
+      parameters:
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationAgentSearchResult'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationArtifactSearchParams'
+        required: true
+  /api/v3/automation/jobs/schedule/create:
+    post:
+      tags:
+      - automation-job
+      summary: Create a Schedule
+      description: 'To create a new Schedule which will be executed immediately
+
+
+        <strong>NOTE:</strong> Try It Out function will not work for this API
+
+
+        <strong>qTest Manager version:</strong> 6+"'
+      operationId: createSchedule
+      responses:
+        201:
+          description: Schedule is created
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationScheduleCreationAPI'
+        required: true
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    AutomationArtifactSearchParams:
+      type: object
+      properties:
+        fields:
+          type: array
+          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          example: '''name'' ~ ''qTest'''
+          description: Represent text as Data Query
+    AutomationAgentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        agent_server_id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        project_id:
+          type: integer
+          format: int64
+        host_id:
+          type: integer
+          format: int64
+        framework:
+          type: string
+        framework_id:
+          type: string
+        agent_id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        configuration:
+          type: string
+    AutomationScheduleCreationAPI:
+      type: object
+      required:
+      - agentId
+      - projectId
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Demo Suite Auto
+          description: Name of schedule
+        agentId:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the agent which will execute your automation script
+        startDate:
+          type: string
+          format: date-time
+        creator:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+          example: 1
+        testRunIds:
+          type: array
+          description: Arrays of Test Run ID
+          items:
+            type: integer
+            format: int64
+        dynamic:
+          type: object
+          description: Additions values
+          additionalProperties:
+            type: string
+    AutomationAgentSearchResult:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationAgentResource'
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

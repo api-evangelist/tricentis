@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TTM for Jira Status API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Validate if api key is still valid.",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://api.ttm4j.tricentis.com/v1/api-key/is-alive",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Validate if api key is still valid."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

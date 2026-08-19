@@ -1,0 +1,163 @@
+openapi: 3.2.0
+info:
+  title: qTest Data Export Access Files API
+  version: ''
+  description: ''
+servers:
+- url: https://dataexport-0.qtestnet.com/uta/api/v1
+tags:
+- name: AccessFiles
+paths:
+  /files:
+    get:
+      tags:
+      - AccessFiles
+      summary: Produce a list of files.
+      description: Produce a list of files, each with its own filepath. Use this information to start a file download.
+      parameters:
+      - name: apiKey
+        in: header
+        description: The unique API access key for your organization.
+        required: true
+        schema:
+          type: string
+      - name: directoryFilter
+        in: query
+        description: The full path of a directory from the root. Use the format "qTest/yyyy-MM-dd/<name of the table>". For example, to retrieve all files loaded into the builds table on December 4th, 2022, enter the value "qtest/2022-12-04/builds". To retrieve all files from a specific date, enter the value "qtest/yyyy-MM-dd".
+        schema:
+          type: string
+      - name: pageToken
+        in: query
+        description: The value that points you to the next page of your data, if the data you're trying to retrieve exceeds the pageSize value. Use this value in a new request to retrieve the next set of data. Once you've retrieved all data, the pageToken value is null and the lastPage value is true.
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: The maximum number of objects you want to fetch per request. The default is the maximum value of 1000.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseMessage'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseMessage'
+  /file/{filepath}:
+    get:
+      tags:
+      - AccessFiles
+      summary: Download a file.
+      description: Download a file from the filepath produced by the GET request /files. Files in a folder are listed in increasing numerical order. Read the file numbers from least to greatest. For example, 0000_part_00.parquet, 0000_part_01.parquet, 0001_part_00.parquet, 0001_part_01.parquet, and so on.
+      parameters:
+      - name: filepath
+        in: path
+        description: The full file path for the file you want to retrieve, including the file name.
+        required: true
+        schema:
+          type: string
+      - name: apiKey
+        in: header
+        description: The unique API access key for your organization.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponseMessage'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseMessage'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseMessage'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseMessage'
+components:
+  schemas:
+    CustomErrorMessage:
+      type: object
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        resource:
+          type: string
+    CustomError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomErrorMessage'
+    ObjectDetails:
+      type: object
+      properties:
+        uniqueID:
+          type: string
+        filePath:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        sizeKB:
+          type: integer
+          format: int64
+    ErrorResponseMessage:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        error:
+          $ref: '#/components/schemas/CustomError'
+    SuccessResponseMessage:
+      type: object
+      properties:
+        message:
+          type: object
+    ObjectResponse:
+      type: object
+      properties:
+        pageToken:
+          type: string
+        lastPage:
+          type: boolean
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectDetails'
+externalDocs:
+  description: Introduction to qTest Data Export
+  url: https://documentation.tricentis.com/qtest/od/en/content/apis/data_export/data_export_overview.htm

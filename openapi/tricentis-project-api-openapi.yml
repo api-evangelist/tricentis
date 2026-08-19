@@ -1,0 +1,938 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Project API
+  version: '1.0'
+  description: 'Operations tagged project across 2 of this provider''s published API definitions: tricentis-qtest-manager-openapi.yaml, tricentis-qtest-pulse-openapi.yaml. Each path carries the servers of the definition it was published in.'
+schemes:
+- https
+tags:
+- name: project
+  description: Project API
+paths:
+  /api/v3/projects:
+    get:
+      tags:
+      - project
+      summary: Gets multiple Projects
+      description: 'To retrieve all Projects which the requested qTest  Manager account can access to
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getProjects
+      parameters:
+      - name: expand
+        in: query
+        description: <em>expand=userprofile</em> - to include your profile and permissions in each project
+        required: false
+        type: string
+        enum:
+        - userprofile
+      - name: assigned
+        in: query
+        description: '<em>assigned=true</em> - default value. Only the projects which the requested user has access to
+
+
+          <em>assigned=false</em> - Users with admin profile can use this value to retrieve all projects, regardless of having access'
+        required: false
+        type: boolean
+      - name: page
+        in: query
+        description: By default, all projects are returned; but you can specify any page number to retrieve objects
+        required: false
+        type: integer
+        default: 1
+        format: int64
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        type: integer
+        default: 100
+        format: int64
+      responses:
+        200:
+          description: ''
+          headers:
+            X-Item-Total:
+              type: integer
+              format: int32
+              description: Total number of projects available
+            Link:
+              type: string
+              format: uri
+              description: Contain one or more hypermedia link relations
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProjectResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - project
+      summary: Creates a Project
+      description: 'To create a new Project
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: createProject
+      parameters:
+      - in: body
+        name: body
+        description: "Project created properties \n\n<em>name:</em> name of project \n<em>description:</em> description of project \n<em>status_id:</em> status of project \n<em>start_date:</em> start date of project, eg: 2019-06-17T05:09:13.178Z \n<em>end_date:</em> end date of project, eg: 2019-06-27T05:09:13.178Z \n<em>admins:</em> list assigned admin of project \n<em>template_id (optional):</em> valid site template id of project. After creating a project, the valid site template filed will be applied for it \n<em>uuid (optional):</em> uuid of project. User can provide any string value for uuid, then they can used it for searching projects."
+        required: true
+        schema:
+          $ref: '#/definitions/ProjectResource'
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ProjectResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/search:
+    post:
+      tags:
+      - project
+      summary: Search for projects
+      description: ''
+      operationId: searchProjects
+      parameters:
+      - in: body
+        name: body
+        description: "Project search condition properties \n\n<em>uuid:</em> list of uuid for searching"
+        required: true
+        schema:
+          $ref: '#/definitions/ProjectQueryParams'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProjectResource'
+        403:
+          description: Forbidden
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}:
+    get:
+      tags:
+      - project
+      summary: Gets a Project
+      description: To retrieve a specific Project
+      operationId: getProject
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        type: integer
+        format: int64
+      - name: expand
+        in: query
+        description: <em>expand=userprofile</em> - include the your profile and permissions within the project in the response
+        required: false
+        type: string
+        enum:
+        - userprofile
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ProjectResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - project
+      summary: Updates a Project
+      description: ''
+      operationId: updateProject
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        type: integer
+        format: int64
+      - in: body
+        name: body
+        description: "Project updated properties \n\n<em>name (optional):</em> name of project \n<em>description (optional):</em> description of project \n<em>start_date (optional):</em> Start date of project, eg: 2019-06-17T05:09:13.178Z \n<em>end_date (optional):</em> End date of project, eg: 2019-06-27T05:09:13.178Z \n<em>admin_ids (optional):</em> list assigned admin ids of project \n<em>uuid (optional):</em> uuid of project. User can provide any string value for uuid, then they can used it for searching projects. \n<em>template_id (optional):</em> site template id of project. When changing site template id, the project will be removed from old site template id and the new site template will be applied to it."
+        required: true
+        schema:
+          $ref: '#/definitions/ProjectUpdateResource'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ProjectResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/user-profiles/current:
+    get:
+      tags:
+      - project
+      summary: Gets current user Permissions in a Project
+      description: 'To retrieve your Permissions in a Project
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getCurrentProfile
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/UserProfile'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/users:
+    get:
+      tags:
+      - project
+      summary: Gets all Users in a Project
+      description: 'To retrieve all members in a qTest Manager Project
+
+
+        <strong>qTest Manager version:</strong> 8.4.2+'
+      operationId: getUsers
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        type: integer
+        format: int64
+      - name: inactive
+        in: query
+        description: '<em>inactive=false</em> - default value. Inactive users are excluded from the response
+
+
+          <em>inactive=true</em> - inactive users are included in the response'
+        required: false
+        type: boolean
+        default: true
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserResource'
+      security:
+      - Authorization: []
+  /projects:
+    get:
+      tags:
+      - project
+      summary: Get all projects
+      responses:
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        default:
+          $ref: '#/responses/Default'
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Project'
+      security:
+      - qtestToken: []
+        qtestUrl: []
+  /projects/{id}:
+    parameters:
+    - $ref: '#/parameters/IdPath'
+    get:
+      tags:
+      - project
+      summary: Get a project
+      description: To get a project by id
+      responses:
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        default:
+          $ref: '#/responses/Default'
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Project'
+      security:
+      - qtestToken: []
+        qtestUrl: []
+definitions:
+  TestConfigurationPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+      edit:
+        type: boolean
+      delete:
+        type: boolean
+      view:
+        type: boolean
+      link_unlink:
+        type: boolean
+  ProjectAdminPermission:
+    type: object
+    properties:
+      admin:
+        type: boolean
+        example: true
+        description: Is project admin or not
+  DefectPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Defect
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Defect
+      delete:
+        type: boolean
+      view:
+        type: boolean
+        example: true
+        description: Can view Defect
+      export:
+        type: boolean
+        example: true
+        description: Can export Defect
+  ProjectResource:
+    type: object
+    properties:
+      links:
+        type: array
+        readOnly: true
+        items:
+          $ref: '#/definitions/Link'
+      id:
+        type: integer
+        format: int64
+        example: 1
+        description: ID of the Project
+      name:
+        type: string
+        example: qConnect Sample Project
+        description: Name of the Project
+      description:
+        type: string
+        example: Description of qConnect Sample Project
+        description: Description of the Project
+      status_id:
+        type: integer
+        format: int64
+        example: 101
+        description: Status of the Project
+      start_date:
+        type: string
+        format: date-time
+        description: Start date of the Project
+      end_date:
+        type: string
+        format: date-time
+        description: End date of the Project
+      admins:
+        type: array
+        description: Arrays of admin user
+        items:
+          type: string
+      admin_ids:
+        type: array
+        items:
+          type: integer
+          format: int64
+      sample:
+        type: boolean
+        example: true
+        description: Is sample or not
+      user_profile:
+        $ref: '#/definitions/UserProfile'
+      defect_tracking_systems:
+        type: array
+        description: Arrays of External Defect Tracking Connection
+        items:
+          $ref: '#/definitions/DefectTrackingSystem'
+      x_explorer_access_level:
+        type: integer
+        format: int32
+        example: 7
+        description: Can access Explorer
+      date_format:
+        type: string
+        example: yyyy/MM/dd
+        description: Client date time format
+      automation:
+        type: boolean
+        example: false
+        description: Automation enabled or not
+        readOnly: true
+      template_id:
+        type: integer
+        format: int64
+        example: 1
+        description: Template id of this project
+      uuid:
+        type: string
+        example: uuid
+        description: UUID of the Project
+  TestConfigurationVariablesPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+      edit:
+        type: boolean
+      delete:
+        type: boolean
+      view:
+        type: boolean
+  ProjectSettingPermission:
+    type: object
+    properties:
+      manage:
+        type: boolean
+        example: true
+        description: Can manage project setting or not
+  ReleasePermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Release
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Release
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Release
+      view:
+        type: boolean
+        example: true
+        description: Can view Release
+  DefectMapping:
+    type: object
+    properties:
+      type_id:
+        type: integer
+        format: int64
+      type:
+        type: string
+      type_label:
+        type: string
+      project_id:
+        type: integer
+        format: int64
+      project:
+        type: string
+      project_label:
+        type: string
+      fields:
+        type: array
+        items:
+          $ref: '#/definitions/DefectFieldMapping'
+  ProjectUpdateResource:
+    type: object
+    properties:
+      links:
+        type: array
+        readOnly: true
+        items:
+          $ref: '#/definitions/Link'
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+        example: qConnect Sample Project
+        description: Name of the Project
+      description:
+        type: string
+        example: Description of qConnect Sample Project
+        description: Description of the Project
+      start_date:
+        type: string
+        example: '2019-06-17T05:09:13.178Z'
+        description: Start date of the Project
+      end_date:
+        type: string
+        example: '2019-06-27T05:09:13.178Z'
+        description: End date of the Project
+      admin_ids:
+        type: array
+        description: Array of Assigned Admin user id
+        items:
+          type: integer
+          format: int64
+      uuid:
+        type: string
+        example: uuid
+        description: UUID of the Project
+      template_id:
+        type: integer
+        format: int64
+        example: 1
+        description: Template id of this project
+  ModulePermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Module
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Module
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Module
+      view:
+        type: boolean
+        example: true
+        description: Can view Module
+  TestCasePermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Test Case
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Test Case
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Test Case
+      view:
+        type: boolean
+        example: true
+        description: Can view Test Case
+      edit_assignment:
+        type: boolean
+        example: true
+        description: Can assign Test Case
+      export:
+        type: boolean
+        example: true
+        description: Can export Test Case
+      import:
+        type: boolean
+        example: true
+        description: Can import Test Case
+      approve:
+        type: boolean
+        example: true
+        description: Can approve Test Case
+  RequirementPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Requirement
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Requirement
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Requirement
+      view:
+        type: boolean
+        example: true
+        description: Can view Requirement
+      edit_assignment:
+        type: boolean
+        example: true
+        description: Can assign user to Requirement
+      export:
+        type: boolean
+        example: true
+        description: Can export Requirement
+      import:
+        type: boolean
+        example: true
+        description: Can import Requirement
+  DefectTrackingSystem:
+    type: object
+    properties:
+      defect_mappings:
+        type: array
+        items:
+          $ref: '#/definitions/DefectMapping'
+      connection_name:
+        type: string
+        example: Jira Cloud
+        description: Name of Integration Connection
+      url:
+        type: string
+        example: https://example.jira.com
+        description: URL to Integration Connection
+      system_name:
+        type: string
+        example: JIRA
+        description: System name of Integration Connection
+      active:
+        type: boolean
+        example: true
+        description: Status of Integration Connection
+      id:
+        type: integer
+        format: int64
+        example: 1
+        description: ID of Integration Connection
+  Link:
+    type: object
+    properties:
+      rel:
+        type: string
+        example: self
+        description: Relationship of link to object
+      href:
+        type: string
+        example: <link to object>
+        description: URL to the resource
+  DefectFieldMapping:
+    type: object
+    properties:
+      field:
+        type: string
+        example: Priority
+        description: External tracker Defect's field
+      qtest_fields:
+        type: array
+        description: qTest Defect's field
+        items:
+          type: string
+          example: 101,102
+  ProjectQueryParams:
+    type: object
+    properties:
+      uuid:
+        type: array
+        description: UUID of the Project
+        items:
+          type: string
+  SchedulePermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create schedule
+      edit:
+        type: boolean
+        example: true
+        description: Can edit schedule
+      delete:
+        type: boolean
+        example: true
+        description: Can delete schedule
+      view:
+        type: boolean
+        example: true
+        description: Can views= schedule
+  Project:
+    allOf:
+    - $ref: '#/definitions/Doc'
+    - required:
+      - qtestProjectId
+      - name
+      properties:
+        qtestProjectId:
+          type: integer
+          format: int64
+        name:
+          type: string
+  Doc:
+    required:
+    - id
+    properties:
+      id:
+        type: string
+  TestCyclePermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Test Cycle
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Test Cycle
+      delete:
+        type: boolean
+        example: true
+        description: Can edit Test Cycle
+      view:
+        type: boolean
+        example: true
+        description: Can view Test Cycle
+  TestSuitePermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Test Suite
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Test Suite
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Test Suite
+      view:
+        type: boolean
+        example: true
+        description: Can view Test Suite
+  TestRunPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Test Run
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Test Run
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Test Run
+      view:
+        type: boolean
+        example: true
+        description: Can view Test Run
+      execute:
+        type: boolean
+        example: true
+        description: Can execute Test Run
+      export:
+        type: boolean
+        example: true
+        description: Can export Test Run
+      edit_assignment:
+        type: boolean
+        example: true
+        description: Can assign user to Test Run
+      modify_test_logs_by_self:
+        type: boolean
+      modify_test_logs_by_others:
+        type: boolean
+  SessionManagerPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Session
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Session
+      delete:
+        type: boolean
+        example: true
+        description: Can delete Session
+      view:
+        type: boolean
+        example: true
+        description: Can view Session
+  BuildPermission:
+    type: object
+    properties:
+      create:
+        type: boolean
+        example: true
+        description: Can create Build
+      edit:
+        type: boolean
+        example: true
+        description: Can edit Build
+      delete:
+        type: boolean
+        example: false
+        description: Can delete Build
+      view:
+        type: boolean
+        example: true
+        description: Can view Build
+  Error:
+    required:
+    - message
+    properties:
+      message:
+        type: string
+  UserResource:
+    type: object
+    properties:
+      links:
+        type: array
+        description: Link to resource
+        readOnly: true
+        items:
+          $ref: '#/definitions/Link'
+      id:
+        type: integer
+        format: int64
+        example: 1
+        description: ID of the User
+      username:
+        type: string
+        example: example.user@qtest.com
+        description: Login username of the User
+      email:
+        type: string
+        example: example.user@qtest.com
+        description: Contact email of the User
+      password:
+        type: string
+        description: Password of the User
+      first_name:
+        type: string
+        example: Example
+        description: First name of the User
+      last_name:
+        type: string
+        example: User
+        description: Last name of the User
+      status:
+        type: integer
+        format: int32
+        example: 0
+        description: Status of the User
+      avatar:
+        type: string
+        example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+      ldap_username:
+        type: string
+        description: LDAP username of the User
+      user_group_ids:
+        type: array
+        items:
+          type: integer
+          format: int64
+      external_auth_config_id:
+        type: integer
+        format: int64
+        description: External authentication system id
+      external_user_name:
+        type: string
+        description: External authentication username
+  UserProfile:
+    type: object
+    properties:
+      user_id:
+        type: integer
+        format: int64
+        example: 1
+        description: ID of the User
+      project_id:
+        type: integer
+        format: int64
+        example: 1
+        description: ID of the Project
+      release:
+        $ref: '#/definitions/ReleasePermission'
+      build:
+        $ref: '#/definitions/BuildPermission'
+      test_configuration:
+        $ref: '#/definitions/TestConfigurationPermission'
+      test_configuration_variables:
+        $ref: '#/definitions/TestConfigurationVariablesPermission'
+      module:
+        $ref: '#/definitions/ModulePermission'
+      requirement:
+        $ref: '#/definitions/RequirementPermission'
+      test_case:
+        $ref: '#/definitions/TestCasePermission'
+      test_cycle:
+        $ref: '#/definitions/TestCyclePermission'
+      test_suite:
+        $ref: '#/definitions/TestSuitePermission'
+      test_run:
+        $ref: '#/definitions/TestRunPermission'
+      defect:
+        $ref: '#/definitions/DefectPermission'
+      project_setting:
+        $ref: '#/definitions/ProjectSettingPermission'
+      session:
+        $ref: '#/definitions/SessionManagerPermission'
+      project:
+        $ref: '#/definitions/ProjectAdminPermission'
+      schedule:
+        $ref: '#/definitions/SchedulePermission'
+parameters:
+  IdPath:
+    name: id
+    in: path
+    required: true
+    type: string
+    description: ID of the project
+responses:
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'
+  Forbidden:
+    description: Forbidden
+    schema:
+      $ref: '#/definitions/Error'
+  Default:
+    description: Error
+    schema:
+      $ref: '#/definitions/Error'
+  BadRequest:
+    description: Bad Request
+    schema:
+      $ref: '#/definitions/Error'
+securityDefinitions:
+  Authorization:
+    type: apiKey
+    name: Authorization
+    in: header
+  qtestToken:
+    type: apiKey
+    in: header
+    name: Authorization
+  qtestUrl:
+    type: apiKey
+    in: header
+    name: x-qtest-url
+externalDocs:
+  description: Introduction to qTest Pulse API
+  url: https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm
+x-refined-from:
+- tricentis-qtest-manager-openapi.yaml
+- tricentis-qtest-pulse-openapi.yaml

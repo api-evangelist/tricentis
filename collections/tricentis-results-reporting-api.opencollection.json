@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Results|Reporting API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results|Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test Result Graph",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/graph",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides a graph from some stats of a Test Result.\n\nElement statistics can be mixed with monitor statistics. Only limitation is around PERCENTILES_DURATION element statistic that cannot be mixed with other element statistics neither with monitor statistics.\nThe graph width is limited to 800 pixels and the graph height is limited to 400 pixels.\n"
+        },
+        {
+          "info": {
+            "name": "Test Result report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/report",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides the PDF Test Result report.\n"
+        },
+        {
+          "info": {
+            "name": "Test Results MultiGraph",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/graph",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides a graph from some stats of some Tests Result. The graph width is limited to 800 pixels and the graph height is limited to 400 pixels."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

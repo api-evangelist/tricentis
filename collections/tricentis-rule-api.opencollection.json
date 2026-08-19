@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Pulse Rule API",
+    "version": "2025.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "rule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all rules of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/rules",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Return only the first N results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N results"
+              }
+            ]
+          },
+          "docs": "To get all rules of a project"
+        },
+        {
+          "info": {
+            "name": "Create a rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To create a rule"
+        },
+        {
+          "info": {
+            "name": "Get a rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To get a rule by id"
+        },
+        {
+          "info": {
+            "name": "Update a rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a rule"
+        },
+        {
+          "info": {
+            "name": "Update a rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a rule"
+        },
+        {
+          "info": {
+            "name": "Delete a rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To delete a rule"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

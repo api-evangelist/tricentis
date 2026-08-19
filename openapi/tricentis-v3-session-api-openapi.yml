@@ -1,0 +1,585 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 Session API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-session
+  description: Session V3 APIs
+paths:
+  /api/sessions:
+    post:
+      tags:
+      - v3-session
+      summary: Create a session.
+      description: ''
+      responses:
+        201:
+          description: Session object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSession'
+        description: Session object that needs to be created.
+        required: true
+  /api/sessions/batch:
+    put:
+      tags:
+      - v3-session
+      summary: Update multiple sessions.
+      description: ''
+      responses:
+        200:
+          description: Session object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    description: number of sessions updated successfull
+                  failed:
+                    type: integer
+                    description: number of sessions updated unsuccessfull
+                  errors:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: id of session cannot be updated
+                      error:
+                        type: string
+                        description: error message
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                $ref: '#/components/schemas/Session'
+        description: Sessions object that needs to be updated.
+        required: true
+    delete:
+      tags:
+      - v3-session
+      summary: Delete multiple sessions.
+      description: ''
+      responses:
+        200:
+          description: Session object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    description: number of sessions deleted successfull
+                  failed:
+                    type: integer
+                    description: number of sessions deleted unsuccessfull
+                  errors:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: id of sessions cannot be deleted
+                      error:
+                        type: string
+                        description: error message
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                description: session's id
+        description: Sessions id.
+        required: true
+  /api/sessions/{sessionId}:
+    get:
+      tags:
+      - v3-session
+      summary: Get session by Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: ID of session to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: include
+        in: query
+        description: 'Get more infos of session, chain query with comma, Ex: time-line,app-infos'
+        schema:
+          type: string
+          items:
+            type: string
+          enum:
+          - all
+          - time-lines
+          - app-infos
+          - sys-infos
+          default: all
+      responses:
+        200:
+          description: session object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.session
+    put:
+      tags:
+      - v3-session
+      summary: Update session by Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: ID of session to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/Session'
+        required: true
+    delete:
+      tags:
+      - v3-session
+      summary: Delete a session by Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: ID of session to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+  /api/sessions/{sessionId}/status:
+    get:
+      tags:
+      - v3-session
+      summary: Get status of session by Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: ID of session to get status
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: status of session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+    put:
+      tags:
+      - v3-session
+      summary: Change status of session by Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session to change status
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: operation succeed
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - running
+                  - completed
+                  - reviewed
+        description: status string that want to change to
+        required: true
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    Session:
+      type: object
+      properties:
+        id:
+          type: number
+        system_id:
+          type: string
+        owner_user:
+          type: string
+        edit_user:
+          type: string
+        tester_name:
+          type: string
+        assigned_user:
+          type: string
+        title:
+          type: string
+        desc:
+          type: string
+        actual_duration:
+          type: number
+        planned_duration:
+          type: number
+        other_env_info:
+          type: string
+        executor:
+          type: string
+        overall_summary:
+          type: string
+        type:
+          type: string
+        tags:
+          type: string
+        test_charter:
+          type: string
+        test_objectives:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        client_name:
+          type: string
+        captured_date:
+          type: string
+        has_meta_data:
+          type: boolean
+        status:
+          type: string
+        sufix_pid:
+          type: string
+        client_id:
+          type: number
+        project_id:
+          type: number
+        settings:
+          type: object
+          properties:
+            reset_trace_step_number:
+              type: boolean
+            show_timestamp:
+              type: boolean
+        doc:
+          type: object
+          properties:
+            captured_date:
+              type: string
+            incl_sys_info_to_output:
+              type: boolean
+            version:
+              type: string
+        links:
+          $ref: '#/components/schemas/Links'
+        time_lines:
+          type: array
+          items:
+            properties:
+              id:
+                type: string
+              modifiled_date:
+                type: string
+              total_time:
+                type: number
+              order:
+                type: number
+              time_type:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  color:
+                    type: string
+                  catagory_name:
+                    type: string
+        app_infos:
+          $ref: '#/components/schemas/AppInfos'
+        sys_info:
+          $ref: '#/components/schemas/SysInfo'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+    CreateSession:
+      type: object
+      required:
+      - title
+      - project_id
+      properties:
+        title:
+          type: string
+        captured_date:
+          type: string
+        client_name:
+          type: string
+        doc:
+          type: object
+          properties:
+            captured_date:
+              type: string
+            incl_sys_info_to_output:
+              type: boolean
+            version:
+              type: string
+        settings:
+          type: object
+          properties:
+            reset_trace_step_numbers:
+              type: boolean
+            show_timestamp:
+              type: boolean
+        sys_info:
+          $ref: '#/components/schemas/SysInfo'
+        app_infos:
+          $ref: '#/components/schemas/AppInfos'
+        edit_user:
+          type: string
+        has_meta_data:
+          type: boolean
+        owner_user:
+          type: string
+        planned_duration:
+          type: string
+        project_id:
+          type: number
+        status:
+          type: string
+        tester_name:
+          type: string
+        client_id:
+          type: number
+        desc:
+          type: string
+        assigned_user:
+          type: string
+        other_env_info:
+          type: string
+        overall_summary:
+          type: string
+        tags:
+          type: string
+        test_charter:
+          type: string
+        test_objectives:
+          type: string
+    SysInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

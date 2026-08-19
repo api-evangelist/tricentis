@@ -1,0 +1,851 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Integration Settings API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "integration-settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Jira connections of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all Jira connections of a project\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Add a new Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a new Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "OAuth Authorize URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/oauthAuthorizeURL",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "this must be 0 (zero)"
+              },
+              {
+                "name": "serverUrl",
+                "value": "",
+                "type": "query",
+                "description": "your Jira's Server URL"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "OAuth Authorize URL (for Jira Server or DC only).\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Activate or deactivate a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Input <em>true</em> to activate a connection, or <em>false</em> to deactivate it"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Activate or deactivate a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Delete a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Enable or disable populating Jira Unlinked Defects of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/defect",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "storeUnlinkedDefects",
+                "value": "",
+                "type": "query",
+                "description": "Input <em>true</em> to populate unlinked Jira Defects, or <em>false</em> to disable this feature"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable or disable populating Jira Unlinked Defects of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Get Jira defect mappings of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/defect/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project. Use this to retrieve mappings with this Jira project only"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira issue type. Use this to retrieve mappings with this Jira issue type"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Jira defect mappings of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Add a defect mapping to a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/defect/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project. Use this to retrieve mappings with this Jira project only"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira issue type. Use this to retrieve mappings with this Jira issue type only"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a defect mapping to a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Update a defect mapping of Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/defect/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Jira issue type\n\n externalProjectId and externalIssueTypeId are used to identify a defect mapping and cannot be modified"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a defect mapping of Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Trigger retrieving latest field settings from a JIRA connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/refreshFieldSettings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "artifact",
+                "value": "",
+                "type": "query",
+                "description": "Single value. Valid values include: <b>Defects, Requirements</b>"
+              },
+              {
+                "name": "mappingId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the mapping. Only required if <em>artifact=Requirements<em>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Trigger retrieving the latest Defects/Requirements field settings from Jira\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Enable or disable Release Integration feature of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/release",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Input <em>true</em> to enable Release integration, or <em>false</em> to disable it"
+              },
+              {
+                "name": "autoFilterTestRun",
+                "value": "",
+                "type": "query",
+                "description": "select or deselect the checkbox <em>Auto-filter Test Runs on Jira iframe to match Fix Version/Sprint of Jira issue</em>. Valid values include: <b>True, False</b>"
+              },
+              {
+                "name": "mergeDuplicatedFixVersions",
+                "value": "",
+                "type": "query",
+                "description": "select or deselect the checkbox Merge all Jira Fix versions with existing qTest Releases that have the same name into a single Release and link to all Jira projects. Valid values include: <b>True, False</b>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable or disable Release Integration feature\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Get Jira release mappings of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/release/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project. Use this to retrieve mappings with this Jira project only"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "Valid values include: fixVersions, Sprint (<strong>case-sensitive</strong>)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Jira release mappings of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Add a new Jira release mapping to a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/release/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project. You will need to make API calls to Jira to get its project IDs"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "valid values include: fixVersions, Sprint (<strong>case-sensitive</strong>)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a new Jira release mapping to a Jira connection. \n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Update a Release Mapping of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/release/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "valid values include: fixVersions, Sprint (<strong>case-sensitive</strong>)\n\n externalProjectId and externalIssueTypeId are used to identify a release mapping and cannot be modified"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To configure a Release Mapping of a Jira connection. \n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Enable or disable a Requirement Integration feature of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/requirement",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Input <em>true</em> to enable the feature, or <em>false</em> to disable it"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enable or disable a Requirement Integration feature of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Get requirement mappings of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/requirement/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Jira project. You will need to make API calls to Jira to get its project IDs"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Jira issue type. You will need to make API calls to Jira to get its issue type IDs"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get requirement mappings of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Add a requirement mapping to a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/requirement/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project. You will need to make API calls to Jira to retrieve its project IDs"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira issue type. You will need to make API calls to Jira to retrieve its issue type IDs"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a requirement mapping to a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Update a requirement mapping of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/requirement/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira issue type\n\n externalProjectId and externalIssueTypeId are used to identify a release mapping and cannot be modified"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To configure a requirement mapping of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Trigger data retrieval from an integrated Jira system",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/retrieve",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "artifact",
+                "value": "",
+                "type": "query",
+                "description": "Valid values include: <b>Defects, Requirements, Releases</b>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Trigger data retrieval from an integrated Jira system\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Remove a Mapping of a Jira connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/integration/connections/:connectionId/:artifact/mappings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Jira connection"
+              },
+              {
+                "name": "artifact",
+                "value": "",
+                "type": "path",
+                "description": "Valid values can be: <b>Defect, Requirement, Release</b>"
+              },
+              {
+                "name": "externalProjectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira project"
+              },
+              {
+                "name": "externalIssueTypeId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Jira issue type. \n\n externalProjectId and externalIssueTypeId are used to identify a mapping"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a Mapping of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+"
+        },
+        {
+          "info": {
+            "name": "Trigger defect retrieval from an integrated Jira system",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/jira-integration/defect/retrieve",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Trigger defect retrieval from an integrated Jira system"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

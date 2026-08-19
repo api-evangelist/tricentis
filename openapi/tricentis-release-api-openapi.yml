@@ -1,0 +1,282 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Release API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: release
+  description: Release API
+paths:
+  /api/v3/projects/{projectId}/releases:
+    get:
+      tags:
+      - release
+      summary: Gets multiple Releases
+      description: 'To retrieve Releases in a project
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getAllReleases
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: includeClosed
+        in: query
+        description: '<em>includeClosed=false</em> - default value. <em>Closed</em> Releases are excluded from the response
+
+
+          <em>includeClosed=true</em> - Closed Release are included in the response'
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - release
+      summary: Creates a Release
+      description: 'To create a Release
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: createRelease
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Release is created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+        description: The Release's properties
+        required: true
+  /api/v3/projects/{projectId}/releases/{releaseId}:
+    get:
+      tags:
+      - release
+      summary: Gets a Release
+      description: 'To retrieve a Release
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getReleaseById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: releaseId
+        in: path
+        description: ID of the Release
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - release
+      summary: Updates a Release
+      description: 'To update a Release
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: updateReleaseById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: releaseId
+        in: path
+        description: ID of the Release which needs to be updated
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+        description: The Release's updated properties
+        required: true
+    delete:
+      tags:
+      - release
+      summary: Delete a release
+      description: To delete a Release
+      operationId: deleteReleaseById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: releaseId
+        in: path
+        description: 'ID of the Release which needs to be deleted
+
+
+          <strong>qTest Manager version:</strong> 6+'
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    ReleaseWithCustomFieldResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 149652
+        name:
+          type: string
+          example: Release 2
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 2
+        pid:
+          type: string
+          example: RL-2
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652
+          readOnly: true
+        description:
+          type: string
+          example: This is the second release
+        note:
+          type: string
+          example: Note of the Release
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

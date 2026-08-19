@@ -1,0 +1,364 @@
+{
+  "item": [
+    {
+      "id": "ce8ca9a3-d0f1-4107-a1c6-c2abaec22c98",
+      "name": "common",
+      "description": {
+        "content": "Common API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6638dfab-2789-4b48-af7c-88c353c924bb",
+          "name": "Update active or inactive custom fields of an Object Type",
+          "request": {
+            "name": "Update active or inactive custom fields of an Object Type",
+            "description": {
+              "content": "To update active or inactive custom fields of an Object Type",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                ":objectType",
+                "custom-fields",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectType",
+                  "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"label\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"id\": \"<long>\",\n    \"required\": \"<boolean>\",\n    \"constrained\": \"<boolean>\",\n    \"order\": \"<integer>\",\n    \"allowed_values\": [\n      {\n        \"value\": \"<long>\",\n        \"label\": \"<string>\",\n        \"order\": \"<integer>\",\n        \"is_default\": \"<boolean>\",\n        \"is_active\": \"<boolean>\",\n        \"color\": \"<string>\"\n      },\n      {\n        \"value\": \"<long>\",\n        \"label\": \"<string>\",\n        \"order\": \"<integer>\",\n        \"is_default\": \"<boolean>\",\n        \"is_active\": \"<boolean>\",\n        \"color\": \"<string>\"\n      }\n    ],\n    \"multiple\": \"<boolean>\",\n    \"data_type\": \"<long>\",\n    \"searchable\": \"<boolean>\",\n    \"default_value\": \"<string>\",\n    \"system_field\": \"<boolean>\",\n    \"original_name\": \"<string>\",\n    \"is_active\": \"<boolean>\"\n  },\n  {\n    \"label\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"id\": \"<long>\",\n    \"required\": \"<boolean>\",\n    \"constrained\": \"<boolean>\",\n    \"order\": \"<integer>\",\n    \"allowed_values\": [\n      {\n        \"value\": \"<long>\",\n        \"label\": \"<string>\",\n        \"order\": \"<integer>\",\n        \"is_default\": \"<boolean>\",\n        \"is_active\": \"<boolean>\",\n        \"color\": \"<string>\"\n      },\n      {\n        \"value\": \"<long>\",\n        \"label\": \"<string>\",\n        \"order\": \"<integer>\",\n        \"is_default\": \"<boolean>\",\n        \"is_active\": \"<boolean>\",\n        \"color\": \"<string>\"\n      }\n    ],\n    \"multiple\": \"<boolean>\",\n    \"data_type\": \"<long>\",\n    \"searchable\": \"<boolean>\",\n    \"default_value\": \"<string>\",\n    \"system_field\": \"<boolean>\",\n    \"original_name\": \"<string>\",\n    \"is_active\": \"<boolean>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6c9ac14-7dde-4aea-8366-645efd7044b9",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    ":objectType",
+                    "custom-fields",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"label\": \"Name\",\n    \"instanceType\": \"NumberDataType\",\n    \"id\": 1,\n    \"required\": true,\n    \"constrained\": \"<boolean>\",\n    \"order\": 1,\n    \"allowed_values\": [\n      {\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      },\n      {\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      }\n    ],\n    \"multiple\": false,\n    \"data_type\": 1,\n    \"searchable\": true,\n    \"default_value\": \"<string>\",\n    \"system_field\": true,\n    \"original_name\": \"Name\",\n    \"is_active\": true\n  },\n  {\n    \"label\": \"Name\",\n    \"instanceType\": \"NumberDataType\",\n    \"id\": 1,\n    \"required\": true,\n    \"constrained\": \"<boolean>\",\n    \"order\": 1,\n    \"allowed_values\": [\n      {\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      },\n      {\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      }\n    ],\n    \"multiple\": false,\n    \"data_type\": 1,\n    \"searchable\": true,\n    \"default_value\": \"<string>\",\n    \"system_field\": true,\n    \"original_name\": \"Name\",\n    \"is_active\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"label\": \"Name\",\n    \"instanceType\": \"NumberDataType\",\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"required\": true,\n    \"constrained\": \"<boolean>\",\n    \"order\": 1,\n    \"allowed_values\": [\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      }\n    ],\n    \"multiple\": false,\n    \"data_type\": 1,\n    \"searchable\": true,\n    \"default_value\": \"<string>\",\n    \"system_field\": true,\n    \"original_name\": \"Name\",\n    \"is_active\": true\n  },\n  {\n    \"label\": \"Name\",\n    \"instanceType\": \"NumberDataType\",\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"required\": true,\n    \"constrained\": \"<boolean>\",\n    \"order\": 1,\n    \"allowed_values\": [\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"value\": 601,\n        \"label\": \"Passed\",\n        \"order\": 1,\n        \"is_default\": true,\n        \"is_active\": true,\n        \"color\": \"#c0c0c0\"\n      }\n    ],\n    \"multiple\": false,\n    \"data_type\": 1,\n    \"searchable\": true,\n    \"default_value\": \"<string>\",\n    \"system_field\": true,\n    \"original_name\": \"Name\",\n    \"is_active\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f241833-853e-48ca-af81-f5baaaebcd00",
+          "name": "Edit System Field of an Object Type by the field",
+          "request": {
+            "name": "Edit System Field of an Object Type by the field",
+            "description": {
+              "content": "To edit System Field of an Object Type by the field",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                ":objectType",
+                "system-fields",
+                ":fieldId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "fieldId",
+                  "description": "(Required) ID of the field."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectType",
+                  "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"<string>\",\n  \"instanceType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"required\": \"<boolean>\",\n  \"constrained\": \"<boolean>\",\n  \"order\": \"<integer>\",\n  \"allowed_values\": [\n    {\n      \"value\": \"<long>\",\n      \"label\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"is_default\": \"<boolean>\",\n      \"is_active\": \"<boolean>\",\n      \"color\": \"<string>\"\n    },\n    {\n      \"value\": \"<long>\",\n      \"label\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"is_default\": \"<boolean>\",\n      \"is_active\": \"<boolean>\",\n      \"color\": \"<string>\"\n    }\n  ],\n  \"multiple\": \"<boolean>\",\n  \"data_type\": \"<long>\",\n  \"searchable\": \"<boolean>\",\n  \"default_value\": \"<string>\",\n  \"system_field\": \"<boolean>\",\n  \"original_name\": \"<string>\",\n  \"is_active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2599b569-889d-4d3e-af74-19b46fbc6622",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    ":objectType",
+                    "system-fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "fieldId",
+                      "description": "(Required) ID of the field."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Name\",\n  \"instanceType\": \"NumberDataType\",\n  \"id\": 1,\n  \"required\": true,\n  \"constrained\": \"<boolean>\",\n  \"order\": 1,\n  \"allowed_values\": [\n    {\n      \"value\": 601,\n      \"label\": \"Passed\",\n      \"order\": 1,\n      \"is_default\": true,\n      \"is_active\": true,\n      \"color\": \"#c0c0c0\"\n    },\n    {\n      \"value\": 601,\n      \"label\": \"Passed\",\n      \"order\": 1,\n      \"is_default\": true,\n      \"is_active\": true,\n      \"color\": \"#c0c0c0\"\n    }\n  ],\n  \"multiple\": false,\n  \"data_type\": 1,\n  \"searchable\": true,\n  \"default_value\": \"<string>\",\n  \"system_field\": true,\n  \"original_name\": \"Name\",\n  \"is_active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"label\": \"Name\",\n  \"instanceType\": \"NumberDataType\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 1,\n  \"required\": true,\n  \"constrained\": \"<boolean>\",\n  \"order\": 1,\n  \"allowed_values\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"value\": 601,\n      \"label\": \"Passed\",\n      \"order\": 1,\n      \"is_default\": true,\n      \"is_active\": true,\n      \"color\": \"#c0c0c0\"\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"value\": 601,\n      \"label\": \"Passed\",\n      \"order\": 1,\n      \"is_default\": true,\n      \"is_active\": true,\n      \"color\": \"#c0c0c0\"\n    }\n  ],\n  \"multiple\": false,\n  \"data_type\": 1,\n  \"searchable\": true,\n  \"default_value\": \"<string>\",\n  \"system_field\": true,\n  \"original_name\": \"Name\",\n  \"is_active\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "66da51ed-9c54-4f3e-ae15-7e2cfaaaf6c5",
+    "name": "qTest Manager API Version 3.0 Common API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

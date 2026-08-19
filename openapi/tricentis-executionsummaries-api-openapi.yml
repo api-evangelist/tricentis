@@ -1,0 +1,384 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Analytics (Tech Review) Executionsummaries API
+  description: Tricentis Analytics OData APIs
+  version: ''
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+tags:
+- name: executionsummaries
+paths:
+  /executionsummaries:
+    get:
+      summary: Get entities from executionsummaries
+      tags:
+      - executionsummaries
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - testcaseid
+            - testcaseid desc
+            - projectname
+            - projectname desc
+            - testcyclefolderid
+            - testcyclefolderid desc
+            - testcyclefoldername
+            - testcyclefoldername desc
+            - testsuiteid
+            - testsuiteid desc
+            - testsuitename
+            - testsuitename desc
+            - releaseid
+            - releaseid desc
+            - releasename
+            - releasename desc
+            - ssor
+            - ssor desc
+            - executionenddate
+            - executionenddate desc
+            - total_unexecuted
+            - total_unexecuted desc
+            - total_executed
+            - total_executed desc
+            - blocked_run
+            - blocked_run desc
+            - failed_run
+            - failed_run desc
+            - incomplete_run
+            - incomplete_run desc
+            - passed_run
+            - passed_run desc
+            - other_run
+            - other_run desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - testcaseid
+            - projectname
+            - testcyclefolderid
+            - testcyclefoldername
+            - testsuiteid
+            - testsuitename
+            - releaseid
+            - releasename
+            - ssor
+            - executionenddate
+            - total_unexecuted
+            - total_executed
+            - blocked_run
+            - failed_run
+            - incomplete_run
+            - passed_run
+            - other_run
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of executionsummary
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.executionsummary'
+        4XX:
+          $ref: '#/components/responses/error'
+  /executionsummaries({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    get:
+      summary: Get entity from executionsummaries by key
+      tags:
+      - executionsummaries
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - testcaseid
+            - projectname
+            - testcyclefolderid
+            - testcyclefoldername
+            - testsuiteid
+            - testsuitename
+            - releaseid
+            - releasename
+            - ssor
+            - executionenddate
+            - total_unexecuted
+            - total_executed
+            - blocked_run
+            - failed_run
+            - incomplete_run
+            - passed_run
+            - other_run
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.executionsummary'
+        4XX:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.executionsummary:
+      title: executionsummary
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        testcyclefolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcyclefoldername:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        testsuiteid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testsuitename:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        releaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        releasename:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        executionenddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        total_unexecuted:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        total_executed:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        blocked_run:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        failed_run:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        incomplete_run:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        passed_run:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        other_run:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey

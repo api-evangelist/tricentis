@@ -1,0 +1,607 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Test Run API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "test-run",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Test Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the container (Release, Test Cycle or Test Suite)\n\nInput 0 (zero) to retrieve Test Runs directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the container. Valid values include <em>root</em>, <em>release</em>, <em>test-cycle</em> and <em>test-suite</em>"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Specify <em>expand=descendants</em> to include all Test Runs which are directly or indirectly under the container"
+              },
+              {
+                "name": "includeToscaProperties",
+                "value": "",
+                "type": "query",
+                "description": "By default, Tosca properties of Test Run (imported from Tosca) are not included in the response. Specify includeToscaProperties=true to include them.\n\n <em>(tosca_guid, tosca_node_path, tosca_workspace_url, tosca_testevent_guid)</em>"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Test Runs under root or under a container (Release, Test Cycle or Test Suite)\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Creates a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the container\n\nInput 0 (zero) to get Test Runs directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the container. Valid values include <em>root</em>, <em>release</em>, <em>test-cycle</em>, and <em>test-suite</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a Test Run under root or a container (Release, Test Cycle or Test Suite)\n\n<strong>qTest Manager version:</strong> 6+You can optionally specify a parent in the request parameter to create its test runs.\n\nThe associated Test Case is specified in the request body"
+        },
+        {
+          "info": {
+            "name": "Create multiple Test Runs with Parameter values from dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/assign-parameter-values/dataset",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the container\n\nInput 0 (zero) to get Test Runs directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the container. Valid values include <em>root</em>, <em>release</em>, <em>test-cycle</em>, and <em>test-suite</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create multiple Test Runs with parameter values under root or a container (Release, Test Cycle or Test Suite). Number of test runs can be created depend on number_of_rows property and it should not more than 100."
+        },
+        {
+          "info": {
+            "name": "Create multiple Test Runs with Parameter values manual",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/assign-parameter-values/manually",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the container\n\nInput 0 (zero) to get Test Runs directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the container. Valid values include <em>root</em>, <em>release</em>, <em>test-cycle</em>, and <em>test-suite</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create multiple Test Runs with parameter values under root or a container (Release, Test Cycle or Test Suite). Maximum number of test runs can be created is 100."
+        },
+        {
+          "info": {
+            "name": "Create multiple Test Runs with Parameter values random from selection combine type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/assign-parameter-values/randomize",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the container\n\nInput 0 (zero) to get Test Runs directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the container. Valid values include <em>root</em>, <em>release</em>, <em>test-cycle</em>, and <em>test-suite</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create multiple Test Runs with parameter values under root or a container (Release, Test Cycle or Test Suite). Maximum number of test runs can be created depend on combine type."
+        },
+        {
+          "info": {
+            "name": "Gets Test Run statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/execution-statuses",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets Test Run statuses"
+        },
+        {
+          "info": {
+            "name": "Gets a Sub Hierarchy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/subhierarchy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "parentType"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "parentId"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Sub Hierarchy of a container (root, release, test-cycle) \n\n<strong>qTest Manager version:</strong> 9.3.4+"
+        },
+        {
+          "info": {
+            "name": "Gets all Comments of a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:idOrKey/comments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Test Run"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Comments of a Test Run\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Adds a Comment to a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:idOrKey/comments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "The PID or ID of the Test Run."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To add a Comment to a Test Run\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Gets a Comment from a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Test Run."
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Comment"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a specific Comment from a Test Run\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Updates a Comment of a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Test Run"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the comment which you want to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a Comment of a Test Run\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Deletes a Comment of a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Test Run."
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the comment which you want to delete."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Comment of a Test Run\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Gets a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Valid values include: \n\ni)<em>testcase</em> - to expand the associated Test Case in the response; \n\nii) <em>testcase.teststep</em> - to expand the associated Test Case and its Test Steps in the response"
+              },
+              {
+                "name": "includeToscaProperties",
+                "value": "",
+                "type": "query",
+                "description": "By default, Tosca properties of Test Run (imported from Tosca) are not included in the response. Specify includeToscaProperties=true to include them.\n\n <em>(tosca_guid, tosca_node_path, tosca_workspace_url, tosca_testevent_guid)</em>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Test Run\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Updates a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run."
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the container (Release, Test Cycle or Test Suite)\n\nInput 0 (zero) to move the test run to under root\n\n<strong>Important:</strong> If you use the request parameters, the request body will be ignored. That means the test run is being moved but it will not be updated with the properties specify in the request body"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the container. Valid values include <em>root</em>, <em>release</em>, <em>test-cycle</em> and <em>test-suite</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a Test Run or move it to another container\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Deletes a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Test Run\n\n<strong>qTest Manager version:</strong> 6+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

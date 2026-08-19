@@ -1,0 +1,286 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tricentis User API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "user",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets current user's information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/re-evaluation",
+            "params": [
+              {
+                "name": "includeInaccessibleApps",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "To retrieve your information such as username, email, first name, and last name"
+        },
+        {
+          "info": {
+            "name": "Queries Users by Project Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/search/user",
+            "params": [
+              {
+                "name": "projectName",
+                "value": "",
+                "type": "query",
+                "description": "Name of the project whose users you want to query for. The API will return users which have been added to projects whose names contain the text specified in this parameter\n\n<strong>IMPORTANT:</strong> Project name is case sensitive"
+              },
+              {
+                "name": "inactive",
+                "value": "",
+                "type": "query",
+                "description": "<em>inactive=false</em> - default value. Inactive users are excluded from the response\n\n<em>inactive=true</em> - include inactive users"
+              },
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "<em>pagination=true</em> - default value. The result is paginated\n\n<em>pagination=false</em> - the result is not paginated"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              }
+            ]
+          },
+          "docs": "To query for users by names of their assigned projects\n\n- Admin users with <em>Manage Client Users</em> permission can query users in any projects\n\n- For other users: the API only returns users within projects to which the requesting user is assigned"
+        },
+        {
+          "info": {
+            "name": "Invites a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/users"
+          },
+          "docs": "To invite a user to your qTest Manager instance and activate the account. If the password is omitted, the default \"<em>admin123</em>\" will be used\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Assigns multiple Users to a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/users/projects",
+            "params": [
+              {
+                "name": "skipEmailNotifications",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to skip email notifications about associating user with a project."
+              }
+            ]
+          },
+          "docs": "To assign a list of Users to a Project\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Remove association between users and projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v3/users/projects",
+            "params": [
+              {
+                "name": "skipEmailNotifications",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to skip email notifications about removing user's association with a project."
+              }
+            ]
+          },
+          "docs": "To remove association between users and projects"
+        },
+        {
+          "info": {
+            "name": "Queries Users by Username",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/users/search",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "API will return users which have been added to projects whose names contain the text specified in this parameter.\n\nLogin names of users should be provided for this query, but they vary based on the source of the user.\n\n- qTest Login Email - for users created directly on qTest\n\n- LDAP or SSO username or external username - for users created from LDAP or SSO"
+              },
+              {
+                "name": "includeInactiveUsers",
+                "value": "",
+                "type": "query",
+                "description": "<em>includeInactiveUsers=false</em> - default value. Inactive users are excluded from the response\n\n<em>includeInactiveUsers=true</em> - inactive users are included in the response"
+              },
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "<em>pagination=true</em> - default value. The result is paginated\n\n<em>pagination=false</em> - the result is not paginated"
+              },
+              {
+                "name": "authSystemConfigIds",
+                "value": "",
+                "type": "query",
+                "description": "LDAP Configuration Ids"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 100) in this parameter."
+              }
+            ]
+          },
+          "docs": "To query for users by their username\n\n<strong>qTest Manager version:</strong> 8.4.2+"
+        },
+        {
+          "info": {
+            "name": "Gets a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user."
+              }
+            ]
+          },
+          "docs": "To retrieve a User's information"
+        },
+        {
+          "info": {
+            "name": "Update user's information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v3/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user."
+              }
+            ]
+          },
+          "docs": "To update information of a user, like : recovery email, password, status..."
+        },
+        {
+          "info": {
+            "name": "Gets a User's Avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/users/:userId/avatar",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user."
+              }
+            ]
+          },
+          "docs": "To retrieve a User's Avatar"
+        },
+        {
+          "info": {
+            "name": "Assigns a User to a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/users/:userId/projects",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user."
+              }
+            ]
+          },
+          "docs": "To assign a User to a Project"
+        },
+        {
+          "info": {
+            "name": "Get current logged-in user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/me"
+          },
+          "docs": "To get current logged-in user"
+        },
+        {
+          "info": {
+            "name": "Update current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/me"
+          },
+          "docs": "Update current user"
+        },
+        {
+          "info": {
+            "name": "Update current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/me"
+          },
+          "docs": "Update current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

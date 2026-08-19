@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tricentis Folders API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get entities from folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/folders",
+            "params": [
+              {
+                "name": "$top",
+                "value": "50",
+                "type": "query",
+                "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)"
+              },
+              {
+                "name": "$search",
+                "value": "",
+                "type": "query",
+                "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)"
+              },
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+              },
+              {
+                "name": "$count",
+                "value": "",
+                "type": "query",
+                "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get entities from folders"
+        },
+        {
+          "info": {
+            "name": "Get entity from folders by key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/folders(:id)",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "key: id"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get entity from folders by key"
+        },
+        {
+          "info": {
+            "name": "Get folder(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/folders",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "name."
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "parentId."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Get folders.\n            \n#### Query parameters to filter by:\n            \n* **name** : _(optional)_: The folder name.\n* **parentId** _(optional)_: The ID of the parent folder where the new folder should be located. (If not provided, only root folders will return)."
+        },
+        {
+          "info": {
+            "name": "Create folder(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/folders",
+            "params": [
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create new folders. The body contains a list of folders to create.\n            \n#### Body fields:\n            \n* **name** : The folder name.\n* **parentId** _(optional)_ : The ID of the parent folder where the new folder should be located."
+        },
+        {
+          "info": {
+            "name": "Update folder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/folders/:folderId",
+            "params": [
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "Folder's Id to update."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Update folder.\n            \n#### Body fields:\n* **name** _(optional)_: The folder name.\n* **parentId** _(optional)_: In case parentId equal to 00000000-0000-0000-0000-000000000000, the folder will be moved to root."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

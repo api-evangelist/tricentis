@@ -1,0 +1,407 @@
+{
+  "item": [
+    {
+      "id": "4a0a7244-e96c-4bd9-ac8b-794e8735f08c",
+      "name": "Resources|Zones",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb42abf2-b10b-4915-9114-3e048fafce29",
+          "name": "List all zones",
+          "request": {
+            "name": "List all zones",
+            "description": {
+              "content": "Lists the zones.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "resources",
+                "zones"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e9b5c73-2c81-4108-846b-1308939bcd6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"hIugt\",\n    \"name\": \"zone name\",\n    \"type\": \"DYNAMIC\",\n    \"controllers\": [\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"AVAILABLE\"\n      },\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"BUSY\"\n      }\n    ],\n    \"loadgenerators\": [\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"RESERVED\"\n      },\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"RESERVED\"\n      }\n    ]\n  },\n  {\n    \"id\": \"hIugt\",\n    \"name\": \"zone name\",\n    \"type\": \"STATIC\",\n    \"controllers\": [\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"BUSY\"\n      },\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"BUSY\"\n      }\n    ],\n    \"loadgenerators\": [\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"AVAILABLE\"\n      },\n      {\n        \"name\": \"resource.domain.com:7100\",\n        \"version\": \"7.0.2\",\n        \"status\": \"RESERVED\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9f57254-7cd0-4efc-ae6f-fd42f4b729b2",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3405,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa565f50-11ac-4e3b-8632-d02ec6718d23",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3405,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c81c95d6-b240-4ce5-81bb-25a26a88f7b9",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3405,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1be57a7-d11b-4b94-9c7c-834fc5c411d3",
+              "name": "Resource not found. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3405,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35eb0a02-91f2-4a9b-bd1f-6e7263329d4a",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9670,\n  \"message\": \"string\",\n  \"retry-after\": 6198\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b269994c-933e-421e-a0cf-6f24073bcfdb",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "resources",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3405,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "accountToken"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "82ab869e-c4ba-4c4d-a94d-1a9da1ab5e1c",
+    "name": "NeoLoad Resources|Zones API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

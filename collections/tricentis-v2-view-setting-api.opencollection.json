@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V2 View Setting API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v2-view-setting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get view settings of sessions list in qTest Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/view-settings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager project's id"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager object's id"
+              },
+              {
+                "name": "objectTypeId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager object type's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get view settings of sessions list in qTest Manager"
+        },
+        {
+          "info": {
+            "name": "Update view settings of sessions list in qTest Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/view-settings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager project's id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update view settings of sessions list in qTest Manager"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

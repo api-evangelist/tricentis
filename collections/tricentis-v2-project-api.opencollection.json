@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V2 Project API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v2-project",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get projects permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/permissions",
+            "params": [
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "list project ids"
+              },
+              {
+                "name": "system",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get projects permissions"
+        },
+        {
+          "info": {
+            "name": "Reset Sample project data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/projects/:projectId/reset",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Sample project's id"
+              },
+              {
+                "name": "oldId",
+                "value": "",
+                "type": "query",
+                "description": "Old Sample project's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reset Sample project data"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

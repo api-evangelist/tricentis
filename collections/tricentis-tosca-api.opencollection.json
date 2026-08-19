@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Tosca API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tosca",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Import Tosca TestEvent objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/tosca/import/test-event",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To export TestEvent objects from Tosca to qTest"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

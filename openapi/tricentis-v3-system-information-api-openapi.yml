@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 System Information API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-system-information
+  description: System Information V3 APIs
+paths:
+  /api/sessions/{sessionId}/sys-infos:
+    post:
+      tags:
+      - v3-system-information
+      summary: Create system infomation
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: System infomation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  id:
+                    type: number
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/CreateSysInfo'
+        description: System information object
+        required: true
+  /api/sessions/{sessionId}/sys-infos/{sysInfoId}:
+    get:
+      tags:
+      - v3-system-information
+      summary: Get system infomation
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sysInfoId
+        in: path
+        description: system infomation's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: System infomation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SysInfo'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+    put:
+      tags:
+      - v3-system-information
+      summary: Update system infomation
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sysInfoId
+        in: path
+        description: system infomation's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/SysInfo'
+    delete:
+      tags:
+      - v3-system-information
+      summary: Delete system infomation
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: sysInfoId
+        in: path
+        description: system infomation's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.systemInfomation
+components:
+  schemas:
+    CreateSysInfo:
+      type: object
+      properties:
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    SysInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Tests|Test Analysis API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tests|Test Analysis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Test Analysis configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId/analysis",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the Test Analysis configuration for the specified Test"
+        },
+        {
+          "info": {
+            "name": "Update Test Analysis configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId/analysis",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the Test Analysis configuration for the specified Test"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

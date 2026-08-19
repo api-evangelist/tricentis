@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V4 Query API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v4-query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/api/v4/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create query"
+        },
+        {
+          "info": {
+            "name": "Update query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/api/v4/query/:queryid",
+            "params": [
+              {
+                "name": "queryid",
+                "value": "",
+                "type": "path",
+                "description": "query's id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update query"
+        },
+        {
+          "info": {
+            "name": "Delete query",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://session-js.qtestnet.com/api/v4/query/:queryid",
+            "params": [
+              {
+                "name": "queryid",
+                "value": "",
+                "type": "path",
+                "description": "query's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete query"
+        },
+        {
+          "info": {
+            "name": "Share queries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/api/v4/query/share",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Share queries"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

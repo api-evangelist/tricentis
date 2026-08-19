@@ -1,0 +1,1094 @@
+{
+  "item": [
+    {
+      "id": "494fdf08-7596-48ff-a016-6eda18abad69",
+      "name": "Cycles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a22aea91-2ced-44d9-a329-9474cd7c2751",
+          "name": "Create cycle(s).",
+          "request": {
+            "name": "Create cycle(s).",
+            "description": {
+              "content": "## Create cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycles** _(mandatory)_: Provide a list of cycles, with each test having the following fields:\n    * **name** _(mandatory)_: name of the cycle.\n    * **version** _(optional)_: cycle's version (if not provided the version will be under 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Environments and Builds are allowed. AllowedValueName must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).\n        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "cycles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string,null>\",\n    \"assignee\": \"<string,null>\",\n    \"plannedStartDate\": \"<string,null-date-time>\",\n    \"plannedEndDate\": \"<string,null-date-time>\",\n    \"fields\": \"<array,null>\",\n    \"version\": \"<string,null>\"\n  },\n  {\n    \"name\": \"<string,null>\",\n    \"assignee\": \"<string,null>\",\n    \"plannedStartDate\": \"<string,null-date-time>\",\n    \"plannedEndDate\": \"<string,null-date-time>\",\n    \"fields\": \"<array,null>\",\n    \"version\": \"<string,null>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d7eb287-94fd-41bf-9d70-f8a7156af0fa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"version\": \"1.0.0\",\n    \"name\": \"My Cycle\"\n  },\n  {\n    \"name\": \"My Second Cycle\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.7785351Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.7785345Z\"\n  },\n  {\n    \"name\": \"My Third Cycle\",\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Builds\",\n        \"allowedValueName\": \"1.9.9\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"My Cycle\",\n    \"version\": {\n      \"name\": \"1.0.0\"\n    }\n  },\n  {\n    \"name\": \"My Second Cycle\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.7786418Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.7786417Z\",\n    \"version\": {\n      \"name\": \"UNVERSIONED\"\n    }\n  },\n  {\n    \"name\": \"My Third Cycle\",\n    \"version\": {\n      \"name\": \"UNVERSIONED\"\n    },\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Builds\",\n        \"value\": \"1.9.9\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2614eb43-f6ff-419d-b292-acb7ea62a4e2",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"version\": \"1.0.0\",\n    \"name\": \"My Cycle\"\n  },\n  {\n    \"name\": \"My Second Cycle\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.7785351Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.7785345Z\"\n  },\n  {\n    \"name\": \"My Third Cycle\",\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Builds\",\n        \"allowedValueName\": \"1.9.9\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6895c493-3e63-4805-b6ee-973e83eb962c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"version\": \"1.0.0\",\n    \"name\": \"My Cycle\"\n  },\n  {\n    \"name\": \"My Second Cycle\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.7785351Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.7785345Z\"\n  },\n  {\n    \"name\": \"My Third Cycle\",\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Builds\",\n        \"allowedValueName\": \"1.9.9\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac6427f5-7fdc-4c3b-a649-567670ae7170",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"version\": \"1.0.0\",\n    \"name\": \"My Cycle\"\n  },\n  {\n    \"name\": \"My Second Cycle\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.7785351Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.7785345Z\"\n  },\n  {\n    \"name\": \"My Third Cycle\",\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Builds\",\n        \"allowedValueName\": \"1.9.9\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05c2b594-41a3-46be-a564-4dc461dcefbe",
+          "name": "Update cycle.",
+          "request": {
+            "name": "Update cycle.",
+            "description": {
+              "content": "## Update cycle.\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycle** : Provide the cycle details to update:\n    * **name** _(optional)_: name of the cycle.\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Environments and Builds are allowed. AllowedValueName must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).\n        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "cycles",
+                ":cycleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "cycleId",
+                  "description": "(Required) cycleId."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string,null>\",\n  \"assignee\": \"<string,null>\",\n  \"plannedStartDate\": \"<string,null-date-time>\",\n  \"plannedEndDate\": \"<string,null-date-time>\",\n  \"fields\": \"<array,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a76f7768-bb22-4058-8201-ff44a41ad5a9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "cycleId",
+                      "description": "(Required) cycleId."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Third Cycle\",\n  \"assignee\": \"My User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.780012Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.7800117Z\",\n  \"fields\": [\n    {\n      \"schemeName\": \"Environments\",\n      \"allowedValueName\": \"Development\"\n    },\n    {\n      \"schemeName\": \"Builds\",\n      \"allowedValueName\": \"1.9.9\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"My Third Cycle\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.7800949Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.7800948Z\",\n  \"version\": {\n    \"name\": \"1.0.0\"\n  },\n  \"fields\": [\n    {\n      \"schemeName\": \"Environments\",\n      \"allowedValueName\": \"Development\"\n    },\n    {\n      \"schemeName\": \"Builds\",\n      \"value\": \"1.9.9\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fddb8530-810e-4e06-9be6-f8ad062477b0",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "cycleId",
+                      "description": "(Required) cycleId."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Third Cycle\",\n  \"assignee\": \"My User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.780012Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.7800117Z\",\n  \"fields\": [\n    {\n      \"schemeName\": \"Environments\",\n      \"allowedValueName\": \"Development\"\n    },\n    {\n      \"schemeName\": \"Builds\",\n      \"allowedValueName\": \"1.9.9\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a85d6c09-5266-445d-9b04-9fea5d03c360",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "cycleId",
+                      "description": "(Required) cycleId."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Third Cycle\",\n  \"assignee\": \"My User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.780012Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.7800117Z\",\n  \"fields\": [\n    {\n      \"schemeName\": \"Environments\",\n      \"allowedValueName\": \"Development\"\n    },\n    {\n      \"schemeName\": \"Builds\",\n      \"allowedValueName\": \"1.9.9\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ab104c0-ea7e-470c-93ae-d411f6b4f072",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "cycleId",
+                      "description": "(Required) cycleId."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Third Cycle\",\n  \"assignee\": \"My User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.780012Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.7800117Z\",\n  \"fields\": [\n    {\n      \"schemeName\": \"Environments\",\n      \"allowedValueName\": \"Development\"\n    },\n    {\n      \"schemeName\": \"Builds\",\n      \"allowedValueName\": \"1.9.9\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a61122f-5243-4800-af27-9f045725c79e",
+          "name": "Get cycles.",
+          "request": {
+            "name": "Get cycles.",
+            "description": {
+              "content": "## Get cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Query parameter fields:\n* **cycle** : Provide the cycle details to filter by:\n    * **name** _(optional)_: filter cycles that contains name.\n    * **version** _(optional)_: cycle's version (if not provided the default value is 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle is assigned to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "cycles",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "name."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "version."
+                },
+                {
+                  "disabled": false,
+                  "key": "assignee",
+                  "value": "<string>",
+                  "description": "assignee."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Numeric value that determines that maximum N results will be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "13c89ae9-afed-473e-b90b-7687ddfe2be9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"My Cycle\",\n    \"version\": {\n      \"name\": \"1.0.0\"\n    }\n  },\n  {\n    \"name\": \"My Second Cycle\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.7812546Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.7812544Z\",\n    \"version\": {\n      \"name\": \"UNVERSIONED\"\n    }\n  },\n  {\n    \"name\": \"My Third Cycle\",\n    \"version\": {\n      \"name\": \"UNVERSIONED\"\n    },\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Builds\",\n        \"value\": \"1.9.9\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32f65e6f-76e5-42f5-a499-dd3efae2871e",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6f455e8-cc4d-4946-beb6-23cf903ffd52",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bef36705-5a75-4bcf-96a8-e5d8a68dd259",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "cycles",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ttm4j.tricentis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d78d2e49-d857-48da-a33e-b19d78e36996",
+    "name": "TTM for Jira Cycles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Tricentis Test Management for Jira",
+      "type": "text/plain"
+    }
+  }
+}

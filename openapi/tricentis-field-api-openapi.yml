@@ -1,0 +1,1319 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Field API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: field
+  description: Field API
+paths:
+  /api/v3/fields/{objectType}:
+    get:
+      tags:
+      - field
+      summary: Gets all site field of an object type
+      description: To get all fields (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
+      operationId: getAllSiteFields
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: Successfully get a list of Site Fields
+          headers:
+            X-Item-Total:
+              description: Total number of values available
+              schema:
+                type: integer
+                format: int32
+            Link:
+              description: Contain one or more hypermedia link relations
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResourceSwagger'
+        400:
+          description: Invalid data sent to get all Site Fields
+        403:
+          description: User does not have permission to get Site Fields
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - field
+      summary: Creates a Custom Site Field of an Object Type
+      description: To create a new Site Field for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
+      operationId: createCustomSiteField
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResource'
+        400:
+          description: Invalid data sent to create a Site Field
+        403:
+          description: User does not have permission to create a Site Field
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldInputResource'
+        description: "The Site field's properties and values\n\n<strong>label (required)</strong>: specify display name of the field\n\n<strong>data_type (required)</strong>: specify the field type. Its valid values include\n\n- 1 - Text box\n\n- 2 - Text area\n\n- 3 - Combo box\n\n- 4 - Date picker\n\n- 5 - User list\n\n- 6 - Rich text editor\n\n- 7 - Number\n\n- 8 - Check box\n\n- 9 - Date time picker\n\n- 12 - URL\n\n- 17 - Multiple selection combobox\n\nIn case you are creating a multiple picklist typed field (data_type's value is 8 or 17), you will need to specify <em>multiple=true</em>\n\nIn case you are creating a picklist typed field, you can specify the field's values in the <em>allowed_values array</em>\n\nOrder is not applicable when creating new field\n\nFor Test Steps, \n- You can not create more than 2 custom fields \n\n- You can not set field as required \n\n- Number of characters in label should be less than or equal to 16 \n\n- You can only select Rich text editor / Combo Box / User List as <em>data_type</em> "
+        required: true
+  /api/v3/fields/{objectType}/{fieldId}:
+    get:
+      tags:
+      - field
+      summary: Gets a Custom Site Field of an Object Type
+      description: To get a custom field (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
+      operationId: getCustomSiteField
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the custom field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully get a Site Field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResourceSwagger'
+        400:
+          description: Invalid data sent to get a Site Field
+        403:
+          description: User does not have permission to get Site Field
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - field
+      summary: Updates a Custom Site Field of an Object Type
+      description: To update a custom field (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
+      operationId: updateCustomSiteField
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the custom field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully updated a Site Field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResource'
+        400:
+          description: Invalid data sent to update a Site Field
+        403:
+          description: User does not have permission to update Site Field
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldInputResource'
+        description: 'The Site Field''s updated properties & values
+
+
+          Notes:
+
+
+          - Not allow to update <strong>data_type</strong>
+
+
+          - To delete a value of a Combo box/Checkbox or Multiple selection combo box, exclude that value out of "allowed_values"
+
+
+          - To add more allowed_values for Site Field, refer [here](#/field/createSiteFieldAllowedValues)
+
+
+          - To update list allowed_values of Site Field, refer [here](#/field/updateSiteFieldAllowedValues)
+
+
+          - Can not set field as required for test steps
+
+
+          - Number of characters in label should be less than or equal to 16 for test steps'
+        required: true
+    delete:
+      tags:
+      - field
+      summary: Deletes a Custom Site Field of an Object Type
+      description: To delete a custom field (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
+      operationId: deleteCustomSiteField
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the custom field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully updated a Site Field
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid data sent to update a Site Field
+        403:
+          description: User does not have permission to update Site Field
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+  /api/v3/fields/{objectType}/{fieldId}/allowed-values:
+    get:
+      tags:
+      - field
+      summary: Gets all allowed values of a Site Field
+      description: To get all allowed values of a Site Field with Combo box/Multi selection combo box/Check box/User list data type
+      operationId: getSiteFieldAllowedValues
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: Successfully get allowed values
+          headers:
+            X-Item-Total:
+              description: Total number of values available
+              schema:
+                type: integer
+                format: int32
+            Link:
+              description: Contain one or more hypermedia link relations
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllowedValueResource'
+        400:
+          description: Invalid field
+        403:
+          description: User does not have permission to get Site Field
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - field
+      summary: Creates allowed values of a Site Field
+      description: Creates maximum 100 allowed values of a Site Field with Combo box/Multi selection combo box/Check box data type
+      operationId: createSiteFieldAllowedValues
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllowedValueResponseResource'
+        201:
+          description: Successfully create allowed values
+        400:
+          description: Invalid field or value
+        403:
+          description: User does not have permission to create Site Field allowed value
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AllowedValueResource'
+        required: true
+  /api/v3/fields/{objectType}/{fieldId}/allowed-values/{value}:
+    put:
+      tags:
+      - field
+      summary: Updates an allowed value of a Site Field
+      description: Update allowed values of a Site Field with Combo box/Multi selection combo box/Check box data type
+      operationId: updateSiteFieldAllowedValues
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: value
+        in: path
+        description: ID (property "value") of allowed value
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully update allowed values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomeResourceSupport'
+        400:
+          description: Invalid field or value
+        403:
+          description: User does not have permission to update Site Field allowed value
+        404:
+          description: Field or allowed value does not exist
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllowedValueInputResource'
+        required: true
+    delete:
+      tags:
+      - field
+      summary: Deletes an allowed value of a Site Field
+      description: To delete an allowed value of a Site Field with Combo box/Multi selection combo box/Check box data type
+      operationId: deleteSiteFieldValue
+      parameters:
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: value
+        in: path
+        description: ID (property "value") of allowed value
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully delete an allowed value
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid field or value
+        403:
+          description: User does not have permission to delete Site Field's value
+        404:
+          description: Field or value does not exist
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/settings/{objectType}/fields:
+    get:
+      tags:
+      - field
+      summary: Gets all Fields of an Object Type
+      description: 'To retrieve Fields of an Object Type
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getFields
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: includeInactive
+        in: query
+        description: By default inactive Fields are excluded from the response. Specify <em>includeInactive=true</em> to include inactive fields
+        required: false
+        schema:
+          type: boolean
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - field
+      summary: Creates a Custom Field of an Object Type
+      description: To create a new custom Field for Release, Build, Requirement, Test Case, Test Suite, Test Run, or Defect
+      operationId: createCustomField
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+      responses:
+        201:
+          description: Field is created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResource'
+        400:
+          description: Invalid data sent to create Field
+        500:
+          description: Internal Server Error while create Field
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldResource'
+        description: 'The field''s properties and values
+
+
+          <strong>data_type (required):</strong> specify the field type. Its valid values include
+
+
+          - 1 - Text box
+
+
+          - 2 - Text area
+
+
+          - 3 - Combo box
+
+
+          - 4 - Date picker
+
+
+          - 5 - User list
+
+
+          - 6 - Rich text editor
+
+
+          - 7 - Number
+
+
+          - 8 - Check box
+
+
+          - 9 - Date time picker
+
+
+          - 12 - URL
+
+
+          - 17 - Multiple selection combobox
+
+
+          In case you are creating a multiple picklist typed field (data_type''s value is 8 or 17), you will need to specify <em>multiple=true</em>
+
+
+          In case you are creating a picklist typed field, you can specify the field''s values in the <em>allowed_values</em> array'
+        required: true
+  /api/v3/projects/{projectId}/settings/{objectType}/fields/{fieldId}:
+    get:
+      tags:
+      - field
+      summary: Gets a Custom Field of an Object Type
+      description: To get a custom field (at project level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
+      operationId: getCustomField
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the custom field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully get a Field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResourceSwagger'
+        400:
+          description: Invalid data sent to get a Field
+        403:
+          description: User does not have permission to get Field
+        404:
+          description: Project or Field does not exist
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - field
+      summary: Updates a Custom Field of an Object Type
+      description: To update a custom field (at project level) for Release, Build, Requirement, Test Case, Test Suite, Test Run, or Defect
+      operationId: updateCustomField
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+      - name: fieldId
+        in: path
+        description: ID of the custom field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully updated a Field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResource'
+        400:
+          description: Invalid data sent to update a Field
+        403:
+          description: User does not have permission to update Field
+        404:
+          description: Project or Field does not exist
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldInputResource'
+        description: "The Field's updated properties & values\n\nNotes:\n\n- Not allow to update <strong>data_type</strong>\n\n- To delete a value of a Combo box/Checkbox or Multiple selection combo box, exclude that value out of \"allowed_values\"\n\n- To add more allowed_values for Project Field, refer [here](#/field/createProjectFieldAllowedValues) \n\n- To update list allowed_values of Project Field, refer [here](#/field/updateProjectFieldAllowedValues)"
+        required: true
+    delete:
+      tags:
+      - field
+      summary: Deletes a Custom Field of an Object Type
+      description: To delete a custom field (at project level) for Release, Build, Requirement, Test Case, Test Suite, Test Run, or Defect
+      operationId: deleteCustomField
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+      - name: fieldId
+        in: path
+        description: ID of the custom field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully deleted a Field
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid data sent to update a Field
+        403:
+          description: User does not have permission to update Field
+        404:
+          description: Project or Field does not exist
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/settings/{objectType}/fields/{fieldId}/allowed-values:
+    get:
+      tags:
+      - field
+      summary: Gets all allowed values of a Project Field
+      description: To get all allowed values of a Project Field with Combo box/Multi selection combo box/Check box/User list data type
+      operationId: getProjectFieldAllowedValues
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: Successfully get allowed values
+          headers:
+            X-Item-Total:
+              description: Total number of values available
+              schema:
+                type: integer
+                format: int32
+            Link:
+              description: Contain one or more hypermedia link relations
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllowedValueResource'
+        400:
+          description: Invalid field
+        403:
+          description: User does not have permission to get Project Field
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - field
+      summary: Creates allowed values of a Project Field
+      description: Creates maximum 100 allowed values of a Project Field with Combo box/Multi selection combo box/Check box data type
+      operationId: createProjectFieldAllowedValues
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllowedValueResponseResource'
+        201:
+          description: Successfully create allowed values
+        400:
+          description: Invalid field
+        403:
+          description: User does not have permission to create Project Field allowed value
+        404:
+          description: Field does not exist
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AllowedValueResource'
+        required: true
+  /api/v3/projects/{projectId}/settings/{objectType}/fields/{fieldId}/allowed-values/{value}:
+    put:
+      tags:
+      - field
+      summary: Updates an allowed value of a Project Field
+      description: Update allowed values of a Project Field with Combo box/Multi selection combo box/Check box data type
+      operationId: updateProjectFieldAllowedValues
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: value
+        in: path
+        description: ID (property "value") of allowed value
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully update allowed values
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid field or value
+        403:
+          description: User does not have permission to update Project Field allowed value
+        404:
+          description: Field or allowed value does not exist
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllowedValueInputResource'
+        required: true
+    delete:
+      tags:
+      - field
+      summary: Deletes an allowed value of a Project Field
+      description: To delete an allowed value of a Field (at project level) with Combo box/Multi selection combo box/Check box data type
+      operationId: deleteProjectFieldValue
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+      - name: fieldId
+        in: path
+        description: ID of the field
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: value
+        in: path
+        description: ID (property "value") of allowed value
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully delete an allowed value
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid field or value
+        403:
+          description: User does not have permission to delete Field's value
+        404:
+          description: Field or value does not exist
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    AllowedValueResponseResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+    FieldResourceSwagger:
+      type: object
+      required:
+      - label
+      properties:
+        instanceType:
+          type: string
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        attribute_type:
+          type: string
+        label:
+          type: string
+        required:
+          type: boolean
+        constrained:
+          type: boolean
+        order:
+          type: integer
+          format: int32
+        multiple:
+          type: boolean
+        data_type:
+          type: integer
+          format: int64
+          minimum: 1
+        searchable:
+          type: boolean
+        free_text_search:
+          type: boolean
+        default_value:
+          type: string
+        system_field:
+          type: boolean
+        original_name:
+          type: string
+        is_active:
+          type: boolean
+    AllowedValueInputResource:
+      type: object
+      properties:
+        default:
+          type: boolean
+        value:
+          type: integer
+          format: int64
+        label:
+          type: string
+        order:
+          type: integer
+          format: int32
+        is_default:
+          type: boolean
+        is_active:
+          type: boolean
+        color:
+          type: string
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
+    CustomeResourceSupport:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+    FieldInputResource:
+      type: object
+      properties:
+        label:
+          type: string
+          example: Name
+          description: Label of the Field Setting
+        required:
+          type: boolean
+          description: Is required or not
+        order:
+          type: integer
+          format: int32
+          description: Display order
+        allowed_values:
+          type: array
+          description: Allowed values
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+        multiple:
+          type: boolean
+          description: Is allowed multiple values
+        data_type:
+          type: integer
+          format: int64
+          example: 1
+          description: Data type of the Field
+          minimum: 1
+        searchable:
+          type: boolean
+          description: Allowed full text search or not
+        default_value:
+          type: string
+          description: Default value of the Field
+        is_active:
+          type: boolean
+          description: Is active or disabled
+    FieldResource:
+      type: object
+      required:
+      - label
+      properties:
+        instanceType:
+          type: string
+          example: NumberDataType
+          description: Number Data Type
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Field
+        label:
+          type: string
+          example: Name
+          description: Label of the Field
+        required:
+          type: boolean
+          example: true
+          description: Is required or not
+        constrained:
+          type: boolean
+          description: Constrained or not
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order
+        allowed_values:
+          type: array
+          description: Allowed values
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+        multiple:
+          type: boolean
+          example: false
+          description: Is allowed multiple values
+        data_type:
+          type: integer
+          format: int64
+          example: 1
+          description: Data type of the Field
+          minimum: 1
+        searchable:
+          type: boolean
+          example: true
+          description: Allowed full text search or not
+        default_value:
+          type: string
+          description: Default value of the Field
+        system_field:
+          type: boolean
+          example: true
+          description: Is system field or not
+        original_name:
+          type: string
+          example: Name
+          description: Original name of the Field
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or disabled
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

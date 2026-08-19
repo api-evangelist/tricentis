@@ -1,0 +1,277 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 Coverage API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-coverage
+  description: Coverage V3 APIs
+paths:
+  /api/sessions/{sessionId}/coverages:
+    get:
+      tags:
+      - v3-coverage
+      summary: Gets all Coverages by session id
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coverages'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    put:
+      tags:
+      - v3-coverage
+      summary: Updates all Coverages by session id
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Coverages'
+        description: body
+        required: true
+    post:
+      tags:
+      - v3-coverage
+      summary: Creates a Coverage by session id
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coverage'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Coverage'
+        description: body
+        required: true
+  /api/sessions/{sessionId}/coverages/{coverageId}:
+    get:
+      tags:
+      - v3-coverage
+      summary: Gets a Coverage by id
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coverage'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+    put:
+      tags:
+      - v3-coverage
+      summary: Updates a Coverage by id
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Coverage'
+        description: body
+        required: true
+    delete:
+      tags:
+      - v3-coverage
+      summary: Deletes a Coverage by id
+      parameters:
+      - name: sessionId
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+      - name: coverageId
+        in: path
+        description: coverage id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: The requested resource does not exist
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.resource
+components:
+  schemas:
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    Coverage:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        ext_id:
+          type: string
+        ext_url:
+          type: string
+        publisher_name:
+          type: string
+        screens:
+          type: array
+          items:
+            type: object
+            properties:
+              created_date:
+                type: string
+              id:
+                type: string
+              modified_date:
+                type: string
+        submitted_date:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        order:
+          type: integer
+        connection_name:
+          type: string
+        connection_url:
+          type: string
+        ext_sys_id:
+          type: string
+    Coverages:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        total:
+          type: integer
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

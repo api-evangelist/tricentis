@@ -1,0 +1,3048 @@
+{
+  "item": [
+    {
+      "id": "1f3cd387-d40c-44d4-bc06-a08f2b5a1508",
+      "name": "Tests",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dacb4f14-6f90-4042-a86a-67cfd4c73779",
+          "name": "Get a test list",
+          "request": {
+            "name": "Get a test list",
+            "description": {
+              "content": "Lists the tests of the Workspace.\n___\n*Sortable fields :*\n  - name\n  - projectName\n  - lastUpdateDate (descending sort by default : the most recent first)\n  - lastRunDate\n  - userModifierName\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of elements returned by this call. The maximum must be less than or equal to 200."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The key to sort the elements on. It may begin with a '+' or a '-' to specify an ascending or descending sort order. The list of available keys can be found in the endpoint description."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bfdc1c84-343e-4aaa-8801-0337b35d7aa5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n    \"name\": \"New Test 1\",\n    \"description\": \"My description\",\n    \"userModifierName\": \"string\",\n    \"creationDate\": 1582550441,\n    \"lastUpdateDate\": 1582550442,\n    \"scenarioName\": \"scenario1\",\n    \"controllerZoneId\": \"defaultzone\",\n    \"projectId\": \"5e5fc0102cc4f82e5d9e18d4\",\n    \"projectName\": \"Sample Project\",\n    \"lgZoneIds\": {\n      \"defaultzone\": 10,\n      \"ZoneId\": 5\n    },\n    \"lastRunDate\": 1582550442,\n    \"nextRunId\": 4650.0511583770085,\n    \"testResultNamingPattern\": \"#${runID}\",\n    \"controllerEnvironmentVariables\": {\n      \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n      \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n    },\n    \"loadInjectionProvider\": \"NEOLOAD\"\n  },\n  {\n    \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n    \"name\": \"New Test 1\",\n    \"description\": \"My description\",\n    \"userModifierName\": \"string\",\n    \"creationDate\": 1582550441,\n    \"lastUpdateDate\": 1582550442,\n    \"scenarioName\": \"scenario1\",\n    \"controllerZoneId\": \"defaultzone\",\n    \"projectId\": \"5e5fc0102cc4f82e5d9e18d4\",\n    \"projectName\": \"Sample Project\",\n    \"lgZoneIds\": {\n      \"defaultzone\": 10,\n      \"ZoneId\": 5\n    },\n    \"lastRunDate\": 1582550442,\n    \"nextRunId\": 2471.219932798099,\n    \"testResultNamingPattern\": \"#${runID}\",\n    \"controllerEnvironmentVariables\": {\n      \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n      \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n    },\n    \"loadInjectionProvider\": \"NEOLOAD\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce4a4fd1-f8c7-4bdd-ab83-4a3e9a95a1b5",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67b1b396-0922-482d-a13a-a086c29022a2",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bfc0115-b3cd-42e8-990f-efa4de4136cf",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "730f8f96-b4b6-4a6c-b5bb-d235d4df0ecd",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1939,\n  \"message\": \"string\",\n  \"retry-after\": 3444\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3e6abb7-51c6-4797-8f73-278b9cb6d42b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2f8361e-80b5-4c6b-bf51-e2646cd4416e",
+          "name": "Create a new test",
+          "request": {
+            "name": "Create a new test",
+            "description": {
+              "content": "Create a new test with the specified name",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"controllerZoneId\": \"<string>\",\n  \"lgZoneIds\": {\n    \"key_0\": \"<integer>\",\n    \"key_1\": \"<integer>\",\n    \"key_2\": \"<integer>\",\n    \"key_3\": \"<integer>\"\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"<string>\",\n  \"controllerEnvironmentVariables\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "248e5970-aa19-4032-bf43-a9bf0c802c44",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"userModifierName\": \"string\",\n  \"creationDate\": 1582550441,\n  \"lastUpdateDate\": 1582550442,\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"nextRunId\": 3594.7621516515705,\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2100be0c-afca-4141-b4b2-5c6ea676e1bf",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ef10f0e-8cf4-4dd8-ae2b-2e4a29ea0040",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "267b2bf3-52e5-45ef-8688-1d5160a30673",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53fb6441-2e09-4394-ab6e-81d86a060c22",
+              "name": "Request entity too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aed7d84f-3737-460d-8caa-77a6e2cacee9",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1939,\n  \"message\": \"string\",\n  \"retry-after\": 3444\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56bb0149-3c9b-42e6-8e7f-7b38027b9505",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9abd411b-ac11-4d8b-a74a-0d3f8cf6cc85",
+          "name": "Get a test",
+          "request": {
+            "name": "Get a test",
+            "description": {
+              "content": "Get the test",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "tests",
+                ":testId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testId",
+                  "description": "(Required) Unique identifier representing a specific test."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "287d2849-d7bd-4377-a665-c9fbd65bf8d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"userModifierName\": \"string\",\n  \"creationDate\": 1582550441,\n  \"lastUpdateDate\": 1582550442,\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"projectId\": \"5e5fc0102cc4f82e5d9e18d4\",\n  \"projectName\": \"Sample Project\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"lastRunDate\": 1582550442,\n  \"nextRunId\": 555.6070949420543,\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\",\n  \"scenario\": {\n    \"name\": \"New Test 1\",\n    \"populations\": [\n      {\n        \"name\": \"populationRampup\",\n        \"rampup_load\": {\n          \"min_users\": 2,\n          \"max_users\": 10,\n          \"increment_users\": 2,\n          \"increment_every\": \"1m\",\n          \"duration\": \"4m30s\",\n          \"increment_rampup\": \"30s\"\n        }\n      },\n      {\n        \"name\": \"populationRampup\",\n        \"rampup_load\": {\n          \"min_users\": 2,\n          \"max_users\": 10,\n          \"increment_users\": 2,\n          \"increment_every\": \"1m\",\n          \"duration\": \"4m30s\",\n          \"increment_rampup\": \"30s\"\n        }\n      }\n    ],\n    \"store_variables_for_raw_data\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5648db3-18bf-4ea4-bc3b-3454d3fdc909",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3326431d-3889-4573-9304-799038c62799",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fe3d194-4780-4a13-b3eb-ab6fe0af2b60",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50400b90-1e3d-40f0-94d4-fd4723111b52",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1939,\n  \"message\": \"string\",\n  \"retry-after\": 3444\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2687b0c0-eb11-4e15-9e53-43653bf0f5aa",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "793a70a5-2aaa-4685-98f0-be1690f1312c",
+          "name": "Partially update a test",
+          "request": {
+            "name": "Partially update a test",
+            "description": {
+              "content": "Update only the specified fields of the test",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "tests",
+                ":testId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testId",
+                  "description": "(Required) Unique identifier representing a specific test."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"scenarioName\": \"<string>\",\n  \"controllerZoneId\": \"<string>\",\n  \"lgZoneIds\": {\n    \"key_0\": \"<integer>\",\n    \"key_1\": \"<integer>\"\n  },\n  \"testResultNamingPattern\": \"<string>\",\n  \"controllerEnvironmentVariables\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "926bb046-c6c7-4052-b442-467574f80069",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"userModifierName\": \"string\",\n  \"creationDate\": 1582550441,\n  \"lastUpdateDate\": 1582550442,\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"projectId\": \"5e5fc0102cc4f82e5d9e18d4\",\n  \"projectName\": \"Sample Project\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"lastRunDate\": 1582550442,\n  \"nextRunId\": 6264.549494270881,\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c959b13-55e6-4707-a290-43a545cd6de9",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3260e62e-864e-44c0-b358-13d6f1d2bf15",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "460266ca-2195-426f-b740-67a562f0cbab",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a446d885-b47a-4132-b99c-3aba2119f0ec",
+              "name": "Request entity too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4efc826c-b301-42c9-8ed2-b0a493393c9d",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1939,\n  \"message\": \"string\",\n  \"retry-after\": 3444\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "755153fd-7667-422b-a265-3fbf140ebcd1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d11f6eb-da66-4e77-b3cb-6296cfcaf97a",
+          "name": "Fully update a test",
+          "request": {
+            "name": "Fully update a test",
+            "description": {
+              "content": "Update all fields of the test",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "tests",
+                ":testId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testId",
+                  "description": "(Required) Unique identifier representing a specific test."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"scenarioName\": \"<string>\",\n  \"controllerZoneId\": \"<string>\",\n  \"lgZoneIds\": {\n    \"key_0\": \"<integer>\",\n    \"key_1\": \"<integer>\"\n  },\n  \"testResultNamingPattern\": \"<string>\",\n  \"controllerEnvironmentVariables\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f274340-8f77-489c-9608-64cdf5b754b0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"userModifierName\": \"string\",\n  \"creationDate\": 1582550441,\n  \"lastUpdateDate\": 1582550442,\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"projectId\": \"5e5fc0102cc4f82e5d9e18d4\",\n  \"projectName\": \"Sample Project\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"lastRunDate\": 1582550442,\n  \"nextRunId\": 6264.549494270881,\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2914be2-edce-4c45-976f-1fd6e99eebb3",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83a17469-a02e-489a-996b-03bf5d400b64",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a792afa7-3b05-447e-a9af-5640f975491f",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "655e779c-8d43-4f3b-b267-c8469f11577e",
+              "name": "Request entity too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd45aa31-28ff-4e43-b844-320c17497594",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1939,\n  \"message\": \"string\",\n  \"retry-after\": 3444\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "080aedb8-d5b3-4139-b929-223fd18e125f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72c91e00-162e-46cd-aeb2-5b5ca4c0b054",
+          "name": "Delete a test",
+          "request": {
+            "name": "Delete a test",
+            "description": {
+              "content": "Delete the test with the specified id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "workspaces",
+                ":workspaceId",
+                "tests",
+                ":testId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "deleteResults",
+                  "value": "<string>",
+                  "description": "Also delete related Test Results, including locked Test Results. Default is true."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) Unique identifier representing a Workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testId",
+                  "description": "(Required) Unique identifier representing a specific test."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e430fc7b-1570-4fd1-8cc3-fa0b84f95107",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleteResults",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5ed5350f-9f2f-4e2a-9acb-cdbcee874256\",\n  \"name\": \"New Test 1\",\n  \"description\": \"My description\",\n  \"userModifierName\": \"string\",\n  \"creationDate\": 1582550441,\n  \"lastUpdateDate\": 1582550442,\n  \"scenarioName\": \"scenario1\",\n  \"controllerZoneId\": \"defaultzone\",\n  \"projectId\": \"5e5fc0102cc4f82e5d9e18d4\",\n  \"projectName\": \"Sample Project\",\n  \"lgZoneIds\": {\n    \"defaultzone\": 10,\n    \"ZoneId\": 5\n  },\n  \"lastRunDate\": 1582550442,\n  \"nextRunId\": 6264.549494270881,\n  \"testResultNamingPattern\": \"#${runID}\",\n  \"controllerEnvironmentVariables\": {\n    \"NL_PROPERTY_MONITORS_LG_MONITORING_DELAY\": \"1000\",\n    \"NL_PROPERTY_MONITORS_CONTROLLER_MONITORING_DELAY\": \"1000\"\n  },\n  \"loadInjectionProvider\": \"NEOLOAD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cf1466d-3b6e-4397-a10c-58506f41a7da",
+              "name": "An error occurred while processing the request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleteResults",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbbdcf9a-cf0e-429f-a413-f2f37f78bd32",
+              "name": "Unauthorized. You must provide an API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleteResults",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2035ee9-b761-42a2-92e0-d14805485c99",
+              "name": "You are not allowed to process this request. Please verify the parameters and try again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleteResults",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcaf3630-f054-4d9a-8232-f085d459abcd",
+              "name": "Too many requests. Your maximum number of requests per minute is reached. Try again soon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleteResults",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1939,\n  \"message\": \"string\",\n  \"retry-after\": 3444\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3fce4d0-701e-4beb-a367-be75b513bd39",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "workspaces",
+                    ":workspaceId",
+                    "tests",
+                    ":testId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleteResults",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) Unique identifier representing a Workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testId",
+                      "description": "(Required) Unique identifier representing a specific test."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accountToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8948,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "accountToken"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ae3a356f-861c-4f6b-8525-8c95f96afe85",
+    "name": "NeoLoad Tests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

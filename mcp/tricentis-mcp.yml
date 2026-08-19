@@ -2,15 +2,13 @@ generated: '2026-08-02'
 method: searched
 status: published
 source: https://docs.tricentis.com/tosca-cloud/en-us/content/ai_integration/connect_mcp_server.htm
-summary: >-
-  Tricentis ships remote, product-scoped MCP servers across its quality-engineering
-  platform — Tosca Cloud, Tosca Commander (in-process), qTest and Tricentis Test
-  Management for Jira. Every endpoint is TENANT-SCOPED, so there is no single public
-  MCP URL and tools/list cannot be introspected anonymously (the TTM4J endpoint
-  answers HTTP 401 "Invalid or missing token." to an unauthenticated tools/list).
-  The tool inventories below are the provider's own published lists: the Tosca Cloud
-  registry is harvested verbatim from the Apache-2.0 Tricentis/mcp-skills repository,
-  and the TTM4J list from the Tricentis connection documentation.
+summary: 'Tricentis ships remote, product-scoped MCP servers across its quality-engineering platform —
+  Tosca Cloud, Tosca Commander (in-process), qTest and Tricentis Test Management for Jira. Every endpoint
+  is TENANT-SCOPED, so there is no single public MCP URL and tools/list cannot be introspected anonymously
+  (the TTM4J endpoint answers HTTP 401 "Invalid or missing token." to an unauthenticated tools/list).
+  The tool inventories below are the provider''s own published lists: the Tosca Cloud registry is harvested
+  verbatim from the Apache-2.0 Tricentis/mcp-skills repository, and the TTM4J list from the Tricentis
+  connection documentation.'
 servers:
 - name: tosca-cloud
   product: Tricentis Tosca Cloud
@@ -34,11 +32,10 @@ servers:
     scheme: bearer
     token_source: qTest Resources page, API & SDK section
   tools_source: docs
-  tools_note: >-
-    Tricentis documents the qTest MCP capability set narratively (create and edit
-    modules and test cases, manage requirements and defects, view test runs) rather
-    than as a named tool list; the live tools/list is tenant- and token-gated, so no
-    verbatim tool names are recorded here rather than inventing them.
+  tools_note: Tricentis documents the qTest MCP capability set narratively (create and edit modules and
+    test cases, manage requirements and defects, view test runs) rather than as a named tool list; the
+    live tools/list is tenant- and token-gated, so no verbatim tool names are recorded here rather than
+    inventing them.
 - name: ttm4j
   product: Tricentis Test Management for Jira
   transport: streamable-http
@@ -71,246 +68,268 @@ clients_supported:
 - Visual Studio Code
 - Windsurf
 ttm4j_tools:
-- {name: GetTestCasesByProject, category: test-cases, description: Retrieve test cases for a project with customizable fields and pagination.}
-- {name: CreateTestCases, category: test-cases, description: Add new test cases with steps and metadata; supports batches.}
-- {name: UpdateTestCase, category: test-cases, description: Modify properties on an existing test case.}
-- {name: DeleteTestCase, category: test-cases, description: Permanently remove a test case.}
-- {name: LinkRequirementsToTestCase, category: requirements, description: Associate requirements with a specific test case.}
-- {name: CreateRequirements, category: requirements, description: Create new requirements in a project.}
-- {name: GetTestCaseFolders, category: folders, description: Retrieve folder hierarchies with filtering options.}
-- {name: CreateTestCaseFolders, category: folders, description: Create nested folder structures.}
-- {name: UpdateTestCaseFolders, category: folders, description: Rename or reorganize existing folders.}
+- name: GetTestCasesByProject
+  category: test-cases
+  description: Retrieve test cases for a project with customizable fields and pagination.
+- name: CreateTestCases
+  category: test-cases
+  description: Add new test cases with steps and metadata; supports batches.
+- name: UpdateTestCase
+  category: test-cases
+  description: Modify properties on an existing test case.
+- name: DeleteTestCase
+  category: test-cases
+  description: Permanently remove a test case.
+- name: LinkRequirementsToTestCase
+  category: requirements
+  description: Associate requirements with a specific test case.
+- name: CreateRequirements
+  category: requirements
+  description: Create new requirements in a project.
+- name: GetTestCaseFolders
+  category: folders
+  description: Retrieve folder hierarchies with filtering options.
+- name: CreateTestCaseFolders
+  category: folders
+  description: Create nested folder structures.
+- name: UpdateTestCaseFolders
+  category: folders
+  description: Rename or reorganize existing folders.
 tosca_cloud_tools:
-  - name: tosca_apiexecution_createConnection
-    domain: apiexecution
-    read_only: false
-    destructive: false
-  - name: tosca_apiexecution_deleteConnection
-    domain: apiexecution
-    read_only: false
-    destructive: true
-  - name: tosca_apiexecution_getConnection
-    domain: apiexecution
-    read_only: true
-    destructive: false
-  - name: tosca_apiexecution_listConnections
-    domain: apiexecution
-    read_only: true
-    destructive: false
-  - name: tosca_apiexecution_updateConnection
-    domain: apiexecution
-    read_only: false
-    destructive: true
-  - name: tosca_builder_createApiMessage
-    domain: builder
-    read_only: false
-    destructive: false
-  - name: tosca_builder_deleteApiMessage
-    domain: builder
-    read_only: false
-    destructive: true
-  - name: tosca_builder_getApiMessage
-    domain: builder
-    read_only: true
-    destructive: false
-  - name: tosca_builder_getModulesSummary
-    domain: builder
-    read_only: true
-    destructive: false
-    description: Returns a summary list of all available modules with their properties (name, description,
-      tags)
-  - name: tosca_builder_scaffoldTestCase
-    domain: builder
-    destructive: false
-    description: Creates a scaffold of a test case with the specific name, optional description.
-  - name: tosca_builder_updateApiMessage
-    domain: builder
-    read_only: false
-    destructive: true
-  - name: tosca_dataintegrity_checkSchemaResult
-    domain: dataintegrity
-    read_only: true
-    destructive: false
-    description: The notificationId returned by tosca_dataintegrity_getConnectionSchema.
-  - name: tosca_dataintegrity_checkTestConnectionResult
-    domain: dataintegrity
-    read_only: true
-    destructive: false
-    description: The notificationId returned by tosca_dataintegrity_testConnection.
-  - name: tosca_dataintegrity_connection
-    domain: dataintegrity
-    read_only: false
-    destructive: true
-  - name: tosca_dataintegrity_createDiDbExpertTestcase
-    domain: dataintegrity
-    read_only: false
-    destructive: false
-    description: Creates a Data Integrity test case using the DI DB Expert module with a prefilled
-      database connection
-  - name: tosca_dataintegrity_createRowByRowComparison
-    domain: dataintegrity
-    read_only: false
-    destructive: false
-    description: Creates a Data Integrity test case that performs a row-by-row comparison between
-      a source and target endpoint.
-  - name: tosca_dataintegrity_getConnectionSchema
-    domain: dataintegrity
-    read_only: false
-    destructive: false
-    description: The unique identifier (Ulid string) of the DI connection to query.
-  - name: tosca_dataintegrity_listConnections
-    domain: dataintegrity
-    read_only: true
-    destructive: false
-  - name: tosca_dataintegrity_testConnection
-    domain: dataintegrity
-    read_only: false
-    destructive: false
-    description: The unique identifier (Ulid string) of the DI connection to test.
-  - name: tosca_dataintegrity_workflow
-    domain: dataintegrity
-    read_only: true
-    destructive: false
-    description: 'REQUIRED — call this FIRST before any other Data Integrity tool. Returns the full
-      workflow guide, available tools, and step-by-step examples. MANDATORY NEXT STEP: The output
-      may be large. Your MCP client may save it to a file and return ...'
-  - name: tosca_execution_getPlaylistIdsByName
-    domain: execution
-    read_only: true
-    description: Get playlist ID by its name. Only the first 50 matches are returned.
-  - name: tosca_execution_getRecentRunLogs
-    domain: execution
-    read_only: true
-    description: Get recent runs logs, one failed, one passed, for specified playlist.
-  - name: tosca_inventory_advancedSearch
-    domain: inventory
-    read_only: true
-    destructive: false
-    description: Enhanced inventory search with pagination, full-text search, sort, and rich filter
-      operators.
-  - name: tosca_inventory_createFolder
-    domain: inventory
-    read_only: false
-    destructive: false
-    description: This tool allows you to create a new folder. You need to provide the folder name,
-      and optionally, a description, tags and the entity ID of the parent folder.
-  - name: tosca_inventory_deleteFolder
-    domain: inventory
-    read_only: false
-    destructive: true
-    description: 'Deletes a folder by its entity ID. Omit ChildBehavior on the first call to inspect
-      which deletion behaviors are allowed. Then call again with one of: Abort, DeleteRecursively,
-      MoveToParent.'
-  - name: tosca_inventory_modifyFolder
-    domain: inventory
-    read_only: false
-    destructive: false
-    description: Modifies a folder's name and/or color in a single operation. Provide the folder entity
-      ID together with any combination of a new name, a new color, or removeColor.
-  - name: tosca_inventory_move
-    domain: inventory
-    read_only: false
-    destructive: false
-    description: This tool allows you to move artifacts (test cases, modules, shared actions, playlists,
-      folders, etc...) to a different folder. Currently this tool only supports moving artifacts within
-      the same workspace. You need to provide a list of a...
-  - name: tosca_inventory_search
-    domain: inventory
-    read_only: true
-    destructive: false
-    description: This tool allows you to search for artifacts.
-  - name: tosca_mobile_addCapabilitySet
-    domain: mobile
-    read_only: false
-    destructive: false
-  - name: tosca_mobile_createConnection
-    domain: mobile
-    read_only: false
-    destructive: false
-  - name: tosca_mobile_deleteCapability
-    domain: mobile
-    read_only: false
-    destructive: true
-  - name: tosca_mobile_deleteConnection
-    domain: mobile
-    read_only: false
-    destructive: true
-  - name: tosca_mobile_getConnection
-    domain: mobile
-    read_only: true
-    destructive: false
-  - name: tosca_mobile_listConnections
-    domain: mobile
-    read_only: true
-    destructive: false
-  - name: tosca_mobile_removeCapabilitySet
-    domain: mobile
-    read_only: false
-    destructive: true
-  - name: tosca_mobile_renameCapabilitySet
-    domain: mobile
-    read_only: false
-    destructive: false
-  - name: tosca_mobile_setCapability
-    domain: mobile
-    read_only: false
-    destructive: false
-  - name: tosca_mobile_updateConnection
-    domain: mobile
-    read_only: false
-    destructive: false
-  - name: tosca_organization_listWorkspaces
-    domain: organization
-    read_only: true
-    destructive: false
-  - name: tosca_playlist_add
-    domain: playlist
-    destructive: false
-    description: Creates a playlist with the given input.
-  - name: tosca_playlist_analyzeTestCaseItems
-    domain: playlist
-    read_only: true
-    description: Analyzes test case items and provides contextual information for semantic naming.
-  - name: tosca_playlist_applyTestCaseItemRenames
-    domain: playlist
-    description: Applies confirmed test case item renames.
-  - name: tosca_playlist_deleteById
-    domain: playlist
-    destructive: true
-    description: Delete playlist by id.
-  - name: tosca_playlist_getFailedTestSteps
-    domain: playlist
-    read_only: true
-    description: Gets the failed test steps of all the failed test cases of runs with the given ids.
-  - name: tosca_playlist_getRecentRuns
-    domain: playlist
-    read_only: true
-    description: Searches the most recent runs that match given filters and returns their ids.
-  - name: tosca_playlist_run
-    domain: playlist
-    destructive: false
-    description: Run a playlist and return the run ID.
-  - name: tosca_playlist_searchByName
-    domain: playlist
-    read_only: true
-    description: Gets playlists that contain the given text in the name.
-  - name: tosca_playlist_updateRunSchedule
-    domain: playlist
-    description: Updates, adds or removes the playlist run schedule.
-  - name: tosca_simulation_create
-    domain: simulation
-    destructive: false
-    description: The simulation file in YAML format
-  - name: tosca_simulation_deploy
-    domain: simulation
-    description: Deploys a simulation to a simulator
-  - name: tosca_simulation_listAgents
-    domain: simulation
-    read_only: true
-    description: List simulatior agents where simulation files can be deployed to. it contains a list
-      of simulator agents with their ids and states and version
-
+- name: tosca_apiexecution_createConnection
+  domain: apiexecution
+  read_only: false
+  destructive: false
+- name: tosca_apiexecution_deleteConnection
+  domain: apiexecution
+  read_only: false
+  destructive: true
+- name: tosca_apiexecution_getConnection
+  domain: apiexecution
+  read_only: true
+  destructive: false
+- name: tosca_apiexecution_listConnections
+  domain: apiexecution
+  read_only: true
+  destructive: false
+- name: tosca_apiexecution_updateConnection
+  domain: apiexecution
+  read_only: false
+  destructive: true
+- name: tosca_builder_createApiMessage
+  domain: builder
+  read_only: false
+  destructive: false
+- name: tosca_builder_deleteApiMessage
+  domain: builder
+  read_only: false
+  destructive: true
+- name: tosca_builder_getApiMessage
+  domain: builder
+  read_only: true
+  destructive: false
+- name: tosca_builder_getModulesSummary
+  domain: builder
+  read_only: true
+  destructive: false
+  description: Returns a summary list of all available modules with their properties (name, description,
+    tags)
+- name: tosca_builder_scaffoldTestCase
+  domain: builder
+  destructive: false
+  description: Creates a scaffold of a test case with the specific name, optional description.
+- name: tosca_builder_updateApiMessage
+  domain: builder
+  read_only: false
+  destructive: true
+- name: tosca_dataintegrity_checkSchemaResult
+  domain: dataintegrity
+  read_only: true
+  destructive: false
+  description: The notificationId returned by tosca_dataintegrity_getConnectionSchema.
+- name: tosca_dataintegrity_checkTestConnectionResult
+  domain: dataintegrity
+  read_only: true
+  destructive: false
+  description: The notificationId returned by tosca_dataintegrity_testConnection.
+- name: tosca_dataintegrity_connection
+  domain: dataintegrity
+  read_only: false
+  destructive: true
+- name: tosca_dataintegrity_createDiDbExpertTestcase
+  domain: dataintegrity
+  read_only: false
+  destructive: false
+  description: Creates a Data Integrity test case using the DI DB Expert module with a prefilled database
+    connection
+- name: tosca_dataintegrity_createRowByRowComparison
+  domain: dataintegrity
+  read_only: false
+  destructive: false
+  description: Creates a Data Integrity test case that performs a row-by-row comparison between a source
+    and target endpoint.
+- name: tosca_dataintegrity_getConnectionSchema
+  domain: dataintegrity
+  read_only: false
+  destructive: false
+  description: The unique identifier (Ulid string) of the DI connection to query.
+- name: tosca_dataintegrity_listConnections
+  domain: dataintegrity
+  read_only: true
+  destructive: false
+- name: tosca_dataintegrity_testConnection
+  domain: dataintegrity
+  read_only: false
+  destructive: false
+  description: The unique identifier (Ulid string) of the DI connection to test.
+- name: tosca_dataintegrity_workflow
+  domain: dataintegrity
+  read_only: true
+  destructive: false
+  description: 'REQUIRED — call this FIRST before any other Data Integrity tool. Returns the full workflow
+    guide, available tools, and step-by-step examples. MANDATORY NEXT STEP: The output may be large. Your
+    MCP client may save it to a file and return ...'
+- name: tosca_execution_getPlaylistIdsByName
+  domain: execution
+  read_only: true
+  description: Get playlist ID by its name. Only the first 50 matches are returned.
+- name: tosca_execution_getRecentRunLogs
+  domain: execution
+  read_only: true
+  description: Get recent runs logs, one failed, one passed, for specified playlist.
+- name: tosca_inventory_advancedSearch
+  domain: inventory
+  read_only: true
+  destructive: false
+  description: Enhanced inventory search with pagination, full-text search, sort, and rich filter operators.
+- name: tosca_inventory_createFolder
+  domain: inventory
+  read_only: false
+  destructive: false
+  description: This tool allows you to create a new folder. You need to provide the folder name, and optionally,
+    a description, tags and the entity ID of the parent folder.
+- name: tosca_inventory_deleteFolder
+  domain: inventory
+  read_only: false
+  destructive: true
+  description: 'Deletes a folder by its entity ID. Omit ChildBehavior on the first call to inspect which
+    deletion behaviors are allowed. Then call again with one of: Abort, DeleteRecursively, MoveToParent.'
+- name: tosca_inventory_modifyFolder
+  domain: inventory
+  read_only: false
+  destructive: false
+  description: Modifies a folder's name and/or color in a single operation. Provide the folder entity
+    ID together with any combination of a new name, a new color, or removeColor.
+- name: tosca_inventory_move
+  domain: inventory
+  read_only: false
+  destructive: false
+  description: This tool allows you to move artifacts (test cases, modules, shared actions, playlists,
+    folders, etc...) to a different folder. Currently this tool only supports moving artifacts within
+    the same workspace. You need to provide a list of a...
+- name: tosca_inventory_search
+  domain: inventory
+  read_only: true
+  destructive: false
+  description: This tool allows you to search for artifacts.
+- name: tosca_mobile_addCapabilitySet
+  domain: mobile
+  read_only: false
+  destructive: false
+- name: tosca_mobile_createConnection
+  domain: mobile
+  read_only: false
+  destructive: false
+- name: tosca_mobile_deleteCapability
+  domain: mobile
+  read_only: false
+  destructive: true
+- name: tosca_mobile_deleteConnection
+  domain: mobile
+  read_only: false
+  destructive: true
+- name: tosca_mobile_getConnection
+  domain: mobile
+  read_only: true
+  destructive: false
+- name: tosca_mobile_listConnections
+  domain: mobile
+  read_only: true
+  destructive: false
+- name: tosca_mobile_removeCapabilitySet
+  domain: mobile
+  read_only: false
+  destructive: true
+- name: tosca_mobile_renameCapabilitySet
+  domain: mobile
+  read_only: false
+  destructive: false
+- name: tosca_mobile_setCapability
+  domain: mobile
+  read_only: false
+  destructive: false
+- name: tosca_mobile_updateConnection
+  domain: mobile
+  read_only: false
+  destructive: false
+- name: tosca_organization_listWorkspaces
+  domain: organization
+  read_only: true
+  destructive: false
+- name: tosca_playlist_add
+  domain: playlist
+  destructive: false
+  description: Creates a playlist with the given input.
+- name: tosca_playlist_analyzeTestCaseItems
+  domain: playlist
+  read_only: true
+  description: Analyzes test case items and provides contextual information for semantic naming.
+- name: tosca_playlist_applyTestCaseItemRenames
+  domain: playlist
+  description: Applies confirmed test case item renames.
+- name: tosca_playlist_deleteById
+  domain: playlist
+  destructive: true
+  description: Delete playlist by id.
+- name: tosca_playlist_getFailedTestSteps
+  domain: playlist
+  read_only: true
+  description: Gets the failed test steps of all the failed test cases of runs with the given ids.
+- name: tosca_playlist_getRecentRuns
+  domain: playlist
+  read_only: true
+  description: Searches the most recent runs that match given filters and returns their ids.
+- name: tosca_playlist_run
+  domain: playlist
+  destructive: false
+  description: Run a playlist and return the run ID.
+- name: tosca_playlist_searchByName
+  domain: playlist
+  read_only: true
+  description: Gets playlists that contain the given text in the name.
+- name: tosca_playlist_updateRunSchedule
+  domain: playlist
+  description: Updates, adds or removes the playlist run schedule.
+- name: tosca_simulation_create
+  domain: simulation
+  destructive: false
+  description: The simulation file in YAML format
+- name: tosca_simulation_deploy
+  domain: simulation
+  description: Deploys a simulation to a simulator
+- name: tosca_simulation_listAgents
+  domain: simulation
+  read_only: true
+  description: List simulatior agents where simulation files can be deployed to. it contains a list of
+    simulator agents with their ids and states and version
 skills:
   repository: https://github.com/Tricentis/mcp-skills
   license: Apache-2.0
   note: Tricentis publishes installable agent-skill packs for these MCP servers; see skills/.
+deployment:
+  mode: remote
+  endpoint: https://ttm4j.tricentis.com/v1/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

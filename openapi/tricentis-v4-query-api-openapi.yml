@@ -1,0 +1,211 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V4 Query API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v4-query
+  description: Query V4 APIs
+paths:
+  /api/v4/query:
+    post:
+      tags:
+      - v4-query
+      summary: Create query
+      responses:
+        201:
+          $ref: '#/components/schemas/Query'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/CreateQuery'
+        description: Create query model
+        required: true
+  /api/v4/query/{queryid}:
+    put:
+      tags:
+      - v4-query
+      summary: Update query
+      parameters:
+      - name: queryid
+        in: path
+        description: query's id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          $ref: '#/components/schemas/Query'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: NotFound
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/Query'
+        description: Update query
+        required: true
+    delete:
+      tags:
+      - v4-query
+      summary: Delete query
+      parameters:
+      - name: queryid
+        in: path
+        description: query's id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/v4/query/share:
+    put:
+      tags:
+      - v4-query
+      summary: Share queries
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    description: number of queries
+                    type: integer
+                  failed:
+                    description: number of queries
+                    type: integer
+                  errors:
+                    description: error
+                    type: object
+                    properties:
+                      id:
+                        description: query's id
+                        type: integer
+                      error:
+                        type: string
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: NotFound
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  queryId:
+                    type: string
+                  isShared:
+                    type: boolean
+        description: Share queries
+        required: true
+components:
+  schemas:
+    CreateQuery:
+      type: object
+      properties:
+        name:
+          type: string
+        queryClauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryClause'
+        isTeam:
+          type: boolean
+        projectId:
+          type: integer
+    Query:
+      type: object
+      properties:
+        id:
+          type: string
+        parent_id:
+          type: string
+        name:
+          type: string
+        summary:
+          type: string
+        type:
+          type: integer
+        is_system:
+          type: boolean
+        is_team:
+          type: boolean
+        qid:
+          type: string
+        query_clauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryClause'
+        children:
+          type: array
+          description: Queries array
+          items:
+            type: object
+    QueryClause:
+      type: object
+      properties:
+        leftGroup:
+          type: string
+        rightGroup:
+          type: string
+        criteria:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

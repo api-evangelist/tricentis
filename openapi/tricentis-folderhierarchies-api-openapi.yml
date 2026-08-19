@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Analytics (Tech Review) Folderhierarchies API
+  description: Tricentis Analytics OData APIs
+  version: ''
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+tags:
+- name: folderhierarchies
+paths:
+  /folderhierarchies:
+    get:
+      summary: Get entities from folderhierarchies
+      tags:
+      - folderhierarchies
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - ssor
+            - ssor desc
+            - pathnames
+            - pathnames desc
+            - level1id
+            - level1id desc
+            - level2id
+            - level2id desc
+            - level3id
+            - level3id desc
+            - level4id
+            - level4id desc
+            - level5id
+            - level5id desc
+            - level6id
+            - level6id desc
+            - level7id
+            - level7id desc
+            - level8id
+            - level8id desc
+            - level9id
+            - level9id desc
+            - level10id
+            - level10id desc
+            - level11id
+            - level11id desc
+            - level12id
+            - level12id desc
+            - level13id
+            - level13id desc
+            - level14id
+            - level14id desc
+            - level15id
+            - level15id desc
+            - level16id
+            - level16id desc
+            - level17id
+            - level17id desc
+            - level18id
+            - level18id desc
+            - level19id
+            - level19id desc
+            - level20id
+            - level20id desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - clientid
+            - projectid
+            - ssor
+            - pathnames
+            - level1id
+            - level2id
+            - level3id
+            - level4id
+            - level5id
+            - level6id
+            - level7id
+            - level8id
+            - level9id
+            - level10id
+            - level11id
+            - level12id
+            - level13id
+            - level14id
+            - level15id
+            - level16id
+            - level17id
+            - level18id
+            - level19id
+            - level20id
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of folderhierarchy
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.folderhierarchy'
+        4XX:
+          $ref: '#/components/responses/error'
+  /folderhierarchies({projectid}):
+    parameters:
+    - description: 'key: projectid'
+      in: path
+      name: projectid
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    get:
+      summary: Get entity from folderhierarchies by key
+      tags:
+      - folderhierarchies
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - clientid
+            - projectid
+            - ssor
+            - pathnames
+            - level1id
+            - level2id
+            - level3id
+            - level4id
+            - level5id
+            - level6id
+            - level7id
+            - level8id
+            - level9id
+            - level10id
+            - level11id
+            - level12id
+            - level13id
+            - level14id
+            - level15id
+            - level16id
+            - level17id
+            - level18id
+            - level19id
+            - level20id
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.folderhierarchy'
+        4XX:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  schemas:
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.folderhierarchy:
+      title: folderhierarchy
+      type: object
+      properties:
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        pathnames:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        level1id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level2id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level3id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level4id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level5id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level6id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level7id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level8id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level9id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level10id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level11id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level12id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level13id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level14id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level15id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level16id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level17id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level18id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level19id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        level20id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey

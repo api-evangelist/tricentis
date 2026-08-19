@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Deletion Policies API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deletion Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Policies of a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/deletion-policies",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get all Policies of a Workspace"
+        },
+        {
+          "info": {
+            "name": "Create a new deletion policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/deletion-policies",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new deletion policy"
+        },
+        {
+          "info": {
+            "name": "Get one deletion policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/deletion-policies/:deletionPolicyId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deletionPolicyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get one deletion policy"
+        },
+        {
+          "info": {
+            "name": "Update a deletion policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/deletion-policies/:deletionPolicyId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deletionPolicyId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update all field of the deletion policy"
+        },
+        {
+          "info": {
+            "name": "Partially Update a deletion policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/deletion-policies/:deletionPolicyId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deletionPolicyId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update only the specified fields of the deletion policy"
+        },
+        {
+          "info": {
+            "name": "Delete a deletion policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/deletion-policies/:deletionPolicyId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deletionPolicyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a deletion policy"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

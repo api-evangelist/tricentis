@@ -1,0 +1,1011 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Folders API
+  version: '1.0'
+  description: 'Operations tagged folders across 2 of this provider''s published API definitions: tricentis-qtest-analytics-openapi.json, tricentis-ttm4j-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+- url: https://api.ttm4j.tricentis.com
+tags:
+- name: folders
+paths:
+  /folders:
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+    get:
+      summary: Get entities from folders
+      tags:
+      - folders
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - name
+            - name desc
+            - type
+            - type desc
+            - uiid
+            - uiid desc
+            - ismandate
+            - ismandate desc
+            - viewinggroupname
+            - viewinggroupname desc
+            - createdtimestamp
+            - createdtimestamp desc
+            - lastmodifiedtimestamp
+            - lastmodifiedtimestamp desc
+            - lastmodifieduser
+            - lastmodifieduser desc
+            - extrainfo
+            - extrainfo desc
+            - customfields
+            - customfields desc
+            - ssor
+            - ssor desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - name
+            - type
+            - uiid
+            - ismandate
+            - viewinggroupname
+            - createdtimestamp
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - extrainfo
+            - customfields
+            - ssor
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of folder
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.folder'
+        4XX:
+          $ref: '#/components/responses/error'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /folders({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+    get:
+      summary: Get entity from folders by key
+      tags:
+      - folders
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - name
+            - type
+            - uiid
+            - ismandate
+            - viewinggroupname
+            - createdtimestamp
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - extrainfo
+            - customfields
+            - ssor
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.folder'
+        4XX:
+          $ref: '#/components/responses/error'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /v1/projects/{project-key}/folders:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    get:
+      tags:
+      - folders
+      summary: Get folder(s).
+      description: "## Get folders.\n            \n#### Query parameters to filter by:\n            \n* **name** : _(optional)_: The folder name.\n* **parentId** _(optional)_: The ID of the parent folder where the new folder should be located. (If not provided, only root folders will return)."
+      parameters:
+      - name: name
+        in: query
+        description: name.
+        schema:
+          type: string
+      - name: parentId
+        in: query
+        description: parentId.
+        schema:
+          type: string
+          format: uuid
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: offset
+        in: query
+        description: 'Numeric value that determines that the result list will start from result #N (zero based)'
+        schema:
+          type: Integer
+          default: 0
+          example: 0
+      responses:
+        '200':
+          description: Successfully get folder(s).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets offset.
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets limit.
+                    format: int32
+                  totalCount:
+                    type: integer
+                    description: Gets or sets totalCount.
+                    format: int32
+                  items:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      required:
+                      - name
+                      type: object
+                      properties:
+                        name:
+                          minLength: 1
+                          type: string
+                        parentId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        id:
+                          type: string
+                          format: uuid
+                        projectKey:
+                          type:
+                          - string
+                          - 'null'
+                        created:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        updated:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        createdBy:
+                          type:
+                          - string
+                          - 'null'
+                        updatedBy:
+                          type:
+                          - string
+                          - 'null'
+                        index:
+                          type: integer
+                          format: int32
+                      additionalProperties: false
+                    description: Gets or sets items.
+                additionalProperties: false
+                description: Page Response Scheme.
+              examples:
+                Created folders:
+                  value:
+                    offset: 0
+                    limit: 2
+                    totalCount: 2
+                    items:
+                    - id: bd0376da-2981-46b1-9ffd-3d668e205bfa
+                      projectKey: TE
+                      created: '2026-08-02T12:59:08.7644143Z'
+                      updated: '2026-08-02T12:59:08.7644144Z'
+                      createdBy: User
+                      updatedBy: User
+                      index: 0
+                      name: Folder 1
+                    - id: 775887d3-18b6-4678-b920-5bf53862f097
+                      projectKey: TE
+                      created: '2026-08-02T12:59:08.7644163Z'
+                      updated: '2026-08-02T12:59:08.7644164Z'
+                      createdBy: User
+                      updatedBy: User
+                      index: 0
+                      name: Folder inside another folder
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+    post:
+      tags:
+      - folders
+      summary: Create folder(s).
+      description: "## Create new folders. The body contains a list of folders to create.\n            \n#### Body fields:\n            \n* **name** : The folder name.\n* **parentId** _(optional)_ : The ID of the parent folder where the new folder should be located."
+      parameters:
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: List of folders to create.
+        content:
+          application/json:
+            schema:
+              minItems: 1
+              type: array
+              items:
+                required:
+                - name
+                type: object
+                properties:
+                  name:
+                    minLength: 1
+                    type: string
+                  parentId:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                additionalProperties: false
+            examples:
+              Create two folders:
+                value:
+                - name: Folder
+                - name: Folder inside parent folder
+                  parentId: dbb583c4-4f9d-490f-b62d-1754c1ee442a
+      responses:
+        '200':
+          description: Successfully created folder(s).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets offset.
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets limit.
+                    format: int32
+                  totalCount:
+                    type: integer
+                    description: Gets or sets totalCount.
+                    format: int32
+                  items:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      required:
+                      - name
+                      type: object
+                      properties:
+                        name:
+                          minLength: 1
+                          type: string
+                        parentId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        id:
+                          type: string
+                          format: uuid
+                        projectKey:
+                          type:
+                          - string
+                          - 'null'
+                        created:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        updated:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        createdBy:
+                          type:
+                          - string
+                          - 'null'
+                        updatedBy:
+                          type:
+                          - string
+                          - 'null'
+                        index:
+                          type: integer
+                          format: int32
+                      additionalProperties: false
+                    description: Gets or sets items.
+                additionalProperties: false
+                description: Page Response Scheme.
+              examples:
+                Created folders:
+                  value:
+                    offset: 0
+                    limit: 2
+                    totalCount: 2
+                    items:
+                    - id: 82dc521b-747e-41ca-ae25-db5fa59fb35d
+                      projectKey: TE
+                      created: '2026-08-02T12:59:08.7669151Z'
+                      updated: '2026-08-02T12:59:08.7669152Z'
+                      createdBy: User
+                      updatedBy: User
+                      index: 0
+                      name: Folder 1
+                    - id: eff3446a-7b04-413e-a893-d7cf33a10222
+                      projectKey: TE
+                      created: '2026-08-02T12:59:08.766917Z'
+                      updated: '2026-08-02T12:59:08.766917Z'
+                      createdBy: User
+                      updatedBy: User
+                      index: 0
+                      name: Folder inside another folder
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/folders/{folderId}:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    put:
+      tags:
+      - folders
+      summary: Update folder.
+      description: "## Update folder.\n            \n#### Body fields:\n* **name** _(optional)_: The folder name.\n* **parentId** _(optional)_: In case parentId equal to 00000000-0000-0000-0000-000000000000, the folder will be moved to root."
+      parameters:
+      - name: folderId
+        in: path
+        description: Folder's Id to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Folder's detail to update.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type:
+                  - string
+                  - 'null'
+                parentId:
+                  type:
+                  - string
+                  - 'null'
+                  format: uuid
+              additionalProperties: false
+            examples:
+              Update folder:
+                value:
+                  name: Folder inside parent folder
+                  parentId: 76f121f8-6959-44a7-a5db-a7af41b2edff
+      responses:
+        '200':
+          description: Successfully updated folder.
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                type: object
+                properties:
+                  name:
+                    minLength: 1
+                    type: string
+                  parentId:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                  id:
+                    type: string
+                    format: uuid
+                  projectKey:
+                    type:
+                    - string
+                    - 'null'
+                  created:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                  updated:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                  createdBy:
+                    type:
+                    - string
+                    - 'null'
+                  updatedBy:
+                    type:
+                    - string
+                    - 'null'
+                  index:
+                    type: integer
+                    format: int32
+                additionalProperties: false
+              examples:
+                updated folder:
+                  value:
+                    id: eb2057c4-c7b2-46b5-8774-051ed065174a
+                    projectKey: TE
+                    created: '2026-08-02T12:59:08.771874Z'
+                    updated: '2026-08-02T12:59:08.7718741Z'
+                    createdBy: User
+                    updatedBy: User
+                    index: 0
+                    name: Folder 1
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.folder:
+      title: folder
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        uiid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ismandate:
+          type:
+          - boolean
+          - 'null'
+        viewinggroupname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        createdtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifiedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifieduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        extrainfo:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        customfields:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm
+x-refined-from:
+- tricentis-qtest-analytics-openapi.json
+- tricentis-ttm4j-openapi.json

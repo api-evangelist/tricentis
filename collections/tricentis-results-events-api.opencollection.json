@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Results|Events API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results|Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test Result events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/events",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "The types of the events you expect to get. It will return all the types if the field is left empty. (Ctrl+click to select multiple values)\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of elements returned by this call. The maximum must be less than or equal to 200."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The key to sort the elements on. It may begin with a '+' or a '-' to specify an ascending or descending sort order. The list of available keys can be found in the endpoint description."
+              }
+            ]
+          },
+          "docs": "List the events of the specified Test Result according to the method parameters.\n___\n*Sortable fields :*\n  - offset\n  - fullname\n  - code\n  - source\n"
+        },
+        {
+          "info": {
+            "name": "Create a Test Result custom event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/events",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Test Result custom event.\n\nCustom events stored by this endpoint can be retrieved using the [GetTestResultEvents](#/Results/GetTestResultEvents) endpoint.\n\nCustom events allow you to associate to a Test Result events that occurred outside of NeoLoad.\n\nCustom events can have two different kinds of timeframe:\n  - INSTANT: an event having a timestamp and a duration of 0 seconds.\n  - TIME_RANGE: an event having a start timestamp and an end timestamp.\n\nCustom events timestamps are in second"
+        },
+        {
+          "info": {
+            "name": "Partially update a Test Result custom event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/events/:eventId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result event."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a field of an existing custom event:\n  - endTimestamp\n  - description\n  - url\n\nCustom events with INSTANT timeframe can be patched to TIME_RANGE timeframe by setting an endTimestamp different than the startTimestamp.\n\nCustom events with TIME_RANGE timeframe can be patched to INSTANT timeframe by setting an endTimestamp equals to the startTimestamp.\n\nCustom events timestamps are in seconds.\n\nRequest to patch a custom event has some constraints, see <a href=\"#model-PatchCustomEventRequest\">"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

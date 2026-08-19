@@ -1,0 +1,172 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Tosca API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: tosca
+  description: Tosca Integration API
+paths:
+  /api/v3/projects/{projectId}/tosca/import/test-event:
+    post:
+      tags:
+      - tosca
+      summary: Import Tosca TestEvent objects
+      description: To export TestEvent objects from Tosca to qTest
+      operationId: notifyTestEventImport
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: 'TestEvent objects are imported successfully to qTest Manager
+
+
+            <em>id:</em> ID of the submission job. You will need this Id to check the job status using <strong>GET /api/v3/projects/queue-processing/{jobId}</strong>
+
+
+            <em>state:</em> Status of the job. Its value includes IN_WAITING, IN_PROCESSING, FAILED, PENDING, and SUCCESS'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueProcessingResponse'
+        400:
+          description: Bad Request if invalid input value in body
+        403:
+          description: Access Denied
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ToscaTestCycleResource'
+        description: "An array of hierarchy Tosca objects\n\n<em>toscaUniqueId (required):</em> Unique ID of the Tosca object\n\n<em>name (required):</em> Name of the Tosca object\n\n<em>description:</em> Description of the Tosca object\n\n<em>toscaObjectType (required):</em> Type of the Tosca object: TestEvent, ExecutionList (contained inTestEvent), ExecutionEntry Folder(contained in Execution List). Object is TestEvent type is always on the root of body array and doesn't contain ExecutionEntry objects \n\n<em>toscaNodePath (required):</em> Node path of the Tosca object\n\n<em>testCycles:</em> The array of TestEvent or ExecutionList or ExecutionEntry Folder objects\n\n<em>testRuns:</em> The array of ExecutionEntry objects in testCycle property\n\n<em>associatedToscaTestCase:</em> Testcase object that associated with testRun object"
+        required: true
+components:
+  schemas:
+    ToscaTestCaseResource:
+      type: object
+      required:
+      - toscaNodePath
+      - toscaUniqueId
+      properties:
+        toscaUniqueId:
+          type: string
+          example: a606c5a8-d648-4b09-bc28-929d58773631
+        toscaNodePath:
+          type: string
+          example: /TestCases/Execution Entry
+        toscaUrl:
+          type: string
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+    ToscaTestCycleResource:
+      type: object
+      required:
+      - name
+      - toscaNodePath
+      - toscaUniqueId
+      properties:
+        toscaUniqueId:
+          type: string
+          example: b0fd1f95-b925-43d3-9c47-d66ab584f9fc
+        name:
+          type: string
+          example: Execution List
+          minLength: 1
+          maxLength: 500
+        description:
+          type: string
+          example: Sample Execution List
+        toscaObjectType:
+          type: string
+          example: ExecutionList
+        toscaNodePath:
+          type: string
+          example: /Execution/ExecutionLists/ExecutionEntry Folder/Execution List
+        toscaUrl:
+          type: string
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+        testCycles:
+          type: array
+          items:
+            type: string
+            example: ToscaTestCycleResource
+        testRuns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToscaExecutionEntryResource'
+    QueueProcessingResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of task after batch submit automation test logs
+        state:
+          type: string
+          example: IN_PROCESSING
+          description: State of task after batch submit automation test logs
+        contentType:
+          type: string
+          example: application/json
+          description: Content type of task after batch submit automation test logs
+        content:
+          type: string
+          description: Data of task after batch submit automation test logs
+        type:
+          type: string
+          example: AUTOMATION_TEST_LOG
+          description: Type of task after batch submit automation test logs
+    ToscaExecutionEntryResource:
+      type: object
+      required:
+      - name
+      - toscaNodePath
+      - toscaUniqueId
+      properties:
+        toscaUniqueId:
+          type: string
+          example: cd0de9f4-acef-47a4-b91d-99791c4d8e1c
+        name:
+          type: string
+          example: Execution Entry
+          minLength: 1
+          maxLength: 500
+        toscaNodePath:
+          type: string
+          example: /Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry
+        toscaUrl:
+          type: string
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+        associatedToscaTestCase:
+          $ref: '#/components/schemas/ToscaTestCaseResource'
+        associatedToscaTestCaseId:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

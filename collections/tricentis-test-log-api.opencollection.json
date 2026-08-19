@@ -1,0 +1,449 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Test Log API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "test-log",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submits multiple test results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3.1/projects/:projectId/test-runs/:testRunId/auto-test-logs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Always input <em>automation</em> for this parameter"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "This should always be <strong>0 (zero)</strong> or else it will throw an exception"
+              },
+              {
+                "name": "escapeXml",
+                "value": "",
+                "type": "query",
+                "description": "<em>escapeXml=true</em> - default value. &gt and &lt in <em>Automation Content</em> field are encoded\n\n<em>escapeXml=false</em> - the Automation Content field is not encoded"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To submit Automation Test Logs of multiple Test Runs\n\n<strong>qTest Manager version:</strong> 8.0.2+"
+        },
+        {
+          "info": {
+            "name": "Gets a Batch Test Log Submission job's state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/queue-processing/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the submission job. \n\nIt is included in the response of these 2 APIs:\n\n<strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs?type=automation</strong> \n\nor <strong>POST /api/v3/projects/{projectId}/auto-test-logs?type=automation</strong>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To check the state of a Batch Test Log Submission job. \n\nWhen you submit test results to qTest Manager using:\n\n<strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs?type=automation</strong>\n\nor <strong>POST /api/v3/projects/{projectId}/auto-test-logs?type=automation</strong>, their response include a job ID.\n\nYou will need to use this API and the returned ID to check if the submission job has completed.\n\nJob states include <i>IN_WAITING</i>, <i>IN_PROCESSING</i>, <i>FA"
+        },
+        {
+          "info": {
+            "name": "Submits multiple test results and specifies Test Design and Test Execution tree structures",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/auto-test-logs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "always use <em>type=automation</em> for this parameter"
+              },
+              {
+                "name": "escapeXml",
+                "value": "",
+                "type": "query",
+                "description": "<em>escapeXml=true</em> - default value. &gt and &lt in <em>Automation Content</em> field are encoded\n\n<em>escapeXml=false</em> - the Automation Content field is not encoded"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This is the extended version of this API <strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs</strong>. It allows submitting multiple test logs in one API request, and creating Test Cases and Test Runs in hierarchical structure which is specified in the request body\n\n<strong>Important:</strong> This API does not update names and locations of existing Test Cases and Test Runs\n\n<strong>Known Issue:</strong> This API currently does not update Test Case Version when Test "
+        },
+        {
+          "info": {
+            "name": "Submits an Automation Test Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/auto-test-logs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "suitePerDay",
+                "value": "",
+                "type": "query",
+                "description": "<em>suitePerDay=true</em> - the newly created Test Run will be located under a Test Suite named under the execution date specified in parameter <em>suiteDate</em>, eg: <em>Automation 2014-12-09</em>\n\n<em>suitePerDay=false</em> - the newly created Test Run will be located under <em>Automation Test Suite</em>\n\n<strong>IMPORTANT:</strong> In case you update an existing Test Run, its Test Suite remains unchanged"
+              },
+              {
+                "name": "suiteDate",
+                "value": "",
+                "type": "query",
+                "description": "It is required if <em>suitePerDay</em> is true. Its format is <em>\"yyyymmdd\"</em>. \n\nThe newly created Test Run will be located under a Test Suite named \"Automation yyyy-mm-dd\", eg: Automation 2014-12-09"
+              },
+              {
+                "name": "encodeNote",
+                "value": "",
+                "type": "query",
+                "description": "Specify if the Test Log's Notes are in HTML format\n\n<em>encodeNote=true</em> - default value. Notes are not in HTML format\n\n<em>encodeNote=false:</em> Notes are in HTML format"
+              },
+              {
+                "name": "forceUpdateVersion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run\n\n1/ If it is greater than 0 (zero), test result will be submitted to the specific Test Run\n\nIf it is 0 (zero), test result will be submitted to a new Test Run"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To submit test result of an Automation Test Run\n\n<strong>Known Issue:</strong> This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Modify an Automation Test Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/auto-test-logs/:id",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              },
+              {
+                "name": "encodeNote",
+                "value": "",
+                "type": "query",
+                "description": "encodeNote"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To modify test result of a <em>automation</em> Test Run\n\n<strong>qTest Manager version:</strong> 9.1.5+"
+        },
+        {
+          "info": {
+            "name": "Gets all Test Logs of a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/test-logs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Test Logs of a Test Run\n\n<strong>qTest Manager version:</strong> 7.6"
+        },
+        {
+          "info": {
+            "name": "Submits a Manual Test Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/test-logs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To submit test result of a <em>manual</em> Test Run\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets the latest Test Log of a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/test-logs/last-run",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Valid values include: \n\ni)<em>testcase</em> - to expand the associated Test Case and its Test Steps in the response; \n\nii) <em>teststeplog.teststep</em> - to expand results of each Test Steps in the response"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Test Run's latest test result\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets a Test Log of a Test Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/test-logs/:id",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Log"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a specific Test Log of a Test Run"
+        },
+        {
+          "info": {
+            "name": "Modify a Manual Test Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-runs/:testRunId/test-logs/:id",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testRunId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Run"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To modify test result of an <em>manual</em> Test Run\n\n<strong>qTest Manager version:</strong> 9.1.5+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

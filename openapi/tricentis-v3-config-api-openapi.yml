@@ -1,0 +1,173 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 Config API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-config
+  description: Config V3 APIs
+paths:
+  /api/config:
+    get:
+      tags:
+      - v3-config
+      summary: Gets current Config
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  explorer_token:
+                    type: string
+                  qtest_url:
+                    type: string
+                  url:
+                    type: string
+                  useriq_site_id:
+                    type: string
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api
+  /api/user-settings:
+    get:
+      tags:
+      - v3-config
+      summary: Gets current User settings
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSettings'
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api
+    put:
+      tags:
+      - v3-config
+      summary: Updates current User settings
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSettings'
+        description: body
+        required: true
+components:
+  schemas:
+    UserSettings:
+      type: object
+      properties:
+        session:
+          type: object
+          properties:
+            columnSettings:
+              type: array
+              items:
+                type: object
+                properties:
+                  value:
+                    type: string
+                  name:
+                    type: string
+                  isSelected:
+                    type: boolean
+            showTimestamp:
+              type: boolean
+            resetTraceStepNumbers:
+              type: boolean
+            formatAnnotationSettings:
+              type: object
+              properties:
+                select:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                blackout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                crop:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                arrow:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                pencil:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                rectangle:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                ellipse:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                rounded-rectangular-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                rectangular-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                oval-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                cloud-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                line1-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                line2-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                line3-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                line1-accent-bar-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                line2-accent-bar-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                line3-accent-bar-callout:
+                  $ref: '#/components/schemas/AnnotationSettings'
+                text:
+                  $ref: '#/components/schemas/AnnotationSettings'
+            remindToInstallDesktopExplorer:
+              type: boolean
+            remindTestCaseResetingUnsavedSteps:
+              type: boolean
+            defaultProject:
+              type: integer
+            sessionFilters:
+              type: object
+            notifiedVersion:
+              type: string
+            filterCollapsed:
+              type: boolean
+    AnnotationSettings:
+      type: object
+      properties:
+        borderSize:
+          type: integer
+        borderColor:
+          type: string
+        backgroundColor:
+          type: string
+        fontName:
+          type: string
+        fontSize:
+          type: integer
+        textColor:
+          type: string
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,540 @@
+{
+  "item": [
+    {
+      "id": "dc36109c-f5c3-4007-baaa-34b6f4e2558e",
+      "name": "Test Runs Fields",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3aa93a06-1f79-47e1-b7ac-04db10cb82b9",
+          "name": "Add allowed value to scheme.",
+          "request": {
+            "name": "Add allowed value to scheme.",
+            "description": {
+              "content": "## Add allowed value to scheme.\n##### Note: Allowed Scheme names: Environments, Builds.\n##### In case of trying to add existing allowed value, it will be ignored (duplicates are not allowed) and the response will be 200.\n            \n#### Body fields:\n* **allowedValues** _(mandatory)_: Provide a list of allowed values, with each value having the following fields:\n    * **name** _(mandatory)_: name of the allowed value.\n    * **description** _(optional)_: allowed value description.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "test-runs",
+                "scheme",
+                ":schemeName",
+                "allowed-values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schemeName",
+                  "description": "(Required) The scheme name (Environments, Builds)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  },\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4649dedb-6147-40ae-8c50-95266d221b6d",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "test-runs",
+                    "scheme",
+                    ":schemeName",
+                    "allowed-values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schemeName",
+                      "description": "(Required) The scheme name (Environments, Builds)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  },\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f056d627-ab76-4a01-878f-b499bc1e978f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "test-runs",
+                    "scheme",
+                    ":schemeName",
+                    "allowed-values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schemeName",
+                      "description": "(Required) The scheme name (Environments, Builds)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  },\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94f745c3-06c0-4dd1-821a-a575bbb1b2cf",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "test-runs",
+                    "scheme",
+                    ":schemeName",
+                    "allowed-values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schemeName",
+                      "description": "(Required) The scheme name (Environments, Builds)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  },\n  {\n    \"name\": \"<string,null>\",\n    \"description\": \"<string,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54867790-8a7b-4253-9bf7-aec2f27b208b",
+          "name": "Delete allowed value from scheme.",
+          "request": {
+            "name": "Delete allowed value from scheme.",
+            "description": {
+              "content": "## Delete allowed value from scheme.\n##### Note: Allowed Scheme names: Environments, Builds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "test-runs",
+                "scheme",
+                ":schemeName",
+                "allowed-values",
+                ":allowedValueName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schemeName",
+                  "description": "(Required) The scheme name (Environments, Builds)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allowedValueName",
+                  "description": "(Required) allowedValueName."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fa8b29e-8990-4eea-87ac-cc5048d4af24",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "test-runs",
+                    "scheme",
+                    ":schemeName",
+                    "allowed-values",
+                    ":allowedValueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schemeName",
+                      "description": "(Required) The scheme name (Environments, Builds)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "allowedValueName",
+                      "description": "(Required) allowedValueName."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7012f035-e7fc-4c40-94d2-e1a710b83649",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "test-runs",
+                    "scheme",
+                    ":schemeName",
+                    "allowed-values",
+                    ":allowedValueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schemeName",
+                      "description": "(Required) The scheme name (Environments, Builds)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "allowedValueName",
+                      "description": "(Required) allowedValueName."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93fca934-65f8-4b3a-a756-50d228a2a93a",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "test-runs",
+                    "scheme",
+                    ":schemeName",
+                    "allowed-values",
+                    ":allowedValueName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schemeName",
+                      "description": "(Required) The scheme name (Environments, Builds)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "allowedValueName",
+                      "description": "(Required) allowedValueName."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ttm4j.tricentis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5615a7b9-dfe7-45f5-98f5-03ad1f18c75a",
+    "name": "TTM for Jira Test Runs Fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Tricentis Test Management for Jira",
+      "type": "text/plain"
+    }
+  }
+}

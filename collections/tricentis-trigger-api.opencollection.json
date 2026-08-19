@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Pulse Trigger API",
+    "version": "2025.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "trigger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all triggers of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/triggers",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Return only the first N results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N results"
+              }
+            ]
+          },
+          "docs": "To get all triggers of a project"
+        },
+        {
+          "info": {
+            "name": "Create a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/triggers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To create a trigger"
+        },
+        {
+          "info": {
+            "name": "Get a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/triggers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To get a trigger by id"
+        },
+        {
+          "info": {
+            "name": "Update a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/triggers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To update a trigger"
+        },
+        {
+          "info": {
+            "name": "Update a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/triggers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To update a trigger"
+        },
+        {
+          "info": {
+            "name": "Delete a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/triggers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To delete a trigger"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

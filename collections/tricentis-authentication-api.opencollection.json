@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Parameters Authentication API",
+    "version": "2025.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-access-token",
+      "value": "{{x-access-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /oauth/v1/login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/oauth/v1/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request."
+        },
+        {
+          "info": {
+            "name": "POST /oauth/v1/token-login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/oauth/v1/token-login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request."
+        },
+        {
+          "info": {
+            "name": "GET /oauth/v1/logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://parameter-1.qtestnet.com/oauth/v1/logout"
+          },
+          "docs": "Logout of qTest"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,511 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Search API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: search
+  description: Search API
+paths:
+  /api/v3/projects/{projectId}/comments:
+    post:
+      tags:
+      - search
+      summary: Queries Comments
+      description: 'To search for comments
+
+
+        <strong>qTest Manager version:</strong> 7.6+'
+      operationId: searchCommentWithQuery
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryCommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentQueryParams'
+        description: '<em>object_type (required):</em> valid values include requirements, test-cases, test-runs and defects
+
+
+          <em>object:</em> ID of the object from which you want to retrieve comments
+
+
+          <em>authors:</em> ID of the user who made the comments
+
+
+          <em>start:</em> This value needs to be in ISO Date format
+
+
+          <em>end:</em> This value needs to be in ISO Date format'
+        required: true
+  /api/v3/projects/{projectId}/histories:
+    post:
+      tags:
+      - search
+      summary: Queries objects' histories
+      description: 'To query histories of Requirements, Test Cases, Test Runs and <em>internal</em> Defects
+
+
+        <strong>qTest Manager version:</strong> 7.6+'
+      operationId: queryHistories
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        200:
+          description: Return list of Requirements, Test Cases, Test Runs and internal Defects history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactHistoryResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HistoryQueryParams'
+        description: '<em>object_type (required):</em> valid values include <em>requirements</em>, <em>test-cases</em>, <em>test-runs</em>, or <em>defects</em>
+
+
+          <em>fields:</em> specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included
+
+
+          <em>object_query:</em> specify a structured query to search for qTest objects. <br/>Refer to attribute <em>query</em> in the Request Body of <em>Queries Objects</em> API
+
+
+          <em>query:</em> specify a structured query to retrieve histories of objects specified in attribute <em>object_query</em> above. You can use operators <em>and</em> and <em>or</em> to combine multiple criteria. Only these 2 criteria are supported:
+
+
+          <br/>i) <em>created:</em> it can be used for querying by updated date of the object. Its values need to be in ISO Date format. Applicable operator include: =, <>, &lt;= and >=
+
+
+          <br/>ii) <em>author:</em> it can be used for querying by ID of the users who made the update. Applicable operators include: = and <>'
+        required: true
+  /api/v3/projects/{projectId}/search:
+    post:
+      tags:
+      - search
+      summary: Queries objects
+      description: This API mimics the Data Query function of qTest Manager web app. It provides the capability to query Requirements, Test Cases, Test Runs and <em>internal</em> Defects
+      operationId: searchArtifact
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: appendTestSteps
+        in: query
+        description: By default, For Test Case(s) test steps are not included in the response. Specify appendTestSteps=true to include them.
+        required: false
+        schema:
+          type: boolean
+      - name: includeExternalProperties
+        in: query
+        description: By default, For Requirement(s) external properties are not included in the response. Specify includeExternalProperties=true to include them.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: includeTestLogProperties
+        in: query
+        description: By default, For Test Log(s) properties and Test step logs are not included in the response. Specify expandTestLogProperties=true to include them.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        200:
+          description: Return list of Requirements, Test Cases, Test Runs and internal Defects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactSearchParams'
+        description: '<em>object_type (required):</em> Its value can be <em>releases</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-runs</em>, <em>test-suites</em>, <em>test-cycles</em>, <em>test-logs</em>, <em>builds</em>, or <em>defects</em>.
+
+
+          <em>fields:</em> specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included.
+
+
+          <em>query:</em> specify a structured query to search for qTest Manager objects. Basically, you can use the Query Summary text as in qTest web app for this attribute.
+
+
+          <strong>IMPORTANT:</strong> When using Query Summary to specify the query, you will need to modify the Query Summary in some special cases as below:
+
+
+          - If there are spaces in the criteria name, put it between ''  '' (single quotation marks).
+
+
+          - There need to be spaces between a criteria, an operator, and a value.
+
+
+          - You can use field name or field ID in the query.
+
+
+          - For the fields with datetime as the data type, convert the values to ISO Date Time format.
+
+
+          - Operator "IN" for fields with datetime as the data type will search for the values within this range: inputted date time &lt;= value &lt;= (inputted date time + 23h59m59s).
+
+
+          - <em>Affected Release/Build:</em> You can use either Affected Release or Affected Build as criteria in a query. This criterion can be used only for <em>defects</em>.
+
+
+          - <em>Target Release/Build:</em> You can use either Target Release or Target Build as criteria in a query. This criterion can be used for <em>requirements</em>, <em>test-runs</em>, <em>defects</em>, <em>test-logs</em>, and <em>test-cycles</em>. Release Id should be passed as Negative value.
+
+
+          - <em>Fixed Release/Build:</em> You can use either Fixed Release or Fixed Build as criteria in a query. This criterion can be used only for <em>defects</em>.
+
+
+          - <em>Subscribers</em>: Use user ID instead of username in the query for this criteria.
+
+
+          - You need to use id or pid for the following fields when using them in a query: Affected Release, Affected Build, Target Release, Target Build, Fixed Release, and Fixed Build.
+
+
+          - Use <em>~</em> for operator <em>contains</em>, and <em>!~</em> for operator <em>not contains</em>. Eg: instead of <em>Name contains "login"</em>, use <em>Name ~ "login"</em>
+
+
+          - Use operator <em>is not empty</em> in the following way: <strong>is ''not empty''</strong>. Eg: "Name is ''not empty''"
+
+
+          - For builds and test-cycles, you can use the following additional criterion: <em>Created Date</em> and <em>Last Modified Date</em> in a query. Eg: ''Created Date'' > ''2021-05-07T03:15:37.652Z''
+
+
+          - For test-logs, you can use the following additional criterion: <em>Execution Start Date</em> and <em>Execution End Date</em> in a query. Eg: ''Execution Start Date'' > ''2021-05-07T03:15:37.652Z'''
+        required: true
+components:
+  schemas:
+    HistoryResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        description:
+          type: string
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        author_id:
+          type: integer
+          format: int64
+        linked_object:
+          $ref: '#/components/schemas/LinkedObject'
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryChange'
+    CommentQueryParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: 'StartDate with format: yyyy-MM-dd''T''HH:mm:ss.SSSZ or yyyy-MM-dd''T''HH:mm:ssZZ"'
+        end:
+          type: string
+          format: date-time
+          description: 'EndDate with format: yyyy-MM-dd''T''HH:mm:ss.SSSZ or yyyy-MM-dd''T''HH:mm:ssZZ"'
+        object_type:
+          type: string
+          example: requirements
+          description: 'Only support comments for object types: [requirements, defects, test-cases, test-runs]'
+        fields:
+          type: array
+          description: Specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        object:
+          type: integer
+          format: int64
+          description: Id of the object from which you want to retrieve comments
+        author:
+          type: integer
+          format: int64
+          example: 1
+          description: Id of the user who made the comments
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    RepresentationModel:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+    HistoryQueryParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        object_type:
+          type: string
+          example: test-cases
+        fields:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          description: "Specify a structured query to retrieve history of objects specified in attribute object_query above\n\nOnly these 2 criteria are supported:\n\n created: it can be used for querying by updated date of the object. \n\nIts values need to be in ISO Date format. Applicable operator include: =, <>, &lt;= and >= \n\nauthor:it can be used for querying by Id of the users who made the update. Applicable operators include: = and <>\n\nYou can use operators and and or to combine an unlimited number of criteria above"
+        object_query:
+          type: string
+          description: Specify a structured query to search for qTest objects. Refer to attribute query in the request body of Query Objects API
+    ArtifactSearchParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        object_type:
+          type: string
+          example: test-cases
+          description: Its value can be requirements, test-cases, test-runs, test-cycles, test-logs, builds or defects
+        fields:
+          type: array
+          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          example: '''name'' ~ ''qTest'''
+          description: Represent text as Data Query
+    PagedResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/RepresentationModel'
+    ArtifactHistoryResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/HistoryResource'
+    HistoryChange:
+      type: object
+      properties:
+        field:
+          type: string
+        old_value:
+          type: string
+        new_value:
+          type: string
+    LinkedObject:
+      type: object
+      properties:
+        object_type:
+          type: string
+        object_id:
+          type: integer
+          format: int64
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    QueryCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

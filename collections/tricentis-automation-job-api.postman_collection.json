@@ -1,0 +1,299 @@
+{
+  "item": [
+    {
+      "id": "56342c18-71b9-4f61-9cb5-fa1ea849555b",
+      "name": "automation-job",
+      "description": {
+        "content": "Automation Job API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4923092a-e628-46b5-848e-2bc325cf6f68",
+          "name": "Search automation agents",
+          "request": {
+            "name": "Search automation agents",
+            "description": {
+              "content": "To search automation agents in projects that user is assigned to \n\n<em>fields:</em> specify which property of Automation Agent you want to include in the response. If you omit it or specify an asterisk (*), all of following fields are included: id, name, project_id, host_id, framework, active, configuration\n\n\n<em>query:</em> specify a structured query (criteria, operator and value) with one or multiple clauses to search for Automation Agents. Following are supporting criteria\n\n| Criteria | Operators | Value |\n|-----|-----|-------|\n| name, framework   |  <>, ~, is empty, =, !~, is not empty   | string     |\n |host_name | <>, ~, =, !~ | string | \n| id, project_id, host_id | <>, >, <, <=, >=, =| id \n | active | = | active, inactive\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "automation",
+                "automation-agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a40896c1-7353-4860-8a42-2350425f00eb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "automation",
+                    "automation-agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"*\"\n  ],\n  \"query\": \"'name' ~ 'qTest'\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"page\": 208,\n  \"page_size\": 6040,\n  \"total\": 4968,\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 3805,\n      \"agent_server_id\": 9927,\n      \"name\": \"string\",\n      \"project_id\": 3271,\n      \"host_id\": 5052,\n      \"framework\": \"string\",\n      \"framework_id\": \"string\",\n      \"agent_id\": 7248,\n      \"active\": true,\n      \"configuration\": \"string\"\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 6757,\n      \"agent_server_id\": 66,\n      \"name\": \"string\",\n      \"project_id\": 946,\n      \"host_id\": 9182,\n      \"framework\": \"string\",\n      \"framework_id\": \"string\",\n      \"agent_id\": 4859,\n      \"active\": true,\n      \"configuration\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48aa1af6-f7cd-415c-8770-e0018f35b086",
+          "name": "Create a Schedule",
+          "request": {
+            "name": "Create a Schedule",
+            "description": {
+              "content": "To create a new Schedule which will be executed immediately\n\n<strong>NOTE:</strong> Try It Out function will not work for this API\n\n<strong>qTest Manager version:</strong> 6+\"",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "automation",
+                "jobs",
+                "schedule",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"clientId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"creator\": \"<long>\",\n  \"testRunIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"dynamic\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "253abadc-3316-4201-b2b4-224c64d7ebb7",
+              "name": "Schedule is created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "automation",
+                    "jobs",
+                    "schedule",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agentId\": 1,\n  \"projectId\": 1,\n  \"clientId\": \"<long>\",\n  \"name\": \"Demo Suite Auto\",\n  \"startDate\": \"<dateTime>\",\n  \"creator\": \"<long>\",\n  \"testRunIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"dynamic\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "1672",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2145677f-75c2-49f1-9d8a-0798c207752d",
+    "name": "qTest Manager API Version 3.0 Automation Job API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1859 @@
+{
+  "item": [
+    {
+      "id": "f0222465-118a-4e99-945d-c7fbe8b0886c",
+      "name": "defect",
+      "description": {
+        "content": "Defect API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ce07df5d-c836-4208-beee-c6758e6c4c27",
+          "name": "Submit a Defect",
+          "request": {
+            "name": "Submit a Defect",
+            "description": {
+              "content": "To submit an internal Defect",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"id\": \"<long>\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": \"<long>\",\n        \"email\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"id\": \"<long>\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": \"<long>\",\n        \"email\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\"\n      }\n    }\n  ],\n  \"id\": \"<long>\",\n  \"pid\": \"<string>\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": \"<long>\",\n  \"last_modified_user_id\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1346387b-b812-4836-9abf-82fed5ee6e37",
+              "name": "Successfully submitted a defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1,\n  \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a6ab58c-cc93-454a-a851-54f5c60e5b83",
+              "name": "Field value constraint is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23039cee-5027-4ad0-8a16-d64c23538fe2",
+              "name": "User does not have permission to submit a defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac10ba51-9f7a-4064-b38b-e536c2d9d964",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdced625-dd26-4ae9-947c-953590e8816f",
+          "name": "Gets recently updated Defects",
+          "request": {
+            "name": "Gets recently updated Defects",
+            "description": {
+              "content": "To retrieve Defects which have been recently updated after a specified time",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                "last-change"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<string>",
+                  "description": "(Required) The specified time since when the Defects have been updated. It needs to be URL encoded: <em>yyyy-MM-dd'T'HH:mm:ss.SSSZ</em> or <em>yyyy-MM-dd'T'HH:mm:ssZZ</em>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<string>",
+                  "description": "Do not support at this time. Use the current time only."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "100",
+                  "description": "The result is paginated. By the default, the number of objects in each page is 100. You can specify your custom number in this parameter. The maximum page size is 999."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e756f72-935b-4409-b12c-8f6ef7da100b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    "last-change"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"attachments\": [\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"<string>\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"<dateTime>\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"<string>\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"<dateTime>\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      }\n    ],\n    \"id\": 1,\n    \"pid\": \"DF-1\",\n    \"submitted_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"submitter_id\": 1,\n    \"last_modified_user_id\": 1,\n    \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1\"\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"attachments\": [\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"<string>\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"<dateTime>\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"<string>\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"<dateTime>\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      }\n    ],\n    \"id\": 1,\n    \"pid\": \"DF-1\",\n    \"submitted_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"submitter_id\": 1,\n    \"last_modified_user_id\": 1,\n    \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c03b0d31-5142-4af9-b771-e139d5b07894",
+          "name": "Gets a Defect",
+          "request": {
+            "name": "Gets a Defect",
+            "description": {
+              "content": "To retrieve a Defect\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":defectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "defectId",
+                  "description": "(Required) ID of the defect."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f86f7dad-21b0-40ce-8dc7-d29316d4648b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":defectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "defectId",
+                      "description": "(Required) ID of the defect."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1,\n  \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0688131d-109c-41b5-8925-e1af39a8490e",
+          "name": "Updates a Defect",
+          "request": {
+            "name": "Updates a Defect",
+            "description": {
+              "content": "To update a Defect\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":defectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "defectId",
+                  "description": "(Required) ID of the Defect which needs to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"id\": \"<long>\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": \"<long>\",\n        \"email\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"data\": \"<string>\",\n      \"id\": \"<long>\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": \"<long>\",\n        \"email\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\"\n      }\n    }\n  ],\n  \"id\": \"<long>\",\n  \"pid\": \"<string>\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": \"<long>\",\n  \"last_modified_user_id\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "084d4fb8-1002-45be-ab84-93827689379c",
+              "name": "Successfully updated a defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":defectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "defectId",
+                      "description": "(Required) ID of the Defect which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1,\n  \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23f1e8ae-8686-4bc4-bcf5-152bc8a3c18f",
+              "name": "Field value is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":defectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "defectId",
+                      "description": "(Required) ID of the Defect which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c32e67f6-bf8e-40b9-a83b-bdcc22bf19d8",
+              "name": "User does not have permission to update defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":defectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "defectId",
+                      "description": "(Required) ID of the Defect which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75515824-2797-47ae-85c8-c1cea3045c17",
+              "name": "Defect with @defectId does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":defectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "defectId",
+                      "description": "(Required) ID of the Defect which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "719ca0c2-467b-4bf5-be90-85ba17541132",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":defectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "defectId",
+                      "description": "(Required) ID of the Defect which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    },\n    {\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"<string>\",\n      \"id\": 1,\n      \"created_date\": \"<dateTime>\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      }\n    }\n  ],\n  \"id\": 1,\n  \"pid\": \"DF-1\",\n  \"submitted_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"submitter_id\": 1,\n  \"last_modified_user_id\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bf136cb-8019-47a7-b665-fd80e4de35e4",
+          "name": "Gets all Comments of a Defect",
+          "request": {
+            "name": "Gets all Comments of a Defect",
+            "description": {
+              "content": "To retrieve all Comments of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":idOrKey",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Defect whose comments you want to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c487710f-53aa-4bae-b06b-4209d8f6c0a2",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":idOrKey",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Defect whose comments you want to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"page\": 1,\n  \"page_size\": 25,\n  \"total\": 100,\n  \"items\": [\n    {\n      \"created\": \"1986-09-04T19:25:49.152Z\",\n      \"updated\": \"1994-11-18T08:49:46.055Z\",\n      \"userId\": 5202,\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2602608,\n      \"content\": \"The comment's content\"\n    },\n    {\n      \"created\": \"1983-06-05T14:48:11.272Z\",\n      \"updated\": \"2016-12-28T15:41:56.286Z\",\n      \"userId\": 5202,\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2602608,\n      \"content\": \"The comment's content\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0548a910-7bda-41be-b5dd-642fd1d745e4",
+          "name": "Adds a Comment to a Defect",
+          "request": {
+            "name": "Adds a Comment to a Defect",
+            "description": {
+              "content": "To add a Comment to a Defect\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":idOrKey",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Defect"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d735610f-a81c-47ac-b82b-ee9cdc346e4f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":idOrKey",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Defect"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72e4ed4e-a3f8-4d74-9392-8b5f1ffac1df",
+          "name": "Gets a Comment of a Defect",
+          "request": {
+            "name": "Gets a Comment of a Defect",
+            "description": {
+              "content": "To retrieve a specific Comment of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":idOrKey",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Defect whose comment you want to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "commentId",
+                  "description": "(Required) ID of the comment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d8568d0b-d134-40d3-b73f-927786930d23",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":idOrKey",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Defect whose comment you want to retrieve"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "commentId",
+                      "description": "(Required) ID of the comment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96bbc8bb-dd8d-4bc8-8e36-806efabe2ba0",
+          "name": "Updates a Comment of a Defect",
+          "request": {
+            "name": "Updates a Comment of a Defect",
+            "description": {
+              "content": "To update a specific Comment of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":idOrKey",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the defect whose comment you want to update"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "commentId",
+                  "description": "(Required) ID of the comment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73af4ab5-6efc-4607-9791-3ee6c911ccdd",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":idOrKey",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the defect whose comment you want to update"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "commentId",
+                      "description": "(Required) ID of the comment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af23dac2-bf33-4d6f-8828-51de691209ad",
+          "name": "Deletes a Comment of a Defect",
+          "request": {
+            "name": "Deletes a Comment of a Defect",
+            "description": {
+              "content": "To delete a specific Comment of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "defects",
+                ":idOrKey",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Defect whose Comment you want to delete"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "commentId",
+                  "description": "(Required) ID of the comment."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "31af8933-4670-41fa-ac85-b4f2b1fb6b8a",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "defects",
+                    ":idOrKey",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Defect whose Comment you want to delete"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "commentId",
+                      "description": "(Required) ID of the comment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2a97c3b1-c8ab-44f1-9771-b69bda7efaa8",
+    "name": "qTest Manager API Version 3.0 Defect API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

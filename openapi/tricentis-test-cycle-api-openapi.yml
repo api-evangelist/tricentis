@@ -1,0 +1,435 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Test Cycle API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: test-cycle
+  description: Test Cycle API
+paths:
+  /api/v3/projects/{projectId}/test-cycles:
+    get:
+      tags:
+      - test-cycle
+      summary: Gets multiple Test Cycles
+      description: To retrieve Test Cycles which are located directly under root or a Release/Test Cycle
+      operationId: getTestCycles
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the Release or Test Cycle which directly contains the Test Cycles you are retrieving. Input 0 (zero) to get Test Cycles directly under root
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: parentType
+        in: query
+        description: The artifact type of the parent folder. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>
+        required: false
+        schema:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+      - name: expand
+        in: query
+        description: Specify <em>expand=descendants</em> to retrieve the Test Cycles' sub and grand-sub Cycles/Suites
+        required: false
+        schema:
+          type: string
+          enum:
+          - descendants
+      - name: tosca
+        in: query
+        description: tosca
+        required: false
+        schema:
+          type: boolean
+          enum:
+          - true/false
+      - name: page
+        in: query
+        description: Specify any page number to retrieve Test Cycles
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: Specify any page size to retrieve Test Cycles. If a negative value is provided and no page number is specified, all Test Cycles will be retrieved.
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestCycleResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - test-cycle
+      summary: Create a Test Cycle
+      description: 'To create a Test Cycle
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: createCycle
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: "ID of the Release or Test Cycle under which the newly created Test Cycle will be located. \n\nUse 0 (zero) to create the Test Cycle under the root"
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: parentType
+        in: query
+        description: The artifact type of the parent folder. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>
+        required: false
+        schema:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+      responses:
+        201:
+          description: Test Cycle is created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCycleResource'
+        400:
+          description: Bad Request if invalid input value in body
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestCycleResource'
+        description: Given resource to create a test cycle.
+        required: true
+  /api/v3/projects/{projectId}/test-cycles/{testCycleId}:
+    get:
+      tags:
+      - test-cycle
+      summary: Gets a Test Cycle
+      description: 'To retrieve a Test Cycle
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getTestCycle
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCycleId
+        in: path
+        description: ID of the Test Cycle which you want to retrieve.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        description: Specify <em>expand=descendants</em> to include its sub and grand-sub Test Cycles and Test Suites in the response
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCycleResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - test-cycle
+      summary: Updates a Test Cycle
+      description: 'To update a Test Cycle or move it to another container
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: updateCycle
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCycleId
+        in: path
+        description: ID of the Test Cycle which needs to be updated.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of a Release or parent Test Cycle which the updated Test Cycle will be moved to. Input 0 (zero) to move the Test Cycle to under root
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: parentType
+        in: query
+        description: The artifact type of the parent folder to which the Test Cycle will be moved to. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>
+        required: false
+        schema:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCycleResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestCycleResource'
+        description: The Test Cycle's updated properties
+        required: true
+    delete:
+      tags:
+      - test-cycle
+      summary: Deletes a Test Cycle
+      description: 'To delete a Test Cycle
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: deleteCycle
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCycleId
+        in: path
+        description: ID of the Test Cycle which needs to be deleted.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: force
+        in: query
+        description: The Test Cycle can only be deleted if it contains no children. Specify <em>force=true</em> to delete the Test Cycle and its children
+        required: false
+        schema:
+          type: boolean
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    TestCycleResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 462378
+        name:
+          type: string
+          example: Cycle 2.2
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 3
+        pid:
+          type: string
+          example: CL-3
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378
+          readOnly: true
+        description:
+          type: string
+          example: The second Cycle under Release 2
+        target_release_id:
+          type: integer
+          format: int64
+          example: 149652
+        target_build_id:
+          type: integer
+          format: int64
+        test-cycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCycleResource'
+        test-suites:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    TestSuiteWithCustomFieldResource:
+      type: object
+      required:
+      - properties
+      properties:
+        parentId:
+          type: integer
+          format: int64
+          example: 462378
+        parentType:
+          type: string
+          example: test-cycle
+          enum:
+          - root
+          - release
+          - test-cycle
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 843971
+        name:
+          type: string
+          example: Functional test suite 2
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 0
+        pid:
+          type: string
+          example: TS-3
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971
+          readOnly: true
+        target_release_id:
+          type: integer
+          format: int64
+          example: 149652
+        target_build_id:
+          type: integer
+          format: int64
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

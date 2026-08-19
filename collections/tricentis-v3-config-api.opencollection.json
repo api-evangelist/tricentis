@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V3 Config API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v3-config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets current Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/config",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets current Config"
+        },
+        {
+          "info": {
+            "name": "Gets current User settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/user-settings",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets current User settings"
+        },
+        {
+          "info": {
+            "name": "Updates current User settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/api/user-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates current User settings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

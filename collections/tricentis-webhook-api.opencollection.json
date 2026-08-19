@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Webhook API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets list of all registered webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/webhooks",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve list of all registered webhooks"
+        },
+        {
+          "info": {
+            "name": "Registers a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To register a webhook"
+        },
+        {
+          "info": {
+            "name": "Get list of webhook event names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/webhooks/events",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve list of all available event names for webhook registering"
+        },
+        {
+          "info": {
+            "name": "Gets a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the webhook"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve details of a registered webhook"
+        },
+        {
+          "info": {
+            "name": "Updates a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the webhook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a webhook"
+        },
+        {
+          "info": {
+            "name": "Deletes a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the webhook"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a registered webhook"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

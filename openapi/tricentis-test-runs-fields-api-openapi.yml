@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  title: TTM for Jira Test Runs Fields API
+  description: Tricentis Test Management for Jira
+  version: 1.0.0
+  termsOfService: https://www.tricentis.com/legal-information/general-terms-of-use/
+servers:
+- url: https://api.ttm4j.tricentis.com
+security:
+- api_key: []
+tags:
+- name: Test Runs Fields
+paths:
+  /v1/test-runs/scheme/{schemeName}/allowed-values:
+    post:
+      tags:
+      - Test Runs Fields
+      summary: Add allowed value to scheme.
+      description: "## Add allowed value to scheme.\n##### Note: Allowed Scheme names: Environments, Builds.\n##### In case of trying to add existing allowed value, it will be ignored (duplicates are not allowed) and the response will be 200.\n            \n#### Body fields:\n* **allowedValues** _(mandatory)_: Provide a list of allowed values, with each value having the following fields:\n    * **name** _(mandatory)_: name of the allowed value.\n    * **description** _(optional)_: allowed value description."
+      parameters:
+      - name: schemeName
+        in: path
+        description: The scheme name (Environments, Builds).
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: allowedValueApiData.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+      responses:
+        '400':
+          description: '`Invalid parameters`.'
+        '401':
+          description: Unauthorized
+        '404':
+          description: '`Not Found`.'
+      security:
+      - api_key: []
+  /v1/test-runs/scheme/{schemeName}/allowed-values/{allowedValueName}:
+    delete:
+      tags:
+      - Test Runs Fields
+      summary: Delete allowed value from scheme.
+      description: '## Delete allowed value from scheme.
+
+        ##### Note: Allowed Scheme names: Environments, Builds.'
+      parameters:
+      - name: schemeName
+        in: path
+        description: The scheme name (Environments, Builds).
+        required: true
+        schema:
+          type: string
+      - name: allowedValueName
+        in: path
+        description: allowedValueName.
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: '`Invalid parameters`.'
+        '401':
+          description: Unauthorized
+        '404':
+          description: '`Not Found`.'
+      security:
+      - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

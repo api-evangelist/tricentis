@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Common API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "common",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update active or inactive custom fields of an Object Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/:objectType/custom-fields/active",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update active or inactive custom fields of an Object Type"
+        },
+        {
+          "info": {
+            "name": "Edit System Field of an Object Type by the field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/settings/:objectType/system-fields/:fieldId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the field."
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To edit System Field of an Object Type by the field"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

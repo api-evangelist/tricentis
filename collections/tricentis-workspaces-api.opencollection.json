@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Workspaces API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the list of all accessible Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces",
+            "params": [
+              {
+                "name": "allWorkspaces",
+                "value": "",
+                "type": "query",
+                "description": "If true (reserved to admin users), returns all existing workspaces, including the workspaces I am not member of. If false, returns only the workspaces I am a member of."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of elements returned by this call. The maximum must be less than or equal to 200."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements."
+              }
+            ]
+          },
+          "docs": "Lists all accessible Workspaces."
+        },
+        {
+          "info": {
+            "name": "Create a new Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Workspace"
+        },
+        {
+          "info": {
+            "name": "Get a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Workspace"
+        },
+        {
+          "info": {
+            "name": "Update a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update only the specified fields of the Workspace"
+        },
+        {
+          "info": {
+            "name": "Add member(s) to a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/members/add",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add member(s) to a Workspace"
+        },
+        {
+          "info": {
+            "name": "Remove member(s) from a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/members/remove",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove member(s) from a Workspace"
+        },
+        {
+          "info": {
+            "name": "Delete a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/name/:workspaceName",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspaceName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WARNING: All related resources will be deleted and definitively lost. Delete the Workspace with the specified id. The Workspace name is also required to make sure you actually delete the good Workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

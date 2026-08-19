@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Tests API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a test list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of elements returned by this call. The maximum must be less than or equal to 200."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The key to sort the elements on. It may begin with a '+' or a '-' to specify an ascending or descending sort order. The list of available keys can be found in the endpoint description."
+              }
+            ]
+          },
+          "docs": "Lists the tests of the Workspace.\n___\n*Sortable fields :*\n  - name\n  - projectName\n  - lastUpdateDate (descending sort by default : the most recent first)\n  - lastRunDate\n  - userModifierName\n"
+        },
+        {
+          "info": {
+            "name": "Create a new test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new test with the specified name"
+        },
+        {
+          "info": {
+            "name": "Get a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific test."
+              }
+            ]
+          },
+          "docs": "Get the test"
+        },
+        {
+          "info": {
+            "name": "Fully update a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific test."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update all fields of the test"
+        },
+        {
+          "info": {
+            "name": "Partially update a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific test."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update only the specified fields of the test"
+        },
+        {
+          "info": {
+            "name": "Delete a test",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/tests/:testId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "testId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific test."
+              },
+              {
+                "name": "deleteResults",
+                "value": "true",
+                "type": "query",
+                "description": "Also delete related Test Results, including locked Test Results. Default is true."
+              }
+            ]
+          },
+          "docs": "Delete the test with the specified id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

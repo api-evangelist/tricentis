@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Pulse Constant API",
+    "version": "2025.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "constant",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all constants of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/constants",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Return only the first N results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N results"
+              }
+            ]
+          },
+          "docs": "To get all constants of a project"
+        },
+        {
+          "info": {
+            "name": "Create a constant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/constants",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To create a constant"
+        },
+        {
+          "info": {
+            "name": "Get a constant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/constants/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To get a constant by id"
+        },
+        {
+          "info": {
+            "name": "Update a constant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/constants/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To update a constant"
+        },
+        {
+          "info": {
+            "name": "Update a constant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/constants/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To update a constant"
+        },
+        {
+          "info": {
+            "name": "Delete a constant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/constants/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To delete a constant"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

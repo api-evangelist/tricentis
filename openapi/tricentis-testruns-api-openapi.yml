@@ -1,0 +1,558 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Analytics (Tech Review) Testruns API
+  description: Tricentis Analytics OData APIs
+  version: ''
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+tags:
+- name: testruns
+paths:
+  /testruns:
+    get:
+      summary: Get entities from testruns
+      tags:
+      - testruns
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - releaseid
+            - releaseid desc
+            - testcyclefolderid
+            - testcyclefolderid desc
+            - testsuiteid
+            - testsuiteid desc
+            - testcaseid
+            - testcaseid desc
+            - latesttestlogid
+            - latesttestlogid desc
+            - executionlistid
+            - executionlistid desc
+            - executionentryfolderid
+            - executionentryfolderid desc
+            - executionlistfolderid
+            - executionlistfolderid desc
+            - executionfolderid
+            - executionfolderid desc
+            - executioncomponentfolderid
+            - executioncomponentfolderid desc
+            - uiid
+            - uiid desc
+            - ismandate
+            - ismandate desc
+            - assigneduser
+            - assigneduser desc
+            - name
+            - name desc
+            - repetitions
+            - repetitions desc
+            - isdisabled
+            - isdisabled desc
+            - disableddescription
+            - disableddescription desc
+            - plannedstartdate
+            - plannedstartdate desc
+            - plannedenddate
+            - plannedenddate desc
+            - plannedstarttimestamp
+            - plannedstarttimestamp desc
+            - plannedendtimestamp
+            - plannedendtimestamp desc
+            - lateststatus
+            - lateststatus desc
+            - lastmodifieddate
+            - lastmodifieddate desc
+            - lastmodifiedtimestamp
+            - lastmodifiedtimestamp desc
+            - lastmodifieduser
+            - lastmodifieduser desc
+            - createddate
+            - createddate desc
+            - createdtimestamp
+            - createdtimestamp desc
+            - creator
+            - creator desc
+            - priority
+            - priority desc
+            - type
+            - type desc
+            - buildnumber
+            - buildnumber desc
+            - nodepath
+            - nodepath desc
+            - ssor
+            - ssor desc
+            - viewinggroupname
+            - viewinggroupname desc
+            - extrainfo
+            - extrainfo desc
+            - customfields
+            - customfields desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - releaseid
+            - testcyclefolderid
+            - testsuiteid
+            - testcaseid
+            - latesttestlogid
+            - executionlistid
+            - executionentryfolderid
+            - executionlistfolderid
+            - executionfolderid
+            - executioncomponentfolderid
+            - uiid
+            - ismandate
+            - assigneduser
+            - name
+            - repetitions
+            - isdisabled
+            - disableddescription
+            - plannedstartdate
+            - plannedenddate
+            - plannedstarttimestamp
+            - plannedendtimestamp
+            - lateststatus
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - createddate
+            - createdtimestamp
+            - creator
+            - priority
+            - type
+            - buildnumber
+            - nodepath
+            - ssor
+            - viewinggroupname
+            - extrainfo
+            - customfields
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of testrun
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.testrun'
+        4XX:
+          $ref: '#/components/responses/error'
+  /testruns({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    get:
+      summary: Get entity from testruns by key
+      tags:
+      - testruns
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - releaseid
+            - testcyclefolderid
+            - testsuiteid
+            - testcaseid
+            - latesttestlogid
+            - executionlistid
+            - executionentryfolderid
+            - executionlistfolderid
+            - executionfolderid
+            - executioncomponentfolderid
+            - uiid
+            - ismandate
+            - assigneduser
+            - name
+            - repetitions
+            - isdisabled
+            - disableddescription
+            - plannedstartdate
+            - plannedenddate
+            - plannedstarttimestamp
+            - plannedendtimestamp
+            - lateststatus
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - createddate
+            - createdtimestamp
+            - creator
+            - priority
+            - type
+            - buildnumber
+            - nodepath
+            - ssor
+            - viewinggroupname
+            - extrainfo
+            - customfields
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.testrun'
+        4XX:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  schemas:
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.testrun:
+      title: testrun
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        releaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcyclefolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testsuiteid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        latesttestlogid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        executionlistid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionentryfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionlistfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executioncomponentfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        uiid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ismandate:
+          type:
+          - boolean
+          - 'null'
+        assigneduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        repetitions:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        isdisabled:
+          type:
+          - boolean
+          - 'null'
+        disableddescription:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        plannedstartdate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        plannedenddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        plannedstarttimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        plannedendtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lateststatus:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        lastmodifieddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        lastmodifiedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifieduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        createddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        createdtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        creator:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        priority:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        buildnumber:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        nodepath:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        viewinggroupname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        extrainfo:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        customfields:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey

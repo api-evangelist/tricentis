@@ -1,0 +1,791 @@
+{
+  "item": [
+    {
+      "id": "7a0ff5ad-10d2-4c36-ac53-60c19021d082",
+      "name": "module",
+      "description": {
+        "content": "Module API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa7d4078-9186-4a1e-a9b7-343580800837",
+          "name": "Gets multiple Modules",
+          "request": {
+            "name": "Gets multiple Modules",
+            "description": {
+              "content": "To search for Modules under root or sub-Modules under a parent Module\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "modules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the parent Module. Leave it blank to retrieve Modules under root"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "The free-text to search for Modules by names. You can utilize this parameter to search for Modules. Leave it blank to retrieve all Modules under root or the parent Module"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4452f269-aa8c-49d6-a5fa-d3f3e7117478",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "modules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 2107619,\n    \"name\": \"MD-2 Homepage\",\n    \"order\": 9,\n    \"pid\": \"MD-8\",\n    \"created_date\": \"1952-03-26T14:55:01.417Z\",\n    \"last_modified_date\": \"2021-05-19T07:04:20.537Z\",\n    \"parent_id\": 2107628,\n    \"description\": \"Description of Module 1\",\n    \"shared\": false,\n    \"projects_shared_to\": [\n      3906,\n      1261\n    ],\n    \"children\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n      }\n    ],\n    \"recursive\": true,\n    \"tosca_guid\": \"string\",\n    \"tosca_node_path\": \"string\",\n    \"tosca_state\": \"string\"\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 2107619,\n    \"name\": \"MD-2 Homepage\",\n    \"order\": 9,\n    \"pid\": \"MD-8\",\n    \"created_date\": \"1996-05-15T06:18:06.283Z\",\n    \"last_modified_date\": \"1959-12-24T05:19:03.464Z\",\n    \"parent_id\": 2107628,\n    \"description\": \"Description of Module 1\",\n    \"shared\": false,\n    \"projects_shared_to\": [\n      6621,\n      8072\n    ],\n    \"children\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n      }\n    ],\n    \"recursive\": true,\n    \"tosca_guid\": \"string\",\n    \"tosca_node_path\": \"string\",\n    \"tosca_state\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0142ad22-245b-41ca-901d-bbe38a940f07",
+          "name": "Creates a Module",
+          "request": {
+            "name": "Creates a Module",
+            "description": {
+              "content": "To create a Module under root or a sub-Module under a parent Module\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "modules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "The parent Module which will contain the newly created one. If it is not specified, the newly created module is located under root\n\nUse this parameter if your qTest Manager version is 6+. For older versions, use <em>parent_id</em> in the request body"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": \"<long>\",\n  \"description\": \"<string>\",\n  \"shared\": \"<boolean>\",\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": \"<long>\",\n      \"description\": \"<string>\",\n      \"shared\": \"<boolean>\",\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": \"<long>\",\n      \"description\": \"<string>\",\n      \"shared\": \"<boolean>\",\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1de1d821-612a-4f84-ba41-3a5e5027e8ce",
+              "name": "Module is created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "modules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 2107619,\n  \"name\": \"MD-2 Homepage\",\n  \"order\": 9,\n  \"pid\": \"MD-8\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628,\n  \"description\": \"Description of Module 1\",\n  \"shared\": false,\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2107619,\n  \"name\": \"MD-2 Homepage\",\n  \"order\": 9,\n  \"pid\": \"MD-8\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628,\n  \"description\": \"Description of Module 1\",\n  \"shared\": false,\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7e375bd-e928-49d8-90d4-9184231321db",
+          "name": "Gets a Module",
+          "request": {
+            "name": "Gets a Module",
+            "description": {
+              "content": "To retrieve a Module\n\n<em>qTest Manager version:</em> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "modules",
+                ":moduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Specify <em>expand=descendants</em> to include the Module's sub and grand-sub Modules in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "moduleId",
+                  "description": "(Required) ID of the Module"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b185f36-4d36-4ade-aa09-233dc10ec595",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "modules",
+                    ":moduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "moduleId",
+                      "description": "(Required) ID of the Module"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2107619,\n  \"name\": \"MD-2 Homepage\",\n  \"order\": 9,\n  \"pid\": \"MD-8\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628,\n  \"description\": \"Description of Module 1\",\n  \"shared\": false,\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "851f6fe9-dd84-4831-b099-8bbb4a74ae92",
+          "name": "Updates a Module",
+          "request": {
+            "name": "Updates a Module",
+            "description": {
+              "content": "To update a Module or move it to another parent Module",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "modules",
+                ":moduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the parent Module which the Module will be moved to\n\n<strong>Important:</strong> If you use this parameter, the request body will be ignored. That means the Module is being moved but it will not be updated with the properties specified in the request body"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "moduleId",
+                  "description": "(Required) ID of the Module"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": \"<long>\",\n  \"description\": \"<string>\",\n  \"shared\": \"<boolean>\",\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": \"<long>\",\n      \"description\": \"<string>\",\n      \"shared\": \"<boolean>\",\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": \"<long>\",\n      \"description\": \"<string>\",\n      \"shared\": \"<boolean>\",\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "118a7c0f-7641-4752-9b77-cd03e7649cbd",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "modules",
+                    ":moduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "moduleId",
+                      "description": "(Required) ID of the Module"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 2107619,\n  \"name\": \"MD-2 Homepage\",\n  \"order\": 9,\n  \"pid\": \"MD-8\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628,\n  \"description\": \"Description of Module 1\",\n  \"shared\": false,\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2107619,\n  \"name\": \"MD-2 Homepage\",\n  \"order\": 9,\n  \"pid\": \"MD-8\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628,\n  \"description\": \"Description of Module 1\",\n  \"shared\": false,\n  \"projects_shared_to\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"children\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2107619,\n      \"name\": \"MD-2 Homepage\",\n      \"order\": 9,\n      \"pid\": \"MD-8\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"parent_id\": 2107628,\n      \"description\": \"Description of Module 1\",\n      \"shared\": false,\n      \"projects_shared_to\": [\n        \"<long>\",\n        \"<long>\"\n      ],\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/ModuleResource detected>\"\n        }\n      ],\n      \"recursive\": \"<boolean>\",\n      \"tosca_guid\": \"<string>\",\n      \"tosca_node_path\": \"<string>\",\n      \"tosca_state\": \"<string>\"\n    }\n  ],\n  \"recursive\": \"<boolean>\",\n  \"tosca_guid\": \"<string>\",\n  \"tosca_node_path\": \"<string>\",\n  \"tosca_state\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1a45264-8cc6-45a2-b2d8-330824bdab71",
+          "name": "Deletes a Module",
+          "request": {
+            "name": "Deletes a Module",
+            "description": {
+              "content": "To delete a Module\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "modules",
+                ":moduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "<boolean>",
+                  "description": "<em>force=true</em> - delete the Module and its children\n\nforce=false - default value. Only delete the Module if it contains no sub Modules or Test Cases"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "moduleId",
+                  "description": "(Required) ID of Module to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d132a5df-3b50-48d0-866c-c9b888597bd6",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "modules",
+                    ":moduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "moduleId",
+                      "description": "(Required) ID of Module to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"noLogging\": false,\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e95cef18-8dd0-4f96-8e32-8964ed10ac11",
+    "name": "qTest Manager API Version 3.0 Module API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

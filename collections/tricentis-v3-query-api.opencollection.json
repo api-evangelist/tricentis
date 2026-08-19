@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V3 Query API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v3-query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tree of querries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/query/sessions/tree",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager project's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get tree of querries"
+        },
+        {
+          "info": {
+            "name": "Execute a query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/query/sessions/:queryid",
+            "params": [
+              {
+                "name": "queryid",
+                "value": "",
+                "type": "path",
+                "description": "query's id"
+              },
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager project's id"
+              },
+              {
+                "name": "p",
+                "value": "",
+                "type": "query",
+                "description": "page index"
+              },
+              {
+                "name": "recs",
+                "value": "",
+                "type": "query",
+                "description": "page size"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "sort by column"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "sort order by descending or ascending"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Execute a query"
+        },
+        {
+          "info": {
+            "name": "Get statistic of a query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/query/sessions/:queryid/statistic",
+            "params": [
+              {
+                "name": "queryid",
+                "value": "",
+                "type": "path",
+                "description": "query's id"
+              },
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "qTest Manager project's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get statistic of a query"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

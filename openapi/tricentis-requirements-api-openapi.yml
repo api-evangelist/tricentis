@@ -1,0 +1,1171 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Requirements API
+  version: '1.0'
+  description: 'Operations tagged requirements across 2 of this provider''s published API definitions: tricentis-qtest-analytics-openapi.json, tricentis-ttm4j-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+- url: https://api.ttm4j.tricentis.com
+tags:
+- name: requirements
+paths:
+  /requirements:
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+    get:
+      summary: Get entities from requirements
+      tags:
+      - requirements
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - parentid
+            - parentid desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - folderid
+            - folderid desc
+            - requirementsetid
+            - requirementsetid desc
+            - uiid
+            - uiid desc
+            - name
+            - name desc
+            - description
+            - description desc
+            - type
+            - type desc
+            - status
+            - status desc
+            - priority
+            - priority desc
+            - createddate
+            - createddate desc
+            - createdtimestamp
+            - createdtimestamp desc
+            - creator
+            - creator desc
+            - lastmodifieddate
+            - lastmodifieddate desc
+            - lastmodifiedtimestamp
+            - lastmodifiedtimestamp desc
+            - lastmodifieduser
+            - lastmodifieduser desc
+            - damage
+            - damage desc
+            - frequency
+            - frequency desc
+            - weight
+            - weight desc
+            - ssor
+            - ssor desc
+            - external_integration
+            - external_integration desc
+            - viewinggroupname
+            - viewinggroupname desc
+            - extrainfo
+            - extrainfo desc
+            - customfields
+            - customfields desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - parentid
+            - clientid
+            - projectid
+            - folderid
+            - requirementsetid
+            - uiid
+            - name
+            - description
+            - type
+            - status
+            - priority
+            - createddate
+            - createdtimestamp
+            - creator
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - damage
+            - frequency
+            - weight
+            - ssor
+            - external_integration
+            - viewinggroupname
+            - extrainfo
+            - customfields
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of requirement
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirement'
+        4XX:
+          $ref: '#/components/responses/error'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /requirements({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+    get:
+      summary: Get entity from requirements by key
+      tags:
+      - requirements
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - parentid
+            - clientid
+            - projectid
+            - folderid
+            - requirementsetid
+            - uiid
+            - name
+            - description
+            - type
+            - status
+            - priority
+            - createddate
+            - createdtimestamp
+            - creator
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - damage
+            - frequency
+            - weight
+            - ssor
+            - external_integration
+            - viewinggroupname
+            - extrainfo
+            - customfields
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirement'
+        4XX:
+          $ref: '#/components/responses/error'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /v1/projects/{project-key}/test-cases/requirements:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    post:
+      tags:
+      - requirements
+      summary: Create Requirements.
+      description: "## Create Requirements and link to test case.\n##### Note: In case issue type won't be provided, default value will be \"Requirement\" issue type.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the requirement summary.\n* **description** _(optional)_: the requirement description.\n* **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..)."
+      parameters:
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: requirements to create.
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+          text/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+        '401':
+          description: '`Unauthorized.'
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-cases/{key}/requirements:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    post:
+      tags:
+      - requirements
+      summary: Create Requirements and link to test case.
+      description: "## Create Requirements and link to test case.\n##### Note: In case issue type won't be provided, default value will be \"Requirement\" issue type.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the requirement summary.\n* **description** _(optional)_: the requirement description.\n* **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..)."
+      parameters:
+      - name: key
+        in: path
+        description: jiraTestKey.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: requirements to create.
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+          text/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  summary:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type:
+                    - string
+                    - 'null'
+                  issueType:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              RequirementsApiDataRequestData:
+                value:
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Bug
+                - summary: Requirement summary
+                  description: Requirement description
+                  issueType: Task
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+        '401':
+          description: '`Unauthorized.'
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-cases/{key}/requirement/link:
+    servers:
+    - url: https://api.ttm4j.tricentis.com
+    post:
+      tags:
+      - requirements
+      summary: Link Requirements to test case.
+      description: "## Link Requirements to test case.\n            \n#### Body fields:\n* **issueKey** _(mandatory)_: the issue key."
+      parameters:
+      - name: key
+        in: path
+        description: jiraTestKey.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: requirements to link.
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  issueKey:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              LinkRequirementsApiData:
+                value:
+                - issueKey: Key-1
+                - issueKey: Key-2
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  issueKey:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              LinkRequirementsApiData:
+                value:
+                - issueKey: Key-1
+                - issueKey: Key-2
+          text/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  issueKey:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              LinkRequirementsApiData:
+                value:
+                - issueKey: Key-1
+                - issueKey: Key-2
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  issueKey:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+            examples:
+              LinkRequirementsApiData:
+                value:
+                - issueKey: Key-1
+                - issueKey: Key-2
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    issueType:
+                      type:
+                      - string
+                      - 'null'
+                    notLinkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    linkedRequirement:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+              examples:
+                RequirementsApiResponseData:
+                  value:
+                    notLinkedRequirement:
+                    - Key-2
+                    linkedRequirement:
+                    - Key-1
+        '401':
+          description: '`Unauthorized.'
+      security:
+      - api_key: []
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirement:
+      title: requirement
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        parentid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        folderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        requirementsetid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        uiid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        status:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        priority:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        createddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        createdtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        creator:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        lastmodifieddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        lastmodifiedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifieduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        damage:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        frequency:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        weight:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        external_integration:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        viewinggroupname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        extrainfo:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        customfields:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm
+x-refined-from:
+- tricentis-qtest-analytics-openapi.json
+- tricentis-ttm4j-openapi.json

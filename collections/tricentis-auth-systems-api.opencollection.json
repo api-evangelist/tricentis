@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Auth Systems API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "auth-systems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get multiple Authentication Systems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/auth-systems",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To get multiple Authentication Systems"
+        },
+        {
+          "info": {
+            "name": "Associate Manager users with LDAP users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/auth-systems/ldap/:ldapAuthConfigId/import",
+            "params": [
+              {
+                "name": "ldapAuthConfigId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the Authentication config"
+              },
+              {
+                "name": "mergeUser",
+                "value": "",
+                "type": "query",
+                "description": "Option to merge LDAP account to qTest account if qTest email already exists in qTest (support true/false value, <strong>default = false</strong>)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Associate Manager users with LDAP users authentication LDAP config"
+        },
+        {
+          "info": {
+            "name": "Get all LDAP users of an authentication LDAP config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/auth-systems/ldap/:ldapAuthConfigId/users",
+            "params": [
+              {
+                "name": "ldapAuthConfigId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the Authentication config"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of of item count per page. If this <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number that you want to get the result. If this <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all LDAP users of an authentication LDAP config with pagination supported. Users are mapped with qTest users won't be returned.\n\nIf <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

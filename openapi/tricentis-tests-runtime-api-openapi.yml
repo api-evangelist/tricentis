@@ -1,0 +1,495 @@
+openapi: 3.2.0
+info:
+  version: '3.0'
+  title: NeoLoad Tests|Runtime API
+security:
+- NeoloadAuthorizer: []
+tags:
+- name: Tests|Runtime
+paths:
+  /v3/workspaces/{workspaceId}/tests/{testId}/start:
+    post:
+      operationId: GetTestsRun
+      summary: Starts a test
+      description: Starts a test of the Workspace according to the method parameters.
+      tags:
+      - Tests|Runtime
+      parameters:
+      - $ref: '#/components/parameters/workspace-id'
+      - $ref: '#/components/parameters/test-id'
+      - name: testResultName
+        in: query
+        required: true
+        description: The name of the Test Result
+        schema:
+          type: string
+      - name: testResultDescription
+        in: query
+        required: false
+        description: The description of the Test Result
+        schema:
+          type: string
+      - name: asCode
+        in: query
+        required: false
+        description: The comma-separated as-code files to use for the test. Those files must be part of the uploaded project.
+        schema:
+          type: string
+      - name: reservationId
+        in: query
+        required: false
+        description: The reservation identifier to use for the test that can be retrieved from the NeoLoad Web reservation calendar URL. If the reservation mode is enabled and "reservationId" value is defined, "reservationDuration", "reservationWebVUs" and "reservationSAPVUs" values will be ignored, otherwise if the reservation mode is disabled the value will be ignored.
+        schema:
+          type: string
+      - name: reservationDuration
+        in: query
+        required: false
+        description: The duration of the reservation for the test. If the reservation mode is enabled, this value or "reservationDuration", "reservationWebVUs", "reservationSAPVUs" must be defined, otherwise if the reservation mode is disabled the value will be ignored. The value (in seconds) is optional when the reservation mode is enabled and ignored when reservationId value is defined or if the reservation mode is disabled. The default value is the selected scenario duration + 1200 seconds (20 minutes). All reserved resources will be released when the test ends.
+        schema:
+          type: integer
+          format: int64
+      - name: reservationWebVUs
+        in: query
+        required: false
+        description: The number of Web Virtual Users to be reserved for the test. The value is optional when the reservation mode is enabled and ignored when "reservationId" value is defined or if the reservation mode is disabled.
+        schema:
+          type: integer
+          format: int32
+      - name: reservationSAPVUs
+        in: query
+        required: false
+        description: The number of SAP Virtual Users to be reserved for the test. The value is optional when the reservation mode is enabled and ignored when "reservationId" value is defined or if the reservation mode is disabled.
+        schema:
+          type: integer
+          format: int32
+      - name: publishTestResult
+        in: query
+        required: false
+        description: When "true" and the project is a collaborative project (other than git) then the Test Result is published onto the server. If empty, the default value is "false".
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunTestDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '413':
+          $ref: '#/components/responses/error_413'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+        '501':
+          $ref: '#/components/responses/error_501'
+  /v3/workspaces/{workspaceId}/test-results/{resultId}/stop:
+    post:
+      operationId: StopTestResult
+      summary: Stop a running Test Result
+      description: Stop the running Test Result with the specified id
+      tags:
+      - Tests|Runtime
+      parameters:
+      - $ref: '#/components/parameters/workspace-id'
+      - $ref: '#/components/parameters/result-id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestResultStopRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testResultId:
+                    type: string
+                    description: The unique identifier of the stopped Test Result.
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '413':
+          $ref: '#/components/responses/error_413'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+components:
+  parameters:
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+    test-id:
+      name: testId
+      in: path
+      required: true
+      description: Unique identifier representing a specific test.
+      schema:
+        type: string
+  responses:
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_501:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    RunTestDefinition:
+      type: object
+      properties:
+        resultId:
+          type: string
+          description: Unique identifier of the Test Result.
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      description: 'Existing error codes are:
+
+        - HTTP 401 | Code: 101 | Message : Unauthorized, please provide an API token.
+
+        - HTTP 429 | Code: 102 | Message : Too many requests, you reached your maximum number of requests per minute.
+
+        - HTTP 403 | Code: 103 | Message : Unauthorized operation for the given API token, please provide an API token with sufficient privilege
+
+        - HTTP 400 | Code: 104 | Message : Error while parsing json body.
+
+        - HTTP 400 | Code: 105 | Message : Entity not in the specified Workspace.
+
+        - HTTP 404 | Code: 201 | Message : Test Result not found.
+
+        - HTTP 400 | Code: 202 | Message : Error while requesting the Test Result
+
+        - HTTP 400 | Code: 203 | Message : Error while searching the Test Result
+
+        - HTTP 400 | Code: 204 | Message : Type is mandatory as request parameter.
+
+        - HTTP 400 | Code: 205 | Message : Invalid element type in request.
+
+        - HTTP 400 | Code: 206 | Message : Error requesting aggregated values.
+
+        - HTTP 400 | Code: 207 | Message : Error requesting elements.
+
+        - HTTP 400 | Code: 208 | Message : Element ID is mandatory in request path.
+
+        - HTTP 400 | Code: 209 | Message : Invalid element id in request.
+
+        - HTTP 400 | Code: 210 | Message : Statistics is mandatory in request path.
+
+        - HTTP 400 | Code: 211 | Message : Invalid statistic in request.
+
+        - HTTP 400 | Code: 212 | Message : Error getting monitors.
+
+        - HTTP 400 | Code: 213 | Message : Error getting monitor values.
+
+        - HTTP 400 | Code: 214 | Message : Error getting monitor points.
+
+        - HTTP 400 | Code: 215 | Message : Monitor ID is mandatory in request path.
+
+        - HTTP 400 | Code: 216 | Message : Test ID is mandatory in request path.
+
+        - HTTP 400 | Code: 217 | Message : Error while deleting the test. This test is not TERMINATED.
+
+        - HTTP 400 | Code: 218 | Message : Error while deleting the test.
+
+        - HTTP 400 | Code: 219 | Message : Error requesting aggregated points.
+
+        - HTTP 400 | Code: 220 | Message : Error requesting SLA status for element.
+
+        - HTTP 400 | Code: 221 | Message : Error updating a Test Result.
+
+        - HTTP 404 | Code: 222 | Message : Fail to attach the Test Result to a Test because Test not found.
+
+        - HTTP 204 | Code: 223 | Message : Update successful, no content.
+
+        - HTTP 400 | Code: 224 | Message : Error while parsing json body for updating a test.
+
+        - HTTP 400 | Code: 225 | Message : Error while parsing json body for custom monitors.
+
+        - HTTP 400 | Code: 226 | Message : Error while creating custom monitors.
+
+        - HTTP 400 | Code: 227 | Message : Path too long.
+
+        - HTTP 400 | Code: 228 | Message : Clock Synchronization Issue: timestamp received before the beginning of the test.
+
+        - HTTP 400 | Code: 229 | Message : Clock Synchronization Issue: timestamp received more than 10 minutes in the future.
+
+        - HTTP 400 | Code: 230 | Message : Duplicate key: same timestamp and same path received in multiple requests.
+
+        - HTTP 400 | Code: 231 | Message : Max number of Paths reached.
+
+        - HTTP 400 | Code: 232 | Message : Max number of Monitors reached.
+
+        - HTTP 400 | Code: 233 | Message : ''|'' character is not allowed.
+
+        - HTTP 400 | Code: 234 | Message : A test is already launching.
+
+        - HTTP 400 | Code: 235 | Message : Error while parsing the LG zones parameter.
+
+        - HTTP 400 | Code: 236 | Message : NeoLoad project file ID does not exist.
+
+        - HTTP 400 | Code: 237 | Message : NeoLoad project not found.
+
+        - HTTP 400 | Code: 238 | Message : Upload project URL not found.
+
+        - HTTP 400 | Code: 239 | Message : The scenario does not exist.
+
+        - HTTP 400 | Code: 240 | Message : The size of the image to generate is invalid.
+
+        - HTTP 400 | Code: 241 | Message : Reservation parameters are invalid.
+
+        - HTTP 400 | Code: 242 | Message : Reservation duration must be at least 60 seconds.
+
+        - HTTP 400 | Code: 243 | Message : Reservation not found.
+
+        - HTTP 400 | Code: 244 | Message : Reservation is failed or not ready to use.
+
+        - HTTP 400 | Code: 245 | Message : Reservation not matching scenario requirements: Number of virtual users.
+
+        - HTTP 400 | Code: 246 | Message : Unauthorized Reservation
+
+        - HTTP 400 | Code: 247 | Message : Error requesting SLA Per-Run of the Test Result.
+
+        - HTTP 400 | Code: 248 | Message : Error requesting SLA Per-Run while the test is not terminated.
+
+        - HTTP 400 | Code: 249 | Message : As-code file extension must be yaml, yml or json.
+
+        - HTTP 400 | Code: 250 | Message : Error getting Test Results events.
+
+        - HTTP 400 | Code: 251 | Message : Error requesting element.
+
+        - HTTP 400 | Code: 252 | Message : Error requesting counter.
+
+        - HTTP 400 | Code: 253 | Message : Invalid monitor id in request.
+
+        - HTTP 400 | Code: 254 | Message : Invalid as-code file path.
+
+        - HTTP 400 | Code: 255 | Message : Error requesting all zones.
+
+        - HTTP 400 | Code: 256 | Message : Error requesting all reservations.
+
+        - HTTP 400 | Code: 257 | Message : The date is not in the right format.
+
+        - HTTP 400 | Code: 306 | Message : Date range invalid, start date should be before end date.
+
+        - HTTP 400 | Code: 260 | Message : Requested statistics are not valid, PERCENTILES_DURATION must not be mixed with other element statistics neither with monitor statistic.
+
+        - HTTP 400 | Code: 261 | Message : A test with the same name already exists.
+
+        - HTTP 400 | Code: 262 | Message : Error while processing json body. It is not a valid json.
+
+        - HTTP 400 | Code: 263 | Message : The name property is required.
+
+        - HTTP 400 | Code: 264 | Message : The property lgZones is a bad format.
+
+        - HTTP 404 | Code: 265 | Message : Test not found.
+
+        - HTTP 400 | Code: 266 | Message : Format is mandatory as request parameter.
+
+        - HTTP 400 | Code: 267 | Message : Invalid format in request.
+
+        - HTTP 400 | Code: 268 | Message : This name is already used for a scenario in the project.
+
+        - HTTP 400 | Code: 270 | Message : Fail to move to Workspace and attach to a Test because Test not in destination Workspace.
+
+        - HTTP 400 | Code: 271 | Message : Fail to move to Workspace and attach to a Test.
+
+        - HTTP 400 | Code: 272 | Message : The Test Result has been successfully moved to the specified Workspace and Test but other fields update failed.
+
+        - HTTP 400 | Code: 275 | Message : Unknown stopPolicy value. Allowed are TERMINATE or GRACEFUL.
+
+        - HTTP 400 | Code: 276 | Message : Error stopping the test.
+
+        - HTTP 400 | Code: 277 | Message : Error stopping the test. The test is not running.
+
+        - HTTP 400 | Code: 278 | Message : Zone does not exist.
+
+        - HTTP 400 | Code: 279 | Message : Error starting the test.
+
+        - HTTP 400 | Code: 280 | Message : The workspace id is mandatory.
+
+        - HTTP 400 | Code: 281 | Message : The workspace name can''t be empty.
+
+        - HTTP 400 | Code: 282 | Message : The workspace name already exist.
+
+        - HTTP 400 | Code: 283 | Message : Can not delete default workspace.
+
+        - HTTP 400 | Code: 284 | Message : The workspace can not be deleted : One or more tests are running.
+
+        - HTTP 400 | Code: 285 | Message : Login(s) don''t exist : ${loginList}
+
+        - HTTP 400 | Code: 286 | Message : Workspace id and name do not match, not proceeding.
+
+        - HTTP 400 | Code: 287 | Message : Workspace is public (allUsersEnabled) : can not specify members.
+
+        - HTTP 404 | Code: 288 | Message : The workspace does not exist.
+
+        - HTTP 404 | Code: 289 | Message : No data found.
+
+        - HTTP 400 | Code: 290 | Message : This user is still in the LDAP, to remove it from NLWeb, remove it from the LDAP. No need to call this endpoint.
+
+        - HTTP 404 | Code: 291 | Message : This user does not exist.
+
+        - HTTP 400 | Code: 292 | Message : This option is only allowed in NLWeb SaaS.
+
+        - HTTP 400 | Code: 293 | Message : User self-deletion is forbidden.
+
+        - HTTP 400 | Code: 294 | Message : Only allowed for users with Account Administrator roles (SaaS only role).
+
+        - HTTP 400 | Code: 295 | Message : User "admin" cannot be deleted.
+
+        - HTTP 400 | error: FILE_ID_NOT_FOUND | Message : File ID not found.
+
+        - HTTP 400 | error: FILE_CANCELED | Message : Upload for file ID has been canceled.
+
+        - HTTP 400 | error: INVALID_FILE_STATUS | Message : File status is invalid.
+
+        - HTTP 400 | error: INVALID_FILE_ID | Message : Invalid file ID.
+
+        - HTTP 400 | error: FILE_TOO_LARGE | Message : File is too large.
+
+        - HTTP 400 | error: MAX_UPLOADED_FILES_REACHED | Message : Maximum uploaded files is reached.
+
+        - HTTP 400 | error: PARSING_ERROR_NO_NLP | Message : No .nlp file found in project archive.
+
+        - HTTP 400 | error: PARSING_ERROR_NO_SCENARIO_DEFINED | Message : No NeoLoad scenario found in project archive.
+
+        - HTTP 400 | error: PARSING_INVALID_ZIP_STREAM | Message : Invalid stream, not a zip.
+
+        - HTTP 400 | error: PARSING_INVALID_AS_CODE_FILE | Message : Invalid as-code file.
+
+        - HTTP 400 | error: PARSING_INVALID_AS_CODE_FILE_PATH | Message : Invalid as-code file path found.
+
+        - HTTP 400 | Code: 304 | Message : Invalid color in request.
+
+        - HTTP 400 | Code: 305 | Message : The field elementPath is mandatory.
+
+        - HTTP 400 | Code: 450 | Message : No Controller available in the given zone.
+
+        - HTTP 400 | Code: 451 | Message : Controllers in the given zone can not be used, minimum version requirement not fulfilled.
+
+        - HTTP 400 | Code: 452 | Message : Not enough Load Generator for available Controller versions, Controller and Load Generator need to have the same version in a run.
+
+        - HTTP 400 | Code: 454 | Message : Not enough VU from license for running the test.
+
+        - HTTP 400 | Code: 456 | Message : Not enough VU from reservation for running the test.
+
+        - HTTP 400 | Code: 457 | Message : Reservation duration is not enough for running the test, it must be longer than the test duration increased by 20 minutes.
+
+        - HTTP 400 | Code: 458 | Message : The number of Cloud Load Generators exceeds the current capacity. Please contact your NeoLoad representative.
+
+        - HTTP 400 | Code: 459 | Message : The number of Dynamic Load Generators exceeds the current capacity. Please contact your NeoLoad representative.
+
+        - HTTP 400 | Code: 460 | Message : The Neoload cloud platform is not available.
+
+        - HTTP 400 | Code: 461 | Message : Not enough cloud credits available to start NCP infrastructure.
+
+        - HTTP 400 | Code: 462 | Message : Not enough VUH available for running the test.
+
+        - HTTP 400 | Code: 463 | Message : Not enough concurrent runs available.
+
+        - HTTP 503 | Code: 300 | Message : An unexpected error occurred while processing the request.
+
+        - HTTP 501 | Code: 301 | Message : Not supported when the reservation mode is enabled.
+
+        - HTTP 501 | Code: 302 | Message : Not supported when the reservation mode is OFF.
+
+        - HTTP 413 | Message : Request Entity Too Large.
+
+        '
+    TestResultStopRequest:
+      type: object
+      properties:
+        stopPolicy:
+          type: string
+          enum:
+          - GRACEFUL
+          - TERMINATE
+          description: How to stop the Test Result. Default is GRACEFUL.<ul><li>GRACEFUL stops gently the Test Result.</li><li>TERMINATE terminates the Test Result (kill it).</li></ul>
+          example: GRACEFUL
+  securitySchemes:
+    NeoloadAuthorizer:
+      type: apiKey
+      name: accountToken
+      in: header

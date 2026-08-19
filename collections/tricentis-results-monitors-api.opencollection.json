@@ -1,0 +1,173 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Results|Monitors API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results|Monitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test Result monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/monitors",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ]
+          },
+          "docs": "Provides all the Test Result counters of all monitors for a Test Result."
+        },
+        {
+          "info": {
+            "name": "Create custom monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/monitors",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pushes monitoring data (external data) for a given running test. <br/><br/>\n<b>Resolution limitation</b>: <ul>\n  <li>Maximum resolution for a monitor value is <b>1 per second</b>, otherwise <b>the first value is kept</b>.</li>\n</ul>\n<b>Maximum paths and monitors</b>: <ul>\n  <li>Maximum 100 different <b>unique</b> paths.</li>\n  <li>Maximum 50 different monitors for a given path.</li>\n  <li>Maximum length is 10 for a path.</li>\n</ul>\n<b>Other requirements</b>: <ul>\n  <li>'/' character is not allow"
+        },
+        {
+          "info": {
+            "name": "Test Result counter definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/monitors/:counterId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "counterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific counter."
+              }
+            ]
+          },
+          "docs": "Provides the definition of a Test Result counter."
+        },
+        {
+          "info": {
+            "name": "Test Result monitors values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/monitors/:counterId/values",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "counterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific counter."
+              }
+            ]
+          },
+          "docs": "Provides the values of a Test Result counter."
+        },
+        {
+          "info": {
+            "name": "Test Result monitors points",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/monitors/:counterId/points",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "counterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific counter."
+              }
+            ]
+          },
+          "docs": "Provides all the points of a Test Result counter. The values are the average on the specified interval."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

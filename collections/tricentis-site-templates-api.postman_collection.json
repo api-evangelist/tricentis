@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "f086fe9a-7d38-47fd-9fae-3bb9a71cf347",
+      "name": "site-templates",
+      "description": {
+        "content": "Site Templates API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ec103d46-f116-4fcf-bcd5-311db9d0aac9",
+          "name": "Get all site-templates",
+          "request": {
+            "name": "Get all site-templates",
+            "description": {
+              "content": "To retrieve all site-templates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "site-templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93054373-52eb-42fb-ab7b-881a456a900e",
+              "name": "Return list of all site-templates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "site-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"template_id\": 2097\n  },\n  {\n    \"name\": \"string\",\n    \"template_id\": 8356\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd42a3f4-d870-411e-9d1d-9c5882849f75",
+          "name": "Apply template to existing projects.",
+          "request": {
+            "name": "Apply template to existing projects.",
+            "description": {
+              "content": "To apply template to existing projects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "site-templates",
+                ":templateId",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "templateId",
+                  "description": "(Required) Template id which you want to apply to existing projects."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_ids\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"create_new_site_field_values\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "975d1406-293b-4836-b85d-711c2857b8a9",
+              "name": "Return list of projects which were applied site template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "site-templates",
+                    ":templateId",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "templateId",
+                      "description": "(Required) Template id which you want to apply to existing projects."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_ids\": [\n    \"<long>\"\n  ],\n  \"create_new_site_field_values\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"name\": \"qConnect Sample Project\",\n    \"description\": \"Description of qConnect Sample Project\",\n    \"status_id\": 101,\n    \"start_date\": \"2006-05-22T14:07:14.789Z\",\n    \"end_date\": \"2014-03-19T09:59:58.962Z\",\n    \"admins\": [\n      \"string\",\n      \"string\"\n    ],\n    \"admin_ids\": [\n      2502,\n      7383\n    ],\n    \"sample\": true,\n    \"user_profile\": {\n      \"user_id\": 1,\n      \"project_id\": 1,\n      \"release\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"build\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": true\n      },\n      \"test_configuration\": {\n        \"create\": false,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": false,\n        \"link_unlink\": false\n      },\n      \"test_configuration_variables\": {\n        \"create\": false,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": true\n      },\n      \"module\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"requirement\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true\n      },\n      \"test_case\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true,\n        \"approve\": true\n      },\n      \"test_cycle\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_suite\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_run\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"execute\": true,\n        \"export\": true,\n        \"edit_assignment\": true,\n        \"modify_test_logs_by_self\": true,\n        \"modify_test_logs_by_others\": true\n      },\n      \"defect\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"export\": true\n      },\n      \"project_setting\": {\n        \"manage\": true\n      },\n      \"session\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"project\": {\n        \"admin\": true\n      },\n      \"schedule\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      }\n    },\n    \"defect_tracking_systems\": [\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 4553,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 3527,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 1491,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 3504,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      },\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 4196,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 845,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 7241,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 6075,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      }\n    ],\n    \"x_explorer_access_level\": 7,\n    \"date_format\": \"yyyy/MM/dd\",\n    \"automation\": false,\n    \"template_id\": 1,\n    \"uuid\": \"uuid\"\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"name\": \"qConnect Sample Project\",\n    \"description\": \"Description of qConnect Sample Project\",\n    \"status_id\": 101,\n    \"start_date\": \"1994-01-26T07:08:22.761Z\",\n    \"end_date\": \"1995-02-03T04:36:36.140Z\",\n    \"admins\": [\n      \"string\",\n      \"string\"\n    ],\n    \"admin_ids\": [\n      6782,\n      406\n    ],\n    \"sample\": true,\n    \"user_profile\": {\n      \"user_id\": 1,\n      \"project_id\": 1,\n      \"release\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"build\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": true\n      },\n      \"test_configuration\": {\n        \"create\": false,\n        \"edit\": false,\n        \"delete\": true,\n        \"view\": true,\n        \"link_unlink\": false\n      },\n      \"test_configuration_variables\": {\n        \"create\": true,\n        \"edit\": false,\n        \"delete\": true,\n        \"view\": false\n      },\n      \"module\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"requirement\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true\n      },\n      \"test_case\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true,\n        \"approve\": true\n      },\n      \"test_cycle\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_suite\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_run\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"execute\": true,\n        \"export\": true,\n        \"edit_assignment\": true,\n        \"modify_test_logs_by_self\": false,\n        \"modify_test_logs_by_others\": true\n      },\n      \"defect\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"export\": true\n      },\n      \"project_setting\": {\n        \"manage\": true\n      },\n      \"session\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"project\": {\n        \"admin\": true\n      },\n      \"schedule\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      }\n    },\n    \"defect_tracking_systems\": [\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 9087,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 2489,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 8761,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 8250,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      },\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 8459,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 9408,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 9793,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 1106,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      }\n    ],\n    \"x_explorer_access_level\": 7,\n    \"date_format\": \"yyyy/MM/dd\",\n    \"automation\": false,\n    \"template_id\": 1,\n    \"uuid\": \"uuid\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cab3417-2eb0-426c-95d3-a4ac31255b0d",
+          "name": "Remove projects from a site template.",
+          "request": {
+            "name": "Remove projects from a site template.",
+            "description": {
+              "content": "To remove projects from a site template.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "site-templates",
+                ":templateId",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "templateId",
+                  "description": "(Required) Template id which you want to detach it's projects. If <strong>0</strong> (unassigned template id) is placing here, remove all site templates associated to provided project ids list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<long>\",\n  \"<long>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70b2c43b-7d74-4fa5-afe4-8ecaaa1efc68",
+              "name": "Return list of projects which were removed from site template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "site-templates",
+                    ":templateId",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "templateId",
+                      "description": "(Required) Template id which you want to detach it's projects. If <strong>0</strong> (unassigned template id) is placing here, remove all site templates associated to provided project ids list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<long>\",\n  \"<long>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"name\": \"qConnect Sample Project\",\n    \"description\": \"Description of qConnect Sample Project\",\n    \"status_id\": 101,\n    \"start_date\": \"1978-12-07T06:21:49.266Z\",\n    \"end_date\": \"1982-03-08T22:46:32.131Z\",\n    \"admins\": [\n      \"string\",\n      \"string\"\n    ],\n    \"admin_ids\": [\n      7706,\n      1528\n    ],\n    \"sample\": true,\n    \"user_profile\": {\n      \"user_id\": 1,\n      \"project_id\": 1,\n      \"release\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"build\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": true\n      },\n      \"test_configuration\": {\n        \"create\": true,\n        \"edit\": false,\n        \"delete\": true,\n        \"view\": false,\n        \"link_unlink\": false\n      },\n      \"test_configuration_variables\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": false\n      },\n      \"module\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"requirement\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true\n      },\n      \"test_case\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true,\n        \"approve\": true\n      },\n      \"test_cycle\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_suite\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_run\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"execute\": true,\n        \"export\": true,\n        \"edit_assignment\": true,\n        \"modify_test_logs_by_self\": false,\n        \"modify_test_logs_by_others\": true\n      },\n      \"defect\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"export\": true\n      },\n      \"project_setting\": {\n        \"manage\": true\n      },\n      \"session\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"project\": {\n        \"admin\": true\n      },\n      \"schedule\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      }\n    },\n    \"defect_tracking_systems\": [\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 6333,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 310,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 5056,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 3063,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      },\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 7170,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 1058,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 4850,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 4332,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      }\n    ],\n    \"x_explorer_access_level\": 7,\n    \"date_format\": \"yyyy/MM/dd\",\n    \"automation\": false,\n    \"template_id\": 1,\n    \"uuid\": \"uuid\"\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"name\": \"qConnect Sample Project\",\n    \"description\": \"Description of qConnect Sample Project\",\n    \"status_id\": 101,\n    \"start_date\": \"2000-12-07T18:05:42.039Z\",\n    \"end_date\": \"2011-05-27T18:30:34.486Z\",\n    \"admins\": [\n      \"string\",\n      \"string\"\n    ],\n    \"admin_ids\": [\n      2005,\n      1994\n    ],\n    \"sample\": true,\n    \"user_profile\": {\n      \"user_id\": 1,\n      \"project_id\": 1,\n      \"release\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"build\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": true\n      },\n      \"test_configuration\": {\n        \"create\": false,\n        \"edit\": false,\n        \"delete\": true,\n        \"view\": false,\n        \"link_unlink\": true\n      },\n      \"test_configuration_variables\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": false,\n        \"view\": true\n      },\n      \"module\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"requirement\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true\n      },\n      \"test_case\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"edit_assignment\": true,\n        \"export\": true,\n        \"import\": true,\n        \"approve\": true\n      },\n      \"test_cycle\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_suite\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"test_run\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"execute\": true,\n        \"export\": true,\n        \"edit_assignment\": true,\n        \"modify_test_logs_by_self\": true,\n        \"modify_test_logs_by_others\": true\n      },\n      \"defect\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true,\n        \"export\": true\n      },\n      \"project_setting\": {\n        \"manage\": true\n      },\n      \"session\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      },\n      \"project\": {\n        \"admin\": true\n      },\n      \"schedule\": {\n        \"create\": true,\n        \"edit\": true,\n        \"delete\": true,\n        \"view\": true\n      }\n    },\n    \"defect_tracking_systems\": [\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 9226,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 8474,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 3144,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 3947,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      },\n      {\n        \"defect_mappings\": [\n          {\n            \"type_id\": 7944,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 2066,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"type_id\": 4833,\n            \"type\": \"string\",\n            \"type_label\": \"string\",\n            \"project_id\": 4931,\n            \"project\": \"string\",\n            \"project_label\": \"string\",\n            \"fields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"connection_name\": \"Jira Cloud\",\n        \"url\": \"https://example.jira.com\",\n        \"system_name\": \"JIRA\",\n        \"active\": true,\n        \"id\": 1\n      }\n    ],\n    \"x_explorer_access_level\": 7,\n    \"date_format\": \"yyyy/MM/dd\",\n    \"automation\": false,\n    \"template_id\": 1,\n    \"uuid\": \"uuid\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c5f9abc5-0de6-4b89-9e90-929a4feedebd",
+    "name": "qTest Manager API Version 3.0 Site Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

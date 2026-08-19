@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V3 Export API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v3-export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export screens to images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/api/export/image",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export screens to images"
+        },
+        {
+          "info": {
+            "name": "Export screens to word document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/api/export/doc",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export screens to word document"
+        },
+        {
+          "info": {
+            "name": "Export screens to pdf",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/api/export/pdf",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export screens to pdf"
+        },
+        {
+          "info": {
+            "name": "Export test cases",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/api/export/testcase",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export test cases"
+        },
+        {
+          "info": {
+            "name": "Download exported file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/session/export/:exportId",
+            "params": [
+              {
+                "name": "exportId",
+                "value": "",
+                "type": "path",
+                "description": "Export id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download exported file"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

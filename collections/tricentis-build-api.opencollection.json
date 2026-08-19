@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Build API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "build",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Builds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/builds",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "releaseId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the parent Release"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Builds under a Release\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Creates a Build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/builds",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a Build under a parent Release\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets a Build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/builds/:buildId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "buildId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Build"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Build<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Updates a Build",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/builds/:buildId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "buildId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Build"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a Build\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Deletes a Build",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/builds/:buildId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "buildId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Build to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Build\n\n<strong>qTest Manager version:</strong> 6+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

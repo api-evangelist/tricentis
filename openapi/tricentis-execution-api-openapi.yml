@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  version: 2025.2.0
+  title: qTest Pulse Execution API
+  description: Execution API
+servers:
+- url: https://pulse-us-east-1.qtestnet.com/api
+security:
+- qtestToken: []
+  qtestUrl: []
+tags:
+- name: execution
+  description: Execution API
+paths:
+  /executions:
+    get:
+      tags:
+      - execution
+      summary: Get all executions of an action
+      description: To get all execution of an action
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdQuery'
+      - $ref: '#/components/parameters/ActionIdQuery'
+      - $ref: '#/components/parameters/FromQuery'
+      - $ref: '#/components/parameters/ToQuery'
+      - $ref: '#/components/parameters/FirstQuery'
+      - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BasicExecution'
+  /executions/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdPath'
+    get:
+      tags:
+      - execution
+      summary: Get an execution
+      description: To get an execution by id
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+components:
+  parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    FromQuery:
+      name: from
+      in: query
+      description: Timestamp of the begining of an execution in milliseconds
+      schema:
+        type: integer
+        format: int64
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    ToQuery:
+      name: to
+      in: query
+      description: Timestamp of the begining of an execution in milliseconds
+      schema:
+        type: integer
+        format: int64
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    ActionIdQuery:
+      name: actionId
+      in: query
+      description: ID of the action in the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    Execution:
+      allOf:
+      - $ref: '#/components/schemas/BasicExecution'
+      - required:
+        - actionId
+        - status
+        properties:
+          actionId:
+            type: string
+          status:
+            type: string
+            enum:
+            - pending
+            - executing
+            - failed
+            - completed
+          payload:
+            properties:
+              sample:
+                type: string
+          start:
+            type: integer
+            format: int64
+          end:
+            type: integer
+            format: int64
+          out:
+            type: string
+          err:
+            type: string
+          result:
+            type: string
+          createAt:
+            type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    BasicExecution:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - required:
+        - actionId
+        - status
+        properties:
+          actionId:
+            type: string
+          status:
+            type: string
+            enum:
+            - pending
+            - executing
+            - failed
+            - completed
+          payload:
+            properties:
+              sample:
+                type: string
+          start:
+            type: integer
+            format: int64
+          end:
+            type: integer
+            format: int64
+          out:
+            type: string
+          err:
+            type: string
+          result:
+            type: string
+          createAt:
+            type: string
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    qtestToken:
+      type: apiKey
+      in: header
+      name: Authorization
+    qtestUrl:
+      type: apiKey
+      in: header
+      name: x-qtest-url
+externalDocs:
+  description: Introduction to qTest Pulse API
+  url: https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm

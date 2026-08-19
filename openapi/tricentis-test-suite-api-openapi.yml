@@ -1,0 +1,332 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Test Suite API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: test-suite
+  description: Test Suite API
+paths:
+  /api/v3/projects/{projectId}/test-suites:
+    get:
+      tags:
+      - test-suite
+      summary: Gets multiple Test Suite
+      description: 'To retrieve Test Suites which located under a parent Release, Test Cycle or root
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getListTestSuite
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the Release or Test Cycle under which the Test Suites are located. Input 0 (zero) to get Test Suites directly under root
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: parentType
+        in: query
+        description: Arifact type of the container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>
+        required: false
+        schema:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - test-suite
+      summary: Creates a Test Suite
+      description: 'To create a new Test Suite
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: createTestSuite
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the Release or Test Cycle under which the newly created Test Suites are located. Input 0 (zero) to create Test Suites directly under root
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: parentType
+        in: query
+        description: Arifact type of the container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>
+        required: false
+        schema:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+        description: The Test Suite's properties
+        required: true
+  /api/v3/projects/{projectId}/test-suites/{testSuiteId}:
+    get:
+      tags:
+      - test-suite
+      summary: Gets a Test Suite
+      description: 'To retrieve a Test Suite
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getTestSuite
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testSuiteId
+        in: path
+        description: ID of the Test Suite
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - test-suite
+      summary: Updates a Test Suite
+      description: "To update an existing Test Suite or to move it to other container\n\n<strong>Important:</strong> If you use the request parameters <em>parentId</em> and <em>parentType</em>, the request body will be ignore. \n\nThat means the Test Suite is being moved but it will not be updated with the properties specify in the request body"
+      operationId: updateTestSuite
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testSuiteId
+        in: path
+        description: ID of the Test Suite
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the Release or Test Cycle which the Test Suite will be moved to. Input 0 (zero) to move the Test Suite to under root
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: parentType
+        in: query
+        description: Artifact type of the parent container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>
+        required: false
+        schema:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+      - name: noEmail
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
+        description: The Test Suite's updated properties
+        required: true
+    delete:
+      tags:
+      - test-suite
+      summary: Deletes a Test Suite
+      description: 'To delete a Test Suite
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: deleteTestSuiteById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testSuiteId
+        in: path
+        description: ID of the Test Suite.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    TestSuiteWithCustomFieldResource:
+      type: object
+      required:
+      - properties
+      properties:
+        parentId:
+          type: integer
+          format: int64
+          example: 462378
+        parentType:
+          type: string
+          example: test-cycle
+          enum:
+          - root
+          - release
+          - test-cycle
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 843971
+        name:
+          type: string
+          example: Functional test suite 2
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 0
+        pid:
+          type: string
+          example: TS-3
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971
+          readOnly: true
+        target_release_id:
+          type: integer
+          format: int64
+          example: 149652
+        target_build_id:
+          type: integer
+          format: int64
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

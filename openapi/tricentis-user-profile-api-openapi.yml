@@ -1,0 +1,680 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 User Profile API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: user-profile
+  description: User Profile API
+paths:
+  /api/v3/admin-profiles/current:
+    get:
+      tags:
+      - user-profile
+      summary: Gets current User's Admin Profile
+      description: 'To retrieve your Admin Profile
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getCurrent
+      responses:
+        200:
+          description: Return authorities list of current admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProfile'
+      security:
+      - Authorization: []
+  /api/v3/user-profiles:
+    get:
+      tags:
+      - user-profile
+      summary: Gets available Profiles
+      description: 'To retrieve all available profiles in your qTest Manager instance. It requires that your qTest Manager profile is a site admin with <em>View User Profiles</em> permissions
+
+
+        <strong>qTest Manager version:</strong> 8.4.2+'
+      operationId: getUserProfiles
+      parameters:
+      - name: type
+        in: query
+        description: '<em>type=admin</em> - to retrieve only admin profiles
+
+
+          <em>type=use</em> - to retrieve only normal user profiles
+
+
+          Omit this parameter to include both'
+        required: false
+        schema:
+          type: string
+          enum:
+          - admin
+          - user
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+      security:
+      - Authorization: []
+  /api/v3/user-profiles/batch-assign-users:
+    post:
+      tags:
+      - user-profile
+      summary: Assigns multiple Users to a Profile
+      description: 'To batch assign users to a profile (Admin profile, User profile) (as in qTest Manager <em>admin panel</em>). It requires that your qTest Manager profile is a site admin with <em>Manage Client Users</em> permissions
+
+
+        <strong>qTest Manager version:</strong> 8.4.2+'
+      operationId: batchAssignUserProfileInClient
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResourceExtension'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteUsersProfile'
+        description: An array of user IDs and admin and/or normal user profile
+        required: true
+  /api/v3/user-profiles/current:
+    get:
+      tags:
+      - user-profile
+      summary: Gets current User's Profiles in different Projects
+      description: To retrieve your User Profiles in different Projects
+      operationId: getProfilesOfCurrentUser
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfile'
+      security:
+      - Authorization: []
+  /api/v3/user-profiles/{projectId}/batch-assign-users:
+    post:
+      tags:
+      - user-profile
+      summary: Assigns multiple Users to a Profile in a Project
+      description: 'To change profile of assigned users (as a project''s User Management page). It requires that your qTest Manager profile within the project is Project Admin
+
+
+        <strong>qTest Manager version:</strong> 8.4.2+'
+      operationId: batchAssignUserProfileInProject
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResourceExtension'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUsersProfile'
+        description: An array of user IDs and a user profile
+        required: true
+components:
+  schemas:
+    ReleasePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Release
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Release
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Release
+        view:
+          type: boolean
+          example: true
+          description: Can view Release
+    UserProfileResponse:
+      type: object
+      properties:
+        user_profiles:
+          type: array
+          description: Arrays of User Profile
+          items:
+            $ref: '#/components/schemas/Profile'
+        admin_profiles:
+          type: array
+          description: Arrays of Admin Profile
+          items:
+            $ref: '#/components/schemas/Profile'
+        total_user_profiles:
+          type: integer
+          format: int32
+          description: Total User Profile
+          readOnly: true
+        total_admin_profiles:
+          type: integer
+          format: int32
+          description: Total Admin Profile
+          readOnly: true
+    TestConfigurationPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+        link_unlink:
+          type: boolean
+    SchedulePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create schedule
+        edit:
+          type: boolean
+          example: true
+          description: Can edit schedule
+        delete:
+          type: boolean
+          example: true
+          description: Can delete schedule
+        view:
+          type: boolean
+          example: true
+          description: Can views= schedule
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Profile
+        name:
+          type: string
+          example: Project Manager
+          description: Name of Profile
+    DefectPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Defect
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Defect
+        delete:
+          type: boolean
+        view:
+          type: boolean
+          example: true
+          description: Can view Defect
+        export:
+          type: boolean
+          example: true
+          description: Can export Defect
+    AdminProfile:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the user
+        create_project:
+          type: boolean
+          example: true
+          description: Has permission on create Project
+        edit_project:
+          type: boolean
+          example: true
+          description: Has permission on edit Project
+        archive_project:
+          type: boolean
+          example: true
+          description: Has permission on archive Project
+        list_project:
+          type: boolean
+          example: true
+          description: Has permission on view Project
+        manage_client_user:
+          type: boolean
+          example: true
+          description: Has permission on Invite/Edit Users
+        edit_user_profile:
+          type: boolean
+          example: true
+          description: Has permission on edit Profiles
+        view_user_profile:
+          type: boolean
+          example: true
+          description: Has permission on view Profiles
+        manage_client_info:
+          type: boolean
+          example: true
+          description: Has permission on update Company's information
+        manage_system_conf:
+          type: boolean
+          example: true
+          description: Has permission on manage System configuration
+        site_level_field:
+          type: boolean
+          example: true
+          description: Has permission on manage site level field setting
+        manage_user_group:
+          type: boolean
+        insight_viewer:
+          type: boolean
+        insight_editor:
+          type: boolean
+        pulse_access:
+          type: boolean
+        launch_access:
+          type: boolean
+        analytics_viewer:
+          type: boolean
+        copilot_user:
+          type: boolean
+    RequirementPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Requirement
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Requirement
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Requirement
+        view:
+          type: boolean
+          example: true
+          description: Can view Requirement
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign user to Requirement
+        export:
+          type: boolean
+          example: true
+          description: Can export Requirement
+        import:
+          type: boolean
+          example: true
+          description: Can import Requirement
+    UserResourceExtension:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+          description: Password of the User
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: User
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: Avatar URL of the User
+        external_username:
+          type: string
+          description: External username, could be LDAP username or SSO username
+        authentication_system:
+          type: string
+          description: Name of Login provider, could be LDAP or SSO
+        timezone_offset:
+          type: string
+        country_name:
+          type: string
+    TestCasePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Case
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Case
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Test Case
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Case
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign Test Case
+        export:
+          type: boolean
+          example: true
+          description: Can export Test Case
+        import:
+          type: boolean
+          example: true
+          description: Can import Test Case
+        approve:
+          type: boolean
+          example: true
+          description: Can approve Test Case
+    TestRunPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Run
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Run
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Test Run
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Run
+        execute:
+          type: boolean
+          example: true
+          description: Can execute Test Run
+        export:
+          type: boolean
+          example: true
+          description: Can export Test Run
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign user to Test Run
+        modify_test_logs_by_self:
+          type: boolean
+        modify_test_logs_by_others:
+          type: boolean
+    SiteUsersProfile:
+      type: object
+      properties:
+        userProfileId:
+          type: integer
+          format: int64
+          example: 2
+          description: ID of user profile
+        userIds:
+          type: array
+          description: Array User ID
+          items:
+            type: integer
+            format: int64
+            example: 1
+    UserProfile:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        release:
+          $ref: '#/components/schemas/ReleasePermission'
+        build:
+          $ref: '#/components/schemas/BuildPermission'
+        test_configuration:
+          $ref: '#/components/schemas/TestConfigurationPermission'
+        test_configuration_variables:
+          $ref: '#/components/schemas/TestConfigurationVariablesPermission'
+        module:
+          $ref: '#/components/schemas/ModulePermission'
+        requirement:
+          $ref: '#/components/schemas/RequirementPermission'
+        test_case:
+          $ref: '#/components/schemas/TestCasePermission'
+        test_cycle:
+          $ref: '#/components/schemas/TestCyclePermission'
+        test_suite:
+          $ref: '#/components/schemas/TestSuitePermission'
+        test_run:
+          $ref: '#/components/schemas/TestRunPermission'
+        defect:
+          $ref: '#/components/schemas/DefectPermission'
+        project_setting:
+          $ref: '#/components/schemas/ProjectSettingPermission'
+        session:
+          $ref: '#/components/schemas/SessionManagerPermission'
+        project:
+          $ref: '#/components/schemas/ProjectAdminPermission'
+        schedule:
+          $ref: '#/components/schemas/SchedulePermission'
+    SessionManagerPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Session
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Session
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Session
+        view:
+          type: boolean
+          example: true
+          description: Can view Session
+    TestSuitePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Suite
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Suite
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Test Suite
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Suite
+    TestCyclePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Cycle
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Cycle
+        delete:
+          type: boolean
+          example: true
+          description: Can edit Test Cycle
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Cycle
+    BuildPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Build
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Build
+        delete:
+          type: boolean
+          example: false
+          description: Can delete Build
+        view:
+          type: boolean
+          example: true
+          description: Can view Build
+    ProjectAdminPermission:
+      type: object
+      properties:
+        admin:
+          type: boolean
+          example: true
+          description: Is project admin or not
+    ProjectSettingPermission:
+      type: object
+      properties:
+        manage:
+          type: boolean
+          example: true
+          description: Can manage project setting or not
+    ProjectUsersProfile:
+      type: object
+      properties:
+        userProfileId:
+          type: integer
+          format: int64
+          example: 2
+          description: ID of user profile
+        userIds:
+          type: array
+          description: Array User ID
+          items:
+            type: integer
+            format: int64
+            example: 1
+    TestConfigurationVariablesPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+    ModulePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Module
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Module
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Module
+        view:
+          type: boolean
+          example: true
+          description: Can view Module
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

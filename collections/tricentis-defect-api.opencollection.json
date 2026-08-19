@@ -1,0 +1,355 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Defect API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "defect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To submit an internal Defect"
+        },
+        {
+          "info": {
+            "name": "Gets recently updated Defects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/last-change",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "The specified time since when the Defects have been updated. It needs to be URL encoded: <em>yyyy-MM-dd'T'HH:mm:ss.SSSZ</em> or <em>yyyy-MM-dd'T'HH:mm:ssZZ</em>"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Do not support at this time. Use the current time only."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100. You can specify your custom number in this parameter. The maximum page size is 999."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve Defects which have been recently updated after a specified time"
+        },
+        {
+          "info": {
+            "name": "Gets a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:defectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "defectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the defect."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Defect\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Updates a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:defectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "defectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Defect which needs to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a Defect\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Gets all Comments of a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:idOrKey/comments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Defect whose comments you want to retrieve"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Comments of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Adds a Comment to a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:idOrKey/comments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Defect"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To add a Comment to a Defect\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Gets a Comment of a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Defect whose comment you want to retrieve"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the comment"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a specific Comment of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Updates a Comment of a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the defect whose comment you want to update"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the comment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a specific Comment of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Deletes a Comment of a Defect",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/defects/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Defect whose Comment you want to delete"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the comment."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a specific Comment of a Defect\n\n<strong>qTest Manager version:</strong> 7.5+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

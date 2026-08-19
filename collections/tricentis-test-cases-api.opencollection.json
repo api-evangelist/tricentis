@@ -1,0 +1,396 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TTM for Jira Test Cases API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Test Cases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read test case(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-cases",
+            "params": [
+              {
+                "name": "jiraFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "ttmFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Please note that this endpoint is deprecated and will be removed in the future. Use the /test-cases/bulk endpoint instead.\n            \n## Get or retrieve information from test case(s).\n            \n#### Body fields:\n* **jiraFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields."
+        },
+        {
+          "info": {
+            "name": "Create test case(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-cases",
+            "params": [
+              {
+                "name": "strictOrder",
+                "value": "",
+                "type": "query",
+                "description": "If strict order is true, test-cases will be created according to the given order."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create test case(s).\n            \n#### Body fields:\n            \n* **folder** _(optional)_: Specify the folder path where you want to save the test case. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test case saves in the \"All tests\" folder. Do not specify both the folder and the folderID, or the request will fail.\n* **folderId** _(optional)_: Specify a unique ID associated with the folder in the TTM database, which specifies wher"
+        },
+        {
+          "info": {
+            "name": "Read test case(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-cases/bulk",
+            "params": [
+              {
+                "name": "jiraFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "ttmFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "query",
+                "description": "An optional folder ID to filter test cases. If provided, only test cases in the specified folder (including all child folders) will be returned. Cannot be used together with folderPath."
+              },
+              {
+                "name": "folderPath",
+                "value": "",
+                "type": "query",
+                "description": "An optional folder path to filter test cases. If provided, only test cases in the specified folder path (including all child folders) will be returned. Example: \"Main Folder/Child Folder\". Cannot be used together with folderId."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "nextPageToken",
+                "value": "",
+                "type": "query",
+                "description": "The cursor for pagination: To get the next page, pass this parameter; to get the first page, omit this parameter. The parameter is returned from the previous page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Get or retrieve information from test case(s).\n            \n#### Body fields:\n* **jiraFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **folderId**: an optional folder ID to filter test cases. If provided, only test cases in the specified folder (including all child folders) will be returned. Cannot be use"
+        },
+        {
+          "info": {
+            "name": "Search test case(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/test-cases/search",
+            "params": [
+              {
+                "name": "jiraFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "ttmFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Search for test case(s) using JQL.\nPlease note that this endpoint is deprecated and will be removed in the future. Use the /test-cases/search/jql endpoint instead.\n#### Body fields:\n            \n* **jql** _(optional)_: The Jira Query Language (JQL) query to search.\n* **jiraFields**: A comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: A comma-separated list of TTM fields to return for each issue. Use this to retrieve a subse"
+        },
+        {
+          "info": {
+            "name": "Search test case(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/test-cases/search/jql",
+            "params": [
+              {
+                "name": "jiraFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "ttmFields",
+                "value": "",
+                "type": "query",
+                "description": "A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "nextPageToken",
+                "value": "",
+                "type": "query",
+                "description": "The cursor for pagination: To get the next page, pass this parameter; to get the first page, omit this parameter. The parameter is returned from the previous page."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Search for test case(s) using JQL.\n            \n#### Body fields:\n            \n* **jql** _(optional)_: The Jira Query Language (JQL) query to search.\n* **jiraFields**: A comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: A comma-separated list of TTM fields to return for each issue. Use this to retrieve a subset of fields."
+        },
+        {
+          "info": {
+            "name": "Query job status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/jobs/:job-id",
+            "params": [
+              {
+                "name": "job-id",
+                "value": "",
+                "type": "path",
+                "description": "The job ID returned from the import request endpoint."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Query the status of an asynchronous job to create or import test case(s)."
+        },
+        {
+          "info": {
+            "name": "Update test case.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-cases/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The jira key of the test."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Update existing test case.\n            \n* **fields**: The native Jira fields in a test case. Only the following fields are available (for the rest please use native Jira API):\n    * **summary** _(optional)_: The Summary of the test case in Jira. To remove the summary, provide an empty string.\n    * **description** _(optional)_: The Description of the test case in Jira. To remove the description, provide an empty string.\n    * **priority** _(optional)_: The Priority of the test case in Jira.\n "
+        },
+        {
+          "info": {
+            "name": "Delete test case(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-cases/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The Jira id or key of the test."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Delete test case(s)."
+        },
+        {
+          "info": {
+            "name": "Add or update automation content for a test case.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-cases/:key/automation",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The Jira issue key for the Test Case."
+              },
+              {
+                "name": "confirmation",
+                "value": "",
+                "type": "query",
+                "description": "<br>Changing a test case from Manual to Automated overwrites your precondition and test steps.\n<br> Select True to confirm that you want to delete the precondition and test steps from the test case."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Add or update automation content and details for a test case.\n            \n#### Body fields:\n            \n* **name**: The name of the automation for the test case.\n* **externalId** _(optional)_: The external Id of the automated test from the external automation system.\n* **key**: The Jira key of the test case ."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

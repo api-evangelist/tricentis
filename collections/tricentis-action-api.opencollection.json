@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Pulse Action API",
+    "version": "2025.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "action",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all actions of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/actions",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Return only the first N results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N results"
+              }
+            ]
+          },
+          "docs": "To get all actions of a project"
+        },
+        {
+          "info": {
+            "name": "Create an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To create an action"
+        },
+        {
+          "info": {
+            "name": "Get an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/actions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To get an action by id"
+        },
+        {
+          "info": {
+            "name": "Update an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/actions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To update an action"
+        },
+        {
+          "info": {
+            "name": "Update an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/actions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To update an action"
+        },
+        {
+          "info": {
+            "name": "Delete an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/actions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To delete an action"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

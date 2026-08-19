@@ -1,0 +1,784 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V2 Screen API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v2-screen
+  description: Screen V2 APIs
+paths:
+  /sessions/{sessionId}/screens:
+    get:
+      tags:
+      - v2-screen
+      summary: Get all screens of session
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  total:
+                    type: integer
+                  screens:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Screen'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    post:
+      tags:
+      - v2-screen
+      summary: Create screen
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/CreateScreen'
+        description: Screen need to be created
+        required: true
+    put:
+      tags:
+      - v2-screen
+      summary: Update multiple screens
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateScreen'
+        description: Screens need to be updated
+        required: true
+  /sessions/{sessionId}/screens/{screenId}:
+    get:
+      tags:
+      - v2-screen
+      summary: Get screen
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screen
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    put:
+      tags:
+      - v2-screen
+      summary: Update screen
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/UpdateScreen'
+        description: Screen need to be updated
+        required: true
+    delete:
+      tags:
+      - v2-screen
+      summary: Delete screen
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/images:
+    get:
+      tags:
+      - v2-screen
+      summary: Get screen image
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screen image
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+    post:
+      tags:
+      - v2-screen
+      summary: Upload screen image
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screen image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: image data
+                  format: binary
+              required:
+              - file
+  /sessions/{sessionId}/screens/{screenId}/image-url:
+    get:
+      tags:
+      - v2-screen
+      summary: Get screen image url
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screen image url
+          content:
+            application/json:
+              schema:
+                type: string
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/thumbnail:
+    get:
+      tags:
+      - v2-screen
+      summary: Get screen thumbnail
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screen thumbnail
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+  /sessions/{sessionId}/screens/{screenId}/thumbnail-url:
+    get:
+      tags:
+      - v2-screen
+      summary: Get screen thumbnail url
+      parameters:
+      - name: sessionId
+        in: path
+        description: session's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: screenId
+        in: path
+        description: screen's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: screen thumbnail url
+          content:
+            application/json:
+              schema:
+                type: string
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.screen
+components:
+  schemas:
+    Point:
+      type: object
+      properties:
+        x:
+          type: number
+          format: double
+        y:
+          type: number
+          format: double
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    CreateScreen:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+        capture_mode:
+          type: string
+          enum:
+          - Desktop
+          - Application
+          - Form
+        title:
+          type: string
+        time_type:
+          $ref: '#/components/schemas/TimeType'
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        app_height:
+          type: number
+          format: double
+        app_left:
+          type: number
+          format: double
+        app_top:
+          type: number
+          format: double
+        app_width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        left:
+          type: number
+          format: double
+        top:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+        screen_height:
+          type: number
+          format: double
+        screen_width:
+          type: number
+          format: double
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+        is_deleted:
+          type: boolean
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    ActionMetadata:
+      type: object
+      properties:
+        element_type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        css_selector:
+          type: string
+        tag_name:
+          type: string
+        xpath:
+          type: array
+          items:
+            type: string
+        value:
+          type: string
+        ctrl_type:
+          type: integer
+        action_type:
+          type: string
+        details:
+          type: object
+    Annotation:
+      type: object
+      properties:
+        annotation_type:
+          type: string
+          enum:
+          - Action
+          - Rectangle
+          - Ellipse
+          - Callout
+          - Pencil
+          - Arrow
+          - Blackout
+          - TextBox
+        type:
+          type: string
+          enum:
+          - square
+          - round
+          - oval
+          - cloud
+          - line1
+          - line2
+          - line3
+          - line1AccentBar
+          - line2AccentBar
+          - line3AccentBar
+        order_number:
+          type: integer
+        desc:
+          type: string
+        meta_data:
+          $ref: '#/components/schemas/ActionMetadata'
+        left:
+          type: number
+          format: double
+        top:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        hotspotx:
+          type: number
+          format: double
+        hotspoty:
+          type: number
+          format: double
+        anchor_point:
+          $ref: '#/components/schemas/Point'
+        background_color:
+          type: string
+        border_color:
+          type: string
+        border_size:
+          type: integer
+        content:
+          type: string
+        font_name:
+          type: string
+        font_size:
+          type: integer
+        text_color:
+          type: string
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/Point'
+        start_point:
+          $ref: '#/components/schemas/Point'
+        end_point:
+          $ref: '#/components/schemas/Point'
+        zindex:
+          type: integer
+        drop_shadow:
+          type: boolean
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-16T04:46:30+07'
+        is_visible_on_screen:
+          type: boolean
+    UpdateScreen:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+        capture_mode:
+          type: string
+          enum:
+          - Desktop
+          - Application
+          - Form
+        title:
+          type: string
+        time_type:
+          $ref: '#/components/schemas/TimeType'
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        app_height:
+          type: number
+          format: double
+        app_left:
+          type: number
+          format: double
+        app_top:
+          type: number
+          format: double
+        app_width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        left:
+          type: number
+          format: double
+        top:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+        screen_height:
+          type: number
+          format: double
+        screen_width:
+          type: number
+          format: double
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+        is_deleted:
+          type: boolean
+    Screen:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        id:
+          type: string
+        ext_screen_id:
+          type: string
+        order:
+          type: string
+        capture_mode:
+          type: string
+          enum:
+          - Desktop
+          - Application
+          - Form
+        screenshot_filename:
+          type: string
+        thumbnail_filename:
+          type: string
+        title:
+          type: string
+        browser_url:
+          type: string
+        is_deleted:
+          type: boolean
+        time_type:
+          $ref: '#/components/schemas/TimeType'
+        finished_timestamp:
+          type: string
+          description: 'finished timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        created_date:
+          type: string
+          description: 'created date, Ex: 2018-01-16T09:46:30.265Z'
+        modified_date:
+          type: string
+          description: 'modified date, Ex: 2018-04-05T15:30:09.865Z'
+        original_title:
+          type: string
+        app_height:
+          type: number
+          format: double
+        app_left:
+          type: number
+          format: double
+        app_top:
+          type: number
+          format: double
+        app_width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        left:
+          type: number
+          format: double
+        top:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+        screen_height:
+          type: number
+          format: double
+        screen_width:
+          type: number
+          format: double
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+        image_url:
+          type: string
+        thumbnail:
+          type: string
+        direct_image_url:
+          type: string
+        direct_thumbnail:
+          type: string
+    TimeType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

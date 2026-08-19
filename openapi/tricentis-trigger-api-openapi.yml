@@ -1,0 +1,269 @@
+openapi: 3.2.0
+info:
+  version: 2025.2.0
+  title: qTest Pulse Trigger API
+  description: Trigger API
+servers:
+- url: https://pulse-us-east-1.qtestnet.com/api
+security:
+- qtestToken: []
+  qtestUrl: []
+tags:
+- name: trigger
+  description: Trigger API
+paths:
+  /triggers:
+    get:
+      tags:
+      - trigger
+      summary: Get all triggers of a project
+      description: To get all triggers of a project
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdQuery'
+      - $ref: '#/components/parameters/FirstQuery'
+      - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trigger'
+    post:
+      tags:
+      - trigger
+      summary: Create a trigger
+      description: To create a trigger
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trigger'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TriggerInput'
+        required: true
+  /triggers/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdPath'
+    get:
+      tags:
+      - trigger
+      summary: Get a trigger
+      description: To get a trigger by id
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trigger'
+    put:
+      tags:
+      - trigger
+      summary: Update a trigger
+      description: To update a trigger
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trigger'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TriggerInput'
+        required: true
+    patch:
+      tags:
+      - trigger
+      summary: Update a trigger
+      description: To update a trigger
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trigger'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TriggerInput'
+        required: true
+    delete:
+      tags:
+      - trigger
+      summary: Delete a trigger
+      description: To delete a trigger
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+    Trigger:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/TriggerInput'
+    TriggerInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        properties:
+          name:
+            type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    qtestToken:
+      type: apiKey
+      in: header
+      name: Authorization
+    qtestUrl:
+      type: apiKey
+      in: header
+      name: x-qtest-url
+externalDocs:
+  description: Introduction to qTest Pulse API
+  url: https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm

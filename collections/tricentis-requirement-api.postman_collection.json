@@ -1,0 +1,2064 @@
+{
+  "item": [
+    {
+      "id": "88978fac-ec2b-4462-9028-2a6b54506063",
+      "name": "requirement",
+      "description": {
+        "content": "Requirement API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5d5eb2c9-cc08-41b2-9b57-ed2975750a78",
+          "name": "Gets multiple Requirements",
+          "request": {
+            "name": "Gets multiple Requirements",
+            "description": {
+              "content": "To retrieve all Requirements or Requirements under a specific Module",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "Specify the parent Module's ID to retrieve all of its Requirements which are located directly under the parent Module"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve requirements."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20",
+                  "description": "The result is paginated. By the default, the number of requirements in each page is 20.\n\nYou can specify your custom number in this parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeExternalProperties",
+                  "value": "false",
+                  "description": "By default, Requirement external properties are not included in the response. Specify includeExternalProperties=true to include them."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65bb5bd6-1b8e-4663-a2f8-9a8cb8f8b094",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "includeExternalProperties",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 4171806,\n    \"name\": \"Video sections\",\n    \"order\": 1,\n    \"pid\": \"RQ-5\",\n    \"created_date\": \"1951-01-06T08:34:56.657Z\",\n    \"last_modified_date\": \"2006-04-18T03:41:29.259Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806\",\n    \"parent_id\": 2107628,\n    \"external_properties\": {\n      \"id\": \"string\",\n      \"link\": \"string\",\n      \"unique_id\": \"string\"\n    }\n  },\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 4171806,\n    \"name\": \"Video sections\",\n    \"order\": 1,\n    \"pid\": \"RQ-5\",\n    \"created_date\": \"1976-10-03T10:20:08.199Z\",\n    \"last_modified_date\": \"2011-05-11T20:32:54.187Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806\",\n    \"parent_id\": 2107628,\n    \"external_properties\": {\n      \"id\": \"string\",\n      \"link\": \"string\",\n      \"unique_id\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8f3a8ad-2fe3-4246-8856-9045432cdad4",
+          "name": "Creates a Requirement",
+          "request": {
+            "name": "Creates a Requirement",
+            "description": {
+              "content": "To create a new Requirement\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the parent Module under which the Requirement will be located"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6a45b460-0443-4da4-a87e-58879936da66",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 4171806,\n  \"name\": \"Video sections\",\n  \"order\": 1,\n  \"pid\": \"RQ-5\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 4171806,\n  \"name\": \"Video sections\",\n  \"order\": 1,\n  \"pid\": \"RQ-5\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806\",\n  \"parent_id\": 2107628,\n  \"external_properties\": {\n    \"id\": \"string\",\n    \"link\": \"string\",\n    \"unique_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e3a1465-2d09-470d-891a-1d4ac76b3499",
+          "name": "Gets Requirement Traceability Matrix Report",
+          "request": {
+            "name": "Gets Requirement Traceability Matrix Report",
+            "description": {
+              "content": "To retrieve a report of Requirements with their covering Test Cases",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                "trace-matrix-report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve requirements."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20",
+                  "description": "The result is paginated. By default, the number of requirements in each page is 20.\n\nYou can specify your custom number in this parameter and the maximum number is 999."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldIds",
+                  "value": "<string>",
+                  "description": "ID(s) of requirement fields (system or custom fields) which you would like to retrieve.\n\nThey are separated by commas."
+                },
+                {
+                  "disabled": false,
+                  "key": "lastModifiedFrom",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "lastModifiedTo",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a9ab8d15-af85-4545-ad35-5cae3536dd5f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    "trace-matrix-report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastModifiedFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastModifiedTo",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"root\": false,\n    \"children\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TraceabilityRequirement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TraceabilityRequirement detected>\"\n      }\n    ],\n    \"requirements\": [\n      {\n        \"key_0\": {}\n      },\n      {\n        \"key_0\": {}\n      }\n    ],\n    \"order\": 1\n  },\n  {\n    \"root\": false,\n    \"children\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TraceabilityRequirement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TraceabilityRequirement detected>\"\n      }\n    ],\n    \"requirements\": [\n      {\n        \"key_0\": {}\n      },\n      {\n        \"key_0\": {},\n        \"key_1\": {}\n      }\n    ],\n    \"order\": 1\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c878fa3-c245-4a1a-a35a-d0af81c9b1fb",
+          "name": "Gets all Comments of a Requirement",
+          "request": {
+            "name": "Gets all Comments of a Requirement",
+            "description": {
+              "content": "To retrieve all comments of a Requirement\n\n<strong>qTest Manager version:</strong> 7.6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":idOrKey",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Requirement whose comments you want to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a48b3397-13f7-4f03-90bf-25b37c924769",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":idOrKey",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Requirement whose comments you want to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"page\": 1,\n  \"page_size\": 25,\n  \"total\": 100,\n  \"items\": [\n    {\n      \"created\": \"2009-05-28T04:03:13.196Z\",\n      \"updated\": \"1961-06-01T09:54:23.353Z\",\n      \"userId\": 5202,\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2602608,\n      \"content\": \"The comment's content\"\n    },\n    {\n      \"created\": \"1957-10-09T19:11:38.308Z\",\n      \"updated\": \"1994-01-12T12:24:26.419Z\",\n      \"userId\": 5202,\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 2602608,\n      \"content\": \"The comment's content\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "216d8b56-db7f-4f43-ad37-586d225ec696",
+          "name": "Adds a Comment to a Requirement",
+          "request": {
+            "name": "Adds a Comment to a Requirement",
+            "description": {
+              "content": "To add a comment to a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":idOrKey",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Requirement."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c70de09e-8d53-446b-b0e0-0032a4cb1a00",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":idOrKey",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Requirement."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c028eefc-879b-470d-aeb1-8d25dc3c09ed",
+          "name": "Gets a Comment of a Requirement",
+          "request": {
+            "name": "Gets a Comment of a Requirement",
+            "description": {
+              "content": "To retrieve a comment of a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":idOrKey",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Requirement whose comment you want to delete"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "commentId",
+                  "description": "(Required) The comment's ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ada7ec38-a75d-4c44-8ddc-ded5011edb5e",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":idOrKey",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Requirement whose comment you want to delete"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "commentId",
+                      "description": "(Required) The comment's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10e134c1-361b-4097-931b-cd3061fb5c1d",
+          "name": "Updates a Comment of a Requirement",
+          "request": {
+            "name": "Updates a Comment of a Requirement",
+            "description": {
+              "content": "To modify a comment of a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":idOrKey",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Requirement whose comment you want to update"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "commentId",
+                  "description": "(Required) The comment's ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5902a15-b526-495a-84f7-4a1dc8368c48",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":idOrKey",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Requirement whose comment you want to update"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "commentId",
+                      "description": "(Required) The comment's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"<dateTime>\",\n  \"updated\": \"<dateTime>\",\n  \"userId\": 5202,\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2602608,\n  \"content\": \"The comment's content\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0149291-520f-4d78-aaed-18737db2ddfa",
+          "name": "Deletes a Comment of a Requirement",
+          "request": {
+            "name": "Deletes a Comment of a Requirement",
+            "description": {
+              "content": "To delete a comment of a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":idOrKey",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "idOrKey",
+                  "description": "(Required) PID or ID of the Requirement whose comment you want to delete"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "commentId",
+                  "description": "(Required) The comment's ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3d0e1902-37f5-4a18-84ee-5d1d774874b8",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":idOrKey",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "idOrKey",
+                      "description": "(Required) PID or ID of the Requirement whose comment you want to delete"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "commentId",
+                      "description": "(Required) The comment's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f21aaa0b-d6e9-48ad-9f0e-b4ba224020b6",
+          "name": "Gets a Requirement",
+          "request": {
+            "name": "Gets a Requirement",
+            "description": {
+              "content": "To retrieve a Requirement\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":requirementId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeExternalProperties",
+                  "value": "false",
+                  "description": "By default, Requirement external properties are not included in the response. Specify includeExternalProperties=true to include them."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "requirementId",
+                  "description": "(Required) ID of the Requirement which you want to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "25af626e-d61f-4bfe-a2ce-8fd1a3940091",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":requirementId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeExternalProperties",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "requirementId",
+                      "description": "(Required) ID of the Requirement which you want to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 4171806,\n  \"name\": \"Video sections\",\n  \"order\": 1,\n  \"pid\": \"RQ-5\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806\",\n  \"parent_id\": 2107628,\n  \"external_properties\": {\n    \"id\": \"string\",\n    \"link\": \"string\",\n    \"unique_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2eb297ee-6999-423c-aa21-895a623dc163",
+          "name": "Updates a Requirement",
+          "request": {
+            "name": "Updates a Requirement",
+            "description": {
+              "content": "To update properties of an Requirement or to move it to other parent Module",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":requirementId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the parent Module to which the Requirement will be moved to"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "requirementId",
+                  "description": "(Required) ID of the Requirement which needs to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd4a73b3-0ddb-476f-9dc7-3192ea1e9811",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":requirementId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "requirementId",
+                      "description": "(Required) ID of the Requirement which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 4171806,\n  \"name\": \"Video sections\",\n  \"order\": 1,\n  \"pid\": \"RQ-5\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"parent_id\": 2107628\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 4171806,\n  \"name\": \"Video sections\",\n  \"order\": 1,\n  \"pid\": \"RQ-5\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806\",\n  \"parent_id\": 2107628,\n  \"external_properties\": {\n    \"id\": \"string\",\n    \"link\": \"string\",\n    \"unique_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90d3b3cb-cc2e-45f3-9a3a-620d9930326b",
+          "name": "Deletes a Requirement",
+          "request": {
+            "name": "Deletes a Requirement",
+            "description": {
+              "content": "To delete a Requirement\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":requirementId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "requirementId",
+                  "description": "(Required) ID of the Requirement which needs to be deleted."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4006a9ba-8748-4fbc-9f47-796b6c845a2c",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":requirementId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "requirementId",
+                      "description": "(Required) ID of the Requirement which needs to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f43ef5a4-3ddf-4362-81d7-86ad75033426",
+          "name": "To get defects by requirementId",
+          "request": {
+            "name": "To get defects by requirementId",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":requirementId",
+                "defects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "requirementId",
+                  "description": "(Required) requirementId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7f44096-e004-461a-89ae-a25da69131f3",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":requirementId",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "requirementId",
+                      "description": "(Required) requirementId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2187,\n  \"pid\": \"string\",\n  \"submittedDate\": \"2018-11-27T02:11:56.037Z\",\n  \"lastModifiedDate\": \"1973-12-29T18:02:47.258Z\",\n  \"lastModifiedUserId\": 2511,\n  \"testCaseId\": 8086,\n  \"testCaseVersionId\": 8587,\n  \"title\": \"string\",\n  \"priority\": \"string\",\n  \"status\": \"string\",\n  \"submitterUserId\": 6059,\n  \"externalDefect\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7a73841-8053-4841-a621-2c3546cd0c8f",
+          "name": "To get all test runs associated to requirement",
+          "request": {
+            "name": "To get all test runs associated to requirement",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "requirements",
+                ":requirementId",
+                "test-runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeLatestLog",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "requirementId",
+                  "description": "(Required) requirementId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "51982630-8ac6-4dc0-b9f7-b6a53bc605e4",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "requirements",
+                    ":requirementId",
+                    "test-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeLatestLog",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "requirementId",
+                      "description": "(Required) requirementId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_case\": {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 6294,\n    \"name\": \"string\",\n    \"order\": 9633,\n    \"pid\": \"string\",\n    \"created_date\": \"2017-12-13T11:08:32.902Z\",\n    \"last_modified_date\": \"1984-05-12T09:21:22.026Z\",\n    \"web_url\": \"string\",\n    \"attachments\": [\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1956-01-22T16:58:36.189Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1980-05-29T00:51:36.916Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1982-08-18T13:23:12.353Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1970-12-22T18:06:54.478Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1966-08-03T07:15:23.151Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1996-01-09T20:09:51.616Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"2001-12-21T10:49:54.175Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1950-09-18T08:38:25.725Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1993-11-15T17:18:53.053Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1980-08-08T15:17:41.942Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"2018-08-25T11:04:43.888Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1991-12-27T21:28:06.315Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1980-06-16T04:01:28.367Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1993-10-21T12:09:01.670Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"2004-08-14T12:44:36.596Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"2015-12-02T19:42:40.436Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1968-04-25T08:46:34.004Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"2013-02-12T13:22:20.736Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1950-09-09T20:26:44.011Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      },\n      {\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"name\": \"Sample.docx\",\n        \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n        \"data\": \"string\",\n        \"id\": 1,\n        \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n        \"created_date\": \"1989-05-16T02:34:24.561Z\",\n        \"author\": {\n          \"id\": 1,\n          \"email\": \"example.user@qtest.com\",\n          \"first_name\": \"First name of the User\",\n          \"last_name\": \"Last name of the User\"\n        },\n        \"artifact_id\": 1\n      }\n    ],\n    \"parent_id\": 9252,\n    \"test_case_version_id\": 6751,\n    \"version\": \"string\",\n    \"description\": \"string\",\n    \"precondition\": \"string\",\n    \"approved\": true,\n    \"creator_id\": 6086,\n    \"agent_ids\": [\n      4085,\n      1141\n    ],\n    \"test_steps\": [\n      {\n        \"description\": \"string\",\n        \"expected\": \"string\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"id\": 1144,\n        \"order\": 7321,\n        \"attachments\": [\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1962-05-15T02:20:07.030Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1975-09-12T01:01:28.202Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2018-10-09T15:40:05.438Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2002-02-13T18:18:06.630Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1997-08-18T08:47:12.349Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2017-04-27T22:28:20.800Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1998-10-07T14:07:37.776Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1973-06-18T11:48:07.305Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1968-11-01T05:52:16.387Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1949-01-26T17:27:07.334Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2026-02-04T08:44:47.732Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1964-09-25T10:07:34.319Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2009-09-28T17:24:58.814Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2011-08-25T09:40:44.059Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1955-04-24T01:28:45.168Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1962-10-15T08:15:20.225Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2022-09-15T16:04:25.901Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1986-02-27T21:20:08.045Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2006-03-20T01:32:21.540Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1975-07-01T03:58:10.919Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          }\n        ],\n        \"group\": 1260,\n        \"called_test_case_name\": \"string\",\n        \"root_called_test_case_id\": 778,\n        \"called_test_case\": {\n          \"value\": \"<Circular reference to #/components/schemas/TestCaseNoCustomFieldResource detected>\"\n        },\n        \"parent_test_step_id\": 3109,\n        \"information\": {\n          \"description\": \"string\",\n          \"descriptionInfo\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rawText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"htmlText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"editedParameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainValueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"expectedResult\": \"string\",\n          \"actualResult\": \"string\",\n          \"expectedResultInfo\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rawText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"htmlText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"editedParameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainValueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"customFieldInfo\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"plain_value_text\": \"string\",\n        \"parameter_values\": [\n          \"string\",\n          \"string\"\n        ],\n        \"called_test_case_id\": 163\n      },\n      {\n        \"description\": \"string\",\n        \"expected\": \"string\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"id\": 5718,\n        \"order\": 544,\n        \"attachments\": [\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2018-08-09T11:29:43.448Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1973-02-03T07:02:41.548Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1958-03-25T02:43:47.226Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1999-07-01T07:53:11.843Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1978-08-30T11:07:19.613Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2026-06-18T03:38:53.651Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1977-01-29T18:06:29.002Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1986-05-09T09:07:53.815Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1995-03-19T16:38:22.285Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2003-01-25T01:18:40.984Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2008-01-08T05:32:53.781Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1982-02-02T13:59:31.056Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1968-07-05T22:40:38.225Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1985-02-09T13:25:54.406Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1982-04-26T00:47:40.339Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"2007-06-19T07:13:15.465Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1973-11-04T01:41:33.194Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1980-03-24T14:26:30.900Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1995-01-09T17:56:28.804Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          },\n          {\n            \"links\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"name\": \"Sample.docx\",\n            \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n            \"data\": \"string\",\n            \"id\": 1,\n            \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n            \"created_date\": \"1990-10-30T22:40:33.464Z\",\n            \"author\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifact_id\": 1\n          }\n        ],\n        \"group\": 4362,\n        \"called_test_case_name\": \"string\",\n        \"root_called_test_case_id\": 4043,\n        \"called_test_case\": {\n          \"value\": \"<Circular reference to #/components/schemas/TestCaseNoCustomFieldResource detected>\"\n        },\n        \"parent_test_step_id\": 8604,\n        \"information\": {\n          \"description\": \"string\",\n          \"descriptionInfo\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rawText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"htmlText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"editedParameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainValueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"expectedResult\": \"string\",\n          \"actualResult\": \"string\",\n          \"expectedResultInfo\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rawText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"htmlText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"editedParameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"plainValueText\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"customFieldInfo\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"plain_value_text\": \"string\",\n        \"parameter_values\": [\n          \"string\",\n          \"string\"\n        ],\n        \"called_test_case_id\": 1680\n      }\n    ]\n  },\n  \"parentId\": 5793,\n  \"parentType\": \"test-suite\",\n  \"automation\": \"string\",\n  \"created\": \"2014-07-02T00:40:15.383Z\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 2412,\n  \"name\": \"string\",\n  \"order\": 3148,\n  \"pid\": \"string\",\n  \"created_date\": \"2016-10-26T19:09:21.621Z\",\n  \"last_modified_date\": \"2000-02-11T03:29:19.523Z\",\n  \"executionType\": \"string\",\n  \"env\": \"string\",\n  \"status\": \"string\",\n  \"latest_test_log\": {\n    \"status\": \"string\",\n    \"id\": 6609,\n    \"tester\": \"string\",\n    \"exe_start_date\": \"1966-02-06T23:21:11.139Z\",\n    \"exe_end_date\": \"2023-10-10T13:40:03.467Z\"\n  },\n  \"test_case_version_id\": 4881,\n  \"test_case_version\": \"string\",\n  \"creator_id\": 6670\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d2d9b77d-93a7-460d-8e34-75e3bc9c5dba",
+    "name": "qTest Manager API Version 3.0 Requirement API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

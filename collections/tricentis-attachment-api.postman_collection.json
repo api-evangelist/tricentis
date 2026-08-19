@@ -1,0 +1,1386 @@
+{
+  "item": [
+    {
+      "id": "d88e7620-e656-40d4-9cf6-b6bba36a7386",
+      "name": "attachment",
+      "description": {
+        "content": "Attachment API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b74ab83e-f999-4eff-8834-66e2f0211db0",
+          "name": "Searches for Attachments",
+          "request": {
+            "name": "Searches for Attachments",
+            "description": {
+              "content": "To query for attachments of <em>Releases</em>, <em>Builds</em>, <em>Requirements</em>, <em>Test Cases</em>, <em>Test Logs</em>, <em>Test Steps</em> or <em>Defects</em>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Its valid values include <em>releases</em>, <em>builds</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-steps</em>, <em>test-logs</em> or <em>defects</em>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<long>",
+                  "description": "List of object IDs (of the same type as specified in the parameter above), separated by commas"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<long>",
+                  "description": "List of object IDs (of the same type as specified in the parameter above), separated by commas"
+                },
+                {
+                  "disabled": false,
+                  "key": "author",
+                  "value": "<long>",
+                  "description": "ID of the user who created the attachment"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdDate",
+                  "value": "<string>",
+                  "description": "Its format is: <strong>{operator} {createdDate in timestamp or UTC}</strong>\n\nThe <em>operator</em> can be one of the following values:\n\n<b>lt</b>: less than the given date\n\n<b>gt</b>: greater than given date\n\n<b>eq</b>: equal to the given date\n\n<b>le</b>: less than or equal to the given date\n\n<b>ge</b>: greater then or equal to the given date"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "By default, the first page is returned but you can specify any page number to retrieve attachments"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1c81238e-cb76-442b-b6fb-d6601a7d4148",
+              "name": "Return attachment list of Release, Build, Requirement, Test Case, Test Log, Test Step and Defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "author",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "createdDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"page\": 489,\n  \"page_size\": 9918,\n  \"total\": 8352,\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"string\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"2009-07-24T03:06:06.562Z\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"name\": \"Sample.docx\",\n      \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n      \"data\": \"string\",\n      \"id\": 1,\n      \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n      \"created_date\": \"1961-10-29T21:02:48.271Z\",\n      \"author\": {\n        \"id\": 1,\n        \"email\": \"example.user@qtest.com\",\n        \"first_name\": \"First name of the User\",\n        \"last_name\": \"Last name of the User\"\n      },\n      \"artifact_id\": 1\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "808ebda2-1d89-4f39-b4c8-a3740ab0a6fa",
+          "name": "Gets all Attachments of an Object",
+          "request": {
+            "name": "Gets all Attachments of an Object",
+            "description": {
+              "content": "To retrieve all Attachments of a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                ":objectType",
+                ":objectId",
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectType",
+                  "description": "(Required) Valid values include <em>release</em>, <em>build</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-logs</em>, <em>test-steps</em>, <em>test-step-logs</em> or <em>defects</em>"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "objectId",
+                  "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "366f81fd-8235-4b51-a745-f140ce590df4",
+              "name": "Return list of attachments from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include <em>release</em>, <em>build</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-logs</em>, <em>test-steps</em>, <em>test-step-logs</em> or <em>defects</em>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"name\": \"Sample.docx\",\n    \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n    \"data\": \"string\",\n    \"id\": 1,\n    \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n    \"created_date\": \"1966-12-02T16:37:34.192Z\",\n    \"author\": {\n      \"id\": 1,\n      \"email\": \"example.user@qtest.com\",\n      \"first_name\": \"First name of the User\",\n      \"last_name\": \"Last name of the User\"\n    },\n    \"artifact_id\": 1\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"name\": \"Sample.docx\",\n    \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n    \"data\": \"string\",\n    \"id\": 1,\n    \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n    \"created_date\": \"2021-03-13T18:58:37.843Z\",\n    \"author\": {\n      \"id\": 1,\n      \"email\": \"example.user@qtest.com\",\n      \"first_name\": \"First name of the User\",\n      \"last_name\": \"Last name of the User\"\n    },\n    \"artifact_id\": 1\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1e1c2dd-4c62-4ae9-982d-9ea41086395f",
+          "name": "Gets an Attachment of an Object",
+          "request": {
+            "name": "Gets an Attachment of an Object",
+            "description": {
+              "content": "To retrieve an Attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                ":objectType",
+                ":objectId",
+                "attachments",
+                ":attachmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "forceDownload",
+                  "value": "false",
+                  "description": "Input true to download attachments which have not been scanned for malware/virus successfully. By default, its value is false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "attachmentId",
+                  "description": "(Required) ID of attachment"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectType",
+                  "description": "(Required) Valid values include <em>release</em>, <em>build</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-logs</em>, <em>test-steps</em>, <em>test-step-logs</em> or <em>defects</em>"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "objectId",
+                  "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step Test Step Log or Defect)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "979e464f-35be-4d2d-85dc-4642adadf84d",
+              "name": "Return specific attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "attachments",
+                    ":attachmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "forceDownload",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "attachmentId",
+                      "description": "(Required) ID of attachment"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include <em>release</em>, <em>build</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-logs</em>, <em>test-steps</em>, <em>test-step-logs</em> or <em>defects</em>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aac9be94-d965-4aed-9f29-57a7a0e4cbe1",
+          "name": "Uploads an Attachment to an Object",
+          "request": {
+            "name": "Uploads an Attachment to an Object",
+            "description": {
+              "content": "To upload an Attachment to a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                ":objectType",
+                ":objectId",
+                "blob-handles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectType",
+                  "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "objectId",
+                  "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "File-Name",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "file",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f7168f4-c272-4e6c-974c-2345ad7d69ec",
+              "name": "Uploaded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "File-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "file",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"name\": \"Sample.docx\",\n  \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\",\n  \"data\": \"string\",\n  \"id\": 1,\n  \"web_url\": \"https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1\",\n  \"created_date\": \"2018-05-14T15:09:54.578Z\",\n  \"author\": {\n    \"id\": 1,\n    \"email\": \"example.user@qtest.com\",\n    \"first_name\": \"First name of the User\",\n    \"last_name\": \"Last name of the User\"\n  },\n  \"artifact_id\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dccf4c2-8f9b-4377-a0f1-c036ce398e6d",
+              "name": "Bad Request - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "File-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "file",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "546b4d49-b3a8-4bea-b3f9-b80a1a3f3a6e",
+              "name": "Request Entity Too Large - The attachment is too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "File-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "file",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b45bfcc4-5893-4b36-ab35-dd914ac63cc7",
+              "name": "Internal Server Error - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "File-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "file",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "538d3ac3-b3e3-4d5c-a0fd-a79533a0ddef",
+          "name": "Deletes an Attachment from an Object",
+          "request": {
+            "name": "Deletes an Attachment from an Object",
+            "description": {
+              "content": "To delete an Attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect\n\n<strong>qTest Manager version:</strong> 7.5+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                ":objectType",
+                ":objectId",
+                "blob-handles",
+                ":blobHandleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "blobHandleId",
+                  "description": "(Required) ID of the Attachment"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectType",
+                  "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "objectId",
+                  "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e391bfb-ac04-4f62-ac8a-eadda127dd10",
+              "name": "Deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles",
+                    ":blobHandleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "blobHandleId",
+                      "description": "(Required) ID of the Attachment"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"noLogging\": false,\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e24e638-972a-4ac8-b9ad-8f13258468fb",
+              "name": "Bad Request - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles",
+                    ":blobHandleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "blobHandleId",
+                      "description": "(Required) ID of the Attachment"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9702bf8-9fc5-4c0b-856d-9faa3436f367",
+              "name": "Access Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles",
+                    ":blobHandleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "blobHandleId",
+                      "description": "(Required) ID of the Attachment"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "334085b4-1f53-4615-880d-a531064c60d1",
+              "name": "Blob Handle not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    ":objectType",
+                    ":objectId",
+                    "blob-handles",
+                    ":blobHandleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "blobHandleId",
+                      "description": "(Required) ID of the Attachment"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectType",
+                      "description": "(Required) Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "objectId",
+                      "description": "(Required) ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "858399af-1795-4274-bfbd-50604e45d26c",
+    "name": "qTest Manager API Version 3.0 Attachment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

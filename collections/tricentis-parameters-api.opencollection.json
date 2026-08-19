@@ -1,0 +1,341 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Parameters API",
+    "version": "2025.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-access-token",
+      "value": "{{x-access-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Parameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new parameter"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query parameters"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/bulk-query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/bulk-query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query parameters by identifiers"
+        },
+        {
+          "info": {
+            "name": "GET /api/v1/parameters/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of parameter"
+              }
+            ]
+          },
+          "docs": "Get a parameter by id"
+        },
+        {
+          "info": {
+            "name": "PUT /api/v1/parameters/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "parameter id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a parameter by id"
+        },
+        {
+          "info": {
+            "name": "DELETE /api/v1/parameters/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "parameter id"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "set to true to force delete, set to false or undefined to archive"
+              }
+            ]
+          },
+          "docs": "Delete/Archive a parameter by id"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/bulk-delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/bulk-delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete multiple parameters"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/bulk-archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/bulk-archive",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Archive multiple parameters"
+        },
+        {
+          "info": {
+            "name": "PUT /api/v1/parameters/status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update status of one or multiple parameters"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/import",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "config",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Import parameters from excel file. The result is an import task id that the caller can poll to check for the importing progress/result"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export parameters to Excel file. The result is an export task id that the caller can poll to check for the exporting progress"
+        },
+        {
+          "info": {
+            "name": "GET /api/v1/download/parameters/export/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://parameter-1.qtestnet.com/api/v1/download/parameters/export/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "export task id"
+              }
+            ]
+          },
+          "docs": "Download exported Parameters in Excel file."
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/{pid}/values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:pid/values",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "parameter id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add new value to a parameter"
+        },
+        {
+          "info": {
+            "name": "PUT /api/v1/parameters/{pid}/values/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:pid/values/:id",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "parameter id"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "parameter value id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a parameter value"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/{pid}/values/delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:pid/values/delete",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "parameter id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete multiple parameter values"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/parameters/{pid}/values/query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/parameters/:pid/values/query",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "parameter id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query parameter value"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

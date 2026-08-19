@@ -1,0 +1,320 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Analytics (Tech Review) Requirementreleases API
+  description: Tricentis Analytics OData APIs
+  version: ''
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+tags:
+- name: requirementreleases
+paths:
+  /requirementreleases:
+    get:
+      summary: Get entities from requirementreleases
+      tags:
+      - requirementreleases
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - requirementid
+            - requirementid desc
+            - releaseid
+            - releaseid desc
+            - buildid
+            - buildid desc
+            - automatedtestcases
+            - automatedtestcases desc
+            - manualtestcases
+            - manualtestcases desc
+            - bothtestcases
+            - bothtestcases desc
+            - passedtestcases
+            - passedtestcases desc
+            - failedtestcases
+            - failedtestcases desc
+            - blockedtestcases
+            - blockedtestcases desc
+            - incompletetestcases
+            - incompletetestcases desc
+            - unexecutedtestcases
+            - unexecutedtestcases desc
+            - ssor
+            - ssor desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - clientid
+            - projectid
+            - requirementid
+            - releaseid
+            - buildid
+            - automatedtestcases
+            - manualtestcases
+            - bothtestcases
+            - passedtestcases
+            - failedtestcases
+            - blockedtestcases
+            - incompletetestcases
+            - unexecutedtestcases
+            - ssor
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of requirementrelease
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirementrelease'
+        4XX:
+          $ref: '#/components/responses/error'
+  /requirementreleases({projectid}):
+    parameters:
+    - description: 'key: projectid'
+      in: path
+      name: projectid
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    get:
+      summary: Get entity from requirementreleases by key
+      tags:
+      - requirementreleases
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - clientid
+            - projectid
+            - requirementid
+            - releaseid
+            - buildid
+            - automatedtestcases
+            - manualtestcases
+            - bothtestcases
+            - passedtestcases
+            - failedtestcases
+            - blockedtestcases
+            - incompletetestcases
+            - unexecutedtestcases
+            - ssor
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirementrelease'
+        4XX:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirementrelease:
+      title: requirementrelease
+      type: object
+      properties:
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        requirementid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        releaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        buildid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        automatedtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        manualtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        bothtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        passedtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        failedtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        blockedtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        incompletetestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        unexecutedtestcases:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 5
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey

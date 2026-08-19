@@ -1,0 +1,36 @@
+openapi: 3.2.0
+info:
+  title: TTM for Jira Status API
+  description: Tricentis Test Management for Jira
+  version: 1.0.0
+  termsOfService: https://www.tricentis.com/legal-information/general-terms-of-use/
+servers:
+- url: https://api.ttm4j.tricentis.com
+security:
+- api_key: []
+tags:
+- name: Status
+paths:
+  /v1/api-key/is-alive:
+    head:
+      tags:
+      - Status
+      summary: Validate if api key is still valid.
+      description: '## Validate if api key is still valid.'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: '`Unauthorized`.'
+      security:
+      - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

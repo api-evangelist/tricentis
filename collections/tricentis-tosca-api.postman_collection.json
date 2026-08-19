@@ -1,0 +1,297 @@
+{
+  "item": [
+    {
+      "id": "dc056da9-7d7b-4c56-9117-bc3316ec88ed",
+      "name": "tosca",
+      "description": {
+        "content": "Tosca Integration API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2eafe4e-21df-430a-8b5b-1fb9c36b4250",
+          "name": "Import Tosca TestEvent objects",
+          "request": {
+            "name": "Import Tosca TestEvent objects",
+            "description": {
+              "content": "To export TestEvent objects from Tosca to qTest",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "tosca",
+                "import",
+                "test-event"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"toscaNodePath\": \"<string>\",\n    \"toscaUniqueId\": \"<string>\",\n    \"description\": \"<string>\",\n    \"toscaObjectType\": \"<string>\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"<string>\",\n        \"toscaNodePath\": \"<string>\",\n        \"toscaUniqueId\": \"<string>\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"<string>\",\n          \"toscaUniqueId\": \"<string>\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"toscaNodePath\": \"<string>\",\n        \"toscaUniqueId\": \"<string>\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"<string>\",\n          \"toscaUniqueId\": \"<string>\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"toscaNodePath\": \"<string>\",\n    \"toscaUniqueId\": \"<string>\",\n    \"description\": \"<string>\",\n    \"toscaObjectType\": \"<string>\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"<string>\",\n        \"toscaNodePath\": \"<string>\",\n        \"toscaUniqueId\": \"<string>\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"<string>\",\n          \"toscaUniqueId\": \"<string>\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"toscaNodePath\": \"<string>\",\n        \"toscaUniqueId\": \"<string>\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"<string>\",\n          \"toscaUniqueId\": \"<string>\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0eb155b4-34d2-408f-87c9-5a51a28c7bdb",
+              "name": "TestEvent objects are imported successfully to qTest Manager\n\n<em>id:</em> ID of the submission job. You will need this Id to check the job status using <strong>GET /api/v3/projects/queue-processing/{jobId}</strong>\n\n<em>state:</em> Status of the job. Its value includes IN_WAITING, IN_PROCESSING, FAILED, PENDING, and SUCCESS",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "tosca",
+                    "import",
+                    "test-event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Execution List\",\n    \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List\",\n    \"toscaUniqueId\": \"b0fd1f95-b925-43d3-9c47-d66ab584f9fc\",\n    \"description\": \"Sample Execution List\",\n    \"toscaObjectType\": \"ExecutionList\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"ToscaTestCycleResource\",\n      \"ToscaTestCycleResource\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"Execution List\",\n    \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List\",\n    \"toscaUniqueId\": \"b0fd1f95-b925-43d3-9c47-d66ab584f9fc\",\n    \"description\": \"Sample Execution List\",\n    \"toscaObjectType\": \"ExecutionList\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"ToscaTestCycleResource\",\n      \"ToscaTestCycleResource\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"state\": \"IN_PROCESSING\",\n  \"contentType\": \"application/json\",\n  \"content\": \"string\",\n  \"type\": \"AUTOMATION_TEST_LOG\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf6c0e09-5d1f-4ced-9eaf-b66360906f20",
+              "name": "Bad Request if invalid input value in body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "tosca",
+                    "import",
+                    "test-event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Execution List\",\n    \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List\",\n    \"toscaUniqueId\": \"b0fd1f95-b925-43d3-9c47-d66ab584f9fc\",\n    \"description\": \"Sample Execution List\",\n    \"toscaObjectType\": \"ExecutionList\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"ToscaTestCycleResource\",\n      \"ToscaTestCycleResource\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"Execution List\",\n    \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List\",\n    \"toscaUniqueId\": \"b0fd1f95-b925-43d3-9c47-d66ab584f9fc\",\n    \"description\": \"Sample Execution List\",\n    \"toscaObjectType\": \"ExecutionList\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"ToscaTestCycleResource\",\n      \"ToscaTestCycleResource\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ffa9d3dc-ce59-464f-a059-f9c8f11c4069",
+              "name": "Access Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "tosca",
+                    "import",
+                    "test-event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Execution List\",\n    \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List\",\n    \"toscaUniqueId\": \"b0fd1f95-b925-43d3-9c47-d66ab584f9fc\",\n    \"description\": \"Sample Execution List\",\n    \"toscaObjectType\": \"ExecutionList\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"ToscaTestCycleResource\",\n      \"ToscaTestCycleResource\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"Execution List\",\n    \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List\",\n    \"toscaUniqueId\": \"b0fd1f95-b925-43d3-9c47-d66ab584f9fc\",\n    \"description\": \"Sample Execution List\",\n    \"toscaObjectType\": \"ExecutionList\",\n    \"toscaUrl\": \"<string>\",\n    \"parentId\": \"<long>\",\n    \"parentType\": \"<string>\",\n    \"testCycles\": [\n      \"ToscaTestCycleResource\",\n      \"ToscaTestCycleResource\"\n    ],\n    \"testRuns\": [\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      },\n      {\n        \"name\": \"Execution Entry\",\n        \"toscaNodePath\": \"/Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry\",\n        \"toscaUniqueId\": \"cd0de9f4-acef-47a4-b91d-99791c4d8e1c\",\n        \"toscaUrl\": \"<string>\",\n        \"parentId\": \"<long>\",\n        \"parentType\": \"<string>\",\n        \"associatedToscaTestCase\": {\n          \"toscaNodePath\": \"/TestCases/Execution Entry\",\n          \"toscaUniqueId\": \"a606c5a8-d648-4b09-bc28-929d58773631\",\n          \"toscaUrl\": \"<string>\",\n          \"parentId\": \"<long>\",\n          \"parentType\": \"<string>\"\n        },\n        \"associatedToscaTestCaseId\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f20ebcba-ebde-4d55-91ea-b2742897c85c",
+    "name": "qTest Manager API Version 3.0 Tosca API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

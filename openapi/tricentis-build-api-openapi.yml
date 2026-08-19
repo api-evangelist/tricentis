@@ -1,0 +1,335 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Build API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: build
+  description: Build API
+paths:
+  /api/v3/projects/{projectId}/builds:
+    get:
+      tags:
+      - build
+      summary: Gets multiple Builds
+      description: 'To retrieve all Builds under a Release
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getBuilds
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: releaseId
+        in: query
+        description: ID of the parent Release
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Returns a list of builds
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - build
+      summary: Creates a Build
+      description: 'To create a Build under a parent Release
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: create
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Build created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildResource'
+        400:
+          description: Bad Request - Unexpected error occurred
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildResource'
+        description: '<em>name (required):</em> Build name
+
+
+          <em>release (required):</em> The parent Release under which the Build will be located
+
+
+          <em>properties:</em> An array of field-value pairs'
+        required: true
+  /api/v3/projects/{projectId}/builds/{buildId}:
+    get:
+      tags:
+      - build
+      summary: Gets a Build
+      description: To retrieve a Build<strong>qTest Manager version:</strong> 6+
+      operationId: get
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: buildId
+        in: path
+        description: ID of the Build
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Returns a build with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - build
+      summary: Updates a Build
+      description: 'To update a Build
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: update
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: buildId
+        in: path
+        description: ID of the Build
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Build updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildResource'
+        description: The Build's updated properties
+        required: true
+    delete:
+      tags:
+      - build
+      summary: Deletes a Build
+      description: 'To delete a Build
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: delete
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: buildId
+        in: path
+        description: ID of the Build to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Build deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Build
+        name:
+          type: string
+          example: Build 1
+          description: Name of the Build
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Order in left tree of the Build
+        pid:
+          type: string
+          example: BL-1
+          description: PID of the Build
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          description: Arrays property of the Build
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        release:
+          $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    ReleaseWithCustomFieldResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 149652
+        name:
+          type: string
+          example: Release 2
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 2
+        pid:
+          type: string
+          example: RL-2
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652
+          readOnly: true
+        description:
+          type: string
+          example: This is the second release
+        note:
+          type: string
+          example: Note of the Release
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

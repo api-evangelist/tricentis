@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: qTest Parameters Authentication API
+  version: '2025.2'
+  description: qTest Parameters API documentation
+servers:
+- url: https://parameter-1.qtestnet.com/
+security:
+- token: []
+tags:
+- name: Authentication
+  description: Authentication public APIs
+paths:
+  /oauth/v1/login:
+    post:
+      description: Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request.
+      tags:
+      - Authentication
+      responses:
+        200:
+          description: Successfully logged in to qTest Manager
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    description: The access token that will be used in subsequence API calls
+                    type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: qTest Manager URL and user credentials.
+              required:
+              - qtest_url
+              - username
+              - password
+              properties:
+                qtest_url:
+                  type: string
+                  description: qTest Manager URL
+                  example: https://apitryout.qtestnet.com
+                username:
+                  type: string
+                  description: Username to authenticate with qTest Manager
+                  example: api-test@qasymphony.com
+                password:
+                  type: string
+                  description: Password to authenticate with qTest Manager
+                  example: admin123
+        description: qTest Manager URL and user credentials used to login to qTest Parameters
+        required: true
+  /oauth/v1/token-login:
+    post:
+      description: Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request.
+      tags:
+      - Authentication
+      responses:
+        200:
+          description: Successfully logged in to qTest Manager
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    description: The access token that will be used in subsequence API calls
+                    type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: qTest Manager URL and qTest Manager API token.
+              required:
+              - qtest_url
+              - qtest_token
+              properties:
+                qtest_url:
+                  type: string
+                  description: qTest Manager URL
+                  example: https://apitryout.qtestnet.com
+                qtest_token:
+                  type: string
+                  description: API token to authenticate with qTest Manager
+                  example: YXBpdHJ5b3V0fGFwaS10ZXN0QHFhc3ltcGhvbnkuY29tOjE1NTQ3OTYxMjE4NDk6MDIwNTkwZTIzNDA3MmQ4NjVkMjhhODAxNTM3ZDUzZWM
+        description: qTest Manager URL and qTest Manager API token used to login to qTest Parameters
+        required: true
+  /oauth/v1/logout:
+    get:
+      description: Logout of qTest
+      tags:
+      - Authentication
+      responses:
+        200:
+          description: Successfully logged out
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    token:
+      name: x-access-token
+      type: apiKey
+      in: header

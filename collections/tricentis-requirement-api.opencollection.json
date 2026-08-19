@@ -1,0 +1,541 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Requirement API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "requirement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "Specify the parent Module's ID to retrieve all of its Requirements which are located directly under the parent Module"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve requirements."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of requirements in each page is 20.\n\nYou can specify your custom number in this parameter."
+              },
+              {
+                "name": "includeExternalProperties",
+                "value": "",
+                "type": "query",
+                "description": "By default, Requirement external properties are not included in the response. Specify includeExternalProperties=true to include them."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Requirements or Requirements under a specific Module"
+        },
+        {
+          "info": {
+            "name": "Creates a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the parent Module under which the Requirement will be located"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a new Requirement\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets Requirement Traceability Matrix Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/trace-matrix-report",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve requirements."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By default, the number of requirements in each page is 20.\n\nYou can specify your custom number in this parameter and the maximum number is 999."
+              },
+              {
+                "name": "fieldIds",
+                "value": "",
+                "type": "query",
+                "description": "ID(s) of requirement fields (system or custom fields) which you would like to retrieve.\n\nThey are separated by commas."
+              },
+              {
+                "name": "lastModifiedFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lastModifiedTo",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a report of Requirements with their covering Test Cases"
+        },
+        {
+          "info": {
+            "name": "Gets all Comments of a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:idOrKey/comments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Requirement whose comments you want to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all comments of a Requirement\n\n<strong>qTest Manager version:</strong> 7.6+"
+        },
+        {
+          "info": {
+            "name": "Adds a Comment to a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:idOrKey/comments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Requirement."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To add a comment to a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Gets a Comment of a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Requirement whose comment you want to delete"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The comment's ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a comment of a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Updates a Comment of a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Requirement whose comment you want to update"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The comment's ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To modify a comment of a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Deletes a Comment of a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:idOrKey/comments/:commentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "idOrKey",
+                "value": "",
+                "type": "path",
+                "description": "PID or ID of the Requirement whose comment you want to delete"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "The comment's ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a comment of a Requirement\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Gets a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:requirementId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "requirementId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Requirement which you want to retrieve."
+              },
+              {
+                "name": "includeExternalProperties",
+                "value": "",
+                "type": "query",
+                "description": "By default, Requirement external properties are not included in the response. Specify includeExternalProperties=true to include them."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Requirement\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Updates a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:requirementId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "requirementId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Requirement which needs to be updated."
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the parent Module to which the Requirement will be moved to"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update properties of an Requirement or to move it to other parent Module"
+        },
+        {
+          "info": {
+            "name": "Deletes a Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:requirementId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "requirementId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Requirement which needs to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Requirement\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "To get defects by requirementId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:requirementId/defects",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "requirementId",
+                "value": "",
+                "type": "path",
+                "description": "requirementId"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To get defects by requirementId"
+        },
+        {
+          "info": {
+            "name": "To get all test runs associated to requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/requirements/:requirementId/test-runs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "requirementId",
+                "value": "",
+                "type": "path",
+                "description": "requirementId"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeLatestLog",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To get all test runs associated to requirement"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

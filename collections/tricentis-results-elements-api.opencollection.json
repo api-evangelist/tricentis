@@ -1,0 +1,286 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Results|Elements API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results|Elements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test Result elements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Category of the elements to return."
+              }
+            ]
+          },
+          "docs": "Provides the tests elements of a Test Result. The elements type must be provided."
+        },
+        {
+          "info": {
+            "name": "Values for all elements of a Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/values",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Category of elements to return."
+              }
+            ]
+          },
+          "docs": "Provides the values for all elements of a Test Result."
+        },
+        {
+          "info": {
+            "name": "Test Result element definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/:elementId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "elementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific element."
+              }
+            ]
+          },
+          "docs": "Provides a Test Result element definition."
+        },
+        {
+          "info": {
+            "name": "Test Result elements values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/:elementId/values",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "elementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific element."
+              }
+            ]
+          },
+          "docs": "Provides the values of a Test Result element."
+        },
+        {
+          "info": {
+            "name": "Test Results elements points since the beginning of the Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/:elementId/points",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "elementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific element."
+              },
+              {
+                "name": "statistics",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of statistics to get. Available statistics are: AVG_DURATION (ms), MIN_DURATION (ms), MAX_DURATION (ms), COUNT, THROUGHPUT (Byte/s), ELEMENTS_PER_SECOND, ERRORS, ERRORS_PER_SECOND, ERROR_RATE (%), AVG_TTFB (ms), MIN_TTFB (ms), MAX_TTFB (ms).<br/> Example: AVG_DURATION,ELEMENTS_PER_SECOND"
+              }
+            ]
+          },
+          "docs": "Provides all the points of a Test Result element for the selected statistics."
+        },
+        {
+          "info": {
+            "name": "Test Result percentiles transaction since the beginning of the Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/:elementId/percentiles",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "elementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific element."
+              }
+            ]
+          },
+          "docs": "Provides the percentiles of a Test Result transaction."
+        },
+        {
+          "info": {
+            "name": "Test Result raw data of a TRANSACTION element",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/:elementId/raw",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "elementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific element."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the Test Result data."
+              }
+            ]
+          },
+          "docs": "Provides the Test Result raw data for an element of category TRANSACTION, with a content as CSV or JSON file. <br /><br /> <b><i>Retention period for raw data is 7 days after which this will be permanently deleted.</i></b>\n"
+        },
+        {
+          "info": {
+            "name": "Test Result elements SLA status since the beginning of the Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/elements/:elementId/sla",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "elementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific element."
+              }
+            ]
+          },
+          "docs": "Provides the SLA status of a Test Result element."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

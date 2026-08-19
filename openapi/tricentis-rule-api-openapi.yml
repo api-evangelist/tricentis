@@ -1,0 +1,276 @@
+openapi: 3.2.0
+info:
+  version: 2025.2.0
+  title: qTest Pulse Rule API
+  description: Rule API
+servers:
+- url: https://pulse-us-east-1.qtestnet.com/api
+security:
+- qtestToken: []
+  qtestUrl: []
+tags:
+- name: rule
+  description: Rule API
+paths:
+  /rules:
+    get:
+      tags:
+      - rule
+      summary: Get all rules of a project
+      description: To get all rules of a project
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdQuery'
+      - $ref: '#/components/parameters/FirstQuery'
+      - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule'
+    post:
+      tags:
+      - rule
+      summary: Create a rule
+      description: To create a rule
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+        required: true
+  /rules/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdPath'
+    get:
+      tags:
+      - rule
+      summary: Get a rule
+      description: To get a rule by id
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+    put:
+      tags:
+      - rule
+      summary: Update a rule
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+        required: true
+    patch:
+      tags:
+      - rule
+      summary: Update a rule
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+        required: true
+    delete:
+      tags:
+      - rule
+      summary: Delete a rule
+      description: To delete a rule
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    Rule:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/RuleInput'
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    RuleInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        - active
+        properties:
+          name:
+            type: string
+          active:
+            type: boolean
+          triggerId:
+            type: string
+          actionIds:
+            type: array
+            items:
+              type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    qtestToken:
+      type: apiKey
+      in: header
+      name: Authorization
+    qtestUrl:
+      type: apiKey
+      in: header
+      name: x-qtest-url
+externalDocs:
+  description: Introduction to qTest Pulse API
+  url: https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm

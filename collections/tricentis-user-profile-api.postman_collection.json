@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "bed2ae70-ce95-44bd-b501-e96dac7bbe02",
+      "name": "user-profile",
+      "description": {
+        "content": "User Profile API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ad5d4ece-9ec2-4857-b1b4-c91defafae4e",
+          "name": "Gets current User's Admin Profile",
+          "request": {
+            "name": "Gets current User's Admin Profile",
+            "description": {
+              "content": "To retrieve your Admin Profile\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "admin-profiles",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f04b1476-f788-4d06-b58a-e476dae3407d",
+              "name": "Return authorities list of current admin",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "admin-profiles",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_id\": 1,\n  \"create_project\": true,\n  \"edit_project\": true,\n  \"archive_project\": true,\n  \"list_project\": true,\n  \"manage_client_user\": true,\n  \"edit_user_profile\": true,\n  \"view_user_profile\": true,\n  \"manage_client_info\": true,\n  \"manage_system_conf\": true,\n  \"site_level_field\": true,\n  \"manage_user_group\": true,\n  \"insight_viewer\": false,\n  \"insight_editor\": true,\n  \"pulse_access\": false,\n  \"launch_access\": true,\n  \"analytics_viewer\": false,\n  \"copilot_user\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "788fa219-5481-4708-9841-bae89d0f4777",
+          "name": "Gets available Profiles",
+          "request": {
+            "name": "Gets available Profiles",
+            "description": {
+              "content": "To retrieve all available profiles in your qTest Manager instance. It requires that your qTest Manager profile is a site admin with <em>View User Profiles</em> permissions\n\n<strong>qTest Manager version:</strong> 8.4.2+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "user-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "<em>type=admin</em> - to retrieve only admin profiles\n\n<em>type=use</em> - to retrieve only normal user profiles\n\nOmit this parameter to include both"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "385de046-e13a-466c-aa6a-08a6ae57228e",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "user-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_profiles\": [\n    {\n      \"id\": 1,\n      \"name\": \"Project Manager\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Project Manager\"\n    }\n  ],\n  \"admin_profiles\": [\n    {\n      \"id\": 1,\n      \"name\": \"Project Manager\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Project Manager\"\n    }\n  ],\n  \"total_user_profiles\": 4924,\n  \"total_admin_profiles\": 6527\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8cfc60b-2c44-4e87-a414-47853bd448df",
+          "name": "Assigns multiple Users to a Profile",
+          "request": {
+            "name": "Assigns multiple Users to a Profile",
+            "description": {
+              "content": "To batch assign users to a profile (Admin profile, User profile) (as in qTest Manager <em>admin panel</em>). It requires that your qTest Manager profile is a site admin with <em>Manage Client Users</em> permissions\n\n<strong>qTest Manager version:</strong> 8.4.2+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "user-profiles",
+                "batch-assign-users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userProfileId\": \"<long>\",\n  \"userIds\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ebc279a-648e-4606-a215-a6864ded31db",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "user-profiles",
+                    "batch-assign-users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userProfileId\": 2,\n  \"userIds\": [\n    1,\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"username\": \"example.user@qtest.com\",\n    \"email\": \"example.user@qtest.com\",\n    \"password\": \"string\",\n    \"first_name\": \"Example\",\n    \"last_name\": \"User\",\n    \"status\": 0,\n    \"avatar\": \"https://apitryout.qtestnet.com/api/v3/users/1/avatar\",\n    \"external_username\": \"string\",\n    \"authentication_system\": \"string\",\n    \"timezone_offset\": \"string\",\n    \"country_name\": \"string\"\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"username\": \"example.user@qtest.com\",\n    \"email\": \"example.user@qtest.com\",\n    \"password\": \"string\",\n    \"first_name\": \"Example\",\n    \"last_name\": \"User\",\n    \"status\": 0,\n    \"avatar\": \"https://apitryout.qtestnet.com/api/v3/users/1/avatar\",\n    \"external_username\": \"string\",\n    \"authentication_system\": \"string\",\n    \"timezone_offset\": \"string\",\n    \"country_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e1b668b-0870-43e3-82f8-b3076b4849a4",
+          "name": "Gets current User's Profiles in different Projects",
+          "request": {
+            "name": "Gets current User's Profiles in different Projects",
+            "description": {
+              "content": "To retrieve your User Profiles in different Projects",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "user-profiles",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ae7192f-3e3f-4fbb-96bd-44339369f937",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "user-profiles",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"user_id\": 1,\n    \"project_id\": 1,\n    \"release\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"build\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": false,\n      \"view\": true\n    },\n    \"test_configuration\": {\n      \"create\": false,\n      \"edit\": true,\n      \"delete\": false,\n      \"view\": false,\n      \"link_unlink\": true\n    },\n    \"test_configuration_variables\": {\n      \"create\": false,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": false\n    },\n    \"module\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"requirement\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true,\n      \"edit_assignment\": true,\n      \"export\": true,\n      \"import\": true\n    },\n    \"test_case\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true,\n      \"edit_assignment\": true,\n      \"export\": true,\n      \"import\": true,\n      \"approve\": true\n    },\n    \"test_cycle\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"test_suite\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"test_run\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true,\n      \"execute\": true,\n      \"export\": true,\n      \"edit_assignment\": true,\n      \"modify_test_logs_by_self\": false,\n      \"modify_test_logs_by_others\": true\n    },\n    \"defect\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": false,\n      \"view\": true,\n      \"export\": true\n    },\n    \"project_setting\": {\n      \"manage\": true\n    },\n    \"session\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"project\": {\n      \"admin\": true\n    },\n    \"schedule\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    }\n  },\n  {\n    \"user_id\": 1,\n    \"project_id\": 1,\n    \"release\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"build\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": false,\n      \"view\": true\n    },\n    \"test_configuration\": {\n      \"create\": false,\n      \"edit\": false,\n      \"delete\": true,\n      \"view\": false,\n      \"link_unlink\": false\n    },\n    \"test_configuration_variables\": {\n      \"create\": false,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"module\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"requirement\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true,\n      \"edit_assignment\": true,\n      \"export\": true,\n      \"import\": true\n    },\n    \"test_case\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true,\n      \"edit_assignment\": true,\n      \"export\": true,\n      \"import\": true,\n      \"approve\": true\n    },\n    \"test_cycle\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"test_suite\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"test_run\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true,\n      \"execute\": true,\n      \"export\": true,\n      \"edit_assignment\": true,\n      \"modify_test_logs_by_self\": true,\n      \"modify_test_logs_by_others\": true\n    },\n    \"defect\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": false,\n      \"view\": true,\n      \"export\": true\n    },\n    \"project_setting\": {\n      \"manage\": true\n    },\n    \"session\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    },\n    \"project\": {\n      \"admin\": true\n    },\n    \"schedule\": {\n      \"create\": true,\n      \"edit\": true,\n      \"delete\": true,\n      \"view\": true\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "350dd619-48f6-48f4-b299-54ee2cde5761",
+          "name": "Assigns multiple Users to a Profile in a Project",
+          "request": {
+            "name": "Assigns multiple Users to a Profile in a Project",
+            "description": {
+              "content": "To change profile of assigned users (as a project's User Management page). It requires that your qTest Manager profile within the project is Project Admin\n\n<strong>qTest Manager version:</strong> 8.4.2+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "user-profiles",
+                ":projectId",
+                "batch-assign-users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userProfileId\": \"<long>\",\n  \"userIds\": [\n    \"<long>\",\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "369c9ddb-0974-42f2-a3b1-c3891aa20612",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "user-profiles",
+                    ":projectId",
+                    "batch-assign-users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userProfileId\": 2,\n  \"userIds\": [\n    1,\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"username\": \"example.user@qtest.com\",\n    \"email\": \"example.user@qtest.com\",\n    \"password\": \"string\",\n    \"first_name\": \"Example\",\n    \"last_name\": \"User\",\n    \"status\": 0,\n    \"avatar\": \"https://apitryout.qtestnet.com/api/v3/users/1/avatar\",\n    \"external_username\": \"string\",\n    \"authentication_system\": \"string\",\n    \"timezone_offset\": \"string\",\n    \"country_name\": \"string\"\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"username\": \"example.user@qtest.com\",\n    \"email\": \"example.user@qtest.com\",\n    \"password\": \"string\",\n    \"first_name\": \"Example\",\n    \"last_name\": \"User\",\n    \"status\": 0,\n    \"avatar\": \"https://apitryout.qtestnet.com/api/v3/users/1/avatar\",\n    \"external_username\": \"string\",\n    \"authentication_system\": \"string\",\n    \"timezone_offset\": \"string\",\n    \"country_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "67e8dc8e-2a0d-4e38-93ed-cf1b37b2b482",
+    "name": "qTest Manager API Version 3.0 User Profile API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

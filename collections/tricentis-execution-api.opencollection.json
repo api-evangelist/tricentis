@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Pulse Execution API",
+    "version": "2025.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "execution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all executions of an action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/executions",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the action in the project"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the begining of an execution in milliseconds"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the begining of an execution in milliseconds"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Return only the first N results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N results"
+              }
+            ]
+          },
+          "docs": "To get all execution of an action"
+        },
+        {
+          "info": {
+            "name": "Get an execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pulse-us-east-1.qtestnet.com/api/executions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To get an execution by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

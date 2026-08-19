@@ -1,0 +1,146 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Groups API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: groups
+  description: User Group API
+paths:
+  /api/v3/groups:
+    get:
+      tags:
+      - groups
+      summary: Get multiple UserGroups
+      description: To get multiple UserGroups
+      operationId: getAllUserGroups
+      responses:
+        200:
+          description: Return list of UserGroups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserGroupResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - groups
+      summary: Create custom UserGroup
+      description: To create new custom UserGroup
+      operationId: createCustomUserGroup
+      responses:
+        200:
+          description: Return newly created UserGroup
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupResource'
+        description: '<em>name (required):</em> Name of UserGroup
+
+
+          <em>description:</em> Description of UserGroup
+
+
+          <em>is_default:</em> Set this UserGroup as default group for new user
+
+
+          <em>user_ids:</em> List of userId will be assign to this group after created
+
+
+          <em>authority_names:</em> List of authorities for this UserGroup. Values can be: [ ROLE_ADMINCONFIGURATION, ROLE_ADMININFORMATION, ROLE_INSIGHTSEDITOR, ROLE_INSIGHTSEDITOR, ROLE_LAUNCHACCESS, ROLE_PROFILEADMIN, ROLE_PROFILEVIEWER, ROLE_PROJECTARCHIVER, ROLE_PROJECTCREATOR, ROLE_PROJECTUPDATER, ROLE_PROJECTVIEWER, ROLE_PULSEACCESS, ROLE_SITELEVELFIELD, ROLE_USERADMIN, ROLE_USERGROUPMANAGER, ROLE_ANALYTICSVIEWER ]'
+        required: true
+components:
+  schemas:
+    UserGroupResource:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Name of UserGroup
+          description: Name of UserGroup
+        description:
+          type: string
+          example: Description of UserGroup
+          description: Description of UserGroup
+        total_user:
+          type: integer
+          format: int64
+          description: The total user of UserGroup
+          readOnly: true
+        is_system:
+          type: boolean
+        is_default:
+          type: boolean
+          example: false
+          description: Set this UserGroup as default group for new user
+        authorities:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/AuthorityVM'
+        users:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/UserInfoVM'
+        user_ids:
+          type: array
+          description: List of userId will be assign to this group after created
+          items:
+            type: integer
+            format: int64
+            example: 1
+        authority_names:
+          type: array
+          description: 'List of authorities for this UserGroup. Values can be: [ ROLE_ADMINCONFIGURATION, ROLE_ADMININFORMATION, ROLE_INSIGHTSEDITOR, ROLE_INSIGHTSEDITOR, ROLE_LAUNCHACCESS, ROLE_PROFILEADMIN, ROLE_PROFILEVIEWER, ROLE_PROJECTARCHIVER, ROLE_PROJECTCREATOR, ROLE_PROJECTUPDATER, ROLE_PROJECTVIEWER, ROLE_PULSEACCESS, ROLE_SITELEVELFIELD, ROLE_USERADMIN, ROLE_USERGROUPMANAGER, ROLE_ANALYTICSVIEWER ]'
+          items:
+            type: string
+            example: ROLE_ADMINCONFIGURATION
+    AuthorityVM:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        displayName:
+          type: string
+    UserInfoVM:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        contactEmail:
+          type: string
+        fullName:
+          type: string
+        userDN:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

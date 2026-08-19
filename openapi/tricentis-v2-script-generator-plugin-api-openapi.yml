@@ -1,0 +1,165 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V2 Script Generator Plugin API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v2-script-generator-plugin
+  description: Plugin V2 APIs
+paths:
+  /plugins:
+    get:
+      tags:
+      - v2-script-generator-plugin
+      summary: Get an array of script generator plugins
+      responses:
+        200:
+          description: Array of script generator plugins
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plugins:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScriptGeneratorPlugin'
+                  types:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+    post:
+      tags:
+      - v2-script-generator-plugin
+      summary: Create an array of script generator plugins
+      responses:
+        200:
+          description: Array of script generator plugins
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScriptGeneratorPlugin'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/CreateScriptGeneratorPlugin'
+  /plugins/{pluginid}:
+    delete:
+      tags:
+      - v2-script-generator-plugin
+      summary: Delete script generator plugin
+      parameters:
+      - name: pluginid
+        in: path
+        description: plugin's id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+  /plugins/{pluginid}/file:
+    get:
+      tags:
+      - v2-script-generator-plugin
+      summary: Download script generator plugin by id
+      parameters:
+      - name: pluginid
+        in: path
+        description: plugin's id
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Ok
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.query
+components:
+  schemas:
+    CreateScriptGeneratorPlugin:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: string
+        category_id:
+          type: integer
+        main_file_name:
+          type: string
+        main_file_content:
+          type: string
+        main_file_content_type:
+          type: string
+    ScriptGeneratorPlugin:
+      type: object
+      properties:
+        category_id:
+          type: integer
+        category_name:
+          type: string
+        desc:
+          type: string
+        id:
+          type: string
+        is_builtin:
+          type: boolean
+        main_file_name:
+          type: string
+        main_file_path:
+          type: string
+        name:
+          type: string
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

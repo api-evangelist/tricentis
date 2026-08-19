@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Infrastructure Providers API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Infrastructure Providers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all infrastructure providers of the current account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/infrastructure-providers"
+          },
+          "docs": "Get all infrastructure providers of the current account with its information in a JSON format, one object per infrastructure providers"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

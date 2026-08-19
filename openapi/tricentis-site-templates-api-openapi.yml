@@ -1,0 +1,614 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Site Templates API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: site-templates
+  description: Site Templates API
+paths:
+  /api/v3/site-templates:
+    get:
+      tags:
+      - site-templates
+      summary: Get all site-templates
+      description: To retrieve all site-templates
+      operationId: getAllSiteTemplates
+      responses:
+        200:
+          description: Return list of all site-templates.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SiteTemplateResponse'
+      security:
+      - Authorization: []
+  /api/v3/site-templates/{templateId}/projects:
+    post:
+      tags:
+      - site-templates
+      summary: Apply template to existing projects.
+      description: To apply template to existing projects.
+      operationId: addProjects
+      parameters:
+      - name: templateId
+        in: path
+        description: Template id which you want to apply to existing projects.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Return list of projects which were applied site template.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyTemplateQueryObject'
+        description: '<em>project_ids:</em>List of Project IDs
+
+
+          <em>create_new_site_field_values:</em> Option to allow user to decide if they want to create new values to the site fields or keep the value private to the project when there are "unique values in project fields that do not exist in site fields" (default: true).'
+        required: true
+    delete:
+      tags:
+      - site-templates
+      summary: Remove projects from a site template.
+      description: To remove projects from a site template.
+      operationId: removeProjectTemplates
+      parameters:
+      - name: templateId
+        in: path
+        description: Template id which you want to detach it's projects. If <strong>0</strong> (unassigned template id) is placing here, remove all site templates associated to provided project ids list.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Return list of projects which were removed from site template.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int64
+        description: Array of project ids that you want to detach from site template.
+        required: true
+components:
+  schemas:
+    ReleasePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Release
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Release
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Release
+        view:
+          type: boolean
+          example: true
+          description: Can view Release
+    DefectMapping:
+      type: object
+      properties:
+        type_id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        type_label:
+          type: string
+        project_id:
+          type: integer
+          format: int64
+        project:
+          type: string
+        project_label:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefectFieldMapping'
+    TestConfigurationPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+        link_unlink:
+          type: boolean
+    SchedulePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create schedule
+        edit:
+          type: boolean
+          example: true
+          description: Can edit schedule
+        delete:
+          type: boolean
+          example: true
+          description: Can delete schedule
+        view:
+          type: boolean
+          example: true
+          description: Can views= schedule
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    DefectPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Defect
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Defect
+        delete:
+          type: boolean
+        view:
+          type: boolean
+          example: true
+          description: Can view Defect
+        export:
+          type: boolean
+          example: true
+          description: Can export Defect
+    RequirementPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Requirement
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Requirement
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Requirement
+        view:
+          type: boolean
+          example: true
+          description: Can view Requirement
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign user to Requirement
+        export:
+          type: boolean
+          example: true
+          description: Can export Requirement
+        import:
+          type: boolean
+          example: true
+          description: Can import Requirement
+    DefectTrackingSystem:
+      type: object
+      properties:
+        defect_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefectMapping'
+        connection_name:
+          type: string
+          example: Jira Cloud
+          description: Name of Integration Connection
+        url:
+          type: string
+          example: https://example.jira.com
+          description: URL to Integration Connection
+        system_name:
+          type: string
+          example: JIRA
+          description: System name of Integration Connection
+        active:
+          type: boolean
+          example: true
+          description: Status of Integration Connection
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Integration Connection
+    TestCasePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Case
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Case
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Test Case
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Case
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign Test Case
+        export:
+          type: boolean
+          example: true
+          description: Can export Test Case
+        import:
+          type: boolean
+          example: true
+          description: Can import Test Case
+        approve:
+          type: boolean
+          example: true
+          description: Can approve Test Case
+    TestRunPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Run
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Run
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Test Run
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Run
+        execute:
+          type: boolean
+          example: true
+          description: Can execute Test Run
+        export:
+          type: boolean
+          example: true
+          description: Can export Test Run
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign user to Test Run
+        modify_test_logs_by_self:
+          type: boolean
+        modify_test_logs_by_others:
+          type: boolean
+    UserProfile:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        release:
+          $ref: '#/components/schemas/ReleasePermission'
+        build:
+          $ref: '#/components/schemas/BuildPermission'
+        test_configuration:
+          $ref: '#/components/schemas/TestConfigurationPermission'
+        test_configuration_variables:
+          $ref: '#/components/schemas/TestConfigurationVariablesPermission'
+        module:
+          $ref: '#/components/schemas/ModulePermission'
+        requirement:
+          $ref: '#/components/schemas/RequirementPermission'
+        test_case:
+          $ref: '#/components/schemas/TestCasePermission'
+        test_cycle:
+          $ref: '#/components/schemas/TestCyclePermission'
+        test_suite:
+          $ref: '#/components/schemas/TestSuitePermission'
+        test_run:
+          $ref: '#/components/schemas/TestRunPermission'
+        defect:
+          $ref: '#/components/schemas/DefectPermission'
+        project_setting:
+          $ref: '#/components/schemas/ProjectSettingPermission'
+        session:
+          $ref: '#/components/schemas/SessionManagerPermission'
+        project:
+          $ref: '#/components/schemas/ProjectAdminPermission'
+        schedule:
+          $ref: '#/components/schemas/SchedulePermission'
+    SessionManagerPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Session
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Session
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Session
+        view:
+          type: boolean
+          example: true
+          description: Can view Session
+    TestSuitePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Suite
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Suite
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Test Suite
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Suite
+    TestCyclePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Test Cycle
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Test Cycle
+        delete:
+          type: boolean
+          example: true
+          description: Can edit Test Cycle
+        view:
+          type: boolean
+          example: true
+          description: Can view Test Cycle
+    BuildPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Build
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Build
+        delete:
+          type: boolean
+          example: false
+          description: Can delete Build
+        view:
+          type: boolean
+          example: true
+          description: Can view Build
+    ProjectAdminPermission:
+      type: object
+      properties:
+        admin:
+          type: boolean
+          example: true
+          description: Is project admin or not
+    ProjectSettingPermission:
+      type: object
+      properties:
+        manage:
+          type: boolean
+          example: true
+          description: Can manage project setting or not
+    ApplyTemplateQueryObject:
+      type: object
+      properties:
+        project_ids:
+          type: array
+          uniqueItems: true
+          items:
+            type: integer
+            format: int64
+        create_new_site_field_values:
+          type: boolean
+          example: true
+    SiteTemplateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        template_id:
+          type: integer
+          format: int64
+    TestConfigurationVariablesPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+    DefectFieldMapping:
+      type: object
+      properties:
+        field:
+          type: string
+          example: Priority
+          description: External tracker Defect's field
+        qtest_fields:
+          type: array
+          description: qTest Defect's field
+          items:
+            type: string
+            example: 101,102
+    ModulePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Module
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Module
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Module
+        view:
+          type: boolean
+          example: true
+          description: Can view Module
+    ProjectResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        name:
+          type: string
+          example: qConnect Sample Project
+          description: Name of the Project
+        description:
+          type: string
+          example: Description of qConnect Sample Project
+          description: Description of the Project
+        status_id:
+          type: integer
+          format: int64
+          example: 101
+          description: Status of the Project
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of the Project
+        end_date:
+          type: string
+          format: date-time
+          description: End date of the Project
+        admins:
+          type: array
+          description: Arrays of admin user
+          items:
+            type: string
+        admin_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        sample:
+          type: boolean
+          example: true
+          description: Is sample or not
+        user_profile:
+          $ref: '#/components/schemas/UserProfile'
+        defect_tracking_systems:
+          type: array
+          description: Arrays of External Defect Tracking Connection
+          items:
+            $ref: '#/components/schemas/DefectTrackingSystem'
+        x_explorer_access_level:
+          type: integer
+          format: int32
+          example: 7
+          description: Can access Explorer
+        date_format:
+          type: string
+          example: yyyy/MM/dd
+          description: Client date time format
+        automation:
+          type: boolean
+          example: false
+          description: Automation enabled or not
+          readOnly: true
+        template_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Template id of this project
+        uuid:
+          type: string
+          example: uuid
+          description: UUID of the Project
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

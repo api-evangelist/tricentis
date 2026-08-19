@@ -1,0 +1,273 @@
+openapi: 3.2.0
+info:
+  version: 2025.2.0
+  title: qTest Pulse Action API
+  description: Action API
+servers:
+- url: https://pulse-us-east-1.qtestnet.com/api
+security:
+- qtestToken: []
+  qtestUrl: []
+tags:
+- name: action
+  description: Action API
+paths:
+  /actions:
+    get:
+      tags:
+      - action
+      summary: Get all actions of a project
+      description: To get all actions of a project
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdQuery'
+      - $ref: '#/components/parameters/FirstQuery'
+      - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Action'
+    post:
+      tags:
+      - action
+      summary: Create an action
+      description: To create an action
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActionInput'
+        required: true
+  /actions/{id}:
+    parameters:
+    - $ref: '#/components/parameters/IdPath'
+    get:
+      tags:
+      - action
+      summary: Get an action
+      description: To get an action by id
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+    put:
+      tags:
+      - action
+      summary: Update an action
+      description: To update an action
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActionInput'
+        required: true
+    patch:
+      tags:
+      - action
+      summary: Update an action
+      description: To update an action
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActionInput'
+        required: true
+    delete:
+      tags:
+      - action
+      summary: Delete an action
+      description: To delete an action
+      responses:
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        default:
+          $ref: '#/components/responses/Default'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    ActionInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          code:
+            type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Action:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ActionInput'
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    qtestToken:
+      type: apiKey
+      in: header
+      name: Authorization
+    qtestUrl:
+      type: apiKey
+      in: header
+      name: x-qtest-url
+externalDocs:
+  description: Introduction to qTest Pulse API
+  url: https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm

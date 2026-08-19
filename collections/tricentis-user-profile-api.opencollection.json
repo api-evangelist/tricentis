@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 User Profile API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "user-profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets current User's Admin Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/admin-profiles/current",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve your Admin Profile\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets available Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/user-profiles",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "<em>type=admin</em> - to retrieve only admin profiles\n\n<em>type=use</em> - to retrieve only normal user profiles\n\nOmit this parameter to include both"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all available profiles in your qTest Manager instance. It requires that your qTest Manager profile is a site admin with <em>View User Profiles</em> permissions\n\n<strong>qTest Manager version:</strong> 8.4.2+"
+        },
+        {
+          "info": {
+            "name": "Assigns multiple Users to a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/user-profiles/batch-assign-users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To batch assign users to a profile (Admin profile, User profile) (as in qTest Manager <em>admin panel</em>). It requires that your qTest Manager profile is a site admin with <em>Manage Client Users</em> permissions\n\n<strong>qTest Manager version:</strong> 8.4.2+"
+        },
+        {
+          "info": {
+            "name": "Gets current User's Profiles in different Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/user-profiles/current",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve your User Profiles in different Projects"
+        },
+        {
+          "info": {
+            "name": "Assigns multiple Users to a Profile in a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/user-profiles/:projectId/batch-assign-users",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To change profile of assigned users (as a project's User Management page). It requires that your qTest Manager profile within the project is Project Admin\n\n<strong>qTest Manager version:</strong> 8.4.2+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2159 @@
+{
+  "item": [
+    {
+      "id": "6133634e-d4e5-4ee3-83e4-368e8c9b1a75",
+      "name": "v2-application-information",
+      "description": {
+        "content": "Application Information V2 APIs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4dde6297-0ffa-44a5-b986-5288d8d130f3",
+          "name": "Get a list of application information of a session by session Id",
+          "request": {
+            "name": "Get a list of application information of a session by session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "app-infos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "sessionId",
+                  "description": "(Required) Id of session to get application information list"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d2230c7-3961-459c-bde1-ef55a91298c2",
+              "name": "Application information list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session to get application information list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_infos\": [\n    {\n      \"name\": \"string\",\n      \"first_action_time\": \"string\",\n      \"id\": \"string\",\n      \"file_size\": \"string\",\n      \"file_version\": \"string\",\n      \"path\": \"string\",\n      \"version\": \"string\",\n      \"file_last_modified\": \"string\",\n      \"created_date\": \"string\",\n      \"modified_date\": \"string\",\n      \"incl_file_last_modified\": true,\n      \"incl_file_size\": false,\n      \"incl_file_version\": true,\n      \"incl_path\": false,\n      \"incl_version\": false,\n      \"session_id\": \"string\",\n      \"links\": [\n        {\n          \"rel\": \"string\",\n          \"href\": \"string\"\n        },\n        {\n          \"rel\": \"string\",\n          \"href\": \"string\"\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"first_action_time\": \"string\",\n      \"id\": \"string\",\n      \"file_size\": \"string\",\n      \"file_version\": \"string\",\n      \"path\": \"string\",\n      \"version\": \"string\",\n      \"file_last_modified\": \"string\",\n      \"created_date\": \"string\",\n      \"modified_date\": \"string\",\n      \"incl_file_last_modified\": true,\n      \"incl_file_size\": true,\n      \"incl_file_version\": true,\n      \"incl_path\": true,\n      \"incl_version\": true,\n      \"session_id\": \"string\",\n      \"links\": [\n        {\n          \"rel\": \"string\",\n          \"href\": \"string\"\n        },\n        {\n          \"rel\": \"string\",\n          \"href\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"string\",\n      \"href\": \"string\"\n    },\n    {\n      \"rel\": \"string\",\n      \"href\": \"string\"\n    }\n  ],\n  \"total\": 8061.131492444816\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "accb5633-b979-4bdf-a33d-34059e86edc1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session to get application information list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5a48a219-4667-4229-9c77-52574faece3e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session to get application information list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2e510d1c-99f9-4b28-bb6a-4f6c3b1c3640",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session to get application information list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "af04927b-6c89-47ec-bd3d-0dfe68e56559",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session to get application information list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d722fad9-6f04-4314-a698-42e73a86e7c3",
+          "name": "Create an application information for a session by session Id",
+          "request": {
+            "name": "Create an application information for a session by session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "app-infos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "sessionId",
+                  "description": "(Required) Id of session"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb36341a-2ada-484b-bc08-6fa1a96b202f",
+              "name": "aplication information is created successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ],\n  \"id\": 3903.9924511883028\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0778d4a9-2dae-425d-92ec-69f9a14ef760",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "085ed3ce-ef0b-4f7e-a8fc-d3e2e26ffbb8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "047afc52-bb75-4f32-9123-fb46f65a4835",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5bab147d-88e4-4fe7-8fe6-f32c0fcac14a",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bf43b55-476f-4be6-8b3c-a63751ebafc0",
+          "name": "Update list of application information for a session by session Id",
+          "request": {
+            "name": "Update list of application information for a session by session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "app-infos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "sessionId",
+                  "description": "(Required) Id of session"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ed1e811-4f74-4f52-856b-d0f8c25debd3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6cba46c-0e3e-4468-abd0-729eaa1944a9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff4805e0-4d76-4665-936c-056f263ea704",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "925f4402-5d55-4384-93ca-0a5221925aee",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb05ca1a-d3be-43c6-af78-00d0b084904a",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"name\": \"<string>\",\n    \"first_action_time\": \"<string>\",\n    \"id\": \"<string>\",\n    \"file_size\": \"<string>\",\n    \"file_version\": \"<string>\",\n    \"path\": \"<string>\",\n    \"version\": \"<string>\",\n    \"file_last_modified\": \"<string>\",\n    \"created_date\": \"<string>\",\n    \"modified_date\": \"<string>\",\n    \"incl_file_last_modified\": \"<boolean>\",\n    \"incl_file_size\": \"<boolean>\",\n    \"incl_file_version\": \"<boolean>\",\n    \"incl_path\": \"<boolean>\",\n    \"incl_version\": \"<boolean>\",\n    \"session_id\": \"<string>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0886556a-0cfc-48de-8a87-f76cd29efd21",
+          "name": "Delete an application information of a session by session Id",
+          "request": {
+            "name": "Delete an application information of a session by session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "app-infos",
+                ":appInfoId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "sessionId",
+                  "description": "(Required) Id of session"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "appInfoId",
+                  "description": "(Required) application information Id"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65ce884e-6a5d-44b5-a32d-f46827201462",
+              "name": "Operation successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce97d8a2-fe89-467e-904a-61a399c671de",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c471e8da-e66c-4b87-803b-cd149073aa08",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2e6f17d-e1ae-4b3e-b133-d593af6321dd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f5a7ae77-2074-4680-8acb-40648fa15f30",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "062370d5-2f52-471d-8aa1-c1bb2f27b158",
+          "name": "Get an application information of a session by session Id",
+          "request": {
+            "name": "Get an application information of a session by session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "app-infos",
+                ":appInfoId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "sessionId",
+                  "description": "(Required) Id of session"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "appInfoId",
+                  "description": "(Required) application information Id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3626f6a-0a39-4e34-98f2-9bc76c5d5868",
+              "name": "Operation successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"rel\": \"<string>\",\n    \"href\": \"<string>\"\n  },\n  {\n    \"rel\": \"<string>\",\n    \"href\": \"<string>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44dfa63d-c4ac-4f92-b0af-0e3e8c05b28b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2038bd71-ed8c-4043-a804-3d2ac70e031d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3c95dda8-3016-4822-b2a0-a43397018caf",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "449b171c-654f-471d-aded-021617092e65",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d799803-6c69-4dfe-80b3-aae47388eb69",
+          "name": "update an application information of a session by session Id",
+          "request": {
+            "name": "update an application information of a session by session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "app-infos",
+                ":appInfoId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "sessionId",
+                  "description": "(Required) Id of session"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "appInfoId",
+                  "description": "(Required) application information Id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2e5aa10-7be8-4098-bb25-b781f1faa220",
+              "name": "Operation successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"rel\": \"<string>\",\n    \"href\": \"<string>\"\n  },\n  {\n    \"rel\": \"<string>\",\n    \"href\": \"<string>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3073a493-318e-46d6-ab01-fcc6184e9a06",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ac07a03-da33-4961-b7c6-9b665d66ca67",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aabe7532-b4b6-4cb8-94b4-702446135529",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ae4dee9-115d-4b07-98d5-afe4e7471a0c",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "app-infos",
+                    ":appInfoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "sessionId",
+                      "description": "(Required) Id of session"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "appInfoId",
+                      "description": "(Required) application information Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"first_action_time\": \"<string>\",\n  \"id\": \"<string>\",\n  \"file_size\": \"<string>\",\n  \"file_version\": \"<string>\",\n  \"path\": \"<string>\",\n  \"version\": \"<string>\",\n  \"file_last_modified\": \"<string>\",\n  \"created_date\": \"<string>\",\n  \"modified_date\": \"<string>\",\n  \"incl_file_last_modified\": \"<boolean>\",\n  \"incl_file_size\": \"<boolean>\",\n  \"incl_file_version\": \"<boolean>\",\n  \"incl_path\": \"<boolean>\",\n  \"incl_version\": \"<boolean>\",\n  \"session_id\": \"<string>\",\n  \"links\": [\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    },\n    {\n      \"rel\": \"<string>\",\n      \"href\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://session-js.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8e38d9c5-4de7-4aba-838b-dad5c08dc589",
+    "name": "qTest Explorer | Sessions V2 Application Information API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,514 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Analytics (Tech Review) Testcases API
+  description: Tricentis Analytics OData APIs
+  version: ''
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+tags:
+- name: testcases
+paths:
+  /testcases:
+    get:
+      summary: Get entities from testcases
+      tags:
+      - testcases
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - clientid
+            - clientid desc
+            - ssor
+            - ssor desc
+            - projectid
+            - projectid desc
+            - projectname
+            - projectname desc
+            - masterid
+            - masterid desc
+            - iscurrent
+            - iscurrent desc
+            - version
+            - version desc
+            - name
+            - name desc
+            - type
+            - type desc
+            - customfields
+            - customfields desc
+            - lastmodifieddate
+            - lastmodifieddate desc
+            - lastmodifiedtimestamp
+            - lastmodifiedtimestamp desc
+            - lastmodifieddateid
+            - lastmodifieddateid desc
+            - createddate
+            - createddate desc
+            - createdtimestamp
+            - createdtimestamp desc
+            - creator
+            - creator desc
+            - assigneduser
+            - assigneduser desc
+            - assigneduserid
+            - assigneduserid desc
+            - automated
+            - automated desc
+            - priority
+            - priority desc
+            - uiid
+            - uiid desc
+            - isbusinesstestcase
+            - isbusinesstestcase desc
+            - folderid
+            - folderid desc
+            - status
+            - status desc
+            - roweffectivedate
+            - roweffectivedate desc
+            - rowexpirationdate
+            - rowexpirationdate desc
+            - viewinggroupname
+            - viewinggroupname desc
+            - extrainfo
+            - extrainfo desc
+            - total_executed
+            - total_executed desc
+            - total_unexecuted
+            - total_unexecuted desc
+            - foldername
+            - foldername desc
+            - lastmodifieduser
+            - lastmodifieduser desc
+            - class
+            - class desc
+            - shared
+            - shared desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - ssor
+            - projectid
+            - projectname
+            - masterid
+            - iscurrent
+            - version
+            - name
+            - type
+            - customfields
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieddateid
+            - createddate
+            - createdtimestamp
+            - creator
+            - assigneduser
+            - assigneduserid
+            - automated
+            - priority
+            - uiid
+            - isbusinesstestcase
+            - folderid
+            - status
+            - roweffectivedate
+            - rowexpirationdate
+            - viewinggroupname
+            - extrainfo
+            - total_executed
+            - total_unexecuted
+            - foldername
+            - lastmodifieduser
+            - class
+            - shared
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of testcase
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.testcase'
+        4XX:
+          $ref: '#/components/responses/error'
+  /testcases({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    get:
+      summary: Get entity from testcases by key
+      tags:
+      - testcases
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - ssor
+            - projectid
+            - projectname
+            - masterid
+            - iscurrent
+            - version
+            - name
+            - type
+            - customfields
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieddateid
+            - createddate
+            - createdtimestamp
+            - creator
+            - assigneduser
+            - assigneduserid
+            - automated
+            - priority
+            - uiid
+            - isbusinesstestcase
+            - folderid
+            - status
+            - roweffectivedate
+            - rowexpirationdate
+            - viewinggroupname
+            - extrainfo
+            - total_executed
+            - total_unexecuted
+            - foldername
+            - lastmodifieduser
+            - class
+            - shared
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.testcase'
+        4XX:
+          $ref: '#/components/responses/error'
+components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.testcase:
+      title: testcase
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 5
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        masterid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        iscurrent:
+          type:
+          - boolean
+          - 'null'
+        version:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        customfields:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        lastmodifieddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        lastmodifiedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifieddateid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        createddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        createdtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        creator:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        assigneduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        assigneduserid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        automated:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        priority:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        uiid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        isbusinesstestcase:
+          type:
+          - boolean
+          - 'null'
+        folderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        status:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        roweffectivedate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        rowexpirationdate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        viewinggroupname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        extrainfo:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        total_executed:
+          anyOf:
+          - type: number
+          - type: string
+          format: decimal
+          example: 0
+        total_unexecuted:
+          anyOf:
+          - type: number
+          - type: string
+          format: decimal
+          example: 0
+        foldername:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        lastmodifieduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        class:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        shared:
+          type:
+          - boolean
+          - 'null'
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey

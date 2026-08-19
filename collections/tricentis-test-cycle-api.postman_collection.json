@@ -1,0 +1,910 @@
+{
+  "item": [
+    {
+      "id": "97aaa504-601a-4f5b-89a7-2bdaced43a2a",
+      "name": "test-cycle",
+      "description": {
+        "content": "Test Cycle API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2602d881-929d-4807-8104-27aee6f356ac",
+          "name": "Gets multiple Test Cycles",
+          "request": {
+            "name": "Gets multiple Test Cycles",
+            "description": {
+              "content": "To retrieve Test Cycles which are located directly under root or a Release/Test Cycle",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-cycles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the Release or Test Cycle which directly contains the Test Cycles you are retrieving. Input 0 (zero) to get Test Cycles directly under root"
+                },
+                {
+                  "disabled": false,
+                  "key": "parentType",
+                  "value": "<string>",
+                  "description": "The artifact type of the parent folder. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Specify <em>expand=descendants</em> to retrieve the Test Cycles' sub and grand-sub Cycles/Suites"
+                },
+                {
+                  "disabled": false,
+                  "key": "tosca",
+                  "value": "<boolean>",
+                  "description": "tosca"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Specify any page number to retrieve Test Cycles"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "Specify any page size to retrieve Test Cycles. If a negative value is provided and no page number is specified, all Test Cycles will be retrieved."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3f08ffb9-bf48-49b8-af27-96fc12fab56c",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tosca",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 462378,\n    \"name\": \"Cycle 2.2\",\n    \"order\": 3,\n    \"pid\": \"CL-3\",\n    \"created_date\": \"2001-03-11T15:13:04.245Z\",\n    \"last_modified_date\": \"1996-09-22T06:15:13.502Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n    \"description\": \"The second Cycle under Release 2\",\n    \"target_release_id\": 149652,\n    \"target_build_id\": 6191,\n    \"test-cycles\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n      }\n    ],\n    \"test-suites\": [\n      {\n        \"properties\": [\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          },\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          }\n        ],\n        \"parentId\": 462378,\n        \"parentType\": \"test-cycle\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"id\": 843971,\n        \"name\": \"Functional test suite 2\",\n        \"order\": 0,\n        \"pid\": \"TS-3\",\n        \"created_date\": \"2009-11-29T04:47:12.426Z\",\n        \"last_modified_date\": \"1995-10-29T13:07:51.484Z\",\n        \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n        \"target_release_id\": 149652,\n        \"target_build_id\": 3027\n      },\n      {\n        \"properties\": [\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          },\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          }\n        ],\n        \"parentId\": 462378,\n        \"parentType\": \"test-cycle\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"id\": 843971,\n        \"name\": \"Functional test suite 2\",\n        \"order\": 0,\n        \"pid\": \"TS-3\",\n        \"created_date\": \"1979-02-19T01:43:03.954Z\",\n        \"last_modified_date\": \"1982-05-21T16:07:11.071Z\",\n        \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n        \"target_release_id\": 149652,\n        \"target_build_id\": 7928\n      }\n    ]\n  },\n  {\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 462378,\n    \"name\": \"Cycle 2.2\",\n    \"order\": 3,\n    \"pid\": \"CL-3\",\n    \"created_date\": \"2001-07-19T17:55:20.946Z\",\n    \"last_modified_date\": \"1980-10-20T09:42:00.855Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n    \"description\": \"The second Cycle under Release 2\",\n    \"target_release_id\": 149652,\n    \"target_build_id\": 4752,\n    \"test-cycles\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n      }\n    ],\n    \"test-suites\": [\n      {\n        \"properties\": [\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          },\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          }\n        ],\n        \"parentId\": 462378,\n        \"parentType\": \"test-cycle\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"id\": 843971,\n        \"name\": \"Functional test suite 2\",\n        \"order\": 0,\n        \"pid\": \"TS-3\",\n        \"created_date\": \"2024-09-25T14:35:52.855Z\",\n        \"last_modified_date\": \"1989-10-11T16:58:11.637Z\",\n        \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n        \"target_release_id\": 149652,\n        \"target_build_id\": 1538\n      },\n      {\n        \"properties\": [\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          },\n          {\n            \"field_id\": 1,\n            \"field_name\": \"Field Name\",\n            \"field_value\": \"1\",\n            \"field_value_name\": \"1\"\n          }\n        ],\n        \"parentId\": 462378,\n        \"parentType\": \"test-cycle\",\n        \"links\": [\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          },\n          {\n            \"rel\": \"self\",\n            \"href\": \"<link to object>\"\n          }\n        ],\n        \"id\": 843971,\n        \"name\": \"Functional test suite 2\",\n        \"order\": 0,\n        \"pid\": \"TS-3\",\n        \"created_date\": \"1992-08-20T23:04:51.747Z\",\n        \"last_modified_date\": \"2010-11-20T11:31:28.345Z\",\n        \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n        \"target_release_id\": 149652,\n        \"target_build_id\": 7783\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67be05cf-0a44-4044-91e6-23f4f220275f",
+          "name": "Create a Test Cycle",
+          "request": {
+            "name": "Create a Test Cycle",
+            "description": {
+              "content": "To create a Test Cycle\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-cycles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the Release or Test Cycle under which the newly created Test Cycle will be located. \n\nUse 0 (zero) to create the Test Cycle under the root"
+                },
+                {
+                  "disabled": false,
+                  "key": "parentType",
+                  "value": "<string>",
+                  "description": "The artifact type of the parent folder. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"target_release_id\": \"<long>\",\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"target_release_id\": \"<long>\",\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"target_release_id\": \"<long>\",\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a31adf3-b0fc-4e7e-b356-b202fe0c211c",
+              "name": "Test Cycle is created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 462378,\n  \"name\": \"Cycle 2.2\",\n  \"order\": 3,\n  \"pid\": \"CL-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"The second Cycle under Release 2\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    },\n    {\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 462378,\n  \"name\": \"Cycle 2.2\",\n  \"order\": 3,\n  \"pid\": \"CL-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n  \"description\": \"The second Cycle under Release 2\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ],\n      \"test-suites\": [\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1968-09-12T14:43:47.670Z\",\n          \"last_modified_date\": \"2021-06-30T00:56:23.394Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 1100\n        },\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1950-03-05T19:36:40.161Z\",\n          \"last_modified_date\": \"2007-12-07T12:38:23.619Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 8339\n        }\n      ]\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ],\n      \"test-suites\": [\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1969-05-08T02:12:39.096Z\",\n          \"last_modified_date\": \"1999-02-21T01:16:09.640Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 6588\n        },\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"2018-02-24T04:51:45.432Z\",\n          \"last_modified_date\": \"1969-10-16T17:58:01.484Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 2900\n        }\n      ]\n    }\n  ],\n  \"test-suites\": [\n    {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"parentId\": 462378,\n      \"parentType\": \"test-cycle\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 843971,\n      \"name\": \"Functional test suite 2\",\n      \"order\": 0,\n      \"pid\": \"TS-3\",\n      \"created_date\": \"1988-09-15T00:10:28.395Z\",\n      \"last_modified_date\": \"1954-12-24T22:04:21.152Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": 8330\n    },\n    {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"parentId\": 462378,\n      \"parentType\": \"test-cycle\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 843971,\n      \"name\": \"Functional test suite 2\",\n      \"order\": 0,\n      \"pid\": \"TS-3\",\n      \"created_date\": \"1979-04-19T12:22:10.560Z\",\n      \"last_modified_date\": \"2009-12-02T16:50:21.368Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": 9591\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2f7b507-bf98-4afa-9244-d148dab97d4a",
+              "name": "Bad Request if invalid input value in body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 462378,\n  \"name\": \"Cycle 2.2\",\n  \"order\": 3,\n  \"pid\": \"CL-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"The second Cycle under Release 2\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    },\n    {\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1214b885-bd7a-4729-87c7-767ad2831fa7",
+          "name": "Gets a Test Cycle",
+          "request": {
+            "name": "Gets a Test Cycle",
+            "description": {
+              "content": "To retrieve a Test Cycle\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-cycles",
+                ":testCycleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Specify <em>expand=descendants</em> to include its sub and grand-sub Test Cycles and Test Suites in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "testCycleId",
+                  "description": "(Required) ID of the Test Cycle which you want to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47f483de-ed3a-4e0b-a73d-a3a788308a09",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-cycles",
+                    ":testCycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "testCycleId",
+                      "description": "(Required) ID of the Test Cycle which you want to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 462378,\n  \"name\": \"Cycle 2.2\",\n  \"order\": 3,\n  \"pid\": \"CL-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n  \"description\": \"The second Cycle under Release 2\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ],\n      \"test-suites\": [\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1968-09-12T14:43:47.670Z\",\n          \"last_modified_date\": \"2021-06-30T00:56:23.394Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 1100\n        },\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1950-03-05T19:36:40.161Z\",\n          \"last_modified_date\": \"2007-12-07T12:38:23.619Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 8339\n        }\n      ]\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ],\n      \"test-suites\": [\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1969-05-08T02:12:39.096Z\",\n          \"last_modified_date\": \"1999-02-21T01:16:09.640Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 6588\n        },\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"2018-02-24T04:51:45.432Z\",\n          \"last_modified_date\": \"1969-10-16T17:58:01.484Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 2900\n        }\n      ]\n    }\n  ],\n  \"test-suites\": [\n    {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"parentId\": 462378,\n      \"parentType\": \"test-cycle\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 843971,\n      \"name\": \"Functional test suite 2\",\n      \"order\": 0,\n      \"pid\": \"TS-3\",\n      \"created_date\": \"1988-09-15T00:10:28.395Z\",\n      \"last_modified_date\": \"1954-12-24T22:04:21.152Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": 8330\n    },\n    {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"parentId\": 462378,\n      \"parentType\": \"test-cycle\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 843971,\n      \"name\": \"Functional test suite 2\",\n      \"order\": 0,\n      \"pid\": \"TS-3\",\n      \"created_date\": \"1979-04-19T12:22:10.560Z\",\n      \"last_modified_date\": \"2009-12-02T16:50:21.368Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": 9591\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4252f87-f727-4b2e-bc41-5ccd8aa35875",
+          "name": "Updates a Test Cycle",
+          "request": {
+            "name": "Updates a Test Cycle",
+            "description": {
+              "content": "To update a Test Cycle or move it to another container\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-cycles",
+                ":testCycleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of a Release or parent Test Cycle which the updated Test Cycle will be moved to. Input 0 (zero) to move the Test Cycle to under root"
+                },
+                {
+                  "disabled": false,
+                  "key": "parentType",
+                  "value": "<string>",
+                  "description": "The artifact type of the parent folder to which the Test Cycle will be moved to. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "testCycleId",
+                  "description": "(Required) ID of the Test Cycle which needs to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"target_release_id\": \"<long>\",\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"target_release_id\": \"<long>\",\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"pid\": \"<string>\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"target_release_id\": \"<long>\",\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56581d8d-d744-4075-b0bb-b06f5b12686f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-cycles",
+                    ":testCycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "testCycleId",
+                      "description": "(Required) ID of the Test Cycle which needs to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 462378,\n  \"name\": \"Cycle 2.2\",\n  \"order\": 3,\n  \"pid\": \"CL-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"The second Cycle under Release 2\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    },\n    {\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 462378,\n  \"name\": \"Cycle 2.2\",\n  \"order\": 3,\n  \"pid\": \"CL-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n  \"description\": \"The second Cycle under Release 2\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\",\n  \"test-cycles\": [\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ],\n      \"test-suites\": [\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1968-09-12T14:43:47.670Z\",\n          \"last_modified_date\": \"2021-06-30T00:56:23.394Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 1100\n        },\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1950-03-05T19:36:40.161Z\",\n          \"last_modified_date\": \"2007-12-07T12:38:23.619Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 8339\n        }\n      ]\n    },\n    {\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 462378,\n      \"name\": \"Cycle 2.2\",\n      \"order\": 3,\n      \"pid\": \"CL-3\",\n      \"created_date\": \"<dateTime>\",\n      \"last_modified_date\": \"<dateTime>\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378\",\n      \"description\": \"The second Cycle under Release 2\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": \"<long>\",\n      \"test-cycles\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/TestCycleResource detected>\"\n        }\n      ],\n      \"test-suites\": [\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"1969-05-08T02:12:39.096Z\",\n          \"last_modified_date\": \"1999-02-21T01:16:09.640Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 6588\n        },\n        {\n          \"properties\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"parentId\": 462378,\n          \"parentType\": \"test-cycle\",\n          \"links\": [\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"rel\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"id\": 843971,\n          \"name\": \"Functional test suite 2\",\n          \"order\": 0,\n          \"pid\": \"TS-3\",\n          \"created_date\": \"2018-02-24T04:51:45.432Z\",\n          \"last_modified_date\": \"1969-10-16T17:58:01.484Z\",\n          \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n          \"target_release_id\": 149652,\n          \"target_build_id\": 2900\n        }\n      ]\n    }\n  ],\n  \"test-suites\": [\n    {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"parentId\": 462378,\n      \"parentType\": \"test-cycle\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 843971,\n      \"name\": \"Functional test suite 2\",\n      \"order\": 0,\n      \"pid\": \"TS-3\",\n      \"created_date\": \"1988-09-15T00:10:28.395Z\",\n      \"last_modified_date\": \"1954-12-24T22:04:21.152Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": 8330\n    },\n    {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"parentId\": 462378,\n      \"parentType\": \"test-cycle\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 843971,\n      \"name\": \"Functional test suite 2\",\n      \"order\": 0,\n      \"pid\": \"TS-3\",\n      \"created_date\": \"1979-04-19T12:22:10.560Z\",\n      \"last_modified_date\": \"2009-12-02T16:50:21.368Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n      \"target_release_id\": 149652,\n      \"target_build_id\": 9591\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b69ad4fb-9261-486b-bc85-4b0e43b469de",
+          "name": "Deletes a Test Cycle",
+          "request": {
+            "name": "Deletes a Test Cycle",
+            "description": {
+              "content": "To delete a Test Cycle\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-cycles",
+                ":testCycleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "<boolean>",
+                  "description": "The Test Cycle can only be deleted if it contains no children. Specify <em>force=true</em> to delete the Test Cycle and its children"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "testCycleId",
+                  "description": "(Required) ID of the Test Cycle which needs to be deleted."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "daec4e4c-7e53-4e7d-949f-5c5ebd7fcc35",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-cycles",
+                    ":testCycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "testCycleId",
+                      "description": "(Required) ID of the Test Cycle which needs to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"noLogging\": false,\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "18a4ef9e-365b-489b-8baf-9320ecec34e3",
+    "name": "qTest Manager API Version 3.0 Test Cycle API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

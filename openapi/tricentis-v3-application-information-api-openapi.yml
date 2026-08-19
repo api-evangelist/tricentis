@@ -1,0 +1,295 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 Application Information API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-application-information
+  description: Application Information V3 APIs
+paths:
+  /api/sessions/{sessionId}/app-infos:
+    get:
+      tags:
+      - v3-application-information
+      summary: Get a list of application information of a session by session Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session to get application information list
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Application information list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  app_infos:
+                    $ref: '#/components/schemas/AppInfos'
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  total:
+                    type: number
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    post:
+      tags:
+      - v3-application-information
+      summary: Create an application information for a session by session Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session
+        required: true
+        schema:
+          type: number
+      responses:
+        201:
+          description: aplication information is created successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  id:
+                    type: number
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppInfo'
+        description: Application information object
+        required: true
+    put:
+      tags:
+      - v3-application-information
+      summary: Update list of application information for a session by session Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppInfos'
+        description: List of application information object
+        required: true
+  /api/sessions/{sessionId}/app-infos/{appInfoId}:
+    delete:
+      tags:
+      - v3-application-information
+      summary: Delete an application information of a session by session Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session
+        required: true
+        schema:
+          type: number
+      - name: appInfoId
+        in: path
+        description: application information Id
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Operation successful
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    get:
+      tags:
+      - v3-application-information
+      summary: Get an application information of a session by session Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session
+        required: true
+        schema:
+          type: number
+      - name: appInfoId
+        in: path
+        description: application information Id
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Links'
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+    put:
+      tags:
+      - v3-application-information
+      summary: update an application information of a session by session Id
+      parameters:
+      - name: sessionId
+        in: path
+        description: Id of session
+        required: true
+        schema:
+          type: number
+      - name: appInfoId
+        in: path
+        description: application information Id
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Links'
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.applicationInformation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppInfo'
+        required: true
+components:
+  schemas:
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

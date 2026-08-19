@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V3 Session API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v3-session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a session.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/api/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a session."
+        },
+        {
+          "info": {
+            "name": "Update multiple sessions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/api/sessions/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update multiple sessions."
+        },
+        {
+          "info": {
+            "name": "Delete multiple sessions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://session-js.qtestnet.com/api/sessions/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete multiple sessions."
+        },
+        {
+          "info": {
+            "name": "Get session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to return"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Get more infos of session, chain query with comma, Ex: time-line,app-infos"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get session by Id"
+        },
+        {
+          "info": {
+            "name": "Update session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/api/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to return"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update session by Id"
+        },
+        {
+          "info": {
+            "name": "Delete a session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://session-js.qtestnet.com/api/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a session by Id"
+        },
+        {
+          "info": {
+            "name": "Get status of session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/api/sessions/:sessionId/status",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to get status"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get status of session by Id"
+        },
+        {
+          "info": {
+            "name": "Change status of session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/api/sessions/:sessionId/status",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Id of session to change status"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change status of session by Id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

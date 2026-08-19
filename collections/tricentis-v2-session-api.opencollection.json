@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V2 Session API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v2-session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a session.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a session."
+        },
+        {
+          "info": {
+            "name": "Get session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to return"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Get more infos of session, chain query with comma, Ex: time-line,app-infos"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get session by Id"
+        },
+        {
+          "info": {
+            "name": "Update session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to return"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update session by Id"
+        },
+        {
+          "info": {
+            "name": "Delete a session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a session by Id"
+        },
+        {
+          "info": {
+            "name": "Get status of session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/status",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of session to get status"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get status of session by Id"
+        },
+        {
+          "info": {
+            "name": "Change status of session by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/status",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Id of session to change status"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change status of session by Id"
+        },
+        {
+          "info": {
+            "name": "Get all sessions relate to a qTest manager object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/coverages/sessions",
+            "params": [
+              {
+                "name": "publisherName",
+                "value": "",
+                "type": "query",
+                "description": "publisher name"
+              },
+              {
+                "name": "extId",
+                "value": "",
+                "type": "query",
+                "description": "external object's Id"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "object's type"
+              },
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query",
+                "description": "project's Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all sessions relate to a qTest manager object"
+        },
+        {
+          "info": {
+            "name": "Get all session's histories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/history",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session's id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all session's histories"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

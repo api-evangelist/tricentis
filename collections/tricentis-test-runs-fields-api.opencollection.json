@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TTM for Jira Test Runs Fields API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Test Runs Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add allowed value to scheme.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/test-runs/scheme/:schemeName/allowed-values",
+            "params": [
+              {
+                "name": "schemeName",
+                "value": "",
+                "type": "path",
+                "description": "The scheme name (Environments, Builds)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Add allowed value to scheme.\n##### Note: Allowed Scheme names: Environments, Builds.\n##### In case of trying to add existing allowed value, it will be ignored (duplicates are not allowed) and the response will be 200.\n            \n#### Body fields:\n* **allowedValues** _(mandatory)_: Provide a list of allowed values, with each value having the following fields:\n    * **name** _(mandatory)_: name of the allowed value.\n    * **description** _(optional)_: allowed value description."
+        },
+        {
+          "info": {
+            "name": "Delete allowed value from scheme.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ttm4j.tricentis.com/v1/test-runs/scheme/:schemeName/allowed-values/:allowedValueName",
+            "params": [
+              {
+                "name": "schemeName",
+                "value": "",
+                "type": "path",
+                "description": "The scheme name (Environments, Builds)."
+              },
+              {
+                "name": "allowedValueName",
+                "value": "",
+                "type": "path",
+                "description": "allowedValueName."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Delete allowed value from scheme.\n##### Note: Allowed Scheme names: Environments, Builds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

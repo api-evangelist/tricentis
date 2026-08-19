@@ -1,0 +1,2748 @@
+openapi: 3.2.0
+info:
+  title: TTM for Jira Test Cases API
+  description: Tricentis Test Management for Jira
+  version: 1.0.0
+  termsOfService: https://www.tricentis.com/legal-information/general-terms-of-use/
+servers:
+- url: https://api.ttm4j.tricentis.com
+security:
+- api_key: []
+tags:
+- name: Test Cases
+paths:
+  /v1/projects/{project-key}/test-cases:
+    get:
+      tags:
+      - Test Cases
+      summary: Read test case(s).
+      description: "Please note that this endpoint is deprecated and will be removed in the future. Use the /test-cases/bulk endpoint instead.\n            \n## Get or retrieve information from test case(s).\n            \n#### Body fields:\n* **jiraFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields."
+      parameters:
+      - name: jiraFields
+        in: query
+        description: A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: ttmFields
+        in: query
+        description: A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: offset
+        in: query
+        description: 'Numeric value that determines that the result list will start from result #N (zero based)'
+        schema:
+          type: Integer
+          default: 0
+          example: 0
+      responses:
+        '200':
+          description: Successfully retrieved test cases information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets offset.
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets limit.
+                    format: int32
+                  totalCount:
+                    type: integer
+                    description: Gets or sets totalCount.
+                    format: int32
+                  items:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        key:
+                          type:
+                          - string
+                          - 'null'
+                        project:
+                          type:
+                          - string
+                          - 'null'
+                        testCategory:
+                          type:
+                          - string
+                          - 'null'
+                        testType:
+                          enum:
+                          - Manual
+                          - Automated
+                          type: string
+                        fields:
+                          type: object
+                          properties:
+                            components:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                            summary:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type:
+                              - string
+                              - 'null'
+                            priority:
+                              type:
+                              - string
+                              - 'null'
+                            labels:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                          additionalProperties: false
+                        customFields:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type:
+                                - string
+                                - 'null'
+                              name:
+                                type:
+                                - string
+                                - 'null'
+                              value: {}
+                            additionalProperties: false
+                        ttmFields:
+                          type: object
+                          properties:
+                            precondition:
+                              type:
+                              - string
+                              - 'null'
+                            steps:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                additionalProperties: false
+                          additionalProperties: false
+                        requirements:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: string
+                        folder:
+                          type:
+                          - string
+                          - 'null'
+                        folderId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        automation:
+                          type: object
+                          properties:
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            externalId:
+                              type:
+                              - string
+                              - 'null'
+                            content:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      additionalProperties: false
+                    description: Gets or sets items.
+                additionalProperties: false
+                description: Page Response Scheme.
+              examples:
+                Tests results:
+                  value:
+                    offset: 0
+                    limit: 1
+                    totalCount: 100
+                    items:
+                    - id: acde1582-0cfe-46d2-9561-478a67d43b93
+                      key: TE-1
+                      project: TE
+                      testType: Manual
+                      fields:
+                        summary: Test 1 status
+                        description: Test 1 description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      customFields:
+                      - key: customField_10001
+                        name: A custom field
+                        value: Some value
+                      ttmFields:
+                        precondition: A precondition
+                        steps:
+                        - testCaseKey: TE-2
+                          testCaseId: '10000'
+                        - description: Login
+                          expectedResult: Login should work
+                        - description: Logout
+                          expectedResult: Logout should work
+                        - testCaseKey: TE-5
+                          testCaseId: '10004'
+                          deleted: true
+                      requirements:
+                      - TE-10
+                      - TE-11
+                      folder: parent folder/child folder
+                      folderId: 35ea12e6-f03e-4c20-85c1-da64525a0436
+                    - id: e5dbf10e-ee5c-47d9-9e8c-403ce6c1b34a
+                      key: TE-2
+                      project: TE
+                      testType: Automated
+                      fields:
+                        summary: An automated test
+                        description: Automated test description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      requirements:
+                      - TE-12
+                      - TE-13
+                      folder: automated tests/feature1
+                      folderId: 13354c28-a3da-4d37-a2e9-d25330e78909
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      deprecated: true
+      security:
+      - api_key: []
+    post:
+      tags:
+      - Test Cases
+      summary: Create test case(s).
+      description: "## Create test case(s).\n            \n#### Body fields:\n            \n* **folder** _(optional)_: Specify the folder path where you want to save the test case. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test case saves in the \"All tests\" folder. Do not specify both the folder and the folderID, or the request will fail.\n* **folderId** _(optional)_: Specify a unique ID associated with the folder in the TTM database, which specifies where the test case should be saved. Do not specify both the folder and the folderID, or the request will fail.\n* **callbackUrl** _(optional)_: Specify a URL that will recevie status of the request (The URL will serve as POST endpoint in the user side).\n* **tests**: Provide a list of tests with the following values:\n    * **fields**: The native Jira fields in a test case. The following fields are available:\n        * **summary**: The Summary of the test case in Jira.\n        * **description** _(optional)_: The Description of the test case in Jira.\n        * **status** _(optional)_: The Status of the test case in Jira.\n        * **priority** _(optional)_: The Priority of the test case in Jira.\n        * **labels** _(optional)_: The Labels of the test case in Jira.\n    * **ttmFields**: These are the Jira fields provided by the Tricentis Test Management for Jira plugin. The following fields are available:\n        * **precondition** _(optional)_: The precondition for a test case.\n        * **steps** _(optional)_: The list of steps for the test case.\n            * **description** _(optional)_: Step description.\n            * **expectedResult** _(optional)_: Step expected result.\n            * **data** _(optional)_: Step data.\n            * **testCaseKey** _(optional)_: test case key, when set the step will call the test case and other step fields will be ignored.\n    * **testType**: Can be one of the following: \"Manual\", \"Automated\"\n    * **requirements** _(optional)_: List of issues keys (from Jira) that should be linked as requirements.\n    * **customFields** _(optional)_: The custom Jira fields in a test case.\n    * **folder** _(optional)_: Specify the folder path where you want to save the test case. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test case saves in the \"All tests\" folder. Do not specify both the folder and the folderID, or the request will fail. If you do not specify the folder in this field, the request uses the folder specified at the root level.\n    * **folderId** _(optional)_: Specify a unique ID associated with the folder in the TTM database, which specifies where the test case should be saved. Do not specify both the folder and the folderID, or the request will fail. If you do not specify the folderId in this field, the request uses the folderId specified at the root level.\n    * **automation** _(optional)_: Automation data. Provide the following values for your test case:\n        * **name**: The name of your external automation system. For example, Testim.\n        * **externalId** _(optional)_: The ID of the test in your external automation platform.\n        * **content** _(optional)_: The content your automation system supplies to represent the test."
+      parameters:
+      - name: strictOrder
+        in: query
+        description: If strict order is true, test-cases will be created according to the given order.
+        schema:
+          type: boolean
+          default: false
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: External API body payload that describes the tests to create.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                folder:
+                  type:
+                  - string
+                  - 'null'
+                folderId:
+                  type:
+                  - string
+                  - 'null'
+                  format: uuid
+                callbackUrl:
+                  type:
+                  - string
+                  - 'null'
+                tests:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    required:
+                    - testType
+                    type: object
+                    properties:
+                      testType:
+                        enum:
+                        - Manual
+                        - Automated
+                        type: string
+                      fields:
+                        type: object
+                        properties:
+                          components:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                          summary:
+                            type:
+                            - string
+                            - 'null'
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                          status:
+                            type:
+                            - string
+                            - 'null'
+                          priority:
+                            type:
+                            - string
+                            - 'null'
+                          labels:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                        additionalProperties: false
+                      customFields:
+                        type:
+                        - object
+                        - 'null'
+                        additionalProperties: {}
+                      ttmFields:
+                        type: object
+                        properties:
+                          precondition:
+                            type:
+                            - string
+                            - 'null'
+                          steps:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: object
+                              properties:
+                                expectedResult:
+                                  type:
+                                  - string
+                                  - 'null'
+                                data:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                testCaseKey:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                        additionalProperties: false
+                      automation:
+                        required:
+                        - name
+                        type: object
+                        properties:
+                          name:
+                            minLength: 1
+                            type: string
+                          externalId:
+                            type:
+                            - string
+                            - 'null'
+                          content:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                      requirements:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: string
+                      folder:
+                        type:
+                        - string
+                        - 'null'
+                      folderId:
+                        type:
+                        - string
+                        - 'null'
+                        format: uuid
+                    additionalProperties: false
+              additionalProperties: false
+            examples:
+              Quick start example:
+                value:
+                  tests:
+                  - testType: Manual
+                    fields:
+                      summary: Empty test with summary only
+                  - testType: Manual
+                    fields:
+                      summary: Test with summary, description and precondition only
+                      description: Some description
+                    ttmFields:
+                      precondition: Some precondition
+                  - testType: Manual
+                    fields:
+                      summary: Test with summary, description, precondition and steps
+                      description: Some description
+                    ttmFields:
+                      precondition: Some precondition
+                      steps:
+                      - description: Step with description only
+                      - description: Step with description and expected result
+                        expectedResult: Expected result of the step
+                      - description: Step with description, expected result and data
+                        expectedResult: Step with description, expected result and data
+                        data: Step with description, expected result and data
+                  - testType: Manual
+                    fields:
+                      summary: Test with custom fields (Please replace the custom fields to real fields from your account)
+                    customFields:
+                      custom summary field: Custom summary text
+                      custom status field: MyCustomStatus
+              Complex example:
+                value:
+                  folder: Sanity tests/Login feature
+                  callbackUrl: http://yourPostEndpoint
+                  tests:
+                  - testType: Manual
+                    fields:
+                      summary: Test example with common used fields
+                      description: Please replace the issues in "requirements" and "testCase" fields to real issues from your Jira account
+                      status: In Progress
+                      priority: High
+                      labels:
+                      - My Label
+                    ttmFields:
+                      precondition: You need internet connection
+                      steps:
+                      - description: Open the browser
+                      - description: 'Type the url: "https://example.com/login"'
+                      - description: Enter username and password, and click login
+                        expectedResult: Login should successful, the next step is a clean up test (child test)
+                        data: Website to login is https://api.ttm4j.tricentis.com/
+                      - testCaseKey: PR-1
+                    requirements:
+                    - PR-10
+                    - PR-11
+                  - testType: Manual
+                    fields:
+                      summary: Test in a specific folder
+                      description: 'Note: the folder will be created if it does not exist'
+                    folder: Specific folder/Feature 1
+                  - testType: Manual
+                    fields:
+                      summary: Test in a specific folder (by parent id. please replace this ID to a real id from your account)
+                    folderId: 160441c9-6a84-4dc9-aaa8-cfbaaf736497
+                  - testType: Manual
+                    fields:
+                      summary: Test with custom fields (Please replace the custom fields to real fields from your account)
+                    customFields:
+                      custom summary field: Custom summary text
+                      custom status field: MyCustomStatus
+                  - testType: Automated
+                    fields:
+                      summary: Automated test case (Should include "automation" field)
+                    automation:
+                      name: Automation name
+                      externalId: '12345'
+                      content: Automation content
+      responses:
+        '202':
+          description: The job to create the test cases was successfully scheduled.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  folder:
+                    type:
+                    - string
+                    - 'null'
+                  folderId:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                  callbackUrl:
+                    type:
+                    - string
+                    - 'null'
+                  tests:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      required:
+                      - testType
+                      type: object
+                      properties:
+                        testType:
+                          enum:
+                          - Manual
+                          - Automated
+                          type: string
+                        fields:
+                          type: object
+                          properties:
+                            components:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                            summary:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type:
+                              - string
+                              - 'null'
+                            priority:
+                              type:
+                              - string
+                              - 'null'
+                            labels:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                          additionalProperties: false
+                        customFields:
+                          type:
+                          - object
+                          - 'null'
+                          additionalProperties: {}
+                        ttmFields:
+                          type: object
+                          properties:
+                            precondition:
+                              type:
+                              - string
+                              - 'null'
+                            steps:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  expectedResult:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  data:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  testCaseKey:
+                                    type:
+                                    - string
+                                    - 'null'
+                                additionalProperties: false
+                          additionalProperties: false
+                        automation:
+                          required:
+                          - name
+                          type: object
+                          properties:
+                            name:
+                              minLength: 1
+                              type: string
+                            externalId:
+                              type:
+                              - string
+                              - 'null'
+                            content:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                        requirements:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: string
+                        folder:
+                          type:
+                          - string
+                          - 'null'
+                        folderId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                      additionalProperties: false
+                additionalProperties: false
+              examples:
+                Create tests job created:
+                  value:
+                    jobId: 51d3c699-6319-4f33-adf9-f399a1510ce4
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-cases/bulk:
+    get:
+      tags:
+      - Test Cases
+      summary: Read test case(s).
+      description: "## Get or retrieve information from test case(s).\n            \n#### Body fields:\n* **jiraFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: a comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **folderId**: an optional folder ID to filter test cases. If provided, only test cases in the specified folder (including all child folders) will be returned. Cannot be used together with folderPath.\n* **folderPath**: an optional folder path to filter test cases. If provided, only test cases in the specified folder path (including all child folders) will be returned. Example: \"Main Folder/Child Folder\". Cannot be used together with folderId."
+      parameters:
+      - name: jiraFields
+        in: query
+        description: A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: ttmFields
+        in: query
+        description: A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: folderId
+        in: query
+        description: An optional folder ID to filter test cases. If provided, only test cases in the specified folder (including all child folders) will be returned. Cannot be used together with folderPath.
+        schema:
+          type: string
+          format: uuid
+      - name: folderPath
+        in: query
+        description: 'An optional folder path to filter test cases. If provided, only test cases in the specified folder path (including all child folders) will be returned. Example: "Main Folder/Child Folder". Cannot be used together with folderId.'
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: nextPageToken
+        in: query
+        description: 'The cursor for pagination: To get the next page, pass this parameter; to get the first page, omit this parameter. The parameter is returned from the previous page.'
+        schema:
+          type: String
+          default: null
+      responses:
+        '200':
+          description: Successfully retrieved test cases information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets offset.
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets limit.
+                    format: int32
+                  totalCount:
+                    type: integer
+                    description: Gets or sets totalCount.
+                    format: int32
+                  items:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        key:
+                          type:
+                          - string
+                          - 'null'
+                        project:
+                          type:
+                          - string
+                          - 'null'
+                        testCategory:
+                          type:
+                          - string
+                          - 'null'
+                        testType:
+                          enum:
+                          - Manual
+                          - Automated
+                          type: string
+                        fields:
+                          type: object
+                          properties:
+                            components:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                            summary:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type:
+                              - string
+                              - 'null'
+                            priority:
+                              type:
+                              - string
+                              - 'null'
+                            labels:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                          additionalProperties: false
+                        customFields:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type:
+                                - string
+                                - 'null'
+                              name:
+                                type:
+                                - string
+                                - 'null'
+                              value: {}
+                            additionalProperties: false
+                        ttmFields:
+                          type: object
+                          properties:
+                            precondition:
+                              type:
+                              - string
+                              - 'null'
+                            steps:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                additionalProperties: false
+                          additionalProperties: false
+                        requirements:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: string
+                        folder:
+                          type:
+                          - string
+                          - 'null'
+                        folderId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        automation:
+                          type: object
+                          properties:
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            externalId:
+                              type:
+                              - string
+                              - 'null'
+                            content:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      additionalProperties: false
+                    description: Gets or sets items.
+                additionalProperties: false
+                description: Page Response Scheme.
+              examples:
+                Tests results:
+                  value:
+                    limit: 1
+                    nextPageToken: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    items:
+                    - id: 15906bae-66d8-484a-b920-552beccc0a4a
+                      key: TE-1
+                      project: TE
+                      testType: Manual
+                      fields:
+                        summary: Test 1 status
+                        description: Test 1 description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      customFields:
+                      - key: customField_10001
+                        name: A custom field
+                        value: Some value
+                      ttmFields:
+                        precondition: A precondition
+                        steps:
+                        - testCaseKey: TE-2
+                          testCaseId: '10000'
+                        - description: Login
+                          expectedResult: Login should work
+                        - description: Logout
+                          expectedResult: Logout should work
+                        - testCaseKey: TE-5
+                          testCaseId: '10004'
+                          deleted: true
+                      requirements:
+                      - TE-10
+                      - TE-11
+                      folder: parent folder/child folder
+                      folderId: c30ac076-2804-4af1-ab30-d57ccb4e7965
+                    - id: 023bc02a-3851-4b9b-bd57-3daefe6625f6
+                      key: TE-2
+                      project: TE
+                      testType: Automated
+                      fields:
+                        summary: An automated test
+                        description: Automated test description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      requirements:
+                      - TE-12
+                      - TE-13
+                      folder: automated tests/feature1
+                      folderId: cfa0b1e8-70c3-4d86-b2c7-630bf1834469
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/test-cases/search:
+    post:
+      tags:
+      - Test Cases
+      summary: Search test case(s).
+      description: "## Search for test case(s) using JQL.\nPlease note that this endpoint is deprecated and will be removed in the future. Use the /test-cases/search/jql endpoint instead.\n#### Body fields:\n            \n* **jql** _(optional)_: The Jira Query Language (JQL) query to search.\n* **jiraFields**: A comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: A comma-separated list of TTM fields to return for each issue. Use this to retrieve a subset of fields."
+      parameters:
+      - name: jiraFields
+        in: query
+        description: A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: ttmFields
+        in: query
+        description: A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: offset
+        in: query
+        description: 'Numeric value that determines that the result list will start from result #N (zero based)'
+        schema:
+          type: Integer
+          default: 0
+          example: 0
+      requestBody:
+        description: The request body.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jql:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties: false
+      responses:
+        '200':
+          description: Successfully retrieved test cases for the provided query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets offset.
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets limit.
+                    format: int32
+                  totalCount:
+                    type: integer
+                    description: Gets or sets totalCount.
+                    format: int32
+                  items:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        key:
+                          type:
+                          - string
+                          - 'null'
+                        project:
+                          type:
+                          - string
+                          - 'null'
+                        testCategory:
+                          type:
+                          - string
+                          - 'null'
+                        testType:
+                          enum:
+                          - Manual
+                          - Automated
+                          type: string
+                        fields:
+                          type: object
+                          properties:
+                            components:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                            summary:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type:
+                              - string
+                              - 'null'
+                            priority:
+                              type:
+                              - string
+                              - 'null'
+                            labels:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                          additionalProperties: false
+                        customFields:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type:
+                                - string
+                                - 'null'
+                              name:
+                                type:
+                                - string
+                                - 'null'
+                              value: {}
+                            additionalProperties: false
+                        ttmFields:
+                          type: object
+                          properties:
+                            precondition:
+                              type:
+                              - string
+                              - 'null'
+                            steps:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                additionalProperties: false
+                          additionalProperties: false
+                        requirements:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: string
+                        folder:
+                          type:
+                          - string
+                          - 'null'
+                        folderId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        automation:
+                          type: object
+                          properties:
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            externalId:
+                              type:
+                              - string
+                              - 'null'
+                            content:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      additionalProperties: false
+                    description: Gets or sets items.
+                additionalProperties: false
+                description: Page Response Scheme.
+              examples:
+                Tests results:
+                  value:
+                    offset: 0
+                    limit: 1
+                    totalCount: 100
+                    items:
+                    - id: 93a63ab3-9c3b-4ec3-9d19-883cc3c77c99
+                      key: TE-1
+                      project: TE
+                      testType: Manual
+                      fields:
+                        summary: Test 1 status
+                        description: Test 1 description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      customFields:
+                      - key: customField_10001
+                        name: A custom field
+                        value: Some value
+                      ttmFields:
+                        precondition: A precondition
+                        steps:
+                        - testCaseKey: TE-2
+                          testCaseId: '10000'
+                        - description: Login
+                          expectedResult: Login should work
+                        - description: Logout
+                          expectedResult: Logout should work
+                        - testCaseKey: TE-5
+                          testCaseId: '10004'
+                          deleted: true
+                      requirements:
+                      - TE-10
+                      - TE-11
+                      folder: parent folder/child folder
+                      folderId: 14e197ed-f63b-4560-aeee-31d05e2d5154
+                    - id: 0e76ca1b-4f65-4529-a9dc-e090a8fa5dac
+                      key: TE-2
+                      project: TE
+                      testType: Automated
+                      fields:
+                        summary: An automated test
+                        description: Automated test description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      requirements:
+                      - TE-12
+                      - TE-13
+                      folder: automated tests/feature1
+                      folderId: 1225389c-6d7f-4691-99ad-555338cd1367
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      deprecated: true
+      security:
+      - api_key: []
+  /v1/test-cases/search/jql:
+    post:
+      tags:
+      - Test Cases
+      summary: Search test case(s).
+      description: "## Search for test case(s) using JQL.\n            \n#### Body fields:\n            \n* **jql** _(optional)_: The Jira Query Language (JQL) query to search.\n* **jiraFields**: A comma-separated list of Jira fields to return for each issue. Use this to retrieve a subset of fields.\n* **ttmFields**: A comma-separated list of TTM fields to return for each issue. Use this to retrieve a subset of fields."
+      parameters:
+      - name: jiraFields
+        in: query
+        description: A list of Jira fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: ttmFields
+        in: query
+        description: A list of TTM fields to return for each issue, use it to retrieve a subset of fields. Provide a comma-separated list.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: nextPageToken
+        in: query
+        description: 'The cursor for pagination: To get the next page, pass this parameter; to get the first page, omit this parameter. The parameter is returned from the previous page.'
+        schema:
+          type: String
+          default: null
+      requestBody:
+        description: The request body.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jql:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties: false
+      responses:
+        '200':
+          description: Successfully retrieved test cases for the provided query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets offset.
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Gets or sets limit.
+                    format: int32
+                  totalCount:
+                    type: integer
+                    description: Gets or sets totalCount.
+                    format: int32
+                  items:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        key:
+                          type:
+                          - string
+                          - 'null'
+                        project:
+                          type:
+                          - string
+                          - 'null'
+                        testCategory:
+                          type:
+                          - string
+                          - 'null'
+                        testType:
+                          enum:
+                          - Manual
+                          - Automated
+                          type: string
+                        fields:
+                          type: object
+                          properties:
+                            components:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                            summary:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type:
+                              - string
+                              - 'null'
+                            priority:
+                              type:
+                              - string
+                              - 'null'
+                            labels:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                          additionalProperties: false
+                        customFields:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type:
+                                - string
+                                - 'null'
+                              name:
+                                type:
+                                - string
+                                - 'null'
+                              value: {}
+                            additionalProperties: false
+                        ttmFields:
+                          type: object
+                          properties:
+                            precondition:
+                              type:
+                              - string
+                              - 'null'
+                            steps:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                additionalProperties: false
+                          additionalProperties: false
+                        requirements:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: string
+                        folder:
+                          type:
+                          - string
+                          - 'null'
+                        folderId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        automation:
+                          type: object
+                          properties:
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            externalId:
+                              type:
+                              - string
+                              - 'null'
+                            content:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      additionalProperties: false
+                    description: Gets or sets items.
+                additionalProperties: false
+                description: Page Response Scheme.
+              examples:
+                Tests results:
+                  value:
+                    limit: 1
+                    nextPageToken: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    items:
+                    - id: ce36a641-e5cd-406c-8438-635da0738bad
+                      key: TE-1
+                      project: TE
+                      testType: Manual
+                      fields:
+                        summary: Test 1 status
+                        description: Test 1 description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      customFields:
+                      - key: customField_10001
+                        name: A custom field
+                        value: Some value
+                      ttmFields:
+                        precondition: A precondition
+                        steps:
+                        - testCaseKey: TE-2
+                          testCaseId: '10000'
+                        - description: Login
+                          expectedResult: Login should work
+                        - description: Logout
+                          expectedResult: Logout should work
+                        - testCaseKey: TE-5
+                          testCaseId: '10004'
+                          deleted: true
+                      requirements:
+                      - TE-10
+                      - TE-11
+                      folder: parent folder/child folder
+                      folderId: 3d1f056e-dd30-40a7-8911-0f0614367aae
+                    - id: 07253e35-456e-4a7e-8b06-ef8bc7abc53b
+                      key: TE-2
+                      project: TE
+                      testType: Automated
+                      fields:
+                        summary: An automated test
+                        description: Automated test description
+                        status: Backlog
+                        priority: High
+                        labels:
+                        - My Label
+                      requirements:
+                      - TE-12
+                      - TE-13
+                      folder: automated tests/feature1
+                      folderId: 00c1a8c4-59de-4301-bbc7-b115039b5d27
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/jobs/{job-id}:
+    get:
+      tags:
+      - Test Cases
+      summary: Query job status.
+      description: '## Query the status of an asynchronous job to create or import test case(s).'
+      parameters:
+      - name: job-id
+        in: path
+        description: The job ID returned from the import request endpoint.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the test creation job status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - Pending
+                    - InProgress
+                    - Completed
+                    - Failed
+                    type: string
+                  errors:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        errorMessage:
+                          type:
+                          - string
+                          - 'null'
+                        status:
+                          type:
+                          - integer
+                          - 'null'
+                          format: int32
+                        elementDataErrors:
+                          type: object
+                          properties:
+                            errorMessages:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: string
+                            errors:
+                              type:
+                              - object
+                              - 'null'
+                              additionalProperties:
+                                type:
+                                - string
+                                - 'null'
+                          additionalProperties: false
+                        failedElementNumber:
+                          type:
+                          - integer
+                          - 'null'
+                          format: int32
+                      additionalProperties: false
+                  issues:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        key:
+                          type:
+                          - string
+                          - 'null'
+                        self:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                additionalProperties: false
+              examples:
+                Pending job:
+                  value:
+                    status: Pending
+                In progress job:
+                  value:
+                    status: InProgress
+                Completed job:
+                  value:
+                    status: Completed
+                    issues:
+                    - id: '10000'
+                      key: Key-1
+                      self: https://URL/rest/api/2/issue/10000
+                    - id: '10001'
+                      key: Key-2
+                      self: https://URL/rest/api/2/issue/10001
+                    - id: '10002'
+                      key: Key-3
+                      self: https://URL/rest/api/2/issue/10002
+                Failed job:
+                  value:
+                    status: Failed
+                    errors:
+                    - errorMessage: Please specify only of of the parameters - folder id or folder
+                    - errorMessage: 'Found validation issue in test at index 0: Manual test can''t include the automation field'
+                    - status: 400
+                      elementDataErrors:
+                        errorMessages: []
+                        errors:
+                          issuetype: The issue type selected is invalid.
+                          project: Sub-tasks must be created in the same project as the parent.
+                      failedElementNumber: 0
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-cases/{key}:
+    put:
+      tags:
+      - Test Cases
+      summary: Update test case.
+      description: "## Update existing test case.\n            \n* **fields**: The native Jira fields in a test case. Only the following fields are available (for the rest please use native Jira API):\n    * **summary** _(optional)_: The Summary of the test case in Jira. To remove the summary, provide an empty string.\n    * **description** _(optional)_: The Description of the test case in Jira. To remove the description, provide an empty string.\n    * **priority** _(optional)_: The Priority of the test case in Jira.\n    * **labels** _(optional)_: The Labels of the test case in Jira.\n* **ttmFields**: These are the Jira fields provided by the Tricentis Test Management for Jira plugin. The following fields are available:\n    * **precondition** _(optional)_: The precondition for a test case. To remove the precondition, provide an empty string.\n    * **steps** _(optional)_: The list of steps for the test case. To remove all steps, provide an empty list.\n        * **description** _(mandatory)_: Step description.\n        * **expectedResult** _(optional)_: Step expected result.\n        * **data** _(optional)_: Step data.\n* **folder** _(optional)_: Specify the folder path where you want to move the test case. A path is a string of concatenated parts separated by a slash \"/\". Ignored if folderId specified.\n* **folderId** _(optional)_: Specify a unique ID associated with the folder in the TTM database, which specifies where the test case should be moved. When specified folder field will be ignored."
+      parameters:
+      - name: key
+        in: path
+        description: The jira key of the test.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The data to update in the test.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  type: object
+                  properties:
+                    summary:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    priority:
+                      type:
+                      - string
+                      - 'null'
+                    labels:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                  additionalProperties: false
+                ttmFields:
+                  type: object
+                  properties:
+                    precondition:
+                      type:
+                      - string
+                      - 'null'
+                    steps:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        required:
+                        - description
+                        type: object
+                        properties:
+                          description:
+                            minLength: 1
+                            type: string
+                          expectedResult:
+                            type:
+                            - string
+                            - 'null'
+                          data:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                  additionalProperties: false
+                folder:
+                  type:
+                  - string
+                  - 'null'
+                folderId:
+                  type:
+                  - string
+                  - 'null'
+                  format: uuid
+              additionalProperties: false
+            examples:
+              Update test request:
+                value:
+                  fields:
+                    summary: New test summary
+                    description: New test description
+                    priority: Low
+                    labels:
+                    - Mylabel
+                  ttmFields:
+                    precondition: New test precondition
+                    steps:
+                    - description: Another step
+                      expectedResult: Another expected result
+                      data: Another data
+                    - description: Another step 2
+                  folder: My Folder/Subfolder
+                  folderId: 62236dad-ae0f-42a0-a0cc-01a16b679577
+      responses:
+        '200':
+          description: Updated test case.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type:
+                    - string
+                    - 'null'
+                  key:
+                    type:
+                    - string
+                    - 'null'
+                  project:
+                    type:
+                    - string
+                    - 'null'
+                  testCategory:
+                    type:
+                    - string
+                    - 'null'
+                  testType:
+                    enum:
+                    - Manual
+                    - Automated
+                    type: string
+                  fields:
+                    type: object
+                    properties:
+                      components:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: string
+                      summary:
+                        type:
+                        - string
+                        - 'null'
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      status:
+                        type:
+                        - string
+                        - 'null'
+                      priority:
+                        type:
+                        - string
+                        - 'null'
+                      labels:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: string
+                    additionalProperties: false
+                  customFields:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                        value: {}
+                      additionalProperties: false
+                  ttmFields:
+                    type: object
+                    properties:
+                      precondition:
+                        type:
+                        - string
+                        - 'null'
+                      steps:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          additionalProperties: false
+                    additionalProperties: false
+                  requirements:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: string
+                  folder:
+                    type:
+                    - string
+                    - 'null'
+                  folderId:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                  automation:
+                    type: object
+                    properties:
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                      externalId:
+                        type:
+                        - string
+                        - 'null'
+                      content:
+                        type:
+                        - string
+                        - 'null'
+                    additionalProperties: false
+                additionalProperties: false
+              examples:
+                Updated test:
+                  value:
+                    fields:
+                      summary: Test 1 status
+                      description: Test 1 description
+                      priority: High
+                      labels:
+                      - MyLabel
+                    ttmFields:
+                      precondition: A precondition
+                      steps:
+                      - description: Login
+                        expectedResult: Login should work
+                      - description: Logout
+                        expectedResult: Logout should work
+                    folder: parent folder/child folder
+                    folderId: 74df2886-2780-4c68-b8f7-991e781bea00
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+    delete:
+      tags:
+      - Test Cases
+      summary: Delete test case(s).
+      description: '## Delete test case(s).'
+      parameters:
+      - name: key
+        in: path
+        description: The Jira id or key of the test.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deleted test case.
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-cases/{key}/automation:
+    put:
+      tags:
+      - Test Cases
+      summary: Add or update automation content for a test case.
+      description: "## Add or update automation content and details for a test case.\n            \n#### Body fields:\n            \n* **name**: The name of the automation for the test case.\n* **externalId** _(optional)_: The external Id of the automated test from the external automation system.\n* **key**: The Jira key of the test case ."
+      parameters:
+      - name: key
+        in: path
+        description: The Jira issue key for the Test Case.
+        required: true
+        schema:
+          type: string
+      - name: confirmation
+        in: query
+        description: '<br>Changing a test case from Manual to Automated overwrites your precondition and test steps.
+
+          <br> Select True to confirm that you want to delete the precondition and test steps from the test case.'
+        schema:
+          type: boolean
+          default: false
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: API body payload to update a test case and add automation.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type:
+                  - string
+                  - 'null'
+                externalId:
+                  type:
+                  - string
+                  - 'null'
+                content:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties: false
+            examples:
+              Update test automation request:
+                value:
+                  name: Automation name
+                  externalId: '12345'
+                  content: Automation content
+      responses:
+        '200':
+          description: Updated automation content for test case.
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

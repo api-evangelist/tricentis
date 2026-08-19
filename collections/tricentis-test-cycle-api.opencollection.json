@@ -1,0 +1,241 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Test Cycle API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "test-cycle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Test Cycles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-cycles",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Release or Test Cycle which directly contains the Test Cycles you are retrieving. Input 0 (zero) to get Test Cycles directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "The artifact type of the parent folder. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Specify <em>expand=descendants</em> to retrieve the Test Cycles' sub and grand-sub Cycles/Suites"
+              },
+              {
+                "name": "tosca",
+                "value": "",
+                "type": "query",
+                "description": "tosca"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specify any page number to retrieve Test Cycles"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Specify any page size to retrieve Test Cycles. If a negative value is provided and no page number is specified, all Test Cycles will be retrieved."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve Test Cycles which are located directly under root or a Release/Test Cycle"
+        },
+        {
+          "info": {
+            "name": "Create a Test Cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-cycles",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Release or Test Cycle under which the newly created Test Cycle will be located. \n\nUse 0 (zero) to create the Test Cycle under the root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "The artifact type of the parent folder. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a Test Cycle\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Gets a Test Cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-cycles/:testCycleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testCycleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Cycle which you want to retrieve."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Specify <em>expand=descendants</em> to include its sub and grand-sub Test Cycles and Test Suites in the response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Test Cycle\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Updates a Test Cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-cycles/:testCycleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testCycleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Cycle which needs to be updated."
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of a Release or parent Test Cycle which the updated Test Cycle will be moved to. Input 0 (zero) to move the Test Cycle to under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "The artifact type of the parent folder to which the Test Cycle will be moved to. Valid values include <em>release</em>, <em>test-cycle</em> or <em>root</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a Test Cycle or move it to another container\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Deletes a Test Cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-cycles/:testCycleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testCycleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Cycle which needs to be deleted."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "The Test Cycle can only be deleted if it contains no children. Specify <em>force=true</em> to delete the Test Cycle and its children"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Test Cycle\n\n<strong>qTest Manager version:</strong> 6+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

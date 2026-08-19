@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tricentis Project API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "project",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/projects",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "<em>expand=userprofile</em> - to include your profile and permissions in each project"
+              },
+              {
+                "name": "assigned",
+                "value": "",
+                "type": "query",
+                "description": "<em>assigned=true</em> - default value. Only the projects which the requested user has access to\n\n<em>assigned=false</em> - Users with admin profile can use this value to retrieve all projects, regardless of having access"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default, all projects are returned; but you can specify any page number to retrieve objects"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              }
+            ]
+          },
+          "docs": "To retrieve all Projects which the requested qTest  Manager account can access to\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Creates a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/projects"
+          },
+          "docs": "To create a new Project\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Search for projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/projects/search"
+          },
+          "docs": "Search for projects"
+        },
+        {
+          "info": {
+            "name": "Gets a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "<em>expand=userprofile</em> - include the your profile and permissions within the project in the response"
+              }
+            ]
+          },
+          "docs": "To retrieve a specific Project"
+        },
+        {
+          "info": {
+            "name": "Updates a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v3/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "Updates a Project"
+        },
+        {
+          "info": {
+            "name": "Gets current user Permissions in a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/projects/:projectId/user-profiles/current",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To retrieve your Permissions in a Project\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets all Users in a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/projects/:projectId/users",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "inactive",
+                "value": "",
+                "type": "query",
+                "description": "<em>inactive=false</em> - default value. Inactive users are excluded from the response\n\n<em>inactive=true</em> - inactive users are included in the response"
+              }
+            ]
+          },
+          "docs": "To retrieve all members in a qTest Manager Project\n\n<strong>qTest Manager version:</strong> 8.4.2+"
+        },
+        {
+          "info": {
+            "name": "Get all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects"
+          },
+          "docs": "Get all projects"
+        },
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              }
+            ]
+          },
+          "docs": "To get a project by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

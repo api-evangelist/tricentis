@@ -1,0 +1,339 @@
+openapi: 3.2.0
+info:
+  title: Tricentis Analytics (Tech Review) Requirementtestcases API
+  description: Tricentis Analytics OData APIs
+  version: ''
+servers:
+- url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+tags:
+- name: requirementtestcases
+paths:
+  /requirementtestcases:
+    get:
+      summary: Get entities from requirementtestcases
+      tags:
+      - requirementtestcases
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - requirementid
+            - requirementid desc
+            - testcaseid
+            - testcaseid desc
+            - folderid
+            - folderid desc
+            - executionenddateid
+            - executionenddateid desc
+            - executionenddate
+            - executionenddate desc
+            - totaltestexecutions
+            - totaltestexecutions desc
+            - totaltestexecutiontime
+            - totaltestexecutiontime desc
+            - passedtestexecutions
+            - passedtestexecutions desc
+            - failedtestexecutions
+            - failedtestexecutions desc
+            - blockedtestexecutions
+            - blockedtestexecutions desc
+            - incompletetestexecutions
+            - incompletetestexecutions desc
+            - unexecutedtestexecutions
+            - unexecutedtestexecutions desc
+            - ssor
+            - ssor desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - requirementid
+            - testcaseid
+            - folderid
+            - executionenddateid
+            - executionenddate
+            - totaltestexecutions
+            - totaltestexecutiontime
+            - passedtestexecutions
+            - failedtestexecutions
+            - blockedtestexecutions
+            - incompletetestexecutions
+            - unexecutedtestexecutions
+            - ssor
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of requirementtestcase
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirementtestcase'
+        4XX:
+          $ref: '#/components/responses/error'
+  /requirementtestcases('{id}'):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        type:
+        - string
+        - 'null'
+        maxLength: 32768
+    get:
+      summary: Get entity from requirementtestcases by key
+      tags:
+      - requirementtestcases
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - requirementid
+            - testcaseid
+            - folderid
+            - executionenddateid
+            - executionenddate
+            - totaltestexecutions
+            - totaltestexecutiontime
+            - passedtestexecutions
+            - failedtestexecutions
+            - blockedtestexecutions
+            - incompletetestexecutions
+            - unexecutedtestexecutions
+            - ssor
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirementtestcase'
+        4XX:
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirementtestcase:
+      title: requirementtestcase
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        requirementid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        folderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionenddateid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        executionenddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        totaltestexecutions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        totaltestexecutiontime:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        passedtestexecutions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        failedtestexecutions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        blockedtestexecutions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        incompletetestexecutions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        unexecutedtestexecutions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey

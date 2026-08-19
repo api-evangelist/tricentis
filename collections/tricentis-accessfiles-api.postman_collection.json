@@ -1,0 +1,504 @@
+{
+  "item": [
+    {
+      "id": "fc628058-d53b-44fc-b451-71b7047cfbc5",
+      "name": "AccessFiles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c262dc2a-5084-4f93-ae4e-924e57109dab",
+          "name": "Produce a list of files.",
+          "request": {
+            "name": "Produce a list of files.",
+            "description": {
+              "content": "Produce a list of files, each with its own filepath. Use this information to start a file download.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "directoryFilter",
+                  "value": "<string>",
+                  "description": "The full path of a directory from the root. Use the format \"qTest/yyyy-MM-dd/<name of the table>\". For example, to retrieve all files loaded into the builds table on December 4th, 2022, enter the value \"qtest/2022-12-04/builds\". To retrieve all files from a specific date, enter the value \"qtest/yyyy-MM-dd\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "The value that points you to the next page of your data, if the data you're trying to retrieve exceeds the pageSize value. Use this value in a new request to retrieve the next set of data. Once you've retrieved all data, the pageToken value is null and the lastPage value is true."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "The maximum number of objects you want to fetch per request. The default is the maximum value of 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique API access key for your organization.",
+                "key": "apiKey",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66e4f45b-4305-478a-b057-f3a214e475b2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "directoryFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pageToken\": \"string\",\n  \"lastPage\": true,\n  \"files\": [\n    {\n      \"uniqueID\": \"string\",\n      \"filePath\": \"string\",\n      \"createdDate\": \"1967-07-23T00:02:35.595Z\",\n      \"sizeKB\": 7530\n    },\n    {\n      \"uniqueID\": \"string\",\n      \"filePath\": \"string\",\n      \"createdDate\": \"1961-04-09T11:22:31.556Z\",\n      \"sizeKB\": 1764\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13e02900-b6f9-4171-9f47-ac91b701c3e7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "directoryFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1971-11-04T05:00:44.368Z\",\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c03b527-cc66-4d49-acc2-99396b72a935",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "directoryFilter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"2016-11-20T07:14:08.811Z\",\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2d5241f-6562-411a-8509-e93d501a3061",
+          "name": "Download a file.",
+          "request": {
+            "name": "Download a file.",
+            "description": {
+              "content": "Download a file from the filepath produced by the GET request /files. Files in a folder are listed in increasing numerical order. Read the file numbers from least to greatest. For example, 0000_part_00.parquet, 0000_part_01.parquet, 0001_part_00.parquet, 0001_part_01.parquet, and so on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "file",
+                ":filepath"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filepath",
+                  "description": "(Required) The full file path for the file you want to retrieve, including the file name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique API access key for your organization.",
+                "key": "apiKey",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70b345a6-8ef3-4e77-b231-790b4a9d4538",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":filepath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filepath",
+                      "description": "(Required) The full file path for the file you want to retrieve, including the file name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db4d4e56-a393-44dc-897c-b849324d8fe9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":filepath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filepath",
+                      "description": "(Required) The full file path for the file you want to retrieve, including the file name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"2016-11-20T07:14:08.811Z\",\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d88fc41-0a82-4a0f-9ff5-72d56953c1f1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":filepath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filepath",
+                      "description": "(Required) The full file path for the file you want to retrieve, including the file name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"2016-11-20T07:14:08.811Z\",\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c68ef4f6-4d53-4aa7-bf68-2a91d4523f46",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "file",
+                    ":filepath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filepath",
+                      "description": "(Required) The full file path for the file you want to retrieve, including the file name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique API access key for your organization.",
+                    "key": "apiKey",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"2016-11-20T07:14:08.811Z\",\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"field\": \"string\",\n        \"resource\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://dataexport-0.qtestnet.com/uta/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "60243e9f-0672-480c-bff2-b89bf6547647",
+    "name": "qTest Data Export Access Files API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

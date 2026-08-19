@@ -1,0 +1,608 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Defect API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: defect
+  description: Defect API
+paths:
+  /api/v3/projects/{projectId}/defects:
+    post:
+      tags:
+      - defect
+      summary: Submit a Defect
+      description: To submit an internal Defect
+      operationId: submitDefect
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Successfully submitted a defect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefectResource'
+        400:
+          description: Field value constraint is invalid.
+        403:
+          description: User does not have permission to submit a defect.
+        500:
+          description: Internal Server Error.
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefectResource'
+        description: '<em>properties:</em> a JSONArray of field-value pairs
+
+
+          <em>attachments:</em> a JSONArray of Attachment objects'
+        required: true
+  /api/v3/projects/{projectId}/defects/last-change:
+    get:
+      tags:
+      - defect
+      summary: Gets recently updated Defects
+      description: To retrieve Defects which have been recently updated after a specified time
+      operationId: getLastChanged
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: startTime
+        in: query
+        description: 'The specified time since when the Defects have been updated. It needs to be URL encoded: <em>yyyy-MM-dd''T''HH:mm:ss.SSSZ</em> or <em>yyyy-MM-dd''T''HH:mm:ssZZ</em>'
+        required: true
+        schema:
+          type: string
+      - name: endTime
+        in: query
+        description: Do not support at this time. Use the current time only.
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100. You can specify your custom number in this parameter. The maximum page size is 999.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DefectResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/defects/{defectId}:
+    get:
+      tags:
+      - defect
+      summary: Gets a Defect
+      description: 'To retrieve a Defect
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getDefect
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: defectId
+        in: path
+        description: ID of the defect.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefectResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - defect
+      summary: Updates a Defect
+      description: 'To update a Defect
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: updateDefect
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: defectId
+        in: path
+        description: ID of the Defect which needs to be updated.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully updated a defect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefectResource'
+        400:
+          description: Field value is invalid.
+        403:
+          description: User does not have permission to update defect.
+        404:
+          description: Defect with @defectId does not exist.
+        500:
+          description: Internal Server Error.
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefectResource'
+        description: The Defect's updated properties
+        required: true
+  /api/v3/projects/{projectId}/defects/{idOrKey}/comments:
+    get:
+      tags:
+      - defect
+      summary: Gets all Comments of a Defect
+      description: 'To retrieve all Comments of a Defect
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: getComments
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Defect whose comments you want to retrieve
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceCommentResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - defect
+      summary: Adds a Comment to a Defect
+      description: 'To add a Comment to a Defect
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: addComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Defect
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentResource'
+        description: The Comment's content
+        required: true
+  /api/v3/projects/{projectId}/defects/{idOrKey}/comments/{commentId}:
+    get:
+      tags:
+      - defect
+      summary: Gets a Comment of a Defect
+      description: 'To retrieve a specific Comment of a Defect
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: getDefectCommentById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Defect whose comment you want to retrieve
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: ID of the comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - defect
+      summary: Updates a Comment of a Defect
+      description: 'To update a specific Comment of a Defect
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: updateComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the defect whose comment you want to update
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: ID of the comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentResource'
+        description: Given resource to update a comment.
+        required: true
+    delete:
+      tags:
+      - defect
+      summary: Deletes a Comment of a Defect
+      description: 'To delete a specific Comment of a Defect
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: deleteComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Defect whose Comment you want to delete
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: ID of the comment.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        name:
+          type: string
+          example: Sample.docx
+          description: Attachment name
+        content_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Attachment
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
+        created_date:
+          type: string
+          format: date-time
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
+          readOnly: true
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    DefectResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        properties:
+          type: array
+          description: Properties of the Defect
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        attachments:
+          type: array
+          description: Attachments of the Defect
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Defect
+        pid:
+          type: string
+          example: DF-1
+          description: PID of the Defect
+        submitted_date:
+          type: string
+          format: date-time
+          description: The date Defect was created
+        last_modified_date:
+          type: string
+          format: date-time
+          description: Last modified date
+        submitter_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User who create the Defect
+        last_modified_user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Last ID of the User who updated the Defect
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1
+          description: Web url to the Defect
+          readOnly: true
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,336 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Module API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: module
+  description: Module API
+paths:
+  /api/v3/projects/{projectId}/modules:
+    get:
+      tags:
+      - module
+      summary: Gets multiple Modules
+      description: 'To search for Modules under root or sub-Modules under a parent Module
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getSubModulesOf
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the parent Module. Leave it blank to retrieve Modules under root
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: search
+        in: query
+        description: The free-text to search for Modules by names. You can utilize this parameter to search for Modules. Leave it blank to retrieve all Modules under root or the parent Module
+        required: false
+        schema:
+          type: string
+      - name: expand
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - descendants
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - module
+      summary: Creates a Module
+      description: 'To create a Module under root or a sub-Module under a parent Module
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: createModule
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: 'The parent Module which will contain the newly created one. If it is not specified, the newly created module is located under root
+
+
+          Use this parameter if your qTest Manager version is 6+. For older versions, use <em>parent_id</em> in the request body'
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Module is created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleResource'
+        description: '<em>name (required):</em> the Module name
+
+
+          <em>shared:</em> Specify <em>shared=true</em> to share this Module to other projects. Only use it if Test Case Sharing feature is enabled in your project
+
+
+          <em>tosca_guid</em>: Tosca folder GUID. Use for creating Module and link with Tosca folder. This property must be provided along with <em>tosca_node_path</em>, or it will fail to create module.
+
+
+          <em>tosca_node_path</em>: Tosca folder node path. Use for creating Module and link with Tosca folder. This property must be provided along with <em>tosca_guid</em>, or it will fail to create module.'
+        required: true
+  /api/v3/projects/{projectId}/modules/{moduleId}:
+    get:
+      tags:
+      - module
+      summary: Gets a Module
+      description: 'To retrieve a Module
+
+
+        <em>qTest Manager version:</em> 6+'
+      operationId: getModule
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: moduleId
+        in: path
+        description: ID of the Module
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        description: Specify <em>expand=descendants</em> to include the Module's sub and grand-sub Modules in the response
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - module
+      summary: Updates a Module
+      description: To update a Module or move it to another parent Module
+      operationId: updateModule
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: moduleId
+        in: path
+        description: ID of the Module
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: 'ID of the parent Module which the Module will be moved to
+
+
+          <strong>Important:</strong> If you use this parameter, the request body will be ignored. That means the Module is being moved but it will not be updated with the properties specified in the request body'
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleResource'
+        description: The Module's update properties
+        required: true
+    delete:
+      tags:
+      - module
+      summary: Deletes a Module
+      description: 'To delete a Module
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: deleteModule
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: moduleId
+        in: path
+        description: ID of Module to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: force
+        in: query
+        description: '<em>force=true</em> - delete the Module and its children
+
+
+          force=false - default value. Only delete the Module if it contains no sub Modules or Test Cases'
+        required: false
+        schema:
+          type: boolean
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    ModuleResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2107619
+          description: ID of the Module
+        name:
+          type: string
+          example: MD-2 Homepage
+          description: Name of the Module
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 9
+          description: Display order of the Module
+        pid:
+          type: string
+          example: MD-8
+          description: PID of the Module
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        parent_id:
+          type: integer
+          format: int64
+          example: 2107628
+          description: Parent Module of the Module
+        description:
+          type: string
+          example: Description of Module 1
+          description: Description of the Module
+        shared:
+          type: boolean
+          example: false
+          description: Is shared or not
+        projects_shared_to:
+          type: array
+          items:
+            type: integer
+            format: int64
+        children:
+          type: array
+          description: Arrays of child module
+          items:
+            $ref: '#/components/schemas/ModuleResource'
+        recursive:
+          type: boolean
+        tosca_guid:
+          type: string
+          description: Tosca folder GUID. Use for creating Module and link with Tosca folder.
+        tosca_node_path:
+          type: string
+          description: Tosca folder node path. Use for creating Module and link with Tosca folder.
+        tosca_state:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

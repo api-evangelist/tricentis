@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Test Suite API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "test-suite",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Test Suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-suites",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Release or Test Cycle under which the Test Suites are located. Input 0 (zero) to get Test Suites directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Arifact type of the container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve Test Suites which located under a parent Release, Test Cycle or root\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Creates a Test Suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-suites",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Release or Test Cycle under which the newly created Test Suites are located. Input 0 (zero) to create Test Suites directly under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Arifact type of the container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a new Test Suite\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Gets a Test Suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-suites/:testSuiteId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testSuiteId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Suite"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Test Suite\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Updates a Test Suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-suites/:testSuiteId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testSuiteId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Suite"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Release or Test Cycle which the Test Suite will be moved to. Input 0 (zero) to move the Test Suite to under root"
+              },
+              {
+                "name": "parentType",
+                "value": "",
+                "type": "query",
+                "description": "Artifact type of the parent container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>"
+              },
+              {
+                "name": "noEmail",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update an existing Test Suite or to move it to other container\n\n<strong>Important:</strong> If you use the request parameters <em>parentId</em> and <em>parentType</em>, the request body will be ignore. \n\nThat means the Test Suite is being moved but it will not be updated with the properties specify in the request body"
+        },
+        {
+          "info": {
+            "name": "Deletes a Test Suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/test-suites/:testSuiteId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "testSuiteId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Test Suite."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Test Suite\n\n<strong>qTest Manager version:</strong> 6+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

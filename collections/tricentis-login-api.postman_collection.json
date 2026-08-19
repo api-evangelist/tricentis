@@ -1,0 +1,487 @@
+{
+  "item": [
+    {
+      "id": "038f36b7-12dd-4c32-af1b-4af1b4e1f831",
+      "name": "login",
+      "description": {
+        "content": "Login API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4fa9ea37-ea26-447f-bb74-de7322610056",
+          "name": "Gets status of access token",
+          "request": {
+            "name": "Gets status of access token",
+            "description": {
+              "content": "Gets status of access token",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "69b88e58-abce-49c8-8301-1191615656f7",
+              "name": "<em>expiration</em> timestamp and <em>validityInMilliseconds</em> of provided access token are returned in the response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The qTest access token you want to check",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expiration\": 7264,\n  \"validityInMilliseconds\": 457\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fa6d044-9e10-4535-9909-5dedd55df162",
+              "name": "Invalid access token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The qTest access token you want to check",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27ee5a71-100b-4cbc-b485-172e480c0a19",
+          "name": "Log in",
+          "request": {
+            "name": "Log in",
+            "description": {
+              "content": "To authenticate the API client against qTest Manager and acquire authorized access token. \n\n Note: Please choose parameter <em>content-type=application/x-www-form-urlencoded</em>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "password",
+                  "description": "Use <em>grant_type=password</em> or <em>grant_type=refresh_token</em> to refresh access token"
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Your qTest Manager username"
+                },
+                {
+                  "disabled": false,
+                  "key": "password",
+                  "value": "<string>",
+                  "description": "Your qTest Manager password"
+                },
+                {
+                  "disabled": false,
+                  "key": "refresh_token",
+                  "value": "<string>",
+                  "description": "qTest refresh token to refresh access token associate with provided refresh token"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca2325b1-19ee-42d9-b4b4-0ae7afcd3b77",
+              "name": "<em>token_type</em> and <em>access_token</em> are included in the response.\n\nUse them in Authorization key when making API calls to qTest Manager in following format: <strong>[token_type] [access_token]</strong>",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Basic + [base64 string of \"<strong>your qTest site name and colon</strong>\"]\n\nor Basic cXRlc3QtYXBpOg== [base64 string of \"<strong>qtest-api:</strong>\"] to use refresh token (grant_type = refresh_token)\n\nExample: qTest Manager site is: apitryout.qtestnet.com then site name is: apitryout + ':', then Authorization is: Basic YXBpdHJ5b3V0Og==",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Use <em>grant_type=password</em> or <em>grant_type=refresh_token</em> to refresh access token",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "password"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Your qTest Manager username",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Your qTest Manager password",
+                        "type": "text/plain"
+                      },
+                      "key": "password",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "qTest refresh token to refresh access token associate with provided refresh token",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"19e28687-0e67-41e8-a9b4-849ca7ea1741\",\n  \"token_type\": \"bearer\",\n  \"refresh_token\": \"913aac60-039e-4f79-a890-fa804a8a6e9f\",\n  \"scope\": \"read import administration create share baseline write delete execute export\",\n  \"agent\": \"string\",\n  \"expires_in\": 300\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06d13af5-6fe2-4ff5-908c-2deef3e1dd03",
+              "name": "Invalid refresh token or grant type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Basic + [base64 string of \"<strong>your qTest site name and colon</strong>\"]\n\nor Basic cXRlc3QtYXBpOg== [base64 string of \"<strong>qtest-api:</strong>\"] to use refresh token (grant_type = refresh_token)\n\nExample: qTest Manager site is: apitryout.qtestnet.com then site name is: apitryout + ':', then Authorization is: Basic YXBpdHJ5b3V0Og==",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Use <em>grant_type=password</em> or <em>grant_type=refresh_token</em> to refresh access token",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "password"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Your qTest Manager username",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Your qTest Manager password",
+                        "type": "text/plain"
+                      },
+                      "key": "password",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "qTest refresh token to refresh access token associate with provided refresh token",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14b64534-2c17-477f-849c-960164846e0a",
+              "name": "Missing or invalid Authorization header value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Basic + [base64 string of \"<strong>your qTest site name and colon</strong>\"]\n\nor Basic cXRlc3QtYXBpOg== [base64 string of \"<strong>qtest-api:</strong>\"] to use refresh token (grant_type = refresh_token)\n\nExample: qTest Manager site is: apitryout.qtestnet.com then site name is: apitryout + ':', then Authorization is: Basic YXBpdHJ5b3V0Og==",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Use <em>grant_type=password</em> or <em>grant_type=refresh_token</em> to refresh access token",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "password"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Your qTest Manager username",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Your qTest Manager password",
+                        "type": "text/plain"
+                      },
+                      "key": "password",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "qTest refresh token to refresh access token associate with provided refresh token",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bbd7c1e5-1dd7-4704-bc7f-6a43a86d0b50",
+    "name": "qTest Manager API Version 3.0 Login API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

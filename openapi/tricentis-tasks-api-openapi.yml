@@ -1,0 +1,160 @@
+openapi: 3.2.0
+info:
+  title: qTest Parameters Tasks API
+  version: '2025.2'
+  description: qTest Parameters API documentation
+servers:
+- url: https://parameter-1.qtestnet.com/
+security:
+- token: []
+tags:
+- name: Tasks
+  description: Tasks public APIs
+paths:
+  /api/v1/tasks/{id}:
+    get:
+      description: Get a task by id
+      tags:
+      - Tasks
+      parameters:
+      - name: id
+        in: path
+        description: task id
+        required: true
+        schema:
+          type: number
+      responses:
+        200:
+          description: The operation was successful and task object is returned (if found)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskModel'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/tasks/{id}/result:
+    get:
+      description: Get task result
+      tags:
+      - Tasks
+      parameters:
+      - name: id
+        in: path
+        description: id of the task to get result
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: The operation is successful and returns a task result object
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+components:
+  schemas:
+    TaskModel:
+      type: object
+      properties:
+        id:
+          type: number
+          description: task id
+          example: 1
+        name:
+          type: string
+          description: task name
+          example: ImportParameter
+        status:
+          type: string
+          description: task status
+          enum:
+          - NEW
+          - IN_PROGRESS
+          - SUCCESS
+          - FAIL
+          - AV_SCANNING
+          - AV_CLEAN
+          - AV_INFECTED
+          - AV_CANCEL
+          - AV_ERROR
+        input:
+          type: string
+          description: task input
+        output:
+          type: string
+          description: task output
+  securitySchemes:
+    token:
+      name: x-access-token
+      type: apiKey
+      in: header

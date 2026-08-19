@@ -1,0 +1,2238 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Test Log API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: test-log
+  description: Test Log API
+paths:
+  /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs:
+    post:
+      tags:
+      - test-log
+      summary: Submits multiple test results
+      description: 'To submit Automation Test Logs of multiple Test Runs
+
+
+        <strong>qTest Manager version:</strong> 8.0.2+'
+      operationId: submitAutomationTestLogs
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: type
+        in: query
+        description: Always input <em>automation</em> for this parameter
+        required: true
+        schema:
+          type: string
+          enum:
+          - automation
+      - name: testRunId
+        in: path
+        description: This should always be <strong>0 (zero)</strong> or else it will throw an exception
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: escapeXml
+        in: query
+        description: '<em>escapeXml=true</em> - default value. &gt and &lt in <em>Automation Content</em> field are encoded
+
+
+          <em>escapeXml=false</em> - the Automation Content field is not encoded'
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        201:
+          description: 'Test results are submitted successfully to qTest Manager
+
+
+            <em>id:</em> ID of the submission job. You will need this Id to check the job status using <strong>GET /api/v3/projects/queue-processing/{jobId}</strong>
+
+
+            <em>state:</em> Status of the job. Its value includes IN_WAITING, IN_PROCESSING, FAILED, PENDING, and SUCCESS'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueProcessingResponse'
+        400:
+          description: 'It failed to submit test results to qTest Manager. Failure reasons may be: i) invalid project ID; ii) <em>testRunId</em> is not 0 (zero) iii) the value of parameter <em>type</em> is not <em>Automation</em>'
+        413:
+          description: ''
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationRequest'
+        description: "<em>test_suite:</em> ID of the Test Suite where the submitted Test Runs will be located\n\n<em>parent_module:</em> In case there has been no Test Case associated with the submitted Test Run, a new automation Test Case will be created. The new Test Cases are located under a module named <em>Automation</em>. If you specify an ID for parent_module, the <em>Automation</em> module will be located under the specified module. Otherwise, the <em>Automation</em> module is located directly under root\n\n<em>execution_date (required):</em> Execution date in <em>YYYY-mm-dd</em> format\n\n<em>test_logs (required):</em> The array of TestLog objects. The below are TestLog attributes\n\n<em>status (required):</em> The automation result values that were mapped with Test Run Result in qTest automation settings\n\n<em>exe_start_date (required):</em> Execution start time\n\n<em>exe_end_date (required):</em> Execution end time\n\n<em>name (required):</em> Test Run name\n\n<em>automation_content (required):</em> An XML formatted string that contains the class test/ group test/ package test\n\n<em>attachments:</em> An array of the Attachment objects\n\n<em>note:</em> Test Log note\n\n<em>test_step_logs:</em> An of TestStepLog objects. You can specify Test Steps' order in the request. It must be continous series of numbers, starting from zero, or it will throw an error. The order will be used when the Test Case is created or updated in qTest. If the order is omitted, Test Steps will be alphabetically sorted when creating or updating Test Case\n\n<em>testcase_properties:</em> An of Testcase properties objects. You can specify Test case properties' order in the request. \n\n<em>tosca_guid</em>: GUID of Tosca test case. Use for creating Tosca Test Case\n\n<em>tosca_node_path</em>: Node Path of Tosca test case. Use for creating Tosca Test Case\n\n<em>tosca_guid</em> and <em>tosca_node_path</em> are optional but must be specified in pair"
+        required: true
+  /api/v3/projects/queue-processing/{id}:
+    get:
+      tags:
+      - test-log
+      summary: Gets a Batch Test Log Submission job's state
+      description: "To check the state of a Batch Test Log Submission job. \n\nWhen you submit test results to qTest Manager using:\n\n<strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs?type=automation</strong>\n\nor <strong>POST /api/v3/projects/{projectId}/auto-test-logs?type=automation</strong>, their response include a job ID.\n\nYou will need to use this API and the returned ID to check if the submission job has completed.\n\nJob states include <i>IN_WAITING</i>, <i>IN_PROCESSING</i>, <i>FAILED</i>, <i>PENDING</i> and <i>SUCCESS</i>"
+      operationId: track
+      parameters:
+      - name: id
+        in: path
+        description: "The ID of the submission job. \n\nIt is included in the response of these 2 APIs:\n\n<strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs?type=automation</strong> \n\nor <strong>POST /api/v3/projects/{projectId}/auto-test-logs?type=automation</strong>"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueProcessingResponse'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/auto-test-logs:
+    post:
+      tags:
+      - test-log
+      summary: Submits multiple test results and specifies Test Design and Test Execution tree structures
+      description: 'This is the extended version of this API <strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs</strong>. It allows submitting multiple test logs in one API request, and creating Test Cases and Test Runs in hierarchical structure which is specified in the request body
+
+
+        <strong>Important:</strong> This API does not update names and locations of existing Test Cases and Test Runs
+
+
+        <strong>Known Issue:</strong> This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release'
+      operationId: submitAutomationTestLogsWithTreeStructure
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: type
+        in: query
+        description: always use <em>type=automation</em> for this parameter
+        required: true
+        schema:
+          type: string
+          enum:
+          - automation
+      - name: escapeXml
+        in: query
+        description: '<em>escapeXml=true</em> - default value. &gt and &lt in <em>Automation Content</em> field are encoded
+
+
+          <em>escapeXml=false</em> - the Automation Content field is not encoded'
+        required: false
+        schema:
+          type: boolean
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        201:
+          description: 'Automation Test Logs submitted,
+
+
+            <em>id:</em> ID of the submission job. You will need this Id to check the job status using <strong>GET /api/v3/projects/queue-processing/{jobId}</strong>
+
+
+            <em>state:</em> Status of the job. Its value includes IN_WAITING, IN_PROCESSING, FAILED, PENDING, and SUCCESS'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueProcessingResponse'
+        400:
+          description: Bad request - Unexpected error occurred
+        413:
+          description: ''
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationRequest'
+        description: '<em>test_cycle (required):</em> PID or ID of the parent Test Cycle in qTest Manager where submitted Test Runs will be located
+
+
+          <em>test_logs (required):</em> The array of TestLog objects. The below are TestLog attributes
+
+
+          <strong>TestLog attributes:</strong>
+
+
+          - <em>test_case_version_id:</em> ID of the associated Test Case''s version. In case the Test Run has not existed, this field should not be included or it will cause an error
+
+
+          - <em>status (required):</em> The automation result values that were mapped with Test Run Result in qTest automation settings
+
+
+          - <em>exe_start_date (required):</em> Execution start time
+
+
+          - <em>exe_end_date (required):</em> Execution end time
+
+
+          - <em>module_names (required):</em> an array of folder names which will be used when creating hierarchical structure in Test Design and Test Execution trees. In Test Design tree, the first folder will be created as a Module directly under the tree root. Other folders will be created as sub-Modules under their preceding folders in the array. In Test Execution tree, the first folder will be created as a Test Cycle directly under the parent Test Cycle which is specified in the API request. Other folders will be created as sub Test Cycles under their preceding folders in the array. If there is a folder in the tree with matching name and location, the API will not create a duplicate one
+
+
+          - <em>name (required):</em> It will be used when <em>creating</em> Test Cases and Test Runs as their names. It will not be used for updating Test Case and Test Run names
+
+
+          - <em>automation_content (required):</em> Specify a unique string to each Test Case. It acts as Test Case fingerprint. Before adding a Test Log, qTest Manager will look up Automation Content of existing Test Cases. If it can find an existing Test Case, the Test Log will be associated with that Test Case. Otherwise, a new Test Case will be created with the submitted Test Log. It is also be used when creating Test Runs. If qTest Manager finds an existing Test Run with matching Automation Content and location in Test Execution tree, it will not create a duplicate one. If there is an existing Test Run with matching Automation Content but it is located in different Test Cycles, qTest Manager will create a new Test Run in the specified folder
+
+
+          - <em>attachments:</em> an array of the Attachment objects
+
+
+          - <em>test_step_logs:</em> an array of TestStepLog objects. You can specify Test Steps'' order in the request. It must be continuous series of numbers, starting from zero, or it will throw an error. The order will be used when the Test Case is created or updated in qTest. If the order is omitted, Test Steps will be alphabetically sorted when creating or updating Test Case
+
+
+          - <em>tosca_guid</em>: GUID of Tosca test case. Use for creating Tosca Test Case
+
+
+          - <em>tosca_node_path</em>: Node Path of Tosca test case. Use for creating Tosca Test Case
+
+
+          - <em>tosca_guid</em> and <em>tosca_node_path</em> are optional but must be specified in pair
+
+
+          <strong>Test Step Log attributes</strong>
+
+
+          - <em>description (required):</em> Description of the Test Step
+
+
+          - <em>expected_result (required):</em> Expected result of the Test Step
+
+
+          - <em>actual_result (required):</em> Actual result of the Test Step
+
+
+          - <em>status (required):</em> The automation result values that were mapped with Test Run Result in qTest automation settings
+
+
+          - <em>order:</em> Specify the order of Test Steps. It must be continuous series of numbers, starting from zero, or it will throw an error. The order will be used when the Test Case is created or updated in qTest. If the order is omitted, Test Steps will be alphabetically sorted when creating or updating Test Case
+
+
+          - <em>exe_date:</em> Execution date
+
+
+          - <em>customFieldInfo:</em> Test Step Custom Field Columns. It is used to add data to test step custom fields if they exist. You have to specify <em>id</em> (Id of Custom Field), <em>value</em> (value for Custom Field of the test step), <em>type</em> (Field Type of Custom Field), and <em>name</em> (Name of Custom Field)'
+        required: true
+  /api/v3/projects/{projectId}/test-runs/{testRunId}/auto-test-logs:
+    post:
+      tags:
+      - test-log
+      summary: Submits an Automation Test Log
+      description: 'To submit test result of an Automation Test Run
+
+
+        <strong>Known Issue:</strong> This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: submitAutomationLog
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: suitePerDay
+        in: query
+        description: '<em>suitePerDay=true</em> - the newly created Test Run will be located under a Test Suite named under the execution date specified in parameter <em>suiteDate</em>, eg: <em>Automation 2014-12-09</em>
+
+
+          <em>suitePerDay=false</em> - the newly created Test Run will be located under <em>Automation Test Suite</em>
+
+
+          <strong>IMPORTANT:</strong> In case you update an existing Test Run, its Test Suite remains unchanged'
+        required: false
+        schema:
+          type: string
+      - name: suiteDate
+        in: query
+        description: "It is required if <em>suitePerDay</em> is true. Its format is <em>\"yyyymmdd\"</em>. \n\nThe newly created Test Run will be located under a Test Suite named \"Automation yyyy-mm-dd\", eg: Automation 2014-12-09"
+        required: false
+        schema:
+          type: string
+      - name: encodeNote
+        in: query
+        description: 'Specify if the Test Log''s Notes are in HTML format
+
+
+          <em>encodeNote=true</em> - default value. Notes are not in HTML format
+
+
+          <em>encodeNote=false:</em> Notes are in HTML format'
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: forceUpdateVersion
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: agentId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: testRunId
+        in: path
+        description: 'ID of the Test Run
+
+
+          1/ If it is greater than 0 (zero), test result will be submitted to the specific Test Run
+
+
+          If it is 0 (zero), test result will be submitted to a new Test Run'
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Automation Log submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationTestLogResourceResponse'
+        413:
+          description: ''
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationTestLogResource'
+        description: "<em>status (required):</em> automation status values which are mapped in qTest Manager's Automation Settings\n\n<em>exe_start_date (required):</em> the execution's starting time\n\n<em>exe_end_date (required)</em> the execution's ending time\n\n<em>name (required)</em> name of the Test Run or Test Case\n\n<em>automation_content (required):</em> a string that uniquely identifies an Automation Test Case\n\n<em>attachments:</em> a JSONArray of Attachment objects\n\n<em>note:</em> execution note\n\n<em>test_case_version_id:</em> ID of the associated Test Case's version\n\n<em>test_step_logs:</em> a JSONArray of TestStepLog objects\n\n<em>testcase_properties:</em> An of Testcase properties objects. You can specify Test case properties' order in the request. \n\n<em>tosca_guid</em>: GUID of Tosca test case. Use for creating Tosca Test Case\n\n<em>tosca_node_path</em>: Node Path of Tosca test case. Use for creating Tosca Test Case\n\n<em>tosca_guid</em> and <em>tosca_node_path</em> are optional but must be specified in pair"
+        required: true
+  /api/v3/projects/{projectId}/test-runs/{testRunId}/auto-test-logs/{id}:
+    put:
+      tags:
+      - test-log
+      summary: Modify an Automation Test Log
+      description: 'To modify test result of a <em>automation</em> Test Run
+
+
+        <strong>qTest Manager version:</strong> 9.1.5+'
+      operationId: modifyAutomationLog
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testRunId
+        in: path
+        description: ID of the Test Run
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: encodeNote
+        in: query
+        description: encodeNote
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationTestLog'
+        description: '<em>status (required):</em> automation status values which are mapped in qTest Manager''s Automation Settings
+
+
+          <em>exe_start_date (required):</em> the execution''s starting time
+
+
+          <em>exe_end_date (required):</em> the execution''s ending time
+
+
+          <em>note:</em> execution note
+
+
+          <em>properties:</em> array of fields and values of the Test Log that need to be updated
+
+
+          <em>test_step_logs:</em> a JSONArray of TestStepLog objects
+
+
+          <strong>NOTE:</strong>
+
+          <ul><li>You can only modify test logs which were submitted by you. The project admin can modify any test logs within his project</li><li>Test Step order is required in the test_step_logs array. You cannot specify a different order from the original submitted test log</li><li>You cannot modify Test Step Description, Expected Result, and Custom Fields for test steps</li><li>You cannot modify the following fields: Test Case Version, Automation Content, CI Tools, Build Number and Build URL</li></ul>'
+        required: true
+  /api/v3/projects/{projectId}/test-runs/{testRunId}/test-logs:
+    get:
+      tags:
+      - test-log
+      summary: Gets all Test Logs of a Test Run
+      description: 'To retrieve all Test Logs of a Test Run
+
+
+        <strong>qTest Manager version:</strong> 7.6'
+      operationId: getTestLogsList
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testRunId
+        in: path
+        description: ID of the Test Run
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        200:
+          description: Returns a list of test log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestLogListResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - test-log
+      summary: Submits a Manual Test Log
+      description: 'To submit test result of a <em>manual</em> Test Run
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: submitTestLog
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testRunId
+        in: path
+        description: ID of the Test Run
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Returns the submitted test log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestLogResource'
+        413:
+          description: The attachment is too large
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManualTestLogResource'
+        description: "<em>status (required):</em> Status of the Test Log as defined in the project's Field Settings\n\n<em>test_case_version_id:</em> ID of the associated Test Case's version.  \n\nIf it is omitted, the submitted Test Log will be associated with the Test Case's latest approved version\n\n<em>exe_start_date (required):</em> time when the test is executed\n\n<em>exe_end_date (required):</em> time when the test is finished\n\n<em>attachments:</em> the Test Log's attachments\n\n<em>test_step_logs:</em > If the associated Test Case is calling Test Steps from another Test Case, the \"called_test_case_id\" and \"parent_test_step_id\" must be included in the request body"
+        required: true
+  /api/v3/projects/{projectId}/test-runs/{testRunId}/test-logs/last-run:
+    get:
+      tags:
+      - test-log
+      summary: Gets the latest Test Log of a Test Run
+      description: 'To retrieve a Test Run''s latest test result
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getLastRunLog
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        description: "Valid values include: \n\ni)<em>testcase</em> - to expand the associated Test Case and its Test Steps in the response; \n\nii) <em>teststeplog.teststep</em> - to expand results of each Test Steps in the response"
+        required: false
+        schema:
+          type: string
+      - name: testRunId
+        in: path
+        description: ID of the Test Run
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Returns a test log object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestLogResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-runs/{testRunId}/test-logs/{id}:
+    get:
+      tags:
+      - test-log
+      summary: Gets a Test Log of a Test Run
+      description: To retrieve a specific Test Log of a Test Run
+      operationId: getTestLog
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testRunId
+        in: path
+        description: ID of the Test Run
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: id
+        in: path
+        description: ID of the Test Log
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Returns a test log object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestLogResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - test-log
+      summary: Modify a Manual Test Log
+      description: 'To modify test result of an <em>manual</em> Test Run
+
+
+        <strong>qTest Manager version:</strong> 9.1.5+'
+      operationId: modifyTestLog
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testRunId
+        in: path
+        description: ID of the Test Run
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestLogResource'
+        500:
+          description: Internal Server Error - Unexpected error occurred
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestLogResource'
+        description: "<em>status (required):</em> Status of the Test Log as defined in the projectâ\x80\x99s Field Settings\n\n<em>exe_start_date (required):</em> the execution's starting time\n\n<em>exe_end_date (required):</em> the execution's ending time\n\n<em>note:</em> execution note\n\n<em>properties:</em> array of fields and values of the Test Log that need to be updated\n\n<em>test_step_logs:</em> a JSONArray of TestStepLog objects\n\n<strong>NOTE:</strong>\n<ul><li>You can only modify test logs which were submitted by you. The project admin can modify any test logs within his project</li><li>Test Step order is required in the test_step_logs array. You cannot specify a different order from the original submitted test log</li><li>You cannot modify Test Step Description, Expected Result, and Custom Fields for test steps</li><li>You cannot modify the following fields: Test Case Version, CI Tools, Build Number and Build URL</li></ul>"
+        required: true
+components:
+  schemas:
+    AutomationTestLog:
+      type: object
+      required:
+      - exe_end_date
+      - exe_start_date
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        test_case_version_id:
+          type: integer
+          format: int64
+        exe_start_date:
+          type: string
+          format: date-time
+        exe_end_date:
+          type: string
+          format: date-time
+        note:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        name:
+          type: string
+        planned_exe_time:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9999999
+        actual_exe_time:
+          type: integer
+          format: int64
+        build_number:
+          type: string
+        build_url:
+          type: string
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        status:
+          type: string
+        test_step_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationStepLog'
+    AutomationFailLinkedDefectResponse:
+      type: object
+      properties:
+        pids:
+          type: array
+          description: Failed linked defects
+          items:
+            type: string
+            example: MTR-2
+        error:
+          type: string
+          example: Could not find defect(s) in qTest Manager
+          description: Error message
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    ProjectModule:
+      type: object
+      properties:
+        creatorId:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        pid:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        project:
+          $ref: '#/components/schemas/Project'
+        objOrder:
+          type: integer
+          format: int64
+        parentModuleId:
+          type: integer
+          format: int64
+        parentModule:
+          $ref: '#/components/schemas/ProjectModule'
+        name:
+          type: string
+        description:
+          type: string
+        moduleType:
+          type: string
+          format: byte
+        deleted:
+          type: boolean
+        shared:
+          type: boolean
+        damage:
+          type: integer
+          format: int64
+        frequency:
+          type: integer
+          format: int64
+        weight:
+          type: integer
+          format: int64
+        tdsFlowId:
+          type: string
+        subModules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectModule'
+        objectType:
+          type: integer
+          format: int64
+        statusId:
+          type: integer
+          format: int64
+        parentArtifactId:
+          type: integer
+          format: int64
+        parentObjectType:
+          type: integer
+          format: int64
+        artifactType:
+          type: integer
+          format: int32
+        longId:
+          type: integer
+          format: int64
+        pidWithPrefix:
+          type: string
+        createDateTimeString:
+          type: string
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        objectId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        stripHTMLValue:
+          type: string
+        propertyEditorComponent:
+          type: boolean
+    ParameterVM:
+      type: object
+      properties:
+        parameterId:
+          type: integer
+          format: int64
+        id:
+          type: string
+        startIndex:
+          type: integer
+          format: int32
+        endIndex:
+          type: integer
+          format: int32
+        startWithoutPrefixIndex:
+          type: integer
+          format: int32
+        endWithoutSuffixIndex:
+          type: integer
+          format: int32
+        parameterName:
+          type: string
+    AutomationTestLogResource:
+      type: object
+      required:
+      - exe_end_date
+      - exe_start_date
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+        test_case_version_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Test Case Version
+        exe_start_date:
+          type: string
+          format: date-time
+          description: Execution start date
+        exe_end_date:
+          type: string
+          format: date-time
+          description: Execution end date
+        note:
+          type: string
+          example: Note
+          description: Note
+        attachments:
+          type: array
+          description: Test Log attachments
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        name:
+          type: string
+          example: test run name
+          description: Test Run's name
+        planned_exe_time:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9999999
+        actual_exe_time:
+          type: integer
+          format: int64
+        build_number:
+          type: string
+          example: '10'
+          description: Jenkins jobs build number
+        build_url:
+          type: string
+          example: http://localhost:8080/jenkins
+          description: Jenkins jobs build URL
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        automation_content:
+          type: string
+          example: automation content
+          description: Test Case's automation content
+        system_name:
+          type: string
+        status:
+          type: string
+          example: PASSED
+          description: Test Log status
+        order:
+          type: integer
+          format: int64
+        test_step_logs:
+          type: array
+          description: Arrays of Test Step Log
+          items:
+            $ref: '#/components/schemas/AutomationTestStepLog'
+        testcase_properties:
+          type: array
+          description: Arrays of Test case Properties
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        module_names:
+          type: array
+          description: Arrays of Modules
+          items:
+            type: string
+        agent_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        defect_pids:
+          type: array
+          description: Defect pids
+          items:
+            type: string
+            example: MTR-1,MTR-2
+        tosca_guid:
+          type: string
+          description: GUID of Tosca test case.
+        tosca_node_path:
+          type: string
+          description: Node Path of Tosca test case.
+        tosca_state:
+          type: string
+    AutomationStepLog:
+      type: object
+      required:
+      - test_step_log_id
+      properties:
+        test_step_log_id:
+          type: integer
+          format: int64
+        actual_result:
+          type: string
+        status:
+          type: string
+        exe_date:
+          type: string
+          format: date-time
+          description: Execution date
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+    ManualTestLogResource:
+      type: object
+      required:
+      - exe_end_date
+      - exe_start_date
+      - status
+      properties:
+        submittedBy:
+          type: string
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+        test_case_version_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Test Case Version
+        exe_start_date:
+          type: string
+          format: date-time
+          description: Execution start date
+        exe_end_date:
+          type: string
+          format: date-time
+          description: Execution end date
+        note:
+          type: string
+          example: Note
+          description: Note
+        attachments:
+          type: array
+          description: Test Log attachments
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        name:
+          type: string
+          example: test run name
+          description: Test Run's name
+        planned_exe_time:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9999999
+        actual_exe_time:
+          type: integer
+          format: int64
+        build_number:
+          type: string
+          example: '10'
+          description: Jenkins jobs build number
+        build_url:
+          type: string
+          example: http://localhost:8080/jenkins
+          description: Jenkins jobs build URL
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        status:
+          $ref: '#/components/schemas/StatusResource'
+        result_number:
+          type: integer
+          format: int64
+        test_step_logs:
+          type: array
+          description: "Arrays of Test Step Log, \n\nWith called test steps, the \"called_test_case_id\" and \"parent_test_step_id\" must be included in request body."
+          items:
+            $ref: '#/components/schemas/TestStepLogResource'
+        defects:
+          type: array
+          description: Array of Defect
+          items:
+            $ref: '#/components/schemas/LinkedDefectResource'
+    TestStepLogResource:
+      type: object
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        test_step_id:
+          type: integer
+          format: int64
+          example: 11
+        test_step_log_id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+          example: 5202
+        status:
+          $ref: '#/components/schemas/StatusResource'
+        description:
+          type: string
+        expected_result:
+          type: string
+        actual_result:
+          type: string
+          example: Actual result is failed
+        called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case_name:
+          type: string
+        order:
+          type: integer
+          format: int32
+          example: 1
+        group:
+          type: integer
+          format: int32
+        test_step:
+          $ref: '#/components/schemas/TestStepResource'
+        defects:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedDefectResource'
+        called_test_case_log:
+          $ref: '#/components/schemas/TestLogResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        exe_date:
+          type: string
+          format: date-time
+          description: Execution date
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+    TestStepResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 111
+        description:
+          type: string
+          example: Test Step description
+        expected:
+          type: string
+          example: Test step expected result
+        order:
+          type: integer
+          format: int32
+          example: 1
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
+    AttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        name:
+          type: string
+          example: Sample.docx
+          description: Attachment name
+        content_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Attachment
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
+        created_date:
+          type: string
+          format: date-time
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
+          readOnly: true
+    AutomationTestLogResourceResponse:
+      type: object
+      required:
+      - exe_end_date
+      - exe_start_date
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        test_case_version_id:
+          type: integer
+          format: int64
+        exe_start_date:
+          type: string
+          format: date-time
+        exe_end_date:
+          type: string
+          format: date-time
+        note:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        name:
+          type: string
+        planned_exe_time:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9999999
+        actual_exe_time:
+          type: integer
+          format: int64
+        build_number:
+          type: string
+        build_url:
+          type: string
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        automation_content:
+          type: string
+        linkedDefects:
+          $ref: '#/components/schemas/AutomationLinkedDefectResponse'
+        system_name:
+          type: string
+        status:
+          type: string
+        order:
+          type: integer
+          format: int64
+        test_step_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationTestStepLog'
+        testcase_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        module_names:
+          type: array
+          items:
+            type: string
+        agent_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        defect_pids:
+          type: array
+          description: Defect pids
+          items:
+            type: string
+            example: MTR-1,MTR-2
+        tosca_guid:
+          type: string
+        tosca_node_path:
+          type: string
+        tosca_state:
+          type: string
+    ParameterInfo:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    LinkedDefectResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Defect
+        external_defect_id:
+          type: string
+          example: EXP-1
+          description: External ID of Defect
+        connection_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the external Integration Connection
+        external_project_id:
+          type: string
+          example: EXP
+          description: ID of external Project
+        summary:
+          type: string
+          example: Defect summary
+          description: Summary of external Defect
+        status:
+          type: string
+          example: New
+          description: Status of external Defect
+        pid:
+          type: string
+          example: EXP-1
+          description: PID of external Defect
+        web_url:
+          type: string
+          example: https://example.com/EXP-1
+          description: Web url to external Defect
+          readOnly: true
+        description:
+          type: string
+          example: Defect description
+          description: Description of external Defect
+    StatusResource:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 601
+          description: ID of Test Run's status
+        name:
+          type: string
+          example: Passed
+          description: Name of Test Run's status
+        is_default:
+          type: boolean
+          example: false
+          description: Is default or not
+        color:
+          type: string
+          example: '#0cdda8'
+          description: Color of Test Run's status
+        active:
+          type: boolean
+          example: true
+          description: Active or not
+    QueueProcessingResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of task after batch submit automation test logs
+        state:
+          type: string
+          example: IN_PROCESSING
+          description: State of task after batch submit automation test logs
+        contentType:
+          type: string
+          example: application/json
+          description: Content type of task after batch submit automation test logs
+        content:
+          type: string
+          description: Data of task after batch submit automation test logs
+        type:
+          type: string
+          example: AUTOMATION_TEST_LOG
+          description: Type of task after batch submit automation test logs
+    TestLogListResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestLogResource'
+    TestSuite:
+      type: object
+      properties:
+        creatorId:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
+        displayName:
+          type: string
+        displayDescription:
+          type: string
+        id:
+          type: integer
+          format: int64
+        pid:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        objOrder:
+          type: integer
+          format: int64
+        name:
+          type: string
+        testDataSetId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        testBedId:
+          type: integer
+          format: int64
+        projectTestTypeId:
+          type: integer
+          format: int64
+        plannedStartDate:
+          type: string
+          format: date-time
+        plannedEndDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+        releaseId:
+          type: integer
+          format: int64
+        buildId:
+          type: integer
+          format: int64
+        testCycleId:
+          type: integer
+          format: int64
+        testCycle:
+          $ref: '#/components/schemas/TestCycle'
+        deleted:
+          type: boolean
+        lastConfigOperation:
+          type: string
+          enum:
+          - LINK
+          - UNLINK
+        lastModifiedDateConfigs:
+          type: string
+          format: date-time
+        typeName:
+          type: string
+        objectType:
+          type: integer
+          format: int64
+        statusId:
+          type: integer
+          format: int64
+        fullId:
+          type: string
+        shortResultType:
+          type: string
+        parentArtifactId:
+          type: integer
+          format: int64
+        parentObjectType:
+          type: integer
+          format: int64
+        resultName:
+          type: string
+        resultType:
+          type: string
+        resultDescription:
+          type: string
+        artifactType:
+          type: integer
+          format: int32
+        pidWithPrefix:
+          type: string
+        autoTestCase:
+          type: boolean
+        tosca:
+          type: boolean
+        approved:
+          type: boolean
+        longId:
+          type: integer
+          format: int64
+        automation:
+          type: boolean
+        customFieldValue:
+          type: string
+        createDateTimeString:
+          type: string
+    CustomFieldTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        default:
+          type: boolean
+    ParameterizationText:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        rawText:
+          type: string
+        htmlText:
+          type: string
+        plainText:
+          type: string
+        valueText:
+          type: string
+        editedParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        plainValueText:
+          type: string
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        siteName:
+          type: string
+        maxFailedLoginAttempt:
+          type: integer
+          format: int32
+        passwordShelfLife:
+          type: integer
+          format: int32
+        passwordHealthyPeriod:
+          type: integer
+          format: int32
+        minimumUniquePasswordsSequenceLength:
+          type: integer
+          format: int32
+        licenseBlobId:
+          type: integer
+          format: int64
+        sessionTimeoutEnabled:
+          type: boolean
+        sessionTimeoutMinute:
+          type: integer
+          format: int32
+        terminateIdleEnabled:
+          type: boolean
+        terminateIdleMinute:
+          type: integer
+          format: int32
+        dateFormat:
+          type: string
+        rememberMeTimeoutEnabled:
+          type: boolean
+        rememberMeTimeoutDay:
+          type: integer
+          format: int32
+        mailRecipients:
+          type: string
+        useCustomPasswordPolicy:
+          type: boolean
+        minimumPasswordLength:
+          type: integer
+          format: int32
+        passwordContainsCapitalLetters:
+          type: boolean
+        passwordContainsLowercaseLetters:
+          type: boolean
+        passwordContainsNumericChars:
+          type: boolean
+        passwordContainsSpecialChars:
+          type: boolean
+        searchStatus:
+          type: string
+          enum:
+          - ELASTICSEARCH
+          - REINDEXING
+          - ELASTICSEARCH_MIGRATED
+        searchMigrationDuration:
+          type: integer
+          format: int64
+        trackingRequirementTestcaseVersionLink:
+          type: boolean
+        trackingConfigurationTestcaseVersionLink:
+          type: boolean
+        enableSiteAi:
+          type: boolean
+        enableAITestCaseGeneration:
+          type: boolean
+        executableFileEnabled:
+          type: boolean
+        inactive:
+          type: boolean
+        tdstenantId:
+          type: string
+        forExplorer:
+          type: boolean
+        forOnPremise:
+          type: boolean
+    TestLogResource:
+      type: object
+      required:
+      - exe_end_date
+      - exe_start_date
+      - status
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1111
+        test_case_version_id:
+          type: integer
+          format: int64
+          example: 123
+        exe_start_date:
+          type: string
+          format: date-time
+        exe_end_date:
+          type: string
+          format: date-time
+        note:
+          type: string
+          example: Test Log note
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        name:
+          type: string
+          example: Name of the Test Run
+        planned_exe_time:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9999999
+        actual_exe_time:
+          type: integer
+          format: int64
+        build_number:
+          type: string
+          example: '11'
+        build_url:
+          type: string
+          example: http://localhost:8080/jenkins
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        status:
+          $ref: '#/components/schemas/StatusResource'
+        result_number:
+          type: integer
+          format: int64
+          example: 1
+        test_step_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestStepLogResource'
+        test_run_id:
+          type: integer
+          format: int64
+        test_case:
+          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        defects:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedDefectResource'
+    AutomationLinkedDefectResponse:
+      type: object
+      properties:
+        success:
+          type: array
+          description: Successfully linked defects
+          items:
+            type: string
+            example: MTR-1
+        fail:
+          type: array
+          description: Failed linked defects with reasons
+          items:
+            $ref: '#/components/schemas/AutomationFailLinkedDefectResponse'
+    TestCaseWithCustomFieldResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Test Case
+        name:
+          type: string
+          example: Test Case 1
+          description: Name of the Test Case
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of the Test Case
+        pid:
+          type: string
+          example: TC-1
+          description: PID of the Test Case
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          description: Fields value of the Test Case
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
+          description: Web URL of the Test Case
+          readOnly: true
+        attachments:
+          type: array
+          description: Arrays of Attachment of the Test Case
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        parent_id:
+          type: integer
+          format: int64
+          example: 2107628
+          description: Module ID of the Test Case
+        test_case_version_id:
+          type: integer
+          format: int64
+          example: 11
+          description: ID of Test Case Version
+        version:
+          type: string
+          description: Test Case Version of the Test Case
+        description:
+          type: string
+          example: Description of test case 1
+          description: Description of the Test Case
+        precondition:
+          type: string
+          example: Precondition of test case 1
+          description: Precondition of the Test Case
+        creator_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User who create the Test Case
+        agent_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        test_steps:
+          type: array
+          description: Arrays of Test Step of the Test Case
+          items:
+            $ref: '#/components/schemas/TestStepResource'
+        tosca_guid:
+          type: string
+          description: GUID of Tosca test case.
+        tosca_node_path:
+          type: string
+          description: Node Path of Tosca test case.
+        tosca_url:
+          type: string
+        tosca_test_case_unique_id:
+          type: string
+        tosca_state:
+          type: string
+        tosca_workspace_url:
+          type: string
+        last_modified_date_utc:
+          type: string
+    Project:
+      type: object
+      properties:
+        creatorId:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+        projectStatusId:
+          type: integer
+          format: int64
+        patchIncidentStatus:
+          type: integer
+          format: int32
+        automation:
+          type: boolean
+        defectworkflow:
+          type: boolean
+        uuid:
+          type: string
+        cloneStatus:
+          type: integer
+          format: int32
+        sourceProjectId:
+          type: integer
+          format: int64
+        client:
+          $ref: '#/components/schemas/Client'
+        trxId:
+          type: string
+          format: date-time
+        customFieldTemplateId:
+          type: integer
+          format: int64
+        internally:
+          type: boolean
+        customFieldTemplate:
+          $ref: '#/components/schemas/CustomFieldTemplate'
+        indexingStatus:
+          type: boolean
+        autoPopulateClosedDate:
+          type: boolean
+        active:
+          type: boolean
+        cloneCanceled:
+          type: boolean
+        newStyleSample:
+          type: boolean
+        cloning:
+          type: boolean
+        cloned:
+          type: boolean
+        patchedIncidents:
+          type: boolean
+        sampleProject:
+          type: boolean
+        longId:
+          type: integer
+          format: int64
+        createDateTimeString:
+          type: string
+    AutomationTestStepLog:
+      type: object
+      required:
+      - description
+      - expected_result
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        description:
+          type: string
+          example: description
+          description: Test Step Log's description
+        expected_result:
+          type: string
+          example: expected result
+          description: Test Step Log's expected result
+        actual_result:
+          type: string
+          example: actual result
+          description: Test Step Log's actual result
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Test Step Log's order
+        status:
+          type: string
+          example: PASSED
+          description: Test Step Log's status
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        defect_pids:
+          type: array
+          description: Defect Pids
+          items:
+            type: string
+            example: MTR-1,MTR-2
+        exe_date:
+          type: string
+          format: date-time
+          description: Execution date
+    TestCycle:
+      type: object
+      properties:
+        creatorId:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        pid:
+          type: integer
+          format: int64
+        parentTestCycleId:
+          type: integer
+          format: int64
+        objOrder:
+          type: integer
+          format: int64
+        name:
+          type: string
+        clientId:
+          type: integer
+          format: int64
+        testCycleType:
+          type: integer
+          format: int32
+        releaseId:
+          type: integer
+          format: int64
+        buildId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        deleted:
+          type: boolean
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        subCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCycle'
+        toscaUniqueId:
+          type: string
+        toscaNodePath:
+          type: string
+        toscaObjectType:
+          type: string
+        toscaUrl:
+          type: string
+        toscaRootEventId:
+          type: string
+        deletedToscaObjectType:
+          type: string
+        objectType:
+          type: integer
+          format: int64
+        statusId:
+          type: integer
+          format: int64
+        parentArtifactId:
+          type: integer
+          format: int64
+        parentObjectType:
+          type: integer
+          format: int64
+        toscaKey:
+          type: string
+        artifactType:
+          type: integer
+          format: int32
+        longId:
+          type: integer
+          format: int64
+        pidWithPrefix:
+          type: string
+        createDateTimeString:
+          type: string
+    ParameterValueVM:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+    TestStepInformationVM:
+      type: object
+      properties:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    AutomationRequest:
+      type: object
+      required:
+      - test_logs
+      properties:
+        testSuiteModel:
+          $ref: '#/components/schemas/TestSuite'
+        parentModuleModel:
+          $ref: '#/components/schemas/ProjectModule'
+        parentTestCycleModel:
+          $ref: '#/components/schemas/TestCycle'
+        skipCreatingAutomationModule:
+          type: boolean
+        shouldCheckUnlinkRequirement:
+          type: boolean
+        test_suite:
+          type: string
+          example: TS-1
+          description: ID or PID of Test Suite
+        parent_module:
+          type: string
+          example: MD-1
+          description: ID or PID of Module
+        test_logs:
+          type: array
+          description: Array of Test Log
+          items:
+            $ref: '#/components/schemas/AutomationTestLogResource'
+        execution_date:
+          type: string
+          format: date-time
+          description: Execution Date
+        test_cycle:
+          type: string
+          example: TC-1
+          description: ID or PID of Test Cycle
+    TestParameter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

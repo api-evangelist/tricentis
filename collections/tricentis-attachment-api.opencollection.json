@@ -1,0 +1,259 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Attachment API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "attachment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Searches for Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/attachments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Its valid values include <em>releases</em>, <em>builds</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-steps</em>, <em>test-logs</em> or <em>defects</em>"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "List of object IDs (of the same type as specified in the parameter above), separated by commas"
+              },
+              {
+                "name": "author",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user who created the attachment"
+              },
+              {
+                "name": "createdDate",
+                "value": "",
+                "type": "query",
+                "description": "Its format is: <strong>{operator} {createdDate in timestamp or UTC}</strong>\n\nThe <em>operator</em> can be one of the following values:\n\n<b>lt</b>: less than the given date\n\n<b>gt</b>: greater than given date\n\n<b>eq</b>: equal to the given date\n\n<b>le</b>: less than or equal to the given date\n\n<b>ge</b>: greater then or equal to the given date"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default, the first page is returned but you can specify any page number to retrieve attachments"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To query for attachments of <em>Releases</em>, <em>Builds</em>, <em>Requirements</em>, <em>Test Cases</em>, <em>Test Logs</em>, <em>Test Steps</em> or <em>Defects</em>"
+        },
+        {
+          "info": {
+            "name": "Gets all Attachments of an Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/attachments",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "Valid values include <em>release</em>, <em>build</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-logs</em>, <em>test-steps</em>, <em>test-step-logs</em> or <em>defects</em>"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all Attachments of a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect"
+        },
+        {
+          "info": {
+            "name": "Gets an Attachment of an Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/attachments/:attachmentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of attachment"
+              },
+              {
+                "name": "forceDownload",
+                "value": "",
+                "type": "query",
+                "description": "Input true to download attachments which have not been scanned for malware/virus successfully. By default, its value is false"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "Valid values include <em>release</em>, <em>build</em>, <em>requirements</em>, <em>test-cases</em>, <em>test-logs</em>, <em>test-steps</em>, <em>test-step-logs</em> or <em>defects</em>"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step Test Step Log or Defect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve an Attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect"
+        },
+        {
+          "info": {
+            "name": "Uploads an Attachment to an Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/blob-handles",
+            "headers": [
+              {
+                "name": "File-Name",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To upload an Attachment to a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect"
+        },
+        {
+          "info": {
+            "name": "Deletes an Attachment from an Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/blob-handles/:blobHandleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "blobHandleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Attachment"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "Valid values include releases, builds, requirements, test-cases, test-logs, test-steps, test-step-logs or defects\n\n<strong>qTest Manager version:</strong> 4+"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the object (Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete an Attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect\n\n<strong>qTest Manager version:</strong> 7.5+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TTM for Jira Cycles API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cycles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create cycle(s).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/cycles",
+            "params": [
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycles** _(mandatory)_: Provide a list of cycles, with each test having the following fields:\n    * **name** _(mandatory)_: name of the cycle.\n    * **version** _(optional)_: cycle's version (if not provided the version will be under 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle pl"
+        },
+        {
+          "info": {
+            "name": "Update cycle.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/cycles/:cycleId",
+            "params": [
+              {
+                "name": "cycleId",
+                "value": "",
+                "type": "path",
+                "description": "cycleId."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Update cycle.\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycle** : Provide the cycle details to update:\n    * **name** _(optional)_: name of the cycle.\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Envi"
+        },
+        {
+          "info": {
+            "name": "Get cycles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/cycles/search",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "name."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "version."
+              },
+              {
+                "name": "assignee",
+                "value": "",
+                "type": "query",
+                "description": "assignee."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Get cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Query parameter fields:\n* **cycle** : Provide the cycle details to filter by:\n    * **name** _(optional)_: filter cycles that contains name.\n    * **version** _(optional)_: cycle's version (if not provided the default value is 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle is assigned to."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

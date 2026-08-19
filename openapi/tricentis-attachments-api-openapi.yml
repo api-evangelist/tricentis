@@ -1,0 +1,745 @@
+openapi: 3.2.0
+info:
+  title: TTM for Jira Attachments API
+  description: Tricentis Test Management for Jira
+  version: 1.0.0
+  termsOfService: https://www.tricentis.com/legal-information/general-terms-of-use/
+servers:
+- url: https://api.ttm4j.tricentis.com
+security:
+- api_key: []
+tags:
+- name: Attachments
+paths:
+  /v1/projects/{project-key}/test-runs/{test-run-key}/attachments:
+    get:
+      tags:
+      - Attachments
+      summary: Get attachment of a test run.
+      parameters:
+      - name: test-run-key
+        in: path
+        description: Test Run Key.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: offset
+        in: query
+        description: 'Numeric value that determines that the result list will start from result #N (zero based)'
+        schema:
+          type: Integer
+          default: 0
+          example: 0
+      responses:
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+    post:
+      tags:
+      - Attachments
+      summary: Upload attachment to a test run.
+      description: "## Initiate the attachment upload process for a test run.\n   Max Attachments Size allowed is 50MB (Per attachment).\n### After you use this endpoint, you need to do the following:\n* Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.\n* Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}."
+      parameters:
+      - name: test-run-key
+        in: path
+        description: Test Run Key.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: attachmentRequestApiData.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fileName:
+                  type:
+                  - string
+                  - 'null'
+                mimeType:
+                  type:
+                  - string
+                  - 'null'
+                size:
+                  type: integer
+                  format: int64
+              additionalProperties: false
+            examples:
+              AttachmentRequestApiData:
+                value:
+                  fileName: file.zip
+                  mimeType: application/zip
+                  size: 5235
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  uploadUrl:
+                    type:
+                    - string
+                    - 'null'
+                  finishUrl:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+              examples:
+                AttachmentUploadingResponse:
+                  value:
+                    id: a3488deb-ce00-442a-8b13-baec4bf9dabe
+                    uploadUrl: S3 link
+                    finishUrl: v1/projects/DE/test-runs/attachments/a3488deb-ce00-442a-8b13-baec4bf9dabe
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs/attachments/{attachmentId}:
+    get:
+      tags:
+      - Attachments
+      summary: Get attachment link.
+      parameters:
+      - name: attachmentId
+        in: path
+        description: The attachment Id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs/{test-run-key}/steps/{step-number}/attachments:
+    post:
+      tags:
+      - Attachments
+      summary: Upload attachment to a test run step.
+      description: "## Initiate the attachment upload process for a test run step.\n   Max Attachments Size allowed is 50MB (Per attachment).\n### After you use this endpoint, you need to do the following:\n* Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.\n* Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}."
+      parameters:
+      - name: test-run-key
+        in: path
+        description: Test Run Key.
+        required: true
+        schema:
+          type: string
+      - name: step-number
+        in: path
+        description: Step index.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: attachmentRequestApiData.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fileName:
+                  type:
+                  - string
+                  - 'null'
+                mimeType:
+                  type:
+                  - string
+                  - 'null'
+                size:
+                  type: integer
+                  format: int64
+              additionalProperties: false
+            examples:
+              AttachmentRequestApiData:
+                value:
+                  fileName: file.zip
+                  mimeType: application/zip
+                  size: 5235
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  uploadUrl:
+                    type:
+                    - string
+                    - 'null'
+                  finishUrl:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: false
+              examples:
+                AttachmentUploadingResponse:
+                  value:
+                    id: 310c521f-3b79-40d6-8cfa-6ba8426d8ff4
+                    uploadUrl: S3 link
+                    finishUrl: v1/projects/DE/test-runs/attachments/310c521f-3b79-40d6-8cfa-6ba8426d8ff4
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs/attachments/{id}:
+    put:
+      tags:
+      - Attachments
+      summary: Query if attachment is uploaded to storage.
+      description: "## Query if the attachment file was successfully uploaded to storage.\n            \nUse this to confirm the following:\n* Upload information was received from **POST** v1/projects/{project-key}/test-runs/{test-run-key}/attachments\n* The file successfully uploaded to storage as binary data."
+      parameters:
+      - name: id
+        in: path
+        description: Attachment Id.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: '`Invalid parameters.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: '`Unauthorized.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

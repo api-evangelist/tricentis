@@ -1,0 +1,913 @@
+{
+  "item": [
+    {
+      "id": "d5d8425f-ef69-471f-aaab-b161c1fefef7",
+      "name": "defects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "343e381e-6466-4d04-9f94-e6f90184eeb2",
+          "name": "Get entities from defects",
+          "request": {
+            "name": "Get entities from defects",
+            "description": {},
+            "url": {
+              "path": [
+                "defects"
+              ],
+              "host": [
+                "{{defects-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$top",
+                  "value": "<integer>",
+                  "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$skip",
+                  "value": "<integer>",
+                  "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$search",
+                  "value": "<string>",
+                  "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$filter",
+                  "value": "<string>",
+                  "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$count",
+                  "value": "<boolean>",
+                  "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$orderby",
+                  "value": "<string>,<string>",
+                  "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>,<string>",
+                  "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "query"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "87a420e8-bd22-47ac-9717-6520e05076c9",
+              "name": "Retrieved entities",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "defects"
+                  ],
+                  "host": [
+                    "{{defects-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$top",
+                      "value": "50"
+                    },
+                    {
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "$search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.count\": 5710.6344942068035,\n  \"value\": [\n    {\n      \"id\": 2616,\n      \"masterid\": 6317,\n      \"iscurrent\": true,\n      \"uiid\": \"string\",\n      \"clientid\": 4200,\n      \"projectid\": 4190,\n      \"projectname\": \"string\",\n      \"defectfolderid\": 7812,\n      \"defectfoldername\": null,\n      \"category\": null,\n      \"type\": null,\n      \"name\": null,\n      \"priority\": null,\n      \"status\": \"string\",\n      \"rootcause\": \"string\",\n      \"severity\": null,\n      \"createddate\": \"2017-04-13\",\n      \"createdtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"creator\": \"string\",\n      \"lastmodifieddate\": \"2017-04-13\",\n      \"lastmodifiedtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"lastmodifieduser\": \"string\",\n      \"reason\": \"string\",\n      \"closeddate\": \"2017-04-13\",\n      \"closedtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"targetdate\": \"2017-04-13\",\n      \"targettimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"assigneduser\": \"string\",\n      \"summary\": \"string\",\n      \"description\": \"string\",\n      \"affectedbuildname\": \"string\",\n      \"affectedreleasename\": \"string\",\n      \"targetbuildname\": \"string\",\n      \"targetreleasename\": \"string\",\n      \"fixedbuildname\": null,\n      \"fixedreleasename\": \"string\",\n      \"islinked\": null,\n      \"externalissueid\": \"string\",\n      \"externalissuesummary\": null,\n      \"externalissuestatus\": null,\n      \"externalprojectid\": null,\n      \"externalissuetype\": \"string\",\n      \"externalissueuniqueid\": null,\n      \"viewinggroupname\": null,\n      \"external_integration\": \"string\",\n      \"extrainfo\": null,\n      \"customfields\": \"string\",\n      \"ssor\": null,\n      \"roweffectivedate\": \"2017-04-13\",\n      \"rowexpirationdate\": \"2017-04-13\"\n    },\n    {\n      \"id\": 6067,\n      \"masterid\": 2433,\n      \"iscurrent\": true,\n      \"uiid\": \"string\",\n      \"clientid\": 3769,\n      \"projectid\": 746,\n      \"projectname\": \"string\",\n      \"defectfolderid\": 3720,\n      \"defectfoldername\": \"string\",\n      \"category\": null,\n      \"type\": null,\n      \"name\": null,\n      \"priority\": \"string\",\n      \"status\": null,\n      \"rootcause\": null,\n      \"severity\": null,\n      \"createddate\": \"2017-04-13\",\n      \"createdtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"creator\": null,\n      \"lastmodifieddate\": \"2017-04-13\",\n      \"lastmodifiedtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"lastmodifieduser\": null,\n      \"reason\": \"string\",\n      \"closeddate\": \"2017-04-13\",\n      \"closedtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"targetdate\": \"2017-04-13\",\n      \"targettimestamp\": \"2017-04-13T15:51:04.000000Z\",\n      \"assigneduser\": null,\n      \"summary\": null,\n      \"description\": \"string\",\n      \"affectedbuildname\": \"string\",\n      \"affectedreleasename\": \"string\",\n      \"targetbuildname\": null,\n      \"targetreleasename\": \"string\",\n      \"fixedbuildname\": null,\n      \"fixedreleasename\": null,\n      \"islinked\": null,\n      \"externalissueid\": null,\n      \"externalissuesummary\": \"string\",\n      \"externalissuestatus\": null,\n      \"externalprojectid\": null,\n      \"externalissuetype\": \"string\",\n      \"externalissueuniqueid\": \"string\",\n      \"viewinggroupname\": \"string\",\n      \"external_integration\": \"string\",\n      \"extrainfo\": \"string\",\n      \"customfields\": \"string\",\n      \"ssor\": \"string\",\n      \"roweffectivedate\": \"2017-04-13\",\n      \"rowexpirationdate\": \"2017-04-13\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "149727d0-7814-4b1a-b73a-481df3598200",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "defects"
+                  ],
+                  "host": [
+                    "{{defects-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$top",
+                      "value": "50"
+                    },
+                    {
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "$search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\"\n      }\n    ],\n    \"innererror\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10df319d-8a12-4e27-9d05-437eb988b284",
+          "name": "Get entity from defects by key",
+          "request": {
+            "name": "Get entity from defects by key",
+            "description": {},
+            "url": {
+              "path": [
+                "defects({{id}})"
+              ],
+              "host": [
+                "{{defects(id)-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>,<string>",
+                  "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "query"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2c8348ab-9cd8-4ee0-aa9d-9f42e46eed5a",
+              "name": "Retrieved entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "defects({{id}})"
+                  ],
+                  "host": [
+                    "{{defects(id)-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 593,\n  \"masterid\": 8806,\n  \"iscurrent\": true,\n  \"uiid\": \"string\",\n  \"clientid\": 5261,\n  \"projectid\": 8235,\n  \"projectname\": \"string\",\n  \"defectfolderid\": 7135,\n  \"defectfoldername\": null,\n  \"category\": null,\n  \"type\": \"string\",\n  \"name\": null,\n  \"priority\": null,\n  \"status\": null,\n  \"rootcause\": null,\n  \"severity\": null,\n  \"createddate\": \"2017-04-13\",\n  \"createdtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n  \"creator\": \"string\",\n  \"lastmodifieddate\": \"2017-04-13\",\n  \"lastmodifiedtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n  \"lastmodifieduser\": \"string\",\n  \"reason\": \"string\",\n  \"closeddate\": \"2017-04-13\",\n  \"closedtimestamp\": \"2017-04-13T15:51:04.000000Z\",\n  \"targetdate\": \"2017-04-13\",\n  \"targettimestamp\": \"2017-04-13T15:51:04.000000Z\",\n  \"assigneduser\": null,\n  \"summary\": \"string\",\n  \"description\": \"string\",\n  \"affectedbuildname\": null,\n  \"affectedreleasename\": \"string\",\n  \"targetbuildname\": \"string\",\n  \"targetreleasename\": \"string\",\n  \"fixedbuildname\": null,\n  \"fixedreleasename\": null,\n  \"islinked\": null,\n  \"externalissueid\": \"string\",\n  \"externalissuesummary\": null,\n  \"externalissuestatus\": null,\n  \"externalprojectid\": null,\n  \"externalissuetype\": \"string\",\n  \"externalissueuniqueid\": \"string\",\n  \"viewinggroupname\": \"string\",\n  \"external_integration\": \"string\",\n  \"extrainfo\": \"string\",\n  \"customfields\": \"string\",\n  \"ssor\": \"string\",\n  \"roweffectivedate\": \"2017-04-13\",\n  \"rowexpirationdate\": \"2017-04-13\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26131ed5-84d3-4ded-bead-56b3d819626a",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "defects({{id}})"
+                  ],
+                  "host": [
+                    "{{defects(id)-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\"\n      }\n    ],\n    \"innererror\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9025dd8-8b91-4cb1-afe2-a2afad14527e",
+          "name": "Create defects and link to test run.",
+          "request": {
+            "name": "Create defects and link to test run.",
+            "description": {
+              "content": "## Create defects and link to test run.\n##### Note: In case issue type won't be provided, default value will be \"Bug\" issue type.\n            \n#### Query parameters:\n* **stepIndex** _(optional)_: if step index will be provided, the defect will be linked to the step.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the defect summary.\n* **description** _(optional)_: the defect description.\n* **issueType** _(optional)_: the defect issue type (for example: Task, Bug, etc..).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "test-runs",
+                ":test-run-key",
+                "defects"
+              ],
+              "host": [
+                "{{v1-projects-project-key-test-runs-test-run-key-defects-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "stepIndex",
+                  "value": "<integer>",
+                  "description": "stepIndex ."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test-run-key",
+                  "description": "(Required) Test Run Key."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"summary\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"issueType\": \"<string,null>\"\n  },\n  {\n    \"summary\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"issueType\": \"<string,null>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d9f6d49-6c34-4f13-a04e-f912ec8a8a44",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{v1-projects-project-key-test-runs-test-run-key-defects-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "stepIndex",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"summary\": \"Defect summary\",\n    \"description\": \"Defect description\",\n    \"issueType\": \"Bug\"\n  },\n  {\n    \"summary\": \"Defect summary\",\n    \"description\": \"Defect description\",\n    \"issueType\": \"Task\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"issueKey\": \"Key-1\",\n    \"jiraIssueId\": \"10001\"\n  },\n  {\n    \"issueKey\": \"Key-2\",\n    \"jiraIssueId\": \"10002\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f567671a-066c-4115-ae63-9d911a472808",
+              "name": "`Unauthorized`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key",
+                    "defects"
+                  ],
+                  "host": [
+                    "{{v1-projects-project-key-test-runs-test-run-key-defects-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "stepIndex",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"summary\": \"Defect summary\",\n    \"description\": \"Defect description\",\n    \"issueType\": \"Bug\"\n  },\n  {\n    \"summary\": \"Defect summary\",\n    \"description\": \"Defect description\",\n    \"issueType\": \"Task\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "152a0396-dce8-4cc0-a947-ee3c15d15b91",
+          "name": "Link Defects to test run.",
+          "request": {
+            "name": "Link Defects to test run.",
+            "description": {
+              "content": "## Link defects test run.\n            \n#### Query parameters:\n* **stepIndex** _(optional)_: if step index will be provided, the defect will be linked to the step.\n            \n#### Body fields:\n* **issueKey** _(mandatory)_: the issue key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "test-runs",
+                ":test-run-key",
+                "defects",
+                "link"
+              ],
+              "host": [
+                "{{v1-projects-project-key-test-runs-test-run-key-defects-link-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "stepIndex",
+                  "value": "<integer>",
+                  "description": "stepIndex."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test-run-key",
+                  "description": "(Required) testRunKey."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"issueKey\": \"<string,null>\"\n  },\n  {\n    \"issueKey\": \"<string,null>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b1b1bcab-bc94-43cf-9cb7-0cbe036b2ebf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key",
+                    "defects",
+                    "link"
+                  ],
+                  "host": [
+                    "{{v1-projects-project-key-test-runs-test-run-key-defects-link-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "stepIndex",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) testRunKey."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"issueKey\": \"Key-1\"\n  },\n  {\n    \"issueKey\": \"Key-2\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"issueKey\": \"Key-1\",\n    \"jiraIssueId\": \"10001\"\n  },\n  {\n    \"issueKey\": \"Key-2\",\n    \"jiraIssueId\": \"10002\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "439f6f95-11be-4884-b3aa-648331b56085",
+              "name": "`Unauthorized`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key",
+                    "defects",
+                    "link"
+                  ],
+                  "host": [
+                    "{{v1-projects-project-key-test-runs-test-run-key-defects-link-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "stepIndex",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) testRunKey."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"issueKey\": \"Key-1\"\n  },\n  {\n    \"issueKey\": \"Key-2\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://u8.analytics.api.tricentis.com/odata/v4/38549",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://u8.analytics.api.tricentis.com/odata/v4/38549",
+      "key": "defects-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://u8.analytics.api.tricentis.com/odata/v4/38549",
+      "key": "defects(id)-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ttm4j.tricentis.com",
+      "key": "v1-projects-project-key-test-runs-test-run-key-defects-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ttm4j.tricentis.com",
+      "key": "v1-projects-project-key-test-runs-test-run-key-defects-link-Url"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) key: id",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "id"
+    }
+  ],
+  "info": {
+    "_postman_id": "cb491224-f0a8-4bd3-97d2-dcecc2d31d89",
+    "name": "Tricentis Defects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged defects across 2 of this provider's published API definitions: tricentis-qtest-analytics-openapi.json, tricentis-ttm4j-openapi.json. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

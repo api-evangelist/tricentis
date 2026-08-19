@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Module API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "module",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets multiple Modules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/modules",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the parent Module. Leave it blank to retrieve Modules under root"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "The free-text to search for Modules by names. You can utilize this parameter to search for Modules. Leave it blank to retrieve all Modules under root or the parent Module"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To search for Modules under root or sub-Modules under a parent Module\n\n<strong>qTest Manager version:</strong> 6+"
+        },
+        {
+          "info": {
+            "name": "Creates a Module",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/modules",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "The parent Module which will contain the newly created one. If it is not specified, the newly created module is located under root\n\nUse this parameter if your qTest Manager version is 6+. For older versions, use <em>parent_id</em> in the request body"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a Module under root or a sub-Module under a parent Module\n\n<strong>qTest Manager version:</strong> 4+"
+        },
+        {
+          "info": {
+            "name": "Gets a Module",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/modules/:moduleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "moduleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Module"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Specify <em>expand=descendants</em> to include the Module's sub and grand-sub Modules in the response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve a Module\n\n<em>qTest Manager version:</em> 6+"
+        },
+        {
+          "info": {
+            "name": "Updates a Module",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/modules/:moduleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "moduleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Module"
+              },
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the parent Module which the Module will be moved to\n\n<strong>Important:</strong> If you use this parameter, the request body will be ignored. That means the Module is being moved but it will not be updated with the properties specified in the request body"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To update a Module or move it to another parent Module"
+        },
+        {
+          "info": {
+            "name": "Deletes a Module",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/modules/:moduleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "moduleId",
+                "value": "",
+                "type": "path",
+                "description": "ID of Module to delete"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "<em>force=true</em> - delete the Module and its children\n\nforce=false - default value. Only delete the Module if it contains no sub Modules or Test Cases"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To delete a Module\n\n<strong>qTest Manager version:</strong> 6+"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

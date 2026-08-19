@@ -1,0 +1,787 @@
+{
+  "item": [
+    {
+      "id": "961f59a3-6fec-4f56-ae9b-e99783beb71c",
+      "name": "test-suite",
+      "description": {
+        "content": "Test Suite API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2abce6b5-a919-4427-9a9c-bab9c3a88d59",
+          "name": "Gets multiple Test Suite",
+          "request": {
+            "name": "Gets multiple Test Suite",
+            "description": {
+              "content": "To retrieve Test Suites which located under a parent Release, Test Cycle or root\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-suites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the Release or Test Cycle under which the Test Suites are located. Input 0 (zero) to get Test Suites directly under root"
+                },
+                {
+                  "disabled": false,
+                  "key": "parentType",
+                  "value": "<string>",
+                  "description": "Arifact type of the container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee308fed-f61c-4b06-81c0-4d22efe5f3e2",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-suites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"parentId\": 462378,\n    \"parentType\": \"test-cycle\",\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 843971,\n    \"name\": \"Functional test suite 2\",\n    \"order\": 0,\n    \"pid\": \"TS-3\",\n    \"created_date\": \"1988-07-18T23:43:27.076Z\",\n    \"last_modified_date\": \"1977-07-17T06:22:37.892Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n    \"target_release_id\": 149652,\n    \"target_build_id\": 8599\n  },\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"parentId\": 462378,\n    \"parentType\": \"test-cycle\",\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 843971,\n    \"name\": \"Functional test suite 2\",\n    \"order\": 0,\n    \"pid\": \"TS-3\",\n    \"created_date\": \"1972-11-05T06:51:03.495Z\",\n    \"last_modified_date\": \"2005-01-09T12:28:26.022Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n    \"target_release_id\": 149652,\n    \"target_build_id\": 9938\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "190c6c46-63eb-40bb-ba3a-0b5ab41ed0bc",
+          "name": "Creates a Test Suite",
+          "request": {
+            "name": "Creates a Test Suite",
+            "description": {
+              "content": "To create a new Test Suite\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-suites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the Release or Test Cycle under which the newly created Test Suites are located. Input 0 (zero) to create Test Suites directly under root"
+                },
+                {
+                  "disabled": false,
+                  "key": "parentType",
+                  "value": "<string>",
+                  "description": "Arifact type of the container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"parentId\": \"<long>\",\n  \"parentType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"target_release_id\": \"<long>\",\n  \"target_build_id\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "de635d96-d4ff-4850-8507-7c57900abf57",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-suites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"parentId\": 462378,\n  \"parentType\": \"test-cycle\",\n  \"id\": 843971,\n  \"name\": \"Functional test suite 2\",\n  \"order\": 0,\n  \"pid\": \"TS-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"parentId\": 462378,\n  \"parentType\": \"test-cycle\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 843971,\n  \"name\": \"Functional test suite 2\",\n  \"order\": 0,\n  \"pid\": \"TS-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dac5fb73-a0d9-42ce-a94d-0fd60f6c1f43",
+          "name": "Gets a Test Suite",
+          "request": {
+            "name": "Gets a Test Suite",
+            "description": {
+              "content": "To retrieve a Test Suite\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-suites",
+                ":testSuiteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "testSuiteId",
+                  "description": "(Required) ID of the Test Suite"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4239b019-bbcd-47c5-a4ba-9d5d6cbeada9",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-suites",
+                    ":testSuiteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "testSuiteId",
+                      "description": "(Required) ID of the Test Suite"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"parentId\": 462378,\n  \"parentType\": \"test-cycle\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 843971,\n  \"name\": \"Functional test suite 2\",\n  \"order\": 0,\n  \"pid\": \"TS-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ca61f52-fb53-477d-b4ed-2a0926bf669b",
+          "name": "Updates a Test Suite",
+          "request": {
+            "name": "Updates a Test Suite",
+            "description": {
+              "content": "To update an existing Test Suite or to move it to other container\n\n<strong>Important:</strong> If you use the request parameters <em>parentId</em> and <em>parentType</em>, the request body will be ignore. \n\nThat means the Test Suite is being moved but it will not be updated with the properties specify in the request body",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-suites",
+                ":testSuiteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parentId",
+                  "value": "<long>",
+                  "description": "ID of the Release or Test Cycle which the Test Suite will be moved to. Input 0 (zero) to move the Test Suite to under root"
+                },
+                {
+                  "disabled": false,
+                  "key": "parentType",
+                  "value": "<string>",
+                  "description": "Artifact type of the parent container. Valid values include <em>release</em>, <em>test-cycle</em> and <em>root</em>"
+                },
+                {
+                  "disabled": false,
+                  "key": "noEmail",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "testSuiteId",
+                  "description": "(Required) ID of the Test Suite"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"parentId\": \"<long>\",\n  \"parentType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"target_release_id\": \"<long>\",\n  \"target_build_id\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76bd1b77-7fc1-4cab-a8cd-4e904dbd68c0",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-suites",
+                    ":testSuiteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parentId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "parentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "noEmail",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "testSuiteId",
+                      "description": "(Required) ID of the Test Suite"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"parentId\": 462378,\n  \"parentType\": \"test-cycle\",\n  \"id\": 843971,\n  \"name\": \"Functional test suite 2\",\n  \"order\": 0,\n  \"pid\": \"TS-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"parentId\": 462378,\n  \"parentType\": \"test-cycle\",\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 843971,\n  \"name\": \"Functional test suite 2\",\n  \"order\": 0,\n  \"pid\": \"TS-3\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=2&id=843971\",\n  \"target_release_id\": 149652,\n  \"target_build_id\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ef27ed5-4fb9-4a73-a7e8-422cfce0a84f",
+          "name": "Deletes a Test Suite",
+          "request": {
+            "name": "Deletes a Test Suite",
+            "description": {
+              "content": "To delete a Test Suite\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "test-suites",
+                ":testSuiteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "testSuiteId",
+                  "description": "(Required) ID of the Test Suite."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a6b861f7-c41f-4c68-b389-04ea6d0aad68",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "test-suites",
+                    ":testSuiteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "testSuiteId",
+                      "description": "(Required) ID of the Test Suite."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "eded155f-2b0c-4c89-a42a-67bcc8d8ffd1",
+    "name": "qTest Manager API Version 3.0 Test Suite API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

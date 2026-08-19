@@ -1,0 +1,135 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Login API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: login
+  description: Login API
+paths:
+  /oauth/status:
+    get:
+      tags:
+      - login
+      summary: Gets status of access token
+      description: Gets status of access token
+      operationId: tokenStatus
+      parameters:
+      - name: Authorization
+        in: header
+        description: The qTest access token you want to check
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: <em>expiration</em> timestamp and <em>validityInMilliseconds</em> of provided access token are returned in the response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthTokenStatusVM'
+        401:
+          description: Invalid access token
+      security:
+      - Authorization: []
+  /oauth/token:
+    post:
+      tags:
+      - login
+      summary: Log in
+      description: "To authenticate the API client against qTest Manager and acquire authorized access token. \n\n Note: Please choose parameter <em>content-type=application/x-www-form-urlencoded</em>"
+      operationId: postAccessToken
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Basic + [base64 string of "<strong>your qTest site name and colon</strong>"]
+
+
+          or Basic cXRlc3QtYXBpOg== [base64 string of "<strong>qtest-api:</strong>"] to use refresh token (grant_type = refresh_token)
+
+
+          Example: qTest Manager site is: apitryout.qtestnet.com then site name is: apitryout + '':'', then Authorization is: Basic YXBpdHJ5b3V0Og=='
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: '<em>token_type</em> and <em>access_token</em> are included in the response.
+
+
+            Use them in Authorization key when making API calls to qTest Manager in following format: <strong>[token_type] [access_token]</strong>'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthResponse'
+        400:
+          description: Invalid refresh token or grant type
+        401:
+          description: Missing or invalid Authorization header value
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                  - password
+                  - refresh_token
+                  default: password
+                  description: Use <em>grant_type=password</em> or <em>grant_type=refresh_token</em> to refresh access token
+                username:
+                  type: string
+                  description: Your qTest Manager username
+                password:
+                  type: string
+                  description: Your qTest Manager password
+                refresh_token:
+                  type: string
+                  description: qTest refresh token to refresh access token associate with provided refresh token
+components:
+  schemas:
+    OAuthTokenStatusVM:
+      type: object
+      properties:
+        expiration:
+          type: integer
+          format: int64
+        validityInMilliseconds:
+          type: integer
+          format: int64
+    OAuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: 19e28687-0e67-41e8-a9b4-849ca7ea1741
+          description: OAuth access token
+        token_type:
+          type: string
+          example: bearer
+          description: OAuth token type
+        refresh_token:
+          type: string
+          example: 913aac60-039e-4f79-a890-fa804a8a6e9f
+          description: OAuth refresh token
+        scope:
+          type: string
+          example: read import administration create share baseline write delete execute export
+          description: Scope of token
+        agent:
+          type: string
+          description: Agent name like browser agent
+        expires_in:
+          type: integer
+          format: int64
+          example: 300
+          description: Access token expire time in second
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

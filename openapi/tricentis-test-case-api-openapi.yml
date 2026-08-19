@@ -1,0 +1,1606 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Test Case API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: test-case
+  description: Test Case API
+paths:
+  /api/v3/projects/{projectId}/test-cases:
+    get:
+      tags:
+      - test-case
+      summary: Gets multiple Test Cases
+      description: To retrieve all Test Cases or Test Cases which are located directly under a Module
+      operationId: getTestCases
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: Module ID
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned. However, you can specify any page number to retrieve test cases.
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: size
+        in: query
+        description: 'The result is paginated. By the default, the number of requirements in each page is 20.
+
+
+          You can specify your custom number in this parameter.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: expandProps
+        in: query
+        description: By default, Test Case properties are included in the response. specify <em>expandProps=false</em> to exclude them
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: expandSteps
+        in: query
+        description: By default, Test Steps are excluded from the response body. Input <em>expandSteps=true</em> to include Test Steps
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: utc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: modifiedAfter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: all
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - test-case
+      summary: Creates a Test Case
+      description: 'To create a Test Case
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: createTestCase
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: agentId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: aiGenerated
+        in: query
+        description: Indicates that the contents of the Test Step were created using an Artificial Intelligence service.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        description: 'Test Case properties, Test Steps along with custom field information(if any), Attachments and other information to create a Test Case.
+
+
+          If <em>parent_id</em> is omitted, the Test Case will be created under "Created via API" Module.
+
+
+          <em>tosca_guid</em>: GUID of Tosca test case. Use for creating Tosca Test Case.
+
+
+          <em>tosca_node_path</em>: Node Path of Tosca test case. Use for creating Tosca Test Case.
+
+
+          <em>tosca_guid</em> and <em>tosca_node_path</em> are optional but must be specified in pair
+
+
+          Support create test case with Parameters by inputting parameters identifier in teststep''s <em>description</em> with sample like below. Parameters will be automatically added to current project.
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      "description": "Description [~param1] with [~param2]."
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ...
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {'
+        required: true
+  /api/v3/projects/{projectId}/test-cases/update/testcases:
+    put:
+      tags:
+      - test-case
+      summary: Updates multiple test cases
+      description: 'To update multiple Test Cases
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: updateMultipleTestCases
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        description: 'Test Case properties for all the test cases, Test Steps along with custom field information(if any) to update the Test Case.
+
+
+          Support update test case with Parameters by inputting parameters identifier in teststep''s <em>description</em> with sample like below. Parameters will be automatically added to current project.
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      "description": "Description [~param1] with [~param2]."
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ...
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {'
+        required: true
+  /api/v3/projects/{projectId}/test-cases/{idOrKey}/comments:
+    get:
+      tags:
+      - test-case
+      summary: Gets all Comments of a Test Case
+      description: 'To retrieve all comments of a Test Case
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: getTestCaseComments
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Test Case whose comments you want to retrieve
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceCommentResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - test-case
+      summary: Adds a Comment to a Test Case
+      description: 'To add a Comment to a Test Case
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: addTestCaseComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Test Case
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentResource'
+        description: The comment's properties and its content
+        required: true
+  /api/v3/projects/{projectId}/test-cases/{idOrKey}/comments/{commentId}:
+    get:
+      tags:
+      - test-case
+      summary: Gets a Comment of a Test Case
+      description: 'To retrieve a comment of a Test Case
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: getTestCaseCommentById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Test Case
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: ID of the comment.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - test-case
+      summary: Updates a Comment of a Test Case
+      description: 'To modify a comment of a Test Case
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: updateTestCaseComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Test Case
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: ID of the comment.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentResource'
+        description: The comment's updated content
+        required: true
+    delete:
+      tags:
+      - test-case
+      summary: Deletes a Comment of a Test Case
+      description: 'To delete a comment of a Test Case
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: deleteTestCaseComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Test Case
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: ID of the comment.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: successful operation
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}:
+    get:
+      tags:
+      - test-case
+      summary: Gets a Test Case
+      description: 'To retrieve a Test Case
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getTestCase
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: PID or ID of the Test Case
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: query
+        description: ID of the Test Case version
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        description: By default, Test Steps are excluded from the response. Specify <em>expand=teststep</em> to include Test Steps
+        required: false
+        schema:
+          type: string
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - test-case
+      summary: Updates a Test Case
+      description: 'To update a Test Case
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: updateTestCase
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case which needs to be updated.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        description: 'Test Case properties, Test Steps along with custom field information(if any) to update the Test Case.
+
+
+          Support update test case with Parameters by inputting parameters identifier in teststep''s <em>description</em> with sample like below. Parameters will be automatically added to current project.
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      "description": "Description [~param1] with [~param2]."
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ...
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {'
+        required: true
+    delete:
+      tags:
+      - test-case
+      summary: Deletes a Test Case
+      description: 'To delete Test Case
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: deleteTestCase
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case which needs to be deleted.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: ''
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/approve:
+    put:
+      tags:
+      - test-case
+      summary: Approves a Test Case
+      description: 'To approve a Test Case
+
+
+        <strong>qTest Manager version:</strong> 7.4+'
+      operationId: approveTestCase
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/test-steps:
+    get:
+      tags:
+      - test-case
+      summary: Gets Test Steps of a Test Case
+      description: 'To retrieve all Test Steps of a Test Case''s latest version
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getTestSteps
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestStepResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - test-case
+      summary: Creates a Test Step
+      description: 'To add a Test Step to a Test Case''s latest version
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: addTestStep
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestStepResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestStepResource'
+        description: 'Given resource will add or create a test step and its CustomField columns details.
+
+
+          Support create test step with Parameters by inputting parameters identifier in teststep''s <em>description</em> with sample like below. Parameters will be automatically added to current project.
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      "description": "Description [~param1] with [~param2]."
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ...
+
+          &nbsp;&nbsp;&nbsp;&nbsp;    {'
+        required: true
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/test-steps/{stepId}:
+    get:
+      tags:
+      - test-case
+      summary: Gets a Test Step
+      description: 'To retrieve a Test Step of a Test Case''s latest version
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getTestStep
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: stepId
+        in: path
+        description: "ID of the test step. \n\nThe ObjectId of customFieldInfo is used as a StepId here."
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestStepResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - test-case
+      summary: Update a Test Step
+      description: 'To update a Test Step of a Test Case''s latest version
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: updateTestStep
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: stepId
+        in: path
+        description: ID of the Test Step
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestStepResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestStepResource'
+        description: "Updated content of the Test Step for test case ID or PID \n\nThis Shows the updated CustomFields id, as well as you will get the updated stepId which will be ObjectId.\n\nSupport update test step with Parameters by inputting parameters identifier in teststep's <em>description</em> with sample like below. Parameters will be automatically added to current project.\n\n&nbsp;&nbsp;&nbsp;&nbsp;    {\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      \"description\": \"Description [~param1] with [~param2].\"\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ...\n&nbsp;&nbsp;&nbsp;&nbsp;    {"
+        required: true
+    delete:
+      tags:
+      - test-case
+      summary: Deletes a Test Step
+      description: 'To delete a test step of a Test Case
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: deleteTestStep
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: stepId
+        in: path
+        description: ID of the Test Step
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: updateVersion
+        in: query
+        description: If specified updateVersion=true, then the test case version will be updated when the test step is deleted.
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        default:
+          description: successful operation
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/vera/approve:
+    put:
+      tags:
+      - test-case
+      summary: test-case.vera.approve
+      description: ''
+      operationId: approveTestCaseByVera
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/versions:
+    get:
+      tags:
+      - test-case
+      summary: Gets all versions of a Test Case
+      description: 'Get all versions of a Test Case.
+
+
+        Example:
+
+
+        API returns all approved major test case versions and the last unapproved minor version if there is one.
+
+
+        <li>if version history is 1.0, 1.1, 2.0, 2.1, 2.2, 3.0, 3.1, 3.2; it will only return versions 1.0, 2.0, 3.0 and 3.2</li><li>if the version history is 1.0, 1.1, 2.0, 2.1, 2.2, 3.0; it will only return versions 1.0, 2.0, and 3.0</li><li>if the version history is 0.1, 0.2, 0.3, 0.4; it will only return version 0.4</li><strong>qTest Manager version:</strong> 7.4+'
+      operationId: getVersions
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the test case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/versions/{versionId}:
+    get:
+      tags:
+      - test-case
+      summary: Gets a version of a Test Case
+      description: 'To retrieve a specific version of a Test Case
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: getTestCaseVersionById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: versionId
+        in: path
+        description: ID of the Test Case version
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/test-cases/{testCaseId}/versions/{versionId}/test-steps:
+    get:
+      tags:
+      - test-case
+      summary: Gets Test Steps of a Test Case version
+      description: To retrieve all Test Steps of a specific Test Case version
+      operationId: getTestStepsByVersion
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: versionId
+        in: path
+        description: ID of the Test Case version
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        description: "when you Specify <em>expand=calledteststep</em> \n\nIt will include Test Steps of the called Test Cases in your response."
+        required: false
+        schema:
+          type: string
+          enum:
+          - calledteststep
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestStepResource'
+      security:
+      - Authorization: []
+  /api/v4/projects/{projectId}/test-cases/{testCaseId}/test-steps:
+    get:
+      tags:
+      - test-case
+      summary: Gets Test Steps of a Test Case
+      description: 'To retrieve all Test Steps of a Test Case''s latest version
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getTestStepsOfTestCase
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: size
+        in: query
+        description: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 200
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestStepResource'
+      security:
+      - Authorization: []
+  /api/v4/projects/{projectId}/test-cases/{testCaseId}/versions/{versionId}/test-steps:
+    get:
+      tags:
+      - test-case
+      summary: Gets Test Steps of a Test Case version
+      description: To retrieve all Test Steps of a specific Test Case version
+      operationId: getTestStepsByVersionId
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: testCaseId
+        in: path
+        description: ID of the Test Case
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: versionId
+        in: path
+        description: ID of the Test Case version
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        description: "when you Specify <em>expand=calledteststep</em> \n\nIt will include Test Steps of the called Test Cases in your response."
+        required: false
+        schema:
+          type: string
+          enum:
+          - calledteststep
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: size
+        in: query
+        description: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 200
+      - name: showParamIdentifier
+        in: query
+        description: By default, Parameters in Test Steps are displayed in ID number mode (like "<strong>[~123]</strong>"). Input <strong><em>showParamIdentifier=true</em></strong> to change to Identifier text mode. Result should be like "<strong>[~myIdentifier]</strong>".
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        name:
+          type: string
+          example: Sample.docx
+          description: Attachment name
+        content_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Attachment
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
+        created_date:
+          type: string
+          format: date-time
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
+          readOnly: true
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    ParameterizationText:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        rawText:
+          type: string
+        htmlText:
+          type: string
+        plainText:
+          type: string
+        valueText:
+          type: string
+        editedParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        plainValueText:
+          type: string
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        objectId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        stripHTMLValue:
+          type: string
+        propertyEditorComponent:
+          type: boolean
+    ParameterVM:
+      type: object
+      properties:
+        parameterId:
+          type: integer
+          format: int64
+        id:
+          type: string
+        startIndex:
+          type: integer
+          format: int32
+        endIndex:
+          type: integer
+          format: int32
+        startWithoutPrefixIndex:
+          type: integer
+          format: int32
+        endWithoutSuffixIndex:
+          type: integer
+          format: int32
+        parameterName:
+          type: string
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    ParameterInfo:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    TestCaseWithCustomFieldResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Test Case
+        name:
+          type: string
+          example: Test Case 1
+          description: Name of the Test Case
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of the Test Case
+        pid:
+          type: string
+          example: TC-1
+          description: PID of the Test Case
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          description: Fields value of the Test Case
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
+          description: Web URL of the Test Case
+          readOnly: true
+        attachments:
+          type: array
+          description: Arrays of Attachment of the Test Case
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        parent_id:
+          type: integer
+          format: int64
+          example: 2107628
+          description: Module ID of the Test Case
+        test_case_version_id:
+          type: integer
+          format: int64
+          example: 11
+          description: ID of Test Case Version
+        version:
+          type: string
+          description: Test Case Version of the Test Case
+        description:
+          type: string
+          example: Description of test case 1
+          description: Description of the Test Case
+        precondition:
+          type: string
+          example: Precondition of test case 1
+          description: Precondition of the Test Case
+        creator_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User who create the Test Case
+        agent_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        test_steps:
+          type: array
+          description: Arrays of Test Step of the Test Case
+          items:
+            $ref: '#/components/schemas/TestStepResource'
+        tosca_guid:
+          type: string
+          description: GUID of Tosca test case.
+        tosca_node_path:
+          type: string
+          description: Node Path of Tosca test case.
+        tosca_url:
+          type: string
+        tosca_test_case_unique_id:
+          type: string
+        tosca_state:
+          type: string
+        tosca_workspace_url:
+          type: string
+        last_modified_date_utc:
+          type: string
+    ParameterValueVM:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+    TestStepInformationVM:
+      type: object
+      properties:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    TestStepResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 111
+        description:
+          type: string
+          example: Test Step description
+        expected:
+          type: string
+          example: Test step expected result
+        order:
+          type: integer
+          format: int32
+          example: 1
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    TestParameter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

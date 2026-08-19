@@ -1,0 +1,253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Results API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists Test Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Returns only the Test Results with the specified status."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "query",
+                "description": "Project name. Returns only the Test Results of the specified project."
+              },
+              {
+                "name": "author",
+                "value": "",
+                "type": "query",
+                "description": "The author of the Test Result. Returns only the Test Results launched by the specified author."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of elements returned by this call. The maximum must be less than or equal to 200."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The key to sort the elements on. It may begin with a '+' or a '-' to specify an ascending or descending sort order. The list of available keys can be found in the endpoint description."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in the json Test Result definition."
+              },
+              {
+                "name": "pretty",
+                "value": "",
+                "type": "query",
+                "description": "If true the Json returned is human readable."
+              }
+            ]
+          },
+          "docs": "Lists the Test Results of the Workspace according to the method parameters.\n___\n*Sortable fields :*\n  - name\n  - project\n  - startDate (descending sort by default : the most recent first)\n  - qualityStatus\n"
+        },
+        {
+          "info": {
+            "name": "Test Result description",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ]
+          },
+          "docs": "Provides a Test Result description using a unique Test Result identifier. Provides name, dates, owner ..."
+        },
+        {
+          "info": {
+            "name": "Partially update a Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified fields of a Test Result. All fields are optional."
+        },
+        {
+          "info": {
+            "name": "Deletes a Test Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ]
+          },
+          "docs": "Deletes a Test Result and all the associated statistics. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Get the logs from a test result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/logs",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ]
+          },
+          "docs": "The 1000th first lines of logs (timestamp, content and source) about a specified test result. If the test result does not have any logs the result will be an empty list."
+        },
+        {
+          "info": {
+            "name": "Test Result main statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/statistics",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              }
+            ]
+          },
+          "docs": "Provides the main statistics of a Test Result. For a runnning test, these statistics are live, for a Test Result, those are average for the all Test Result."
+        },
+        {
+          "info": {
+            "name": "Test Result raw data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/raw",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the Test Result data."
+              }
+            ]
+          },
+          "docs": "Provides all the Test Result raw data, with a content as CSV or JSON file. <br /><br /> <b><i>This endpoint may produce large files depending on Test Results. For production purposes please prefer using an API client rather than the browser.</i></b> Provides the Test Result raw data for an element of category TRANSACTION, with a content as CSV or JSON file. <br /><br /> <b><i>Retention period for raw data is 7 days after which this will be permanently deleted.</i></b>\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

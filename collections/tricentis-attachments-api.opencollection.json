@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TTM for Jira Attachments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get attachment of a test run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/:test-run-key/attachments",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "Test Run Key."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that maximum N results will be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get attachment of a test run."
+        },
+        {
+          "info": {
+            "name": "Upload attachment to a test run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/:test-run-key/attachments",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "Test Run Key."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Initiate the attachment upload process for a test run.\n   Max Attachments Size allowed is 50MB (Per attachment).\n### After you use this endpoint, you need to do the following:\n* Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.\n* Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}."
+        },
+        {
+          "info": {
+            "name": "Get attachment link.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/attachments/:attachmentId",
+            "params": [
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path",
+                "description": "The attachment Id."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get attachment link."
+        },
+        {
+          "info": {
+            "name": "Upload attachment to a test run step.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/:test-run-key/steps/:step-number/attachments",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "Test Run Key."
+              },
+              {
+                "name": "step-number",
+                "value": "",
+                "type": "path",
+                "description": "Step index."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Initiate the attachment upload process for a test run step.\n   Max Attachments Size allowed is 50MB (Per attachment).\n### After you use this endpoint, you need to do the following:\n* Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.\n* Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}."
+        },
+        {
+          "info": {
+            "name": "Query if attachment is uploaded to storage.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ttm4j.tricentis.com/v1/projects/:project-key/test-runs/attachments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Attachment Id."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Query if the attachment file was successfully uploaded to storage.\n            \nUse this to confirm the following:\n* Upload information was received from **POST** v1/projects/{project-key}/test-runs/{test-run-key}/attachments\n* The file successfully uploaded to storage as binary data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1024 @@
+{
+  "item": [
+    {
+      "id": "8f31a0fa-f5d1-4f5b-a930-18d603b0d0fc",
+      "name": "build",
+      "description": {
+        "content": "Build API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9394775-44c8-42dd-8d7a-afed0125d416",
+          "name": "Gets multiple Builds",
+          "request": {
+            "name": "Gets multiple Builds",
+            "description": {
+              "content": "To retrieve all Builds under a Release\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "builds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "releaseId",
+                  "value": "<long>",
+                  "description": "(Required) ID of the parent Release"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9da3a719-ee24-4675-a9e2-43bf60b27ed4",
+              "name": "Returns a list of builds",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "releaseId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"name\": \"Build 1\",\n    \"order\": 1,\n    \"pid\": \"BL-1\",\n    \"created_date\": \"1964-04-30T15:52:27.110Z\",\n    \"last_modified_date\": \"2012-04-24T07:21:10.390Z\",\n    \"release\": {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 149652,\n      \"name\": \"Release 2\",\n      \"order\": 2,\n      \"pid\": \"RL-2\",\n      \"created_date\": \"2013-12-11T21:02:39.943Z\",\n      \"last_modified_date\": \"1983-06-16T13:06:52.779Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n      \"description\": \"This is the second release\",\n      \"note\": \"Note of the Release\",\n      \"start_date\": \"1968-12-18T19:17:54.066Z\",\n      \"end_date\": \"1980-09-25T22:09:21.651Z\"\n    }\n  },\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 1,\n    \"name\": \"Build 1\",\n    \"order\": 1,\n    \"pid\": \"BL-1\",\n    \"created_date\": \"1984-11-26T10:00:55.557Z\",\n    \"last_modified_date\": \"1948-09-08T16:45:59.381Z\",\n    \"release\": {\n      \"properties\": [\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        },\n        {\n          \"field_id\": 1,\n          \"field_name\": \"Field Name\",\n          \"field_value\": \"1\",\n          \"field_value_name\": \"1\"\n        }\n      ],\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        },\n        {\n          \"rel\": \"self\",\n          \"href\": \"<link to object>\"\n        }\n      ],\n      \"id\": 149652,\n      \"name\": \"Release 2\",\n      \"order\": 2,\n      \"pid\": \"RL-2\",\n      \"created_date\": \"1972-10-26T23:56:11.789Z\",\n      \"last_modified_date\": \"1973-04-17T11:19:56.789Z\",\n      \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n      \"description\": \"This is the second release\",\n      \"note\": \"Note of the Release\",\n      \"start_date\": \"2005-09-28T11:44:13.135Z\",\n      \"end_date\": \"1954-09-19T07:00:44.503Z\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92158cc4-1f4b-4ca8-ac92-f012027842db",
+              "name": "Internal Server Error - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "releaseId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76ce20fa-4702-45f9-b52f-de8f607fb194",
+          "name": "Creates a Build",
+          "request": {
+            "name": "Creates a Build",
+            "description": {
+              "content": "To create a Build under a parent Release\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "builds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": \"<long>\",\n        \"field_name\": \"<string>\",\n        \"field_value\": \"<string>\",\n        \"field_value_name\": \"<string>\"\n      },\n      {\n        \"field_id\": \"<long>\",\n        \"field_name\": \"<string>\",\n        \"field_value\": \"<string>\",\n        \"field_value_name\": \"<string>\"\n      }\n    ],\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"pid\": \"<string>\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"description\": \"<string>\",\n    \"note\": \"<string>\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "457d93d8-a11d-4a69-a692-61a846c8593f",
+              "name": "Build created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1227eaf-b098-4e54-b84d-03fabe723cdd",
+              "name": "Bad Request - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe40ceed-4288-4fae-a2fa-0b462a3e1ee0",
+          "name": "Gets a Build",
+          "request": {
+            "name": "Gets a Build",
+            "description": {
+              "content": "To retrieve a Build<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "builds",
+                ":buildId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "buildId",
+                  "description": "(Required) ID of the Build"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a84e2dd-3b24-44ab-abf7-50d30acef554",
+              "name": "Returns a build with the specified id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds",
+                    ":buildId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "buildId",
+                      "description": "(Required) ID of the Build"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cab846a-e165-4b1b-9fce-79203da9da55",
+              "name": "Internal Server Error - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds",
+                    ":buildId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "buildId",
+                      "description": "(Required) ID of the Build"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0e4e3cd-94b2-4eeb-9ba0-9c56b846310f",
+          "name": "Updates a Build",
+          "request": {
+            "name": "Updates a Build",
+            "description": {
+              "content": "To update a Build\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "builds",
+                ":buildId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "buildId",
+                  "description": "(Required) ID of the Build"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": \"<long>\",\n        \"field_name\": \"<string>\",\n        \"field_value\": \"<string>\",\n        \"field_value_name\": \"<string>\"\n      },\n      {\n        \"field_id\": \"<long>\",\n        \"field_name\": \"<string>\",\n        \"field_value\": \"<string>\",\n        \"field_value_name\": \"<string>\"\n      }\n    ],\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"pid\": \"<string>\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"description\": \"<string>\",\n    \"note\": \"<string>\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85b154ed-5bb2-44a8-862c-32b32a330142",
+              "name": "Build updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds",
+                    ":buildId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "buildId",
+                      "description": "(Required) ID of the Build"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb172b38-4582-4c88-bd3c-4ad2e8e87c7d",
+              "name": "Internal Server Error - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds",
+                    ":buildId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "buildId",
+                      "description": "(Required) ID of the Build"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 1,\n  \"name\": \"Build 1\",\n  \"order\": 1,\n  \"pid\": \"BL-1\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"release\": {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"<dateTime>\",\n    \"last_modified_date\": \"<dateTime>\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc15eb0d-4cf1-4d5f-99ef-fbabbd75af64",
+          "name": "Deletes a Build",
+          "request": {
+            "name": "Deletes a Build",
+            "description": {
+              "content": "To delete a Build\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "builds",
+                ":buildId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "buildId",
+                  "description": "(Required) ID of the Build to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a9157ab0-0285-4990-9c90-95eab1f08ffe",
+              "name": "Build deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds",
+                    ":buildId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "buildId",
+                      "description": "(Required) ID of the Build to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6d17aaf-aa6c-430e-9b56-b31ff833c807",
+              "name": "Internal Server Error - Unexpected error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "builds",
+                    ":buildId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "buildId",
+                      "description": "(Required) ID of the Build to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "942e6789-b22c-4066-8071-e0cab2da79cd",
+    "name": "qTest Manager API Version 3.0 Build API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

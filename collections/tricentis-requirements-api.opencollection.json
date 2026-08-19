@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tricentis Requirements API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "requirements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get entities from requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/requirements",
+            "params": [
+              {
+                "name": "$top",
+                "value": "50",
+                "type": "query",
+                "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)"
+              },
+              {
+                "name": "$search",
+                "value": "",
+                "type": "query",
+                "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)"
+              },
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+              },
+              {
+                "name": "$count",
+                "value": "",
+                "type": "query",
+                "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get entities from requirements"
+        },
+        {
+          "info": {
+            "name": "Get entity from requirements by key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/requirements(:id)",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "key: id"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get entity from requirements by key"
+        },
+        {
+          "info": {
+            "name": "Create Requirements.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/test-cases/requirements",
+            "params": [
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create Requirements and link to test case.\n##### Note: In case issue type won't be provided, default value will be \"Requirement\" issue type.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the requirement summary.\n* **description** _(optional)_: the requirement description.\n* **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..)."
+        },
+        {
+          "info": {
+            "name": "Create Requirements and link to test case.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/test-cases/:key/requirements",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "jiraTestKey."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create Requirements and link to test case.\n##### Note: In case issue type won't be provided, default value will be \"Requirement\" issue type.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the requirement summary.\n* **description** _(optional)_: the requirement description.\n* **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..)."
+        },
+        {
+          "info": {
+            "name": "Link Requirements to test case.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/test-cases/:key/requirement/link",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "jiraTestKey."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Link Requirements to test case.\n            \n#### Body fields:\n* **issueKey** _(mandatory)_: the issue key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

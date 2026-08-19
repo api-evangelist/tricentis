@@ -1,0 +1,1677 @@
+{
+  "item": [
+    {
+      "id": "ff3c7178-173c-4a70-812c-a277bc4890e2",
+      "name": "Test Runs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "989d7a23-c135-4a09-97e5-817b4d13bbde",
+          "name": "Create test runs from junit xml string.",
+          "request": {
+            "name": "Create test runs from junit xml string.",
+            "description": {
+              "content": "## Import test run(s) (execution result) from JUnit XML string.\n#### Body:\nThe body should be the XML content of the JUnit XML file.\n#### Query parameters:\n* **version** _(optional)_: Specify the version name which the test runs will be under.\n* **cycleName** _(optional)_: cycle name to specify.\nif not provided, it will take the it from the \"name\" attribute of the \"testsuites\" XML tag in case it exists.\nif nothing provided, it will generate a name like \"Junit execution (current date)\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "import",
+                "execution",
+                "junit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "version."
+                },
+                {
+                  "disabled": false,
+                  "key": "cycleName",
+                  "value": "<string>",
+                  "description": "cycleName."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"testsuite\": \"<array,null>\",\n  \"name\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a046f67-fdc6-414f-b30d-92f9a71674f2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "import",
+                    "execution",
+                    "junit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cycleName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testsuite\": [\n    {\n      \"testcase\": [\n        {\n          \"name\": \"passedTest\",\n          \"testCaseKey\": \"TC-1\",\n          \"classname\": \"class1\",\n          \"time\": 10,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"failure\": {\n            \"message\": \"failure message\",\n            \"type\": \"AssertionError\",\n            \"vlue\": \"failure value\"\n          },\n          \"systemError\": \"System error output...\",\n          \"systemOut\": \"System output ...\",\n          \"name\": \"failedTest\",\n          \"testCaseKey\": \"TC-2\",\n          \"classname\": \"class1\",\n          \"time\": 5,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"skipped\": {\n            \"message\": \"skipped message\"\n          },\n          \"systemOut\": \"System output ...\",\n          \"name\": \"skippedTest\",\n          \"classname\": \"class1\",\n          \"time\": 8,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        }\n      ],\n      \"name\": \"Test suite name\",\n      \"tests\": 3,\n      \"failure\": 1,\n      \"timestamp\": \"2026-08-02T12:59:08.8622015Z\",\n      \"skipped\": 1,\n      \"failureevaluating\": 0\n    }\n  ],\n  \"name\": \"TestSuiteName\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"6aacb5bb-4d64-4f51-9bf9-ccc5527548dd\",\n    \"key\": \"DE-TR-1\",\n    \"created\": \"2026-08-02T12:59:08.8625161Z\",\n    \"updated\": \"2026-08-02T12:59:08.8625162Z\",\n    \"createdBy\": \"Tricentis\",\n    \"updatedBy\": \"Tricentis\",\n    \"cycle\": {\n      \"id\": \"225db6d8-2b2e-490a-af16-b4642927890c\",\n      \"name\": \"CycleName\",\n      \"version\": {\n        \"id\": \"efa76d93-d518-4c53-91ae-ebe46190671a\",\n        \"jiraId\": \"10000\",\n        \"name\": \"1.0.0\"\n      }\n    },\n    \"steps\": [\n      {\n        \"index\": 0,\n        \"status\": \"unexecuted\",\n        \"actualResult\": \"user name filled\",\n        \"comment\": \"no comment\",\n        \"description\": \"Enter username\",\n        \"expectedResult\": \"user name filled\"\n      }\n    ],\n    \"testCaseKey\": \"DE-1\",\n    \"status\": \"unexecuted\",\n    \"name\": \"Login\",\n    \"description\": \"Login into Test Management\",\n    \"priority\": \"High\",\n    \"testCategory\": \"Functional\",\n    \"testType\": \"Manual\",\n    \"assignee\": \"User\",\n    \"executedBy\": \"User\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.8625161Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.862516Z\",\n    \"folderPath\": \"first/second\",\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Execution timer\",\n        \"value\": \"5\"\n      }\n    ]\n  },\n  {\n    \"id\": \"98dc912b-2302-4507-8b98-9680d34cc5a6\",\n    \"key\": \"DE-TR-2\",\n    \"created\": \"2026-08-02T12:59:08.8625232Z\",\n    \"updated\": \"2026-08-02T12:59:08.8625232Z\",\n    \"createdBy\": \"Tricentis\",\n    \"updatedBy\": \"Tricentis\",\n    \"cycle\": {\n      \"id\": \"a5669e6f-5fcb-4a53-b5f8-cec77f82d0fc\",\n      \"name\": \"CycleName\",\n      \"version\": {\n        \"id\": \"c1ee219d-b2ec-4fd9-97af-42d2acf21e8d\",\n        \"jiraId\": \"10000\",\n        \"name\": \"1.0.0\"\n      }\n    },\n    \"testCaseKey\": \"DE-2\",\n    \"status\": \"passeed\",\n    \"name\": \"Register\",\n    \"description\": \"Register into Test Management\",\n    \"priority\": \"Low\",\n    \"testCategory\": \"NonFunctional\",\n    \"testType\": \"Automated\",\n    \"assignee\": \"User\",\n    \"executedBy\": \"User\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.8625231Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.8625231Z\",\n    \"automation\": {\n      \"name\": \"Register to Test Management\",\n      \"id\": \"Test Id\",\n      \"content\": \"Click on register button, enter registration details\",\n      \"result\": \"Test passed as expected\"\n    },\n    \"folderPath\": \"first/third\"\n  },\n  {\n    \"id\": \"639335c6-efd0-4785-9978-6ed1e15dae7e\",\n    \"cycle\": {\n      \"id\": \"a0ba4c15-17d8-4658-bb6f-4fce9d3f6a3e\",\n      \"name\": \"CycleName\",\n      \"version\": {\n        \"id\": \"0895c653-640c-4727-8648-13699810c2dd\",\n        \"jiraId\": \"10000\",\n        \"name\": \"1.0.0\"\n      }\n    },\n    \"steps\": [\n      {\n        \"index\": 1,\n        \"status\": \"unexecuted\",\n        \"actualResult\": \"user name filled\",\n        \"comment\": \"no comment\",\n        \"description\": \"Enter username\",\n        \"expectedResult\": \"user name filled\"\n      }\n    ],\n    \"testCaseKey\": \"DE-2\",\n    \"status\": \"passed\",\n    \"name\": \"Register\",\n    \"description\": \"Register into Test Management\",\n    \"priority\": \"Low\",\n    \"testCategory\": \"NonFunctional\",\n    \"testType\": \"Automated\",\n    \"assignee\": \"User\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.8625284Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.8625284Z\",\n    \"automation\": {\n      \"name\": \"Register to Test Management\",\n      \"id\": \"Test Id\",\n      \"content\": \"Click on register button, enter registration details\"\n    },\n    \"cycleName\": \"Cycle Name 2\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "888cb0d0-6605-4ba4-a99a-8fc6cc99afad",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "import",
+                    "execution",
+                    "junit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cycleName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testsuite\": [\n    {\n      \"testcase\": [\n        {\n          \"name\": \"passedTest\",\n          \"testCaseKey\": \"TC-1\",\n          \"classname\": \"class1\",\n          \"time\": 10,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"failure\": {\n            \"message\": \"failure message\",\n            \"type\": \"AssertionError\",\n            \"vlue\": \"failure value\"\n          },\n          \"systemError\": \"System error output...\",\n          \"systemOut\": \"System output ...\",\n          \"name\": \"failedTest\",\n          \"testCaseKey\": \"TC-2\",\n          \"classname\": \"class1\",\n          \"time\": 5,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"skipped\": {\n            \"message\": \"skipped message\"\n          },\n          \"systemOut\": \"System output ...\",\n          \"name\": \"skippedTest\",\n          \"classname\": \"class1\",\n          \"time\": 8,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        }\n      ],\n      \"name\": \"Test suite name\",\n      \"tests\": 3,\n      \"failure\": 1,\n      \"timestamp\": \"2026-08-02T12:59:08.8622015Z\",\n      \"skipped\": 1,\n      \"failureevaluating\": 0\n    }\n  ],\n  \"name\": \"TestSuiteName\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2238b697-5fb0-437e-b6ca-df388a85bf1c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "import",
+                    "execution",
+                    "junit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cycleName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testsuite\": [\n    {\n      \"testcase\": [\n        {\n          \"name\": \"passedTest\",\n          \"testCaseKey\": \"TC-1\",\n          \"classname\": \"class1\",\n          \"time\": 10,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"failure\": {\n            \"message\": \"failure message\",\n            \"type\": \"AssertionError\",\n            \"vlue\": \"failure value\"\n          },\n          \"systemError\": \"System error output...\",\n          \"systemOut\": \"System output ...\",\n          \"name\": \"failedTest\",\n          \"testCaseKey\": \"TC-2\",\n          \"classname\": \"class1\",\n          \"time\": 5,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"skipped\": {\n            \"message\": \"skipped message\"\n          },\n          \"systemOut\": \"System output ...\",\n          \"name\": \"skippedTest\",\n          \"classname\": \"class1\",\n          \"time\": 8,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        }\n      ],\n      \"name\": \"Test suite name\",\n      \"tests\": 3,\n      \"failure\": 1,\n      \"timestamp\": \"2026-08-02T12:59:08.8622015Z\",\n      \"skipped\": 1,\n      \"failureevaluating\": 0\n    }\n  ],\n  \"name\": \"TestSuiteName\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1031eeed-4c46-4d35-af05-b692c56a67d0",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "import",
+                    "execution",
+                    "junit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cycleName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testsuite\": [\n    {\n      \"testcase\": [\n        {\n          \"name\": \"passedTest\",\n          \"testCaseKey\": \"TC-1\",\n          \"classname\": \"class1\",\n          \"time\": 10,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"failure\": {\n            \"message\": \"failure message\",\n            \"type\": \"AssertionError\",\n            \"vlue\": \"failure value\"\n          },\n          \"systemError\": \"System error output...\",\n          \"systemOut\": \"System output ...\",\n          \"name\": \"failedTest\",\n          \"testCaseKey\": \"TC-2\",\n          \"classname\": \"class1\",\n          \"time\": 5,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        },\n        {\n          \"skipped\": {\n            \"message\": \"skipped message\"\n          },\n          \"systemOut\": \"System output ...\",\n          \"name\": \"skippedTest\",\n          \"classname\": \"class1\",\n          \"time\": 8,\n          \"ownedBy\": \"user1\",\n          \"ownerEmail\": \"user1@example.com\"\n        }\n      ],\n      \"name\": \"Test suite name\",\n      \"tests\": 3,\n      \"failure\": 1,\n      \"timestamp\": \"2026-08-02T12:59:08.8622015Z\",\n      \"skipped\": 1,\n      \"failureevaluating\": 0\n    }\n  ],\n  \"name\": \"TestSuiteName\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ea727c9-c4d7-404b-8a3b-3cd737d12afe",
+          "name": "Read test run(s).",
+          "request": {
+            "name": "Read test run(s).",
+            "description": {
+              "content": "## Get or retrieve information from test run(s).\n            \n#### Body fields:\n* **cycles** _(optional)_: Specify the cycles to filter by the result.\n* **versions** _(optional)_: Specify the versions to filter by the result.\n* **keys** _(optional)_: Specify the test runs keys to filter by the result.\n* **testCasesKeys** _(optional)_: Specify the test cases keys to filter by the result.\n              When specified, only test runs that belong to these test cases will be returned.\n* **expand** _(optional)_: Specify which fields will return additionaly for each Test Run.\n              Allowed values: \"Steps\" - The test run steps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "test-runs",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Numeric value that determines that maximum N results will be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Numeric value that determines that the result list will start from result #N (zero based)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cycles\": \"<array,null>\",\n  \"versions\": \"<array,null>\",\n  \"keys\": \"<array,null>\",\n  \"expand\": \"<array,null>\",\n  \"testCasesKeys\": \"<array,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ec696b4-5c32-446a-8fc2-59ac3baafae9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cycles\": [\n    \"Cycle1\",\n    \"Cycle2\"\n  ],\n  \"versions\": [\n    \"Version1\",\n    \"Version2\"\n  ],\n  \"keys\": [\n    \"DR-TR-1\",\n    \"DR-TR-2\"\n  ],\n  \"expand\": [\n    \"Steps\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offset\": 0,\n  \"limit\": 2,\n  \"totalCount\": 10,\n  \"items\": [\n    {\n      \"id\": \"f2e4dc79-d4e2-4fcb-aaac-e6a71a31f14a\",\n      \"key\": \"DE-TR-1\",\n      \"created\": \"2026-08-02T12:59:08.866025Z\",\n      \"updated\": \"2026-08-02T12:59:08.8660251Z\",\n      \"createdBy\": \"Tricentis\",\n      \"updatedBy\": \"Tricentis\",\n      \"cycle\": {\n        \"id\": \"b64a25b7-1bd9-4a51-a260-5a25ac12fb22\",\n        \"name\": \"CycleName\",\n        \"version\": {\n          \"id\": \"7c8bd59d-3e82-4028-9207-b613e28c0b20\",\n          \"jiraId\": \"10000\",\n          \"name\": \"1.0.0\"\n        }\n      },\n      \"steps\": [\n        {\n          \"index\": 0,\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"data\": \"https://api.ttm4j.tricentis.com/\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ],\n      \"testCaseKey\": \"DE-1\",\n      \"status\": \"unexecuted\",\n      \"name\": \"Login\",\n      \"description\": \"Login into Test Management\",\n      \"priority\": \"High\",\n      \"testCategory\": \"Functional\",\n      \"testType\": \"Manual\",\n      \"assignee\": \"User\",\n      \"executedBy\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.866025Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8660249Z\"\n    },\n    {\n      \"id\": \"f0881cd0-beda-400d-9f62-b20223b7a918\",\n      \"key\": \"DE-TR-2\",\n      \"created\": \"2026-08-02T12:59:08.8660304Z\",\n      \"updated\": \"2026-08-02T12:59:08.8660304Z\",\n      \"createdBy\": \"Tricentis\",\n      \"updatedBy\": \"Tricentis\",\n      \"cycle\": {\n        \"id\": \"16dce657-c0be-4815-90db-bc16d74fa60f\",\n        \"name\": \"CycleName\",\n        \"version\": {\n          \"id\": \"56c7c426-9de8-4c01-a9c4-7b3e13e6f141\",\n          \"jiraId\": \"10000\",\n          \"name\": \"1.0.0\"\n        }\n      },\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passeed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"executedBy\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8660303Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8660303Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04c31b00-1eca-4c7b-84dd-f57e8672abd3",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cycles\": [\n    \"Cycle1\",\n    \"Cycle2\"\n  ],\n  \"versions\": [\n    \"Version1\",\n    \"Version2\"\n  ],\n  \"keys\": [\n    \"DR-TR-1\",\n    \"DR-TR-2\"\n  ],\n  \"expand\": [\n    \"Steps\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7436833-b8f1-40db-b34d-b1086950541e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cycles\": [\n    \"Cycle1\",\n    \"Cycle2\"\n  ],\n  \"versions\": [\n    \"Version1\",\n    \"Version2\"\n  ],\n  \"keys\": [\n    \"DR-TR-1\",\n    \"DR-TR-2\"\n  ],\n  \"expand\": [\n    \"Steps\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0aaa228d-41d4-48c9-8c79-aedaca0ac015",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cycles\": [\n    \"Cycle1\",\n    \"Cycle2\"\n  ],\n  \"versions\": [\n    \"Version1\",\n    \"Version2\"\n  ],\n  \"keys\": [\n    \"DR-TR-1\",\n    \"DR-TR-2\"\n  ],\n  \"expand\": [\n    \"Steps\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f7cd7b2-3295-46e5-86b5-36c72294f25b",
+          "name": "Create test run(s).",
+          "request": {
+            "name": "Create test run(s).",
+            "description": {
+              "content": "## Create or import test run(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **version** _(optional)_: Specify the version name which the test runs will be under.\nIf version won't be provided OR version will be equal to unversioned, the test runs will be created under unversioned.\n(creating and editing of releases (versions) are managed in Jira).\n* **cycleName** _(optional)_: Specify the cycle name which the test runs will be under.\n* **folderPath** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle.\n* **includeAttachments** _(optional)_: Specify if to include attachments (default value: false).\nCycle must be provided here or under test runs (for each test runs).\n* **testRuns** _(mandatory)_: Provide a list of test runs, with each test having the following fields:\n    * **testCaseKey** _(mandatory)_: test case key that the test run will be linked to.\n    * **status** _(mandatory)_: the status of the test run. Status of test runs is defined in JIRA under the admin page.\n    * **name** _(optional)_: name of the test run.\n    * **description** _(optional)_: description of the test run.\n    * **priority** _(mandatory)_: priority of the test run (\"Highes\",\"Low\",etc..).\n    * **testCategory** _(mandatory)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n    * **testType** _(mandatory)_: the test type of the test run (Manual, Automated).\n    * **cycleName** _(optional)_: specify the cycle name which the test runs will be under.\n    * **folder** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle. If you do not specify the folder in this field, the request uses the folder specified at the root level.\n    Cycle must be provided here or above testRuns in cycleName.\n    * **assignee** _(optional)_: the username or email which the test run will be assigned to.\n    * **executedBy** _(optional)_: the username or email which the test run is executed by.\n    * **automation** _(optional)_: the automation content of the test run.\n    In case TestType is Manual, Automation will be ignore (Manual test run can't contain automation content).\n        * **name** _(optional)_: the name of automation tool.\n        * **id** _(optional)_: the id of the test run in the automation tool.\n        * **content** _(mandatory)_: the test run automation content.\n        * **result** _(optional)_: the test run automation result.\n    * **plannedStartDate** _(optional)_: the test run planned start date.\n    * **plannedEndDate** _(optional)_: the test run planned end date.\n    * **components** _(optional)_: the test runs components.\n    * **labels** _(optional)_: the test runs labels.\n    * **steps** _(optional)_: list of steps of the test run.\n    In case TestType is Automated, and Steps will be provided (Test Run will contain Steps and Automation).\n        * **status** _(mandatory)_: the status of the test run step.\n        * **actualResult** _(optional)_: the actual result of the steps.\n        * **comment** _(optional)_: the test run step's comment.\n        * **data** _(optional)_: the test run step's data.\n        * **description** _(optional)_: the test run step's description.\n        * **expectedResult** _(optional)_: the test run step's expectedResult.\n    * **fields** _(optional)_: list of fields of the test run.\n    In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) 'value' must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).\n        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).\n        * **value** _(optional)_: the value of the scheme (for example 130).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "test-runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<string,null>\",\n  \"cycleName\": \"<string,null>\",\n  \"folderPath\": \"<string,null>\",\n  \"includeAttachments\": \"<boolean>\",\n  \"testRuns\": \"<array,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38c73bd6-4f11-4250-8202-952df4044d6b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"1.0.0\",\n  \"cycleName\": \"CycleName\",\n  \"includeAttachments\": false,\n  \"testRuns\": [\n    {\n      \"testCaseKey\": \"DE-1\",\n      \"status\": \"unexecuted\",\n      \"name\": \"Login\",\n      \"description\": \"Login into Test Management\",\n      \"priority\": \"High\",\n      \"testCategory\": \"Functional\",\n      \"testType\": \"Manual\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709624Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709623Z\",\n      \"components\": [\n        \"My componenet\"\n      ],\n      \"labels\": [\n        \"My labels\"\n      ],\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"schemeName\": \"Environments\",\n          \"allowedValueName\": \"Development\"\n        },\n        {\n          \"schemeName\": \"Execution timer\",\n          \"value\": \"5\"\n        }\n      ]\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709682Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709682Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\",\n        \"result\": \"Test passed as expected\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/second\"\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709683Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709683Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/third\",\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"29b2b978-5a07-4b30-8a72-16a7bd5d7f80\",\n    \"key\": \"DE-TR-1\",\n    \"created\": \"2026-08-02T12:59:08.8712645Z\",\n    \"updated\": \"2026-08-02T12:59:08.8712646Z\",\n    \"createdBy\": \"Tricentis\",\n    \"updatedBy\": \"Tricentis\",\n    \"cycle\": {\n      \"id\": \"ed006d79-f78f-4346-be48-0165975aa246\",\n      \"name\": \"CycleName\",\n      \"version\": {\n        \"id\": \"c2b09c14-ab14-4cbd-a9f3-b724c8b13133\",\n        \"jiraId\": \"10000\",\n        \"name\": \"1.0.0\"\n      }\n    },\n    \"steps\": [\n      {\n        \"index\": 0,\n        \"status\": \"unexecuted\",\n        \"actualResult\": \"user name filled\",\n        \"comment\": \"no comment\",\n        \"description\": \"Enter username\",\n        \"expectedResult\": \"user name filled\"\n      }\n    ],\n    \"testCaseKey\": \"DE-1\",\n    \"status\": \"unexecuted\",\n    \"name\": \"Login\",\n    \"description\": \"Login into Test Management\",\n    \"priority\": \"High\",\n    \"testCategory\": \"Functional\",\n    \"testType\": \"Manual\",\n    \"assignee\": \"User\",\n    \"executedBy\": \"User\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.8712645Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.8712644Z\",\n    \"folderPath\": \"first/second\",\n    \"fields\": [\n      {\n        \"schemeName\": \"Environments\",\n        \"allowedValueName\": \"Development\"\n      },\n      {\n        \"schemeName\": \"Execution timer\",\n        \"value\": \"5\"\n      }\n    ]\n  },\n  {\n    \"id\": \"48e86c18-35dd-419a-a98e-026b0049fb6b\",\n    \"key\": \"DE-TR-2\",\n    \"created\": \"2026-08-02T12:59:08.8712698Z\",\n    \"updated\": \"2026-08-02T12:59:08.8712698Z\",\n    \"createdBy\": \"Tricentis\",\n    \"updatedBy\": \"Tricentis\",\n    \"cycle\": {\n      \"id\": \"3cc98c55-bc23-4656-bece-bc74fa1db4f4\",\n      \"name\": \"CycleName\",\n      \"version\": {\n        \"id\": \"431321d6-45f0-4ccd-a585-eaad4a2b578b\",\n        \"jiraId\": \"10000\",\n        \"name\": \"1.0.0\"\n      }\n    },\n    \"testCaseKey\": \"DE-2\",\n    \"status\": \"passeed\",\n    \"name\": \"Register\",\n    \"description\": \"Register into Test Management\",\n    \"priority\": \"Low\",\n    \"testCategory\": \"NonFunctional\",\n    \"testType\": \"Automated\",\n    \"assignee\": \"User\",\n    \"executedBy\": \"User\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.8712697Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.8712697Z\",\n    \"automation\": {\n      \"name\": \"Register to Test Management\",\n      \"id\": \"Test Id\",\n      \"content\": \"Click on register button, enter registration details\",\n      \"result\": \"Test passed as expected\"\n    },\n    \"folderPath\": \"first/third\"\n  },\n  {\n    \"id\": \"1ae9cdec-f91c-437e-81f0-898c6dd1add2\",\n    \"cycle\": {\n      \"id\": \"faa95a73-a110-4b9e-ad59-bf2ea9c209a7\",\n      \"name\": \"CycleName\",\n      \"version\": {\n        \"id\": \"79af04c5-17ce-4081-ab46-075d5718cab4\",\n        \"jiraId\": \"10000\",\n        \"name\": \"1.0.0\"\n      }\n    },\n    \"steps\": [\n      {\n        \"index\": 1,\n        \"status\": \"unexecuted\",\n        \"actualResult\": \"user name filled\",\n        \"comment\": \"no comment\",\n        \"description\": \"Enter username\",\n        \"expectedResult\": \"user name filled\"\n      }\n    ],\n    \"testCaseKey\": \"DE-2\",\n    \"status\": \"passed\",\n    \"name\": \"Register\",\n    \"description\": \"Register into Test Management\",\n    \"priority\": \"Low\",\n    \"testCategory\": \"NonFunctional\",\n    \"testType\": \"Automated\",\n    \"assignee\": \"User\",\n    \"plannedStartDate\": \"2026-08-01T12:59:08.8712738Z\",\n    \"plannedEndDate\": \"2026-08-02T12:59:08.8712738Z\",\n    \"automation\": {\n      \"name\": \"Register to Test Management\",\n      \"id\": \"Test Id\",\n      \"content\": \"Click on register button, enter registration details\"\n    },\n    \"cycleName\": \"Cycle Name 2\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76ad6f99-3c7e-4183-9613-2c78fe030997",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"1.0.0\",\n  \"cycleName\": \"CycleName\",\n  \"includeAttachments\": false,\n  \"testRuns\": [\n    {\n      \"testCaseKey\": \"DE-1\",\n      \"status\": \"unexecuted\",\n      \"name\": \"Login\",\n      \"description\": \"Login into Test Management\",\n      \"priority\": \"High\",\n      \"testCategory\": \"Functional\",\n      \"testType\": \"Manual\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709624Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709623Z\",\n      \"components\": [\n        \"My componenet\"\n      ],\n      \"labels\": [\n        \"My labels\"\n      ],\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"schemeName\": \"Environments\",\n          \"allowedValueName\": \"Development\"\n        },\n        {\n          \"schemeName\": \"Execution timer\",\n          \"value\": \"5\"\n        }\n      ]\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709682Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709682Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\",\n        \"result\": \"Test passed as expected\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/second\"\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709683Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709683Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/third\",\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8e77783-6e37-4cef-8bcb-89808b5fee21",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"1.0.0\",\n  \"cycleName\": \"CycleName\",\n  \"includeAttachments\": false,\n  \"testRuns\": [\n    {\n      \"testCaseKey\": \"DE-1\",\n      \"status\": \"unexecuted\",\n      \"name\": \"Login\",\n      \"description\": \"Login into Test Management\",\n      \"priority\": \"High\",\n      \"testCategory\": \"Functional\",\n      \"testType\": \"Manual\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709624Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709623Z\",\n      \"components\": [\n        \"My componenet\"\n      ],\n      \"labels\": [\n        \"My labels\"\n      ],\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"schemeName\": \"Environments\",\n          \"allowedValueName\": \"Development\"\n        },\n        {\n          \"schemeName\": \"Execution timer\",\n          \"value\": \"5\"\n        }\n      ]\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709682Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709682Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\",\n        \"result\": \"Test passed as expected\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/second\"\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709683Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709683Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/third\",\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c2e2628-0730-48bb-ba91-79cff8bc15bb",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"1.0.0\",\n  \"cycleName\": \"CycleName\",\n  \"includeAttachments\": false,\n  \"testRuns\": [\n    {\n      \"testCaseKey\": \"DE-1\",\n      \"status\": \"unexecuted\",\n      \"name\": \"Login\",\n      \"description\": \"Login into Test Management\",\n      \"priority\": \"High\",\n      \"testCategory\": \"Functional\",\n      \"testType\": \"Manual\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709624Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709623Z\",\n      \"components\": [\n        \"My componenet\"\n      ],\n      \"labels\": [\n        \"My labels\"\n      ],\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"schemeName\": \"Environments\",\n          \"allowedValueName\": \"Development\"\n        },\n        {\n          \"schemeName\": \"Execution timer\",\n          \"value\": \"5\"\n        }\n      ]\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709682Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709682Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\",\n        \"result\": \"Test passed as expected\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/second\"\n    },\n    {\n      \"testCaseKey\": \"DE-2\",\n      \"status\": \"passed\",\n      \"name\": \"Register\",\n      \"description\": \"Register into Test Management\",\n      \"priority\": \"Low\",\n      \"testCategory\": \"NonFunctional\",\n      \"testType\": \"Automated\",\n      \"assignee\": \"User\",\n      \"plannedStartDate\": \"2026-08-01T12:59:08.8709683Z\",\n      \"plannedEndDate\": \"2026-08-02T12:59:08.8709683Z\",\n      \"automation\": {\n        \"name\": \"Register to Test Management\",\n        \"id\": \"Test Id\",\n        \"content\": \"Click on register button, enter registration details\"\n      },\n      \"cycleName\": \"Cycle Name 2\",\n      \"folderPath\": \"first/third\",\n      \"steps\": [\n        {\n          \"status\": \"unexecuted\",\n          \"actualResult\": \"user name filled\",\n          \"comment\": \"no comment\",\n          \"description\": \"Enter username\",\n          \"expectedResult\": \"user name filled\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71ff5917-0c8e-47dc-ba0e-bf4b723dcc4e",
+          "name": "Update test run(s).",
+          "request": {
+            "name": "Update test run(s).",
+            "description": {
+              "content": "## Update an existing test run.\n##### Note: Any values you enter will override existing values in the test run.\n            \n#### Body fields:\n* **testCategory** _(optional)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n* **executedBy** _(optional)_: the username or email which the test run is executed by.\n* **assignee** _(optional)_: the username or email which the test run will be assigned to.\n* **priority** _(optional)_: priority of the test run (\"Highes\",\"Low\",etc..).\n* **status** _(optional)_: the status of the test run. Status of test runs is defined in JIRA under the admin page. Mandatory field.\n* **plannedStartDate** _(optional)_: the test run planned start date.\n* **plannedEndDate** _(optional)_: the test run planned end date.\n* **cycleId** _(optional)_: specify the cycle Id which the test runs will be under.\n* **folderPath** _(optional)_: Specify the folder path where you want to move the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle.\n* **components** _(optional)_: the test runs components.\n* **labels** _(optional)_: the test runs labels.\n* **automation** _(optional)_: the automation content of the test run.\nIn case TestType is Manual, Automation will be ignore (Manual test run can't contain automation content).\n    * **name** _(optional)_: the name of automation tool.\n    * **id** _(optional)_: the id of the test run in the automation tool.\n    * **content** _(mandatory)_: the test run automation content.\n    * **result** _(optional)_: the test run automation result.\n* **steps** _(optional)_: list of steps of the test run.\nIn case TestType is Automated, Steps will be ignore (Automated test run can't contain steps).\n    * **status** _(mandatory)_: the status of the test run step.\n    * **actualResult** _(optional)_: the actual result of the steps.\n    * **comment** _(optional)_: the test run step's comment.\n    * **data** _(optional)_: the test run step's data.\n    * **description** _(optional)_: the test run step's description.\n    * **expectedResult** _(optional)_: the test run step's expectedResult.\n    * **fields** _(optional)_: list of fields of the test run.\n    In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) 'value' must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).\n        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).\n        * **value** _(optional)_: the value of the scheme (for example 130).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "test-runs",
+                ":test-run-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test-run-key",
+                  "description": "(Required) Test Run Key."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"testCategory\": \"<string,null>\",\n  \"assignee\": \"<string,null>\",\n  \"executedBy\": \"<string,null>\",\n  \"plannedStartDate\": \"<string,null-date-time>\",\n  \"plannedEndDate\": \"<string,null-date-time>\",\n  \"priority\": \"<string,null>\",\n  \"status\": \"<string,null>\",\n  \"cycleId\": \"<string,null-uuid>\",\n  \"folderPath\": \"<string,null>\",\n  \"components\": \"<array,null>\",\n  \"labels\": \"<array,null>\",\n  \"fields\": \"<array,null>\",\n  \"steps\": \"<array,null>\",\n  \"automation\": {\n    \"name\": \"<string,null>\",\n    \"id\": \"<string,null>\",\n    \"content\": \"<string,null>\",\n    \"result\": \"<string,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a821bbfe-7eed-4046-aa0e-c36202f18e16",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testCategory\": \"Functional\",\n  \"assignee\": \"User\",\n  \"executedBy\": \"User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.8769893Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.8769891Z\",\n  \"priority\": \"High\",\n  \"status\": \"unexecuted\",\n  \"cycleId\": \"1adc0c38-0fdf-44fc-871c-82286a9a429e\",\n  \"folderPath\": \"first/second\",\n  \"components\": [\n    \"My componenet\"\n  ],\n  \"labels\": [\n    \"My labels\"\n  ],\n  \"steps\": [\n    {\n      \"status\": \"unexecuted\",\n      \"actualResult\": \"user name filled\",\n      \"data\": \"https://api.ttm4j.tricentis.com/\",\n      \"comment\": \"no comment\",\n      \"description\": \"Enter username\",\n      \"expectedResult\": \"user name filled\"\n    }\n  ],\n  \"automation\": {\n    \"name\": \"Register to Test Management\",\n    \"id\": \"Test Id\",\n    \"content\": \"Click on register button, enter registration details\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7fe00d5-0ff6-4e9a-b5bf-37c27cb5def7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testCategory\": \"Functional\",\n  \"assignee\": \"User\",\n  \"executedBy\": \"User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.8769893Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.8769891Z\",\n  \"priority\": \"High\",\n  \"status\": \"unexecuted\",\n  \"cycleId\": \"1adc0c38-0fdf-44fc-871c-82286a9a429e\",\n  \"folderPath\": \"first/second\",\n  \"components\": [\n    \"My componenet\"\n  ],\n  \"labels\": [\n    \"My labels\"\n  ],\n  \"steps\": [\n    {\n      \"status\": \"unexecuted\",\n      \"actualResult\": \"user name filled\",\n      \"data\": \"https://api.ttm4j.tricentis.com/\",\n      \"comment\": \"no comment\",\n      \"description\": \"Enter username\",\n      \"expectedResult\": \"user name filled\"\n    }\n  ],\n  \"automation\": {\n    \"name\": \"Register to Test Management\",\n    \"id\": \"Test Id\",\n    \"content\": \"Click on register button, enter registration details\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9db2303-5d90-48a7-b82f-86378cecaa9a",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"testCategory\": \"Functional\",\n  \"assignee\": \"User\",\n  \"executedBy\": \"User\",\n  \"plannedStartDate\": \"2026-08-01T12:59:08.8769893Z\",\n  \"plannedEndDate\": \"2026-08-02T12:59:08.8769891Z\",\n  \"priority\": \"High\",\n  \"status\": \"unexecuted\",\n  \"cycleId\": \"1adc0c38-0fdf-44fc-871c-82286a9a429e\",\n  \"folderPath\": \"first/second\",\n  \"components\": [\n    \"My componenet\"\n  ],\n  \"labels\": [\n    \"My labels\"\n  ],\n  \"steps\": [\n    {\n      \"status\": \"unexecuted\",\n      \"actualResult\": \"user name filled\",\n      \"data\": \"https://api.ttm4j.tricentis.com/\",\n      \"comment\": \"no comment\",\n      \"description\": \"Enter username\",\n      \"expectedResult\": \"user name filled\"\n    }\n  ],\n  \"automation\": {\n    \"name\": \"Register to Test Management\",\n    \"id\": \"Test Id\",\n    \"content\": \"Click on register button, enter registration details\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84f73cf4-d15c-48f4-b837-7ab1420f9cad",
+          "name": "Delete test run(s).",
+          "request": {
+            "name": "Delete test run(s).",
+            "description": {
+              "content": "## Delete existing test run(s).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project-key",
+                "test-runs",
+                ":test-run-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test-run-key",
+                  "description": "(Required) Test Run Key."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "81635ca7-cc99-49d6-865d-4fb1746d4eb5",
+              "name": "`Invalid parameters`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad data\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50b1a1a2-7ea9-4e25-9524-2fa4cc7bfc26",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43399c30-d588-4ee9-b7a0-6540c439607e",
+              "name": "`Not Found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project-key",
+                    "test-runs",
+                    ":test-run-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test-run-key",
+                      "description": "(Required) Test Run Key."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ttm4j.tricentis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9fe35110-db0e-4c50-8e0f-2b2d0a0ec9fc",
+    "name": "TTM for Jira Test Runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Tricentis Test Management for Jira",
+      "type": "text/plain"
+    }
+  }
+}

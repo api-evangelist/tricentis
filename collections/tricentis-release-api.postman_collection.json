@@ -1,0 +1,724 @@
+{
+  "item": [
+    {
+      "id": "299a81bd-7718-463c-b721-6c24e9124b68",
+      "name": "release",
+      "description": {
+        "content": "Release API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69489acd-81cb-4aa5-b0e2-aba5ecface33",
+          "name": "Gets multiple Releases",
+          "request": {
+            "name": "Gets multiple Releases",
+            "description": {
+              "content": "To retrieve Releases in a project\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "releases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeClosed",
+                  "value": "false",
+                  "description": "<em>includeClosed=false</em> - default value. <em>Closed</em> Releases are excluded from the response\n\n<em>includeClosed=true</em> - Closed Release are included in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d4056b7-d923-4602-9c07-950393046fa7",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "releases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeClosed",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"1984-10-09T15:23:47.496Z\",\n    \"last_modified_date\": \"1989-06-13T05:40:22.892Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"2007-12-14T13:27:30.489Z\",\n    \"end_date\": \"1951-10-12T17:04:43.809Z\"\n  },\n  {\n    \"properties\": [\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      },\n      {\n        \"field_id\": 1,\n        \"field_name\": \"Field Name\",\n        \"field_value\": \"1\",\n        \"field_value_name\": \"1\"\n      }\n    ],\n    \"links\": [\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      },\n      {\n        \"rel\": \"self\",\n        \"href\": \"<link to object>\"\n      }\n    ],\n    \"id\": 149652,\n    \"name\": \"Release 2\",\n    \"order\": 2,\n    \"pid\": \"RL-2\",\n    \"created_date\": \"1980-02-20T06:17:29.490Z\",\n    \"last_modified_date\": \"1969-03-01T17:17:56.189Z\",\n    \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n    \"description\": \"This is the second release\",\n    \"note\": \"Note of the Release\",\n    \"start_date\": \"1953-11-02T19:58:31.633Z\",\n    \"end_date\": \"1983-03-10T17:30:09.134Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b892a481-a634-4b0c-bf99-49f08a525793",
+          "name": "Creates a Release",
+          "request": {
+            "name": "Creates a Release",
+            "description": {
+              "content": "To create a Release\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "releases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"note\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "689ab628-7bbb-4c55-9a9d-a3485f057c8a",
+              "name": "Release is created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "releases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 149652,\n  \"name\": \"Release 2\",\n  \"order\": 2,\n  \"pid\": \"RL-2\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"This is the second release\",\n  \"note\": \"Note of the Release\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 149652,\n  \"name\": \"Release 2\",\n  \"order\": 2,\n  \"pid\": \"RL-2\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n  \"description\": \"This is the second release\",\n  \"note\": \"Note of the Release\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "150d6878-97d2-476d-8b27-806fa325de3d",
+          "name": "Gets a Release",
+          "request": {
+            "name": "Gets a Release",
+            "description": {
+              "content": "To retrieve a Release\n\n<strong>qTest Manager version:</strong> 4+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "releases",
+                ":releaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "releaseId",
+                  "description": "(Required) ID of the Release"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf12b28a-bd74-4f85-9d68-05c235d0f1ba",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "releases",
+                    ":releaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "releaseId",
+                      "description": "(Required) ID of the Release"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 149652,\n  \"name\": \"Release 2\",\n  \"order\": 2,\n  \"pid\": \"RL-2\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n  \"description\": \"This is the second release\",\n  \"note\": \"Note of the Release\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d6ba11b-5f6c-4d48-a94a-ed7938e7f327",
+          "name": "Updates a Release",
+          "request": {
+            "name": "Updates a Release",
+            "description": {
+              "content": "To update a Release\n\n<strong>qTest Manager version:</strong> 6+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "releases",
+                ":releaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "releaseId",
+                  "description": "(Required) ID of the Release which needs to be updated"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    },\n    {\n      \"field_id\": \"<long>\",\n      \"field_name\": \"<string>\",\n      \"field_value\": \"<string>\",\n      \"field_value_name\": \"<string>\"\n    }\n  ],\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"pid\": \"<string>\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"note\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "599cf4ac-15ca-4d7e-a7ae-d60a62f59ead",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "releases",
+                    ":releaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "releaseId",
+                      "description": "(Required) ID of the Release which needs to be updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"id\": 149652,\n  \"name\": \"Release 2\",\n  \"order\": 2,\n  \"pid\": \"RL-2\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"description\": \"This is the second release\",\n  \"note\": \"Note of the Release\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    },\n    {\n      \"field_id\": 1,\n      \"field_name\": \"Field Name\",\n      \"field_value\": \"1\",\n      \"field_value_name\": \"1\"\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    },\n    {\n      \"rel\": \"self\",\n      \"href\": \"<link to object>\"\n    }\n  ],\n  \"id\": 149652,\n  \"name\": \"Release 2\",\n  \"order\": 2,\n  \"pid\": \"RL-2\",\n  \"created_date\": \"<dateTime>\",\n  \"last_modified_date\": \"<dateTime>\",\n  \"web_url\": \"https://apitryout.qtestnet.com/p/39047/portal/project#tab=testplan&object=8&id=149652\",\n  \"description\": \"This is the second release\",\n  \"note\": \"Note of the Release\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a96fef1b-296a-4bac-9c7c-4be0be9b905d",
+          "name": "Delete a release",
+          "request": {
+            "name": "Delete a release",
+            "description": {
+              "content": "To delete a Release",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "releases",
+                ":releaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "releaseId",
+                  "description": "(Required) ID of the Release which needs to be deleted\n\n<strong>qTest Manager version:</strong> 6+"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7f2eeac4-8e53-40f8-aa40-05cea8ca16cd",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "releases",
+                    ":releaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "releaseId",
+                      "description": "(Required) ID of the Release which needs to be deleted\n\n<strong>qTest Manager version:</strong> 6+"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5ca667ee-1217-45c9-a310-fb0526bfc375",
+    "name": "qTest Manager API Version 3.0 Release API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

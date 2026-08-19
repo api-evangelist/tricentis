@@ -1,0 +1,133 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V2 View Setting API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v2-view-setting
+  description: view settings V2 APIs
+paths:
+  /view-settings:
+    get:
+      tags:
+      - v2-view-setting
+      summary: Get view settings of sessions list in qTest Manager
+      parameters:
+      - name: projectId
+        in: query
+        description: qTest Manager project's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectId
+        in: query
+        description: qTest Manager object's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectTypeId
+        in: query
+        description: qTest Manager object type's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: View settings of sessions list in qTest Manager
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewSettings'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.customView
+    put:
+      tags:
+      - v2-view-setting
+      summary: Update view settings of sessions list in qTest Manager
+      parameters:
+      - name: projectId
+        in: query
+        description: qTest Manager project's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: aplication information is created successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewSettings'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server error
+      security:
+      - v2_auth: []
+      x-swagger-router-controller: api.customView
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/ViewSettings'
+        description: Application information object
+        required: true
+components:
+  schemas:
+    ViewSettings:
+      type: object
+      properties:
+        object_id:
+          type: integer
+        object_type_id:
+          type: integer
+        extsystemid:
+          type: integer
+        id:
+          type: integer
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              field:
+                type: string
+              name:
+                type: string
+              sort:
+                type: boolean
+              order:
+                type: integer
+              default:
+                type: boolean
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

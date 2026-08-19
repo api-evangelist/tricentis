@@ -1,0 +1,81 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 Search API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-search
+  description: Search V3 APIs
+paths:
+  /api/field:
+    get:
+      tags:
+      - v3-search
+      summary: Search Sessions
+      parameters:
+      - name: project_id
+        in: query
+        schema:
+          type: integer
+      - name: field
+        in: query
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.search
+  /api/search/list:
+    get:
+      tags:
+      - v3-search
+      summary: Search Sessions
+      parameters:
+      - name: project_id
+        in: query
+        schema:
+          type: integer
+      - name: field
+        in: query
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.search
+components:
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

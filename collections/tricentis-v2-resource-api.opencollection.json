@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Explorer | Sessions V2 Resource API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v2-resource",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets all Resources by session id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/resources",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "session id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets all Resources by session id"
+        },
+        {
+          "info": {
+            "name": "Gets a Resource by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/resources/:resourceId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "session id"
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "resource id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a Resource by id"
+        },
+        {
+          "info": {
+            "name": "Deletes a Resource by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/resources/:resourceId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "session id"
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "resource id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a Resource by id"
+        },
+        {
+          "info": {
+            "name": "Downloads a Resource by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/resources/:resourceId/download",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "session id"
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "resource id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Downloads a Resource by id"
+        },
+        {
+          "info": {
+            "name": "Uploads a Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://session-js.qtestnet.com/sessions/:sessionId/resources/upload",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "session id"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Uploads a Resource"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

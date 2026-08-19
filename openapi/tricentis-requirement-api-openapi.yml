@@ -1,0 +1,1181 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Requirement API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: requirement
+  description: Requirement API
+paths:
+  /api/v3/projects/{projectId}/requirements:
+    get:
+      tags:
+      - requirement
+      summary: Gets multiple Requirements
+      description: To retrieve all Requirements or Requirements under a specific Module
+      operationId: getRequirements
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: Specify the parent Module's ID to retrieve all of its Requirements which are located directly under the parent Module
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve requirements.
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: size
+        in: query
+        description: 'The result is paginated. By the default, the number of requirements in each page is 20.
+
+
+          You can specify your custom number in this parameter.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: includeExternalProperties
+        in: query
+        description: By default, Requirement external properties are not included in the response. Specify includeExternalProperties=true to include them.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RequirementResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - requirement
+      summary: Creates a Requirement
+      description: 'To create a new Requirement
+
+
+        <strong>qTest Manager version:</strong> 4+'
+      operationId: createRequirement
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the parent Module under which the Requirement will be located
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequirementResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequirementResource'
+        description: <p><em>name *:</em> Requirement name</p><p><em>properties:</em> An array of field-value pairs</p>
+        required: true
+  /api/v3/projects/{projectId}/requirements/trace-matrix-report:
+    get:
+      tags:
+      - requirement
+      summary: Gets Requirement Traceability Matrix Report
+      description: To retrieve a report of Requirements with their covering Test Cases
+      operationId: getPublicTraceabilityMatrixReport
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve requirements.
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: size
+        in: query
+        description: 'The result is paginated. By default, the number of requirements in each page is 20.
+
+
+          You can specify your custom number in this parameter and the maximum number is 999.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: fieldIds
+        in: query
+        description: 'ID(s) of requirement fields (system or custom fields) which you would like to retrieve.
+
+
+          They are separated by commas.'
+        required: false
+        schema:
+          type: string
+      - name: lastModifiedFrom
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: \d{4}-\d{2}-\d{2}
+      - name: lastModifiedTo
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: \d{4}-\d{2}-\d{2}
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraceabilityRequirement'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/requirements/{idOrKey}/comments:
+    get:
+      tags:
+      - requirement
+      summary: Gets all Comments of a Requirement
+      description: 'To retrieve all comments of a Requirement
+
+
+        <strong>qTest Manager version:</strong> 7.6+'
+      operationId: getAllRequirementComments
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Requirement whose comments you want to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceCommentResource'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - requirement
+      summary: Adds a Comment to a Requirement
+      description: 'To add a comment to a Requirement
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: addRequirementComment
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Requirement.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentResource'
+        description: The comment's properties and its content
+        required: true
+  /api/v3/projects/{projectId}/requirements/{idOrKey}/comments/{commentId}:
+    get:
+      tags:
+      - requirement
+      summary: Gets a Comment of a Requirement
+      description: 'To retrieve a comment of a Requirement
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: getRequirementCommentById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Requirement whose comment you want to delete
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: The comment's ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - requirement
+      summary: Updates a Comment of a Requirement
+      description: 'To modify a comment of a Requirement
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: updateRequirementCommentById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Requirement whose comment you want to update
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: The comment's ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentResource'
+        description: The comment's updated content
+        required: true
+    delete:
+      tags:
+      - requirement
+      summary: Deletes a Comment of a Requirement
+      description: 'To delete a comment of a Requirement
+
+
+        <strong>qTest Manager version:</strong> 7.5+'
+      operationId: deleteRequirementCommentById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: idOrKey
+        in: path
+        description: PID or ID of the Requirement whose comment you want to delete
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: The comment's ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/requirements/{requirementId}:
+    get:
+      tags:
+      - requirement
+      summary: Gets a Requirement
+      description: 'To retrieve a Requirement
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: getRequirement
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: requirementId
+        in: path
+        description: ID of the Requirement which you want to retrieve.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: includeExternalProperties
+        in: query
+        description: By default, Requirement external properties are not included in the response. Specify includeExternalProperties=true to include them.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequirementResource'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - requirement
+      summary: Updates a Requirement
+      description: To update properties of an Requirement or to move it to other parent Module
+      operationId: updateRequirement
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: requirementId
+        in: path
+        description: ID of the Requirement which needs to be updated.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: parentId
+        in: query
+        description: ID of the parent Module to which the Requirement will be moved to
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequirementResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequirementResource'
+        description: '<strong>name: *</strong> Requirement name.
+
+
+          <strong>properties:</strong> An array of field-value pairs'
+        required: true
+    delete:
+      tags:
+      - requirement
+      summary: Deletes a Requirement
+      description: 'To delete a Requirement
+
+
+        <strong>qTest Manager version:</strong> 6+'
+      operationId: deleteRequirementById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: requirementId
+        in: path
+        description: ID of the Requirement which needs to be deleted.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/requirements/{requirementId}/defects:
+    get:
+      tags:
+      - requirement
+      summary: To get defects by requirementId
+      description: ''
+      operationId: getDefectsByRequirmentId
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: requirementId
+        in: path
+        description: requirementId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedDefectArtifactResource'
+      security:
+      - Authorization: []
+  /api/v3/projects/{projectId}/requirements/{requirementId}/test-runs:
+    get:
+      tags:
+      - requirement
+      summary: To get all test runs associated to requirement
+      description: ''
+      operationId: getTestRunsByRequirmentId
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: requirementId
+        in: path
+        description: requirementId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: expand
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: includeLatestLog
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: page
+        in: query
+        description: By default the first page is returned but you can specify any page number to retrieve objects
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: pageSize
+        in: query
+        description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestRunNoCustomFieldResource'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    TestStepNoCustomFieldResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        description:
+          type: string
+        expected:
+          type: string
+        order:
+          type: integer
+          format: int32
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseNoCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        objectId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        stripHTMLValue:
+          type: string
+        propertyEditorComponent:
+          type: boolean
+    ParameterVM:
+      type: object
+      properties:
+        parameterId:
+          type: integer
+          format: int64
+        id:
+          type: string
+        startIndex:
+          type: integer
+          format: int32
+        endIndex:
+          type: integer
+          format: int32
+        startWithoutPrefixIndex:
+          type: integer
+          format: int32
+        endWithoutSuffixIndex:
+          type: integer
+          format: int32
+        parameterName:
+          type: string
+    RequirementResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 4171806
+        name:
+          type: string
+          example: Video sections
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 1
+        pid:
+          type: string
+          example: RQ-5
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806
+          readOnly: true
+        parent_id:
+          type: integer
+          format: int64
+          example: 2107628
+        external_properties:
+          readOnly: true
+          $ref: '#/components/schemas/ExternalPropertyResource'
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    LinkedDefectArtifactResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        pid:
+          type: string
+        submittedDate:
+          type: string
+          format: date-time
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        testCaseId:
+          type: integer
+          format: int64
+        testCaseVersionId:
+          type: integer
+          format: int64
+        title:
+          type: string
+        priority:
+          type: string
+        status:
+          type: string
+        submitterUserId:
+          type: integer
+          format: int64
+        externalDefect:
+          type: object
+          additionalProperties:
+            type: object
+    AttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        name:
+          type: string
+          example: Sample.docx
+          description: Attachment name
+        content_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Attachment
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
+        created_date:
+          type: string
+          format: date-time
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
+          readOnly: true
+    ParameterInfo:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    TestCaseNoCustomFieldResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+        pid:
+          type: string
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        web_url:
+          type: string
+          readOnly: true
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        parent_id:
+          type: integer
+          format: int64
+        test_case_version_id:
+          type: integer
+          format: int64
+        version:
+          type: string
+        description:
+          type: string
+        precondition:
+          type: string
+        approved:
+          type: boolean
+        creator_id:
+          type: integer
+          format: int64
+        agent_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        test_steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestStepNoCustomFieldResource'
+    TestRunNoCustomFieldResource:
+      type: object
+      required:
+      - test_case
+      properties:
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+          enum:
+          - root
+          - release
+          - test-cycle
+          - test-suite
+        automation:
+          type: string
+        created:
+          type: string
+          format: date-time
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+        pid:
+          type: string
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        executionType:
+          type: string
+        env:
+          type: string
+        status:
+          type: string
+        test_case:
+          $ref: '#/components/schemas/TestCaseNoCustomFieldResource'
+        latest_test_log:
+          $ref: '#/components/schemas/LatestTestLogResource'
+        test_case_version_id:
+          type: integer
+          format: int64
+        test_case_version:
+          type: string
+        creator_id:
+          type: integer
+          format: int64
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    TraceabilityRequirement:
+      type: object
+      properties:
+        root:
+          type: boolean
+          example: false
+          description: Is root Requirement Module or not
+        children:
+          type: array
+          description: Arrays of TraceabilityRequirement
+          items:
+            $ref: '#/components/schemas/TraceabilityRequirement'
+        requirements:
+          type: array
+          description: Arrays of Requirement data
+          items:
+            type: object
+            additionalProperties:
+              type: object
+        order:
+          type: integer
+          format: int64
+          example: 1
+          description: Order
+    LatestTestLogResource:
+      type: object
+      properties:
+        status:
+          type: string
+        id:
+          type: integer
+          format: int64
+        tester:
+          type: string
+        exe_start_date:
+          type: string
+          format: date-time
+        exe_end_date:
+          type: string
+          format: date-time
+    ParameterizationText:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        rawText:
+          type: string
+        htmlText:
+          type: string
+        plainText:
+          type: string
+        valueText:
+          type: string
+        editedParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        plainValueText:
+          type: string
+    ExternalPropertyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        link:
+          type: string
+        unique_id:
+          type: string
+    ParameterValueVM:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+    TestStepInformationVM:
+      type: object
+      properties:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    TestParameter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

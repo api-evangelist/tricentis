@@ -1,0 +1,250 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Parameters Datasets API",
+    "version": "2025.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-access-token",
+      "value": "{{x-access-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /api/v1/data-sets/create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new datatset"
+        },
+        {
+          "info": {
+            "name": "GET /api/v1/data-sets/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "dataset id need to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieve a dataset by id"
+        },
+        {
+          "info": {
+            "name": "PUT /api/v1/data-sets/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a dataset by id"
+        },
+        {
+          "info": {
+            "name": "DELETE /api/v1/data-sets/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              }
+            ]
+          },
+          "docs": "Delete a dataset by id"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/data-sets/query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query datasets"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/data-sets/bulk-delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/bulk-delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete multiple datasets"
+        },
+        {
+          "info": {
+            "name": "PUT /api/v1/data-sets/status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update status of mulitple datasets speficied by dataset ids"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/data-sets/import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/import",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "config",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Import dataset(s) from excel file. The result is an import task id that the caller can poll to check for the importing progress/result"
+        },
+        {
+          "info": {
+            "name": "GET /api/v1/data-sets/{dsId}/rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/:dsId/rows",
+            "params": [
+              {
+                "name": "dsId",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "page index. If this parameter is omitted or no value is set then system returns first page by default"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size. If this parameter is omitted or no value is set then system returns max 500 datasets"
+              }
+            ]
+          },
+          "docs": "Query dataset rows"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/data-sets/{dsId}/rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/:dsId/rows",
+            "params": [
+              {
+                "name": "dsId",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple dataset values"
+        },
+        {
+          "info": {
+            "name": "POST /api/v1/data-sets/{dsId}/rows/delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://parameter-1.qtestnet.com/api/v1/data-sets/:dsId/rows/delete",
+            "params": [
+              {
+                "name": "dsId",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete multiple dataset values"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

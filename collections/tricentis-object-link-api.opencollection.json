@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Object Link API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "object-link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets associated objects of given objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/linked-artifacts",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Valid values include <em>releases</em>, <em>builds</em>, <em>requirements</em>,<em>test-cases</em>, <em>test-runs</em>, <em>test-logs</em>, <em>test-steps</em> or <em>defects</em>"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "IDs of objects whose links you want to retrieve"
+              },
+              {
+                "name": "pids",
+                "value": "",
+                "type": "query",
+                "description": "In case of <em>type=defects</em>, you can specify a list of external defect id in this parameters.\n\nIt cannot be used for other types"
+              },
+              {
+                "name": "TRofSharedprojects",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve associated objects of given objects\n\n<strong>qTest Manager version:</strong> 7.5+"
+        },
+        {
+          "info": {
+            "name": "Creates links between objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/link",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "The object type of the source object. Valid values include requirements, builds, test-steps, test-logs, releases"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The object type of the associated objects which are being added to the source object. \n\nValid values include releases, builds, requirements, test-cases, test-runs, test-logs, test-steps or defects"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the source object"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To add associated objects to another object"
+        },
+        {
+          "info": {
+            "name": "Removes links between objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/link",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "The object type of the source object. Valid values include requirements, builds, test-steps, test-logs, releases"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The object type of the associated objects which are being added to the source object. \n\nValid values include releases, builds, requirements, test-cases, test-runs, test-logs, test-steps or defects"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the source object"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To remove associated objects from another object"
+        },
+        {
+          "info": {
+            "name": "Creates links between objects by pids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/:linkType",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "The object type of the source object. Valid values include test-steps, test-logs"
+              },
+              {
+                "name": "linkType",
+                "value": "",
+                "type": "path",
+                "description": "The object type of the associated objects which are being added to the source object. \n\nValid value: defects"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To add associated objects to another object by pids or Jira Defects Ids"
+        },
+        {
+          "info": {
+            "name": "Removes links between objects by pids",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/projects/:projectId/:objectType/:objectId/:linkType",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the project"
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "path",
+                "description": "The object type of the source object. Valid values include test-steps, test-logs"
+              },
+              {
+                "name": "linkType",
+                "value": "",
+                "type": "path",
+                "description": "The object type of the associated objects which are being added to the source object. \n\nValid value: defects"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To removes links between objects by pids"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

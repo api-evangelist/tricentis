@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Automation Job API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "automation-job",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search automation agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/automation/automation-agents",
+            "params": [
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "By default the first page is returned but you can specify any page number to retrieve objects"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To search automation agents in projects that user is assigned to \n\n<em>fields:</em> specify which property of Automation Agent you want to include in the response. If you omit it or specify an asterisk (*), all of following fields are included: id, name, project_id, host_id, framework, active, configuration\n\n\n<em>query:</em> specify a structured query (criteria, operator and value) with one or multiple clauses to search for Automation Agents. Following are supporting criteria\n\n| Criteria | Opera"
+        },
+        {
+          "info": {
+            "name": "Create a Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/automation/jobs/schedule/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To create a new Schedule which will be executed immediately\n\n<strong>NOTE:</strong> Try It Out function will not work for this API\n\n<strong>qTest Manager version:</strong> 6+\""
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

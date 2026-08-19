@@ -1,0 +1,425 @@
+{
+  "item": [
+    {
+      "id": "1f76fd55-85a5-47fc-b8b0-d8fd04057c58",
+      "name": "auth-systems",
+      "description": {
+        "content": "Authentication Systems API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb9f5512-dd5d-40e0-b25a-de2c0b2da798",
+          "name": "Get multiple Authentication Systems",
+          "request": {
+            "name": "Get multiple Authentication Systems",
+            "description": {
+              "content": "To get multiple Authentication Systems",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "auth-systems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "98d81b4a-5b4c-4643-a931-4d11753f711f",
+              "name": "Return list of Authentication Systems",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "auth-systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ldaps\": [\n    {\n      \"id\": 8296,\n      \"is_activated\": true,\n      \"auth_type\": \"LDAP\",\n      \"name\": \"string\",\n      \"username\": \"string\",\n      \"url\": \"string\",\n      \"base\": \"string\",\n      \"base_search\": \"string\",\n      \"search_filter\": \"string\",\n      \"mapped_username\": \"string\",\n      \"mapped_firstname\": \"string\",\n      \"mapped_lastname\": \"string\",\n      \"mapped_email\": \"string\",\n      \"is_ldap_ssl\": true,\n      \"is_active_directory\": false\n    },\n    {\n      \"id\": 6272,\n      \"is_activated\": false,\n      \"auth_type\": \"LDAP\",\n      \"name\": \"string\",\n      \"username\": \"string\",\n      \"url\": \"string\",\n      \"base\": \"string\",\n      \"base_search\": \"string\",\n      \"search_filter\": \"string\",\n      \"mapped_username\": \"string\",\n      \"mapped_firstname\": \"string\",\n      \"mapped_lastname\": \"string\",\n      \"mapped_email\": \"string\",\n      \"is_ldap_ssl\": true,\n      \"is_active_directory\": false\n    }\n  ],\n  \"sso\": {\n    \"id\": 1875,\n    \"is_activated\": true,\n    \"auth_type\": \"SSO_SAML2\",\n    \"name\": \"string\",\n    \"metadata_link\": \"string\",\n    \"auto_create_user\": true,\n    \"metadata_filename\": \"string\"\n  },\n  \"tua\": {\n    \"url\": \"string\",\n    \"id\": 7495,\n    \"is_activated\": false,\n    \"auth_type\": \"TUA_OPENID\",\n    \"name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca053037-97cb-4d3e-8ffd-66f761df8fee",
+          "name": "Associate Manager users with LDAP users",
+          "request": {
+            "name": "Associate Manager users with LDAP users",
+            "description": {
+              "content": "Associate Manager users with LDAP users authentication LDAP config",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "auth-systems",
+                "ldap",
+                ":ldapAuthConfigId",
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "mergeUser",
+                  "value": "<boolean>",
+                  "description": "Option to merge LDAP account to qTest account if qTest email already exists in qTest (support true/false value, <strong>default = false</strong>)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "ldapAuthConfigId",
+                  "description": "(Required) Id of the Authentication config"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"ldap_username\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  {\n    \"ldap_username\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d925f1ee-6c95-4ce6-b33c-bdee13198faa",
+              "name": "Return list of success users and errors if had.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "auth-systems",
+                    "ldap",
+                    ":ldapAuthConfigId",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mergeUser",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "ldapAuthConfigId",
+                      "description": "(Required) Id of the Authentication config"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"ldap_username\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  {\n    \"ldap_username\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {},\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"additionalInfo\": {}\n    },\n    {\n      \"message\": \"string\",\n      \"additionalInfo\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "890065e7-7527-4490-9014-a62ab75b58ee",
+          "name": "Get all LDAP users of an authentication LDAP config",
+          "request": {
+            "name": "Get all LDAP users of an authentication LDAP config",
+            "description": {
+              "content": "Get all LDAP users of an authentication LDAP config with pagination supported. Users are mapped with qTest users won't be returned.\n\nIf <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "auth-systems",
+                "ldap",
+                ":ldapAuthConfigId",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "Number of of item count per page. If this <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number that you want to get the result. If this <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "ldapAuthConfigId",
+                  "description": "(Required) Id of the Authentication config"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acc82b31-0c7f-4982-8588-67c04849feb8",
+              "name": "Return list of LDAP users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "auth-systems",
+                    "ldap",
+                    ":ldapAuthConfigId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "ldapAuthConfigId",
+                      "description": "(Required) Id of the Authentication config"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"uid\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"mail\": \"string\",\n      \"activationLink\": \"string\",\n      \"mappedUserId\": 3234,\n      \"newMappedUserName\": \"string\",\n      \"disabled\": false,\n      \"userDN\": \"string\",\n      \"externalUserId\": \"string\"\n    },\n    {\n      \"uid\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"mail\": \"string\",\n      \"activationLink\": \"string\",\n      \"mappedUserId\": 1789,\n      \"newMappedUserName\": \"string\",\n      \"disabled\": false,\n      \"userDN\": \"string\",\n      \"externalUserId\": \"string\"\n    }\n  ],\n  \"total\": 9518,\n  \"page_size\": 6021,\n  \"page\": 9167\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "087d7fc2-60ed-43d9-a86c-6d42c00622ae",
+    "name": "qTest Manager API Version 3.0 Auth Systems API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

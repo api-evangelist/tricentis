@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "qTest Manager API Version 3.0 Site Templates API",
+    "version": "v3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "site-templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all site-templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apitryout.qtestnet.com/api/v3/site-templates",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To retrieve all site-templates"
+        },
+        {
+          "info": {
+            "name": "Apply template to existing projects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apitryout.qtestnet.com/api/v3/site-templates/:templateId/projects",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Template id which you want to apply to existing projects."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To apply template to existing projects."
+        },
+        {
+          "info": {
+            "name": "Remove projects from a site template.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apitryout.qtestnet.com/api/v3/site-templates/:templateId/projects",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Template id which you want to detach it's projects. If <strong>0</strong> (unassigned template id) is placing here, remove all site templates associated to provided project ids list."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "To remove projects from a site template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

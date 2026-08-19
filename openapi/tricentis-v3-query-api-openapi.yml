@@ -1,0 +1,408 @@
+openapi: 3.2.0
+info:
+  title: qTest Explorer | Sessions V3 Query API
+  version: 1.0.0
+  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+servers:
+- url: https://session-js.qtestnet.com/
+tags:
+- name: v3-query
+  description: Query V3 APIs
+paths:
+  /api/query/sessions/tree:
+    get:
+      tags:
+      - v3-query
+      summary: Get tree of querries
+      parameters:
+      - name: projectId
+        in: query
+        description: qTest Manager project's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Querries tree
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Query'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/query/sessions/{queryid}:
+    get:
+      tags:
+      - v3-query
+      summary: Execute a query
+      parameters:
+      - name: queryid
+        in: path
+        description: query's id
+        required: true
+        schema:
+          type: integer
+      - name: projectId
+        in: query
+        description: qTest Manager project's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: p
+        in: query
+        description: page index
+        required: true
+        schema:
+          type: integer
+      - name: recs
+        in: query
+        description: page size
+        required: true
+        schema:
+          type: integer
+      - name: sortBy
+        in: query
+        description: sort by column
+        required: true
+        schema:
+          type: string
+      - name: sortOrder
+        in: query
+        description: sort order by descending or ascending
+        required: true
+        schema:
+          type: string
+          enum:
+          - desc
+          - asc
+      responses:
+        200:
+          description: Sessions list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+  /api/query/sessions/{queryid}/statistic:
+    get:
+      tags:
+      - v3-query
+      summary: Get statistic of a query
+      parameters:
+      - name: queryid
+        in: path
+        description: query's id
+        required: true
+        schema:
+          type: integer
+      - name: projectId
+        in: query
+        description: qTest Manager project's id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Query statistic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryStatistic'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Server error
+      security:
+      - v3_auth: []
+      x-swagger-router-controller: api.query
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    Session:
+      type: object
+      properties:
+        id:
+          type: number
+        system_id:
+          type: string
+        owner_user:
+          type: string
+        edit_user:
+          type: string
+        tester_name:
+          type: string
+        assigned_user:
+          type: string
+        title:
+          type: string
+        desc:
+          type: string
+        actual_duration:
+          type: number
+        planned_duration:
+          type: number
+        other_env_info:
+          type: string
+        executor:
+          type: string
+        overall_summary:
+          type: string
+        type:
+          type: string
+        tags:
+          type: string
+        test_charter:
+          type: string
+        test_objectives:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        client_name:
+          type: string
+        captured_date:
+          type: string
+        has_meta_data:
+          type: boolean
+        status:
+          type: string
+        sufix_pid:
+          type: string
+        client_id:
+          type: number
+        project_id:
+          type: number
+        settings:
+          type: object
+          properties:
+            reset_trace_step_number:
+              type: boolean
+            show_timestamp:
+              type: boolean
+        doc:
+          type: object
+          properties:
+            captured_date:
+              type: string
+            incl_sys_info_to_output:
+              type: boolean
+            version:
+              type: string
+        links:
+          $ref: '#/components/schemas/Links'
+        time_lines:
+          type: array
+          items:
+            properties:
+              id:
+                type: string
+              modifiled_date:
+                type: string
+              total_time:
+                type: number
+              order:
+                type: number
+              time_type:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  color:
+                    type: string
+                  catagory_name:
+                    type: string
+        app_infos:
+          $ref: '#/components/schemas/AppInfos'
+        sys_info:
+          $ref: '#/components/schemas/SysInfo'
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    QueryStatistic:
+      type: object
+      properties:
+        sessions:
+          type: string
+        completed_sessions:
+          type: string
+        planned_durations:
+          type: string
+        actual_durations:
+          type: string
+        defects:
+          type: string
+        test_cases:
+          type: string
+    QueryClause:
+      type: object
+      properties:
+        leftGroup:
+          type: string
+        rightGroup:
+          type: string
+        criteria:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+    SysInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    Query:
+      type: object
+      properties:
+        id:
+          type: string
+        parent_id:
+          type: string
+        name:
+          type: string
+        summary:
+          type: string
+        type:
+          type: integer
+        is_system:
+          type: boolean
+        is_team:
+          type: boolean
+        qid:
+          type: string
+        query_clauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryClause'
+        children:
+          type: array
+          description: Queries array
+          items:
+            type: object
+  securitySchemes:
+    v2_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+    v3_auth:
+      type: apiKey
+      name: Authorization
+      in: header

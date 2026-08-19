@@ -1,0 +1,3313 @@
+{
+  "item": [
+    {
+      "id": "1a97ff82-9cc1-49e1-87d9-c867a30276ed",
+      "name": "integration-settings",
+      "description": {
+        "content": "Integration Settings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08856eaa-004e-4273-b516-78d7a9932bf2",
+          "name": "Get all Jira connections of a project",
+          "request": {
+            "name": "Get all Jira connections of a project",
+            "description": {
+              "content": "Get all Jira connections of a project\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "94996c8d-e079-4642-85da-1cc2fa6e884f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"external_system\": \"Jira\",\n  \"connection_name\": \"Jira Connection\",\n  \"server_url\": \"https://example.atlassian.net\",\n  \"web_url\": \"https://example.atlassian.net\",\n  \"active\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9251cfc0-641c-473d-890c-eed99216fbcd",
+          "name": "Add a new Jira connection",
+          "request": {
+            "name": "Add a new Jira connection",
+            "description": {
+              "content": "Add a new Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<long>\",\n  \"external_system\": \"<string>\",\n  \"connection_name\": \"<string>\",\n  \"server_url\": \"<string>\",\n  \"web_url\": \"<string>\",\n  \"authentication_type\": \"<string>\",\n  \"username\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60d76239-525e-4ac6-8654-84fd880baee3",
+              "name": "successful operation\n\nAfter created, the connection is <em>Inactive (status=false)</em>",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"external_system\": \"Jira\",\n  \"connection_name\": \"Jira Connection\",\n  \"server_url\": \"https://example.atlassian.net\",\n  \"web_url\": \"https://example.atlassian.net\",\n  \"authentication_type\": \"Token\",\n  \"username\": \"username\",\n  \"token\": \"token\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"connection_id\": 1,\n  \"status\": \"false\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8dbaef85-26f9-4ec7-8a19-b029cb211c23",
+          "name": "OAuth Authorize URL",
+          "request": {
+            "name": "OAuth Authorize URL",
+            "description": {
+              "content": "OAuth Authorize URL (for Jira Server or DC only).\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                "oauthAuthorizeURL"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "serverUrl",
+                  "value": "<string>",
+                  "description": "(Required) your Jira's Server URL"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) this must be 0 (zero)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "369162a5-70cb-4378-814f-c8fec249cd8b",
+              "name": "successful operation\n\nFrom the response, open the authorizeUrl in a web browser then grant the access and get the Verifier. You will need the <em>Verifier</em> and <em>jiraToken</em> and <em>jiraSecret</em> when adding a new Jira connection with OAuth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    "oauthAuthorizeURL"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "serverUrl",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) this must be 0 (zero)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jiraToken\": \"string\",\n  \"jiraSecret\": \"string\",\n  \"authorizeUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc552258-1c57-4ef6-83ee-7135bef55c74",
+          "name": "Activate or deactivate a Jira connection",
+          "request": {
+            "name": "Activate or deactivate a Jira connection",
+            "description": {
+              "content": "Activate or deactivate a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<string>",
+                  "description": "(Required) Input <em>true</em> to activate a connection, or <em>false</em> to deactivate it"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f0262bb-c934-4595-9ce1-d1bf67f4f283",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bf8be44-166d-4b9e-a20d-40b94d2bcb5e",
+          "name": "Delete a Jira connection",
+          "request": {
+            "name": "Delete a Jira connection",
+            "description": {
+              "content": "Delete a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fcdeff0-f113-4d9a-9e5e-476c3b2a9012",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74836425-3d58-4883-95fb-bf0a5507a76f",
+          "name": "Enable or disable populating Jira Unlinked Defects of a Jira connection",
+          "request": {
+            "name": "Enable or disable populating Jira Unlinked Defects of a Jira connection",
+            "description": {
+              "content": "Enable or disable populating Jira Unlinked Defects of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "defect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "storeUnlinkedDefects",
+                  "value": "<string>",
+                  "description": "Input <em>true</em> to populate unlinked Jira Defects, or <em>false</em> to disable this feature"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "debdb186-a5fd-466c-aa9d-7937c50d477c",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "defect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "storeUnlinkedDefects",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "346396a4-a5f2-4c20-9e0a-b9620b0ba85a",
+          "name": "Get Jira defect mappings of a Jira connection",
+          "request": {
+            "name": "Get Jira defect mappings of a Jira connection",
+            "description": {
+              "content": "Get Jira defect mappings of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "defect",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "ID of a Jira project. Use this to retrieve mappings with this Jira project only"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "ID of a Jira issue type. Use this to retrieve mappings with this Jira issue type"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "74ef501e-289e-4bd1-a914-c0251f2ff54f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "defect",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalTypeId\": \"10100\",\n  \"sendAttachmentToJira\": \"true\",\n  \"configures\": [\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    },\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df641442-9ffd-4a96-bd85-30c27c5cfe9b",
+          "name": "Add a defect mapping to a Jira connection",
+          "request": {
+            "name": "Add a defect mapping to a Jira connection",
+            "description": {
+              "content": "Add a defect mapping to a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "defect",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project. Use this to retrieve mappings with this Jira project only"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira issue type. Use this to retrieve mappings with this Jira issue type only"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c0bdb255-7a87-414d-8a15-ba563a7579d4",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "defect",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalTypeId\": \"10100\",\n  \"sendAttachmentToJira\": \"true\",\n  \"configures\": [\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    },\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5942bcb2-bf28-44de-b19c-5e27fe1a6d9b",
+          "name": "Update a defect mapping of Jira connection",
+          "request": {
+            "name": "Update a defect mapping of Jira connection",
+            "description": {
+              "content": "Update a defect mapping of Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "defect",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the Jira issue type\n\n externalProjectId and externalIssueTypeId are used to identify a defect mapping and cannot be modified"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sendAttachmentToJira\": \"<string>\",\n  \"configures\": [\n    {\n      \"externalFieldId\": \"<string>\",\n      \"qTestFieldIds\": \"<string>\"\n    },\n    {\n      \"externalFieldId\": \"<string>\",\n      \"qTestFieldIds\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1db50707-b887-4321-887d-396d61effca8",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "defect",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sendAttachmentToJira\": \"true\",\n  \"configures\": [\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    },\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalTypeId\": \"10100\",\n  \"sendAttachmentToJira\": \"true\",\n  \"configures\": [\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    },\n    {\n      \"externalFieldId\": \"summary\",\n      \"qTestFieldIds\": \"Assigned To\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "170a619a-c491-4f01-bb45-41bc32b5c614",
+          "name": "Trigger retrieving latest field settings from a JIRA connection",
+          "request": {
+            "name": "Trigger retrieving latest field settings from a JIRA connection",
+            "description": {
+              "content": "Trigger retrieving the latest Defects/Requirements field settings from Jira\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "refreshFieldSettings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "artifact",
+                  "value": "<string>",
+                  "description": "(Required) Single value. Valid values include: <b>Defects, Requirements</b>"
+                },
+                {
+                  "disabled": false,
+                  "key": "mappingId",
+                  "value": "<long>",
+                  "description": "ID of the mapping. Only required if <em>artifact=Requirements<em>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f79c676-b5f6-43b5-a19f-908eda8c6095",
+              "name": "The latest JIRA field settings (The sample below represents the case when artifact=REQUIREMENT)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "refreshFieldSettings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "artifact",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mappingId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"externalFieldId\": \"id\",\n    \"externalFieldName\": \"ID\",\n    \"active\": true\n  },\n  {\n    \"externalFieldId\": \"id\",\n    \"externalFieldName\": \"ID\",\n    \"active\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a105710a-22e1-49fe-bef0-798df9fe9a91",
+          "name": "Enable or disable Release Integration feature of a Jira connection",
+          "request": {
+            "name": "Enable or disable Release Integration feature of a Jira connection",
+            "description": {
+              "content": "Enable or disable Release Integration feature\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "release"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<string>",
+                  "description": "Input <em>true</em> to enable Release integration, or <em>false</em> to disable it"
+                },
+                {
+                  "disabled": false,
+                  "key": "autoFilterTestRun",
+                  "value": "<string>",
+                  "description": "select or deselect the checkbox <em>Auto-filter Test Runs on Jira iframe to match Fix Version/Sprint of Jira issue</em>. Valid values include: <b>True, False</b>"
+                },
+                {
+                  "disabled": false,
+                  "key": "mergeDuplicatedFixVersions",
+                  "value": "<string>",
+                  "description": "select or deselect the checkbox Merge all Jira Fix versions with existing qTest Releases that have the same name into a single Release and link to all Jira projects. Valid values include: <b>True, False</b>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0311fbf-26bd-491d-bf73-45f104c088e7",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "release"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "autoFilterTestRun",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mergeDuplicatedFixVersions",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7dbf6bc-7fca-46ed-8a78-e8b2cf1e9628",
+          "name": "Get Jira release mappings of a Jira connection",
+          "request": {
+            "name": "Get Jira release mappings of a Jira connection",
+            "description": {
+              "content": "Get Jira release mappings of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "release",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "ID of a Jira project. Use this to retrieve mappings with this Jira project only"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "Valid values include: fixVersions, Sprint (<strong>case-sensitive</strong>)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "03454d5b-8271-40e3-9722-8830c416847a",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "release",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"externalProjectId\": \"10031\",\n    \"externalIssueTypeId\": \"Sprint\",\n    \"data_retrieval_options\": [\n      \"completed\",\n      \"completed\"\n    ],\n    \"auto_update_release_scope\": \"true\"\n  },\n  {\n    \"externalProjectId\": \"10031\",\n    \"externalIssueTypeId\": \"Sprint\",\n    \"data_retrieval_options\": [\n      \"completed\",\n      \"completed\"\n    ],\n    \"auto_update_release_scope\": \"true\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3b53ab4-4bdc-423a-a912-148d53224b07",
+          "name": "Add a new Jira release mapping to a Jira connection",
+          "request": {
+            "name": "Add a new Jira release mapping to a Jira connection",
+            "description": {
+              "content": "Add a new Jira release mapping to a Jira connection. \n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "release",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project. You will need to make API calls to Jira to get its project IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) valid values include: fixVersions, Sprint (<strong>case-sensitive</strong>)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e7de5b1-9d3f-45cb-a259-41d1ef8f4d6b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "release",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalIssueTypeId\": \"Sprint\",\n  \"data_retrieval_options\": [\n    \"completed\",\n    \"completed\"\n  ],\n  \"auto_update_release_scope\": \"true\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bad3350c-7b03-4a28-8eb4-990d96d665c7",
+          "name": "Update a Release Mapping of a Jira connection",
+          "request": {
+            "name": "Update a Release Mapping of a Jira connection",
+            "description": {
+              "content": "To configure a Release Mapping of a Jira connection. \n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "release",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) valid values include: fixVersions, Sprint (<strong>case-sensitive</strong>)\n\n externalProjectId and externalIssueTypeId are used to identify a release mapping and cannot be modified"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configurationValues\": {\n    \"unreleased\": \"<boolean>\",\n    \"released\": \"<boolean>\",\n    \"active\": \"<boolean>\",\n    \"future\": \"<boolean>\",\n    \"completed\": \"<boolean>\"\n  },\n  \"data_retrieval_options\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"auto_update_release_scope\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9603c823-3730-4408-9fcb-a62a5e1112d8",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "release",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configurationValues\": {\n    \"unreleased\": \"<boolean>\",\n    \"released\": \"<boolean>\",\n    \"active\": \"<boolean>\",\n    \"future\": \"<boolean>\",\n    \"completed\": \"<boolean>\"\n  },\n  \"data_retrieval_options\": [\n    \"completed\",\n    \"completed\"\n  ],\n  \"auto_update_release_scope\": \"true\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalIssueTypeId\": \"Sprint\",\n  \"data_retrieval_options\": [\n    \"completed\",\n    \"completed\"\n  ],\n  \"auto_update_release_scope\": \"true\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64a3a3af-bb2a-4d78-ab29-2c54dfdef82a",
+          "name": "Enable or disable a Requirement Integration feature of a Jira connection",
+          "request": {
+            "name": "Enable or disable a Requirement Integration feature of a Jira connection",
+            "description": {
+              "content": "Enable or disable a Requirement Integration feature of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "requirement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>",
+                  "description": "Input <em>true</em> to enable the feature, or <em>false</em> to disable it"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c37a5e6-b012-472b-986d-12c25e308ef0",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "requirement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a909dd0-1e9d-4a38-9fd9-7088a9d90630",
+          "name": "Get requirement mappings of a Jira connection",
+          "request": {
+            "name": "Get requirement mappings of a Jira connection",
+            "description": {
+              "content": "Get requirement mappings of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "requirement",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "ID of the Jira project. You will need to make API calls to Jira to get its project IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "ID of the Jira issue type. You will need to make API calls to Jira to get its issue type IDs"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5705323c-3d87-4030-b7c5-1d31b06db8f8",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "requirement",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"externalProjectId\": \"10031\",\n    \"externalTypeId\": \"10100\",\n    \"mapping_id\": 1,\n    \"external_filter\": \"10048\",\n    \"external_field_1_id\": \"id\",\n    \"external_field_2_id\": \"project\",\n    \"active_external_fields\": \"id,status,summary,description\"\n  },\n  {\n    \"externalProjectId\": \"10031\",\n    \"externalTypeId\": \"10100\",\n    \"mapping_id\": 1,\n    \"external_filter\": \"10048\",\n    \"external_field_1_id\": \"id\",\n    \"external_field_2_id\": \"project\",\n    \"active_external_fields\": \"id,status,summary,description\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c364c91e-8e83-4e63-8579-1c6bdc03452d",
+          "name": "Add a requirement mapping to a Jira connection",
+          "request": {
+            "name": "Add a requirement mapping to a Jira connection",
+            "description": {
+              "content": "Add a requirement mapping to a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "requirement",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project. You will need to make API calls to Jira to retrieve its project IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira issue type. You will need to make API calls to Jira to retrieve its issue type IDs"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ad9c3cd-aa90-4a07-8a9e-789f84cdcefd",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "requirement",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalTypeId\": \"10100\",\n  \"mapping_id\": 1,\n  \"external_filter\": \"10048\",\n  \"external_field_1_id\": \"id\",\n  \"external_field_2_id\": \"project\",\n  \"active_external_fields\": \"id,status,summary,description\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ede3db46-88d4-4a8b-891f-06fa846c6ac9",
+          "name": "Update a requirement mapping of a Jira connection",
+          "request": {
+            "name": "Update a requirement mapping of a Jira connection",
+            "description": {
+              "content": "To configure a requirement mapping of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "requirement",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira issue type\n\n externalProjectId and externalIssueTypeId are used to identify a release mapping and cannot be modified"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_filter\": \"<string>\",\n  \"external_field_1_id\": \"<string>\",\n  \"external_field_2_id\": \"<string>\",\n  \"active_external_fields\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ebcc5635-09bb-481a-83ac-0976c4c4fd73",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "requirement",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_filter\": \"10048\",\n  \"external_field_1_id\": \"id\",\n  \"external_field_2_id\": \"project\",\n  \"active_external_fields\": \"id,status,summary,description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalProjectId\": \"10031\",\n  \"externalTypeId\": \"10100\",\n  \"mapping_id\": 1,\n  \"external_filter\": \"10048\",\n  \"external_field_1_id\": \"id\",\n  \"external_field_2_id\": \"project\",\n  \"active_external_fields\": \"id,status,summary,description\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a22e5c5-1d9b-4fbb-b666-bf9ed8d3b8aa",
+          "name": "Trigger data retrieval from an integrated Jira system",
+          "request": {
+            "name": "Trigger data retrieval from an integrated Jira system",
+            "description": {
+              "content": "Trigger data retrieval from an integrated Jira system\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                "retrieve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "artifact",
+                  "value": "<string>",
+                  "description": "(Required) Valid values include: <b>Defects, Requirements, Releases</b>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6173b4b0-144d-4625-818a-5d0d7e72e667",
+              "name": "successful operation. Its response includes a job ID so you can check when the data retrieval is done by using this API endpoint: GET /api/v3/projects/queue-processing/{jobId}",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    "retrieve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "artifact",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"type\": \"FETCH_LINKED_DEFECTS\",\n  \"state\": \"IN_PROCESSING\",\n  \"contentType\": \"application/json\",\n  \"content\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86cbe1f5-5aae-434b-a31e-2c6e659b3308",
+          "name": "Remove a Mapping of a Jira connection",
+          "request": {
+            "name": "Remove a Mapping of a Jira connection",
+            "description": {
+              "content": "Remove a Mapping of a Jira connection\n\n<strong>qTest Manager version:</strong> 9.7+",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "integration",
+                "connections",
+                ":connectionId",
+                ":artifact",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalProjectId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira project"
+                },
+                {
+                  "disabled": false,
+                  "key": "externalIssueTypeId",
+                  "value": "<string>",
+                  "description": "(Required) ID of a Jira issue type. \n\n externalProjectId and externalIssueTypeId are used to identify a mapping"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) ID of the Jira connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "artifact",
+                  "description": "(Required) Valid values can be: <b>Defect, Requirement, Release</b>"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9635bc0-d903-4522-b4d6-b670ff1e5745",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "integration",
+                    "connections",
+                    ":connectionId",
+                    ":artifact",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalProjectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "externalIssueTypeId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) ID of the Jira connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifact",
+                      "description": "(Required) Valid values can be: <b>Defect, Requirement, Release</b>"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e32a07b-2a12-41b7-8457-bd2767d5cb16",
+          "name": "Trigger defect retrieval from an integrated Jira system",
+          "request": {
+            "name": "Trigger defect retrieval from an integrated Jira system",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "projects",
+                ":projectId",
+                "settings",
+                "jira-integration",
+                "defect",
+                "retrieve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "projectId",
+                  "description": "(Required) ID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07e784fd-0988-4c5b-98e2-fff2ba3ba033",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "projects",
+                    ":projectId",
+                    "settings",
+                    "jira-integration",
+                    "defect",
+                    "retrieve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "projectId",
+                      "description": "(Required) ID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"state\": \"IN_PROCESSING\",\n  \"contentType\": \"application/json\",\n  \"content\": \"string\",\n  \"type\": \"AUTOMATION_TEST_LOG\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apitryout.qtestnet.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "025f52b3-6db9-4ef9-adfc-79c271a48e0e",
+    "name": "qTest Manager API Version 3.0 Integration Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.",
+      "type": "text/plain"
+    }
+  }
+}

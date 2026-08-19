@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NeoLoad Results|SL As API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "accountToken",
+      "value": "{{accountToken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results|SLAs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "SLAs global indicators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/slas/statistics",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty."
+              }
+            ]
+          },
+          "docs": "Provides the SLAs global indicators of the Test Result."
+        },
+        {
+          "info": {
+            "name": "SLAs per test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/slas/per-test",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "The category of the element you expect to get the SLA for. It will return all the categories if the field is left empty."
+              }
+            ]
+          },
+          "docs": "Provides the SLAs per test of a specific Test Result."
+        },
+        {
+          "info": {
+            "name": "SLAs per time interval",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/workspaces/:workspaceId/test-results/:resultId/slas/per-interval",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a Workspace."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier representing a specific Test Result."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "The category of the element you expect to get the SLA for. It will return all the categories if the field is left empty."
+              }
+            ]
+          },
+          "docs": "Provides the SLAs per time interval of a specific Test Result."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

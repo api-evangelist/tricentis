@@ -1,0 +1,190 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tricentis Defects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "defects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get entities from defects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/defects",
+            "params": [
+              {
+                "name": "$top",
+                "value": "50",
+                "type": "query",
+                "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)"
+              },
+              {
+                "name": "$search",
+                "value": "",
+                "type": "query",
+                "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)"
+              },
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+              },
+              {
+                "name": "$count",
+                "value": "",
+                "type": "query",
+                "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get entities from defects"
+        },
+        {
+          "info": {
+            "name": "Get entity from defects by key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/defects(:id)",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "key: id"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get entity from defects by key"
+        },
+        {
+          "info": {
+            "name": "Create defects and link to test run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/test-runs/:test-run-key/defects",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "Test Run Key."
+              },
+              {
+                "name": "stepIndex",
+                "value": "",
+                "type": "query",
+                "description": "stepIndex ."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Create defects and link to test run.\n##### Note: In case issue type won't be provided, default value will be \"Bug\" issue type.\n            \n#### Query parameters:\n* **stepIndex** _(optional)_: if step index will be provided, the defect will be linked to the step.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the defect summary.\n* **description** _(optional)_: the defect description.\n* **issueType** _(optional)_: the defect issue type (for example: Task, Bug, etc..)."
+        },
+        {
+          "info": {
+            "name": "Link Defects to test run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://u8.analytics.api.tricentis.com/odata/v4/38549/v1/projects/:project-key/test-runs/:test-run-key/defects/link",
+            "params": [
+              {
+                "name": "test-run-key",
+                "value": "",
+                "type": "path",
+                "description": "testRunKey."
+              },
+              {
+                "name": "stepIndex",
+                "value": "",
+                "type": "query",
+                "description": "stepIndex."
+              },
+              {
+                "name": "project-key",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Link defects test run.\n            \n#### Query parameters:\n* **stepIndex** _(optional)_: if step index will be provided, the defect will be linked to the step.\n            \n#### Body fields:\n* **issueKey** _(mandatory)_: the issue key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

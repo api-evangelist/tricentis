@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  version: v3.0
+  title: qTest Manager API Version 3.0 Common API
+servers:
+- url: https://apitryout.qtestnet.com/
+tags:
+- name: common
+  description: Common API
+paths:
+  /api/v3/projects/{projectId}/settings/{objectType}/custom-fields/active:
+    post:
+      tags:
+      - common
+      summary: Update active or inactive custom fields of an Object Type
+      description: To update active or inactive custom fields of an Object Type
+      operationId: updateCustomFieldStatus
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/FieldResource'
+        description: Given resource to update custom fields.
+        required: true
+  /api/v3/projects/{projectId}/settings/{objectType}/system-fields/{fieldId}:
+    post:
+      tags:
+      - common
+      summary: Edit System Field of an Object Type by the field
+      description: To edit System Field of an Object Type by the field
+      operationId: editSystemField
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of the project
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: fieldId
+        in: path
+        description: ID of the field.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: objectType
+        in: path
+        description: Valid values include releases, builds, requirements, test-cases, test-steps, defects, test-suites and test-runs
+        required: true
+        schema:
+          type: string
+          enum:
+          - requirements
+          - test-cases
+          - defects
+          - test-runs
+          - test-suites
+          - releases
+          - builds
+          - test-steps
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldResource'
+        description: Given resource to edit a system field.
+        required: true
+components:
+  schemas:
+    FieldResource:
+      type: object
+      required:
+      - label
+      properties:
+        instanceType:
+          type: string
+          example: NumberDataType
+          description: Number Data Type
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Field
+        label:
+          type: string
+          example: Name
+          description: Label of the Field
+        required:
+          type: boolean
+          example: true
+          description: Is required or not
+        constrained:
+          type: boolean
+          description: Constrained or not
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order
+        allowed_values:
+          type: array
+          description: Allowed values
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+        multiple:
+          type: boolean
+          example: false
+          description: Is allowed multiple values
+        data_type:
+          type: integer
+          format: int64
+          example: 1
+          description: Data type of the Field
+          minimum: 1
+        searchable:
+          type: boolean
+          example: true
+          description: Allowed full text search or not
+        default_value:
+          type: string
+          description: Default value of the Field
+        system_field:
+          type: boolean
+          example: true
+          description: Is system field or not
+        original_name:
+          type: string
+          example: Name
+          description: Original name of the Field
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or disabled
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

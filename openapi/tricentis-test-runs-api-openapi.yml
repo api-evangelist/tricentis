@@ -1,0 +1,2536 @@
+openapi: 3.2.0
+info:
+  title: TTM for Jira Test Runs API
+  description: Tricentis Test Management for Jira
+  version: 1.0.0
+  termsOfService: https://www.tricentis.com/legal-information/general-terms-of-use/
+servers:
+- url: https://api.ttm4j.tricentis.com
+security:
+- api_key: []
+tags:
+- name: Test Runs
+paths:
+  /v1/projects/{project-key}/import/execution/junit:
+    post:
+      tags:
+      - Test Runs
+      summary: Create test runs from junit xml string.
+      description: '## Import test run(s) (execution result) from JUnit XML string.
+
+        #### Body:
+
+        The body should be the XML content of the JUnit XML file.
+
+        #### Query parameters:
+
+        * **version** _(optional)_: Specify the version name which the test runs will be under.
+
+        * **cycleName** _(optional)_: cycle name to specify.
+
+        if not provided, it will take the it from the "name" attribute of the "testsuites" XML tag in case it exists.
+
+        if nothing provided, it will generate a name like "Junit execution (current date)".'
+      parameters:
+      - name: version
+        in: query
+        description: version.
+        schema:
+          type: string
+      - name: cycleName
+        in: query
+        description: cycleName.
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: junitXml.
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties:
+                testsuite:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: object
+                    properties:
+                      testcase:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          properties:
+                            failure:
+                              type: object
+                              properties:
+                                message:
+                                  type:
+                                  - string
+                                  - 'null'
+                                type:
+                                  type:
+                                  - string
+                                  - 'null'
+                                vlue:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                            error:
+                              type: object
+                              properties:
+                                message:
+                                  type:
+                                  - string
+                                  - 'null'
+                                type:
+                                  type:
+                                  - string
+                                  - 'null'
+                                vlue:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                            skipped:
+                              type: object
+                              properties:
+                                message:
+                                  type:
+                                  - string
+                                  - 'null'
+                                type:
+                                  type:
+                                  - string
+                                  - 'null'
+                                vlue:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                            systemError:
+                              type:
+                              - string
+                              - 'null'
+                            systemOut:
+                              type:
+                              - string
+                              - 'null'
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            testCaseKey:
+                              type:
+                              - string
+                              - 'null'
+                            classname:
+                              type:
+                              - string
+                              - 'null'
+                            time:
+                              type: number
+                              format: double
+                            ownedBy:
+                              type:
+                              - string
+                              - 'null'
+                            ownerEmail:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                      tests:
+                        type: integer
+                        format: int32
+                      failure:
+                        type: integer
+                        format: int32
+                      timestamp:
+                        type: string
+                        format: date-time
+                      skipped:
+                        type: integer
+                        format: int32
+                      failureevaluating:
+                        type: integer
+                        format: int32
+                      testsuites:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          properties:
+                            testcase:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  failure:
+                                    type: object
+                                    properties:
+                                      message:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      vlue:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    additionalProperties: false
+                                  error:
+                                    type: object
+                                    properties:
+                                      message:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      vlue:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    additionalProperties: false
+                                  skipped:
+                                    type: object
+                                    properties:
+                                      message:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      vlue:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    additionalProperties: false
+                                  systemError:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  systemOut:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  testCaseKey:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  classname:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  time:
+                                    type: number
+                                    format: double
+                                  ownedBy:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  ownerEmail:
+                                    type:
+                                    - string
+                                    - 'null'
+                                additionalProperties: false
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            tests:
+                              type: integer
+                              format: int32
+                            failure:
+                              type: integer
+                              format: int32
+                            timestamp:
+                              type: string
+                              format: date-time
+                            skipped:
+                              type: integer
+                              format: int32
+                            failureevaluating:
+                              type: integer
+                              format: int32
+                          additionalProperties: false
+                    additionalProperties: false
+                name:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties: false
+            examples:
+              JunitXmlExample:
+                value: "<testsuites xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" name=\"TestSuiteName\">\n  <testsuite name=\"Test suite name\" tests=\"3\" failure=\"1\" timestamp=\"2026-08-02T12:59:08.8620352+00:00\" skipped=\"1\" failure-evaluating=\"0\">\n    <testcase name=\"passedTest\" testCaseKey=\"TC-1\" classname=\"class1\" time=\"10\" ownedBy=\"user1\" ownerEmail=\"user1@example.com\" />\n    <testcase name=\"failedTest\" testCaseKey=\"TC-2\" classname=\"class1\" time=\"5\" ownedBy=\"user1\" ownerEmail=\"user1@example.com\">\n      <failure message=\"failure message\" type=\"AssertionError\">failure value</failure>\n      <system-err>System error output...</system-err>\n      <system-out>System output ...</system-out>\n    </testcase>\n    <testcase name=\"skippedTest\" classname=\"class1\" time=\"8\" ownedBy=\"user1\" ownerEmail=\"user1@example.com\">\n      <skipped message=\"skipped message\" />\n      <system-out>System output ...</system-out>\n    </testcase>\n  </testsuite>\n</testsuites>"
+          application/json:
+            schema:
+              type: object
+              properties:
+                testsuite:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: object
+                    properties:
+                      testcase:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          properties:
+                            failure:
+                              type: object
+                              properties:
+                                message:
+                                  type:
+                                  - string
+                                  - 'null'
+                                type:
+                                  type:
+                                  - string
+                                  - 'null'
+                                vlue:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                            error:
+                              type: object
+                              properties:
+                                message:
+                                  type:
+                                  - string
+                                  - 'null'
+                                type:
+                                  type:
+                                  - string
+                                  - 'null'
+                                vlue:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                            skipped:
+                              type: object
+                              properties:
+                                message:
+                                  type:
+                                  - string
+                                  - 'null'
+                                type:
+                                  type:
+                                  - string
+                                  - 'null'
+                                vlue:
+                                  type:
+                                  - string
+                                  - 'null'
+                              additionalProperties: false
+                            systemError:
+                              type:
+                              - string
+                              - 'null'
+                            systemOut:
+                              type:
+                              - string
+                              - 'null'
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            testCaseKey:
+                              type:
+                              - string
+                              - 'null'
+                            classname:
+                              type:
+                              - string
+                              - 'null'
+                            time:
+                              type: number
+                              format: double
+                            ownedBy:
+                              type:
+                              - string
+                              - 'null'
+                            ownerEmail:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                      tests:
+                        type: integer
+                        format: int32
+                      failure:
+                        type: integer
+                        format: int32
+                      timestamp:
+                        type: string
+                        format: date-time
+                      skipped:
+                        type: integer
+                        format: int32
+                      failureevaluating:
+                        type: integer
+                        format: int32
+                      testsuites:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          properties:
+                            testcase:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  failure:
+                                    type: object
+                                    properties:
+                                      message:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      vlue:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    additionalProperties: false
+                                  error:
+                                    type: object
+                                    properties:
+                                      message:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      vlue:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    additionalProperties: false
+                                  skipped:
+                                    type: object
+                                    properties:
+                                      message:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      vlue:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    additionalProperties: false
+                                  systemError:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  systemOut:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  testCaseKey:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  classname:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  time:
+                                    type: number
+                                    format: double
+                                  ownedBy:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  ownerEmail:
+                                    type:
+                                    - string
+                                    - 'null'
+                                additionalProperties: false
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            tests:
+                              type: integer
+                              format: int32
+                            failure:
+                              type: integer
+                              format: int32
+                            timestamp:
+                              type: string
+                              format: date-time
+                            skipped:
+                              type: integer
+                              format: int32
+                            failureevaluating:
+                              type: integer
+                              format: int32
+                          additionalProperties: false
+                    additionalProperties: false
+                name:
+                  type:
+                  - string
+                  - 'null'
+              additionalProperties: false
+            examples:
+              JunitXmlExample:
+                value:
+                  testsuite:
+                  - testcase:
+                    - name: passedTest
+                      testCaseKey: TC-1
+                      classname: class1
+                      time: 10
+                      ownedBy: user1
+                      ownerEmail: user1@example.com
+                    - failure:
+                        message: failure message
+                        type: AssertionError
+                        vlue: failure value
+                      systemError: System error output...
+                      systemOut: System output ...
+                      name: failedTest
+                      testCaseKey: TC-2
+                      classname: class1
+                      time: 5
+                      ownedBy: user1
+                      ownerEmail: user1@example.com
+                    - skipped:
+                        message: skipped message
+                      systemOut: System output ...
+                      name: skippedTest
+                      classname: class1
+                      time: 8
+                      ownedBy: user1
+                      ownerEmail: user1@example.com
+                    name: Test suite name
+                    tests: 3
+                    failure: 1
+                    timestamp: '2026-08-02T12:59:08.8622015Z'
+                    skipped: 1
+                    failureevaluating: 0
+                  name: TestSuiteName
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  required:
+                  - status
+                  - testCaseKey
+                  - testType
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    key:
+                      type:
+                      - string
+                      - 'null'
+                    created:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    updated:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    createdBy:
+                      type:
+                      - string
+                      - 'null'
+                    updatedBy:
+                      type:
+                      - string
+                      - 'null'
+                    cycle:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                        parentId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        plannedStartDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        plannedEndDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        assignee:
+                          type:
+                          - string
+                          - 'null'
+                        version:
+                          type: object
+                          properties:
+                            id:
+                              type:
+                              - string
+                              - 'null'
+                              format: uuid
+                            jiraId:
+                              type:
+                              - string
+                              - 'null'
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                        fields:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              schemeId:
+                                type: string
+                                format: uuid
+                              schemeType:
+                                enum:
+                                - List
+                                - String
+                                type: string
+                              schemeName:
+                                type:
+                                - string
+                                - 'null'
+                              alloweValueId:
+                                type:
+                                - string
+                                - 'null'
+                                format: uuid
+                              allowedValueName:
+                                type:
+                                - string
+                                - 'null'
+                              value:
+                                type:
+                                - string
+                                - 'null'
+                            additionalProperties: false
+                      additionalProperties: false
+                    steps:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type:
+                            - integer
+                            - 'null'
+                            format: int32
+                          status:
+                            type:
+                            - string
+                            - 'null'
+                          actualResult:
+                            type:
+                            - string
+                            - 'null'
+                          data:
+                            type:
+                            - string
+                            - 'null'
+                          comment:
+                            type:
+                            - string
+                            - 'null'
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                          expectedResult:
+                            type:
+                            - string
+                            - 'null'
+                          defects:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                          defectsKeys:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                        additionalProperties: false
+                    testCaseKey:
+                      minLength: 1
+                      type: string
+                    precondition:
+                      type:
+                      - string
+                      - 'null'
+                    status:
+                      minLength: 1
+                      type: string
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    priority:
+                      type:
+                      - string
+                      - 'null'
+                    testCategory:
+                      type:
+                      - string
+                      - 'null'
+                    testType:
+                      enum:
+                      - Manual
+                      - Automated
+                      type: string
+                    assignee:
+                      type:
+                      - string
+                      - 'null'
+                    executedBy:
+                      type:
+                      - string
+                      - 'null'
+                    plannedStartDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    plannedEndDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    automation:
+                      type: object
+                      properties:
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        content:
+                          type:
+                          - string
+                          - 'null'
+                        result:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                    components:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    componentsNames:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    labels:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    cycleName:
+                      type:
+                      - string
+                      - 'null'
+                    folderPath:
+                      type:
+                      - string
+                      - 'null'
+                    fields:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: object
+                        properties:
+                          schemeId:
+                            type: string
+                            format: uuid
+                          schemeType:
+                            enum:
+                            - List
+                            - String
+                            type: string
+                          schemeName:
+                            type:
+                            - string
+                            - 'null'
+                          alloweValueId:
+                            type:
+                            - string
+                            - 'null'
+                            format: uuid
+                          allowedValueName:
+                            type:
+                            - string
+                            - 'null'
+                          value:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                  additionalProperties: false
+              examples:
+                TestRunApiResponseExampleData:
+                  value:
+                  - id: 6aacb5bb-4d64-4f51-9bf9-ccc5527548dd
+                    key: DE-TR-1
+                    created: '2026-08-02T12:59:08.8625161Z'
+                    updated: '2026-08-02T12:59:08.8625162Z'
+                    createdBy: Tricentis
+                    updatedBy: Tricentis
+                    cycle:
+                      id: 225db6d8-2b2e-490a-af16-b4642927890c
+                      name: CycleName
+                      version:
+                        id: efa76d93-d518-4c53-91ae-ebe46190671a
+                        jiraId: '10000'
+                        name: 1.0.0
+                    steps:
+                    - index: 0
+                      status: unexecuted
+                      actualResult: user name filled
+                      comment: no comment
+                      description: Enter username
+                      expectedResult: user name filled
+                    testCaseKey: DE-1
+                    status: unexecuted
+                    name: Login
+                    description: Login into Test Management
+                    priority: High
+                    testCategory: Functional
+                    testType: Manual
+                    assignee: User
+                    executedBy: User
+                    plannedStartDate: '2026-08-01T12:59:08.8625161Z'
+                    plannedEndDate: '2026-08-02T12:59:08.862516Z'
+                    folderPath: first/second
+                    fields:
+                    - schemeName: Environments
+                      allowedValueName: Development
+                    - schemeName: Execution timer
+                      value: '5'
+                  - id: 98dc912b-2302-4507-8b98-9680d34cc5a6
+                    key: DE-TR-2
+                    created: '2026-08-02T12:59:08.8625232Z'
+                    updated: '2026-08-02T12:59:08.8625232Z'
+                    createdBy: Tricentis
+                    updatedBy: Tricentis
+                    cycle:
+                      id: a5669e6f-5fcb-4a53-b5f8-cec77f82d0fc
+                      name: CycleName
+                      version:
+                        id: c1ee219d-b2ec-4fd9-97af-42d2acf21e8d
+                        jiraId: '10000'
+                        name: 1.0.0
+                    testCaseKey: DE-2
+                    status: passeed
+                    name: Register
+                    description: Register into Test Management
+                    priority: Low
+                    testCategory: NonFunctional
+                    testType: Automated
+                    assignee: User
+                    executedBy: User
+                    plannedStartDate: '2026-08-01T12:59:08.8625231Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8625231Z'
+                    automation:
+                      name: Register to Test Management
+                      id: Test Id
+                      content: Click on register button, enter registration details
+                      result: Test passed as expected
+                    folderPath: first/third
+                  - id: 639335c6-efd0-4785-9978-6ed1e15dae7e
+                    cycle:
+                      id: a0ba4c15-17d8-4658-bb6f-4fce9d3f6a3e
+                      name: CycleName
+                      version:
+                        id: 0895c653-640c-4727-8648-13699810c2dd
+                        jiraId: '10000'
+                        name: 1.0.0
+                    steps:
+                    - index: 1
+                      status: unexecuted
+                      actualResult: user name filled
+                      comment: no comment
+                      description: Enter username
+                      expectedResult: user name filled
+                    testCaseKey: DE-2
+                    status: passed
+                    name: Register
+                    description: Register into Test Management
+                    priority: Low
+                    testCategory: NonFunctional
+                    testType: Automated
+                    assignee: User
+                    plannedStartDate: '2026-08-01T12:59:08.8625284Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8625284Z'
+                    automation:
+                      name: Register to Test Management
+                      id: Test Id
+                      content: Click on register button, enter registration details
+                    cycleName: Cycle Name 2
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs/search:
+    post:
+      tags:
+      - Test Runs
+      summary: Read test run(s).
+      description: "## Get or retrieve information from test run(s).\n            \n#### Body fields:\n* **cycles** _(optional)_: Specify the cycles to filter by the result.\n* **versions** _(optional)_: Specify the versions to filter by the result.\n* **keys** _(optional)_: Specify the test runs keys to filter by the result.\n* **testCasesKeys** _(optional)_: Specify the test cases keys to filter by the result.\n              When specified, only test runs that belong to these test cases will be returned.\n* **expand** _(optional)_: Specify which fields will return additionaly for each Test Run.\n              Allowed values: \"Steps\" - The test run steps."
+      parameters:
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Numeric value that determines that maximum N results will be returned
+        schema:
+          type: Integer
+          default: 10
+          example: 10
+      - name: offset
+        in: query
+        description: 'Numeric value that determines that the result list will start from result #N (zero based)'
+        schema:
+          type: Integer
+          default: 0
+          example: 0
+      requestBody:
+        description: Test Runs Search filters.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cycles:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                versions:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                keys:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                expand:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                testCasesKeys:
+                  uniqueItems: true
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+              additionalProperties: false
+            examples:
+              TestRunSearchRequestApiData:
+                value:
+                  cycles:
+                  - Cycle1
+                  - Cycle2
+                  versions:
+                  - Version1
+                  - Version2
+                  keys:
+                  - DR-TR-1
+                  - DR-TR-2
+                  expand:
+                  - Steps
+              Get test runs for the specified test cases and cycles:
+                value:
+                  cycles:
+                  - Cycle1
+                  - Cycle2
+                  testCasesKeys:
+                  - TC-1
+                  - TC-2
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  limit:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  totalCount:
+                    type: integer
+                    format: int32
+                  items: {}
+                additionalProperties: false
+              examples:
+                TestRunApiResponseData:
+                  value:
+                    offset: 0
+                    limit: 2
+                    totalCount: 10
+                    items:
+                    - id: f2e4dc79-d4e2-4fcb-aaac-e6a71a31f14a
+                      key: DE-TR-1
+                      created: '2026-08-02T12:59:08.866025Z'
+                      updated: '2026-08-02T12:59:08.8660251Z'
+                      createdBy: Tricentis
+                      updatedBy: Tricentis
+                      cycle:
+                        id: b64a25b7-1bd9-4a51-a260-5a25ac12fb22
+                        name: CycleName
+                        version:
+                          id: 7c8bd59d-3e82-4028-9207-b613e28c0b20
+                          jiraId: '10000'
+                          name: 1.0.0
+                      steps:
+                      - index: 0
+                        status: unexecuted
+                        actualResult: user name filled
+                        data: https://api.ttm4j.tricentis.com/
+                        comment: no comment
+                        description: Enter username
+                        expectedResult: user name filled
+                      testCaseKey: DE-1
+                      status: unexecuted
+                      name: Login
+                      description: Login into Test Management
+                      priority: High
+                      testCategory: Functional
+                      testType: Manual
+                      assignee: User
+                      executedBy: User
+                      plannedStartDate: '2026-08-01T12:59:08.866025Z'
+                      plannedEndDate: '2026-08-02T12:59:08.8660249Z'
+                    - id: f0881cd0-beda-400d-9f62-b20223b7a918
+                      key: DE-TR-2
+                      created: '2026-08-02T12:59:08.8660304Z'
+                      updated: '2026-08-02T12:59:08.8660304Z'
+                      createdBy: Tricentis
+                      updatedBy: Tricentis
+                      cycle:
+                        id: 16dce657-c0be-4815-90db-bc16d74fa60f
+                        name: CycleName
+                        version:
+                          id: 56c7c426-9de8-4c01-a9c4-7b3e13e6f141
+                          jiraId: '10000'
+                          name: 1.0.0
+                      testCaseKey: DE-2
+                      status: passeed
+                      name: Register
+                      description: Register into Test Management
+                      priority: Low
+                      testCategory: NonFunctional
+                      testType: Automated
+                      assignee: User
+                      executedBy: User
+                      plannedStartDate: '2026-08-01T12:59:08.8660303Z'
+                      plannedEndDate: '2026-08-02T12:59:08.8660303Z'
+                      automation:
+                        name: Register to Test Management
+                        id: Test Id
+                        content: Click on register button, enter registration details
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs:
+    post:
+      tags:
+      - Test Runs
+      summary: Create test run(s).
+      description: "## Create or import test run(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **version** _(optional)_: Specify the version name which the test runs will be under.\nIf version won't be provided OR version will be equal to unversioned, the test runs will be created under unversioned.\n(creating and editing of releases (versions) are managed in Jira).\n* **cycleName** _(optional)_: Specify the cycle name which the test runs will be under.\n* **folderPath** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle.\n* **includeAttachments** _(optional)_: Specify if to include attachments (default value: false).\nCycle must be provided here or under test runs (for each test runs).\n* **testRuns** _(mandatory)_: Provide a list of test runs, with each test having the following fields:\n    * **testCaseKey** _(mandatory)_: test case key that the test run will be linked to.\n    * **status** _(mandatory)_: the status of the test run. Status of test runs is defined in JIRA under the admin page.\n    * **name** _(optional)_: name of the test run.\n    * **description** _(optional)_: description of the test run.\n    * **priority** _(mandatory)_: priority of the test run (\"Highes\",\"Low\",etc..).\n    * **testCategory** _(mandatory)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n    * **testType** _(mandatory)_: the test type of the test run (Manual, Automated).\n    * **cycleName** _(optional)_: specify the cycle name which the test runs will be under.\n    * **folder** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle. If you do not specify the folder in this field, the request uses the folder specified at the root level.\n    Cycle must be provided here or above testRuns in cycleName.\n    * **assignee** _(optional)_: the username or email which the test run will be assigned to.\n    * **executedBy** _(optional)_: the username or email which the test run is executed by.\n    * **automation** _(optional)_: the automation content of the test run.\n    In case TestType is Manual, Automation will be ignore (Manual test run can't contain automation content).\n        * **name** _(optional)_: the name of automation tool.\n        * **id** _(optional)_: the id of the test run in the automation tool.\n        * **content** _(mandatory)_: the test run automation content.\n        * **result** _(optional)_: the test run automation result.\n    * **plannedStartDate** _(optional)_: the test run planned start date.\n    * **plannedEndDate** _(optional)_: the test run planned end date.\n    * **components** _(optional)_: the test runs components.\n    * **labels** _(optional)_: the test runs labels.\n    * **steps** _(optional)_: list of steps of the test run.\n    In case TestType is Automated, and Steps will be provided (Test Run will contain Steps and Automation).\n        * **status** _(mandatory)_: the status of the test run step.\n        * **actualResult** _(optional)_: the actual result of the steps.\n        * **comment** _(optional)_: the test run step's comment.\n        * **data** _(optional)_: the test run step's data.\n        * **description** _(optional)_: the test run step's description.\n        * **expectedResult** _(optional)_: the test run step's expectedResult.\n    * **fields** _(optional)_: list of fields of the test run.\n    In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) 'value' must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).\n        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).\n        * **value** _(optional)_: the value of the scheme (for example 130)."
+      parameters:
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: testRuns.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type:
+                  - string
+                  - 'null'
+                cycleName:
+                  type:
+                  - string
+                  - 'null'
+                folderPath:
+                  type:
+                  - string
+                  - 'null'
+                includeAttachments:
+                  type: boolean
+                testRuns:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    required:
+                    - status
+                    - testCaseKey
+                    - testType
+                    type: object
+                    properties:
+                      testCaseKey:
+                        minLength: 1
+                        type: string
+                      precondition:
+                        type:
+                        - string
+                        - 'null'
+                      status:
+                        minLength: 1
+                        type: string
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      priority:
+                        type:
+                        - string
+                        - 'null'
+                      testCategory:
+                        type:
+                        - string
+                        - 'null'
+                      testType:
+                        enum:
+                        - Manual
+                        - Automated
+                        type: string
+                      assignee:
+                        type:
+                        - string
+                        - 'null'
+                      executedBy:
+                        type:
+                        - string
+                        - 'null'
+                      plannedStartDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                      plannedEndDate:
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                      automation:
+                        type: object
+                        properties:
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                          id:
+                            type:
+                            - string
+                            - 'null'
+                          content:
+                            type:
+                            - string
+                            - 'null'
+                          result:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                      components:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: string
+                      labels:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: string
+                      cycleName:
+                        type:
+                        - string
+                        - 'null'
+                      folderPath:
+                        type:
+                        - string
+                        - 'null'
+                      steps:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          properties:
+                            status:
+                              type:
+                              - string
+                              - 'null'
+                            actualResult:
+                              type:
+                              - string
+                              - 'null'
+                            data:
+                              type:
+                              - string
+                              - 'null'
+                            comment:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            expectedResult:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      fields:
+                        type:
+                        - array
+                        - 'null'
+                        items:
+                          type: object
+                          properties:
+                            schemeId:
+                              type: string
+                              format: uuid
+                            schemeType:
+                              enum:
+                              - List
+                              - String
+                              type: string
+                            schemeName:
+                              type:
+                              - string
+                              - 'null'
+                            alloweValueId:
+                              type:
+                              - string
+                              - 'null'
+                              format: uuid
+                            allowedValueName:
+                              type:
+                              - string
+                              - 'null'
+                            value:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                    additionalProperties: false
+              additionalProperties: false
+            examples:
+              TestRunApiData:
+                value:
+                  version: 1.0.0
+                  cycleName: CycleName
+                  includeAttachments: false
+                  testRuns:
+                  - testCaseKey: DE-1
+                    status: unexecuted
+                    name: Login
+                    description: Login into Test Management
+                    priority: High
+                    testCategory: Functional
+                    testType: Manual
+                    assignee: User
+                    plannedStartDate: '2026-08-01T12:59:08.8709624Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8709623Z'
+                    components:
+                    - My componenet
+                    labels:
+                    - My labels
+                    steps:
+                    - status: unexecuted
+                      actualResult: user name filled
+                      comment: no comment
+                      description: Enter username
+                      expectedResult: user name filled
+                    fields:
+                    - schemeName: Environments
+                      allowedValueName: Development
+                    - schemeName: Execution timer
+                      value: '5'
+                  - testCaseKey: DE-2
+                    status: passed
+                    name: Register
+                    description: Register into Test Management
+                    priority: Low
+                    testCategory: NonFunctional
+                    testType: Automated
+                    assignee: User
+                    plannedStartDate: '2026-08-01T12:59:08.8709682Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8709682Z'
+                    automation:
+                      name: Register to Test Management
+                      id: Test Id
+                      content: Click on register button, enter registration details
+                      result: Test passed as expected
+                    cycleName: Cycle Name 2
+                    folderPath: first/second
+                  - testCaseKey: DE-2
+                    status: passed
+                    name: Register
+                    description: Register into Test Management
+                    priority: Low
+                    testCategory: NonFunctional
+                    testType: Automated
+                    assignee: User
+                    plannedStartDate: '2026-08-01T12:59:08.8709683Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8709683Z'
+                    automation:
+                      name: Register to Test Management
+                      id: Test Id
+                      content: Click on register button, enter registration details
+                    cycleName: Cycle Name 2
+                    folderPath: first/third
+                    steps:
+                    - status: unexecuted
+                      actualResult: user name filled
+                      comment: no comment
+                      description: Enter username
+                      expectedResult: user name filled
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  required:
+                  - status
+                  - testCaseKey
+                  - testType
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    key:
+                      type:
+                      - string
+                      - 'null'
+                    created:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    updated:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    createdBy:
+                      type:
+                      - string
+                      - 'null'
+                    updatedBy:
+                      type:
+                      - string
+                      - 'null'
+                    cycle:
+                      type: object
+                      properties:
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                        parentId:
+                          type:
+                          - string
+                          - 'null'
+                          format: uuid
+                        plannedStartDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        plannedEndDate:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                        assignee:
+                          type:
+                          - string
+                          - 'null'
+                        version:
+                          type: object
+                          properties:
+                            id:
+                              type:
+                              - string
+                              - 'null'
+                              format: uuid
+                            jiraId:
+                              type:
+                              - string
+                              - 'null'
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                        fields:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              schemeId:
+                                type: string
+                                format: uuid
+                              schemeType:
+                                enum:
+                                - List
+                                - String
+                                type: string
+                              schemeName:
+                                type:
+                                - string
+                                - 'null'
+                              alloweValueId:
+                                type:
+                                - string
+                                - 'null'
+                                format: uuid
+                              allowedValueName:
+                                type:
+                                - string
+                                - 'null'
+                              value:
+                                type:
+                                - string
+                                - 'null'
+                            additionalProperties: false
+                      additionalProperties: false
+                    steps:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type:
+                            - integer
+                            - 'null'
+                            format: int32
+                          status:
+                            type:
+                            - string
+                            - 'null'
+                          actualResult:
+                            type:
+                            - string
+                            - 'null'
+                          data:
+                            type:
+                            - string
+                            - 'null'
+                          comment:
+                            type:
+                            - string
+                            - 'null'
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                          expectedResult:
+                            type:
+                            - string
+                            - 'null'
+                          defects:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                          defectsKeys:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                        additionalProperties: false
+                    testCaseKey:
+                      minLength: 1
+                      type: string
+                    precondition:
+                      type:
+                      - string
+                      - 'null'
+                    status:
+                      minLength: 1
+                      type: string
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    priority:
+                      type:
+                      - string
+                      - 'null'
+                    testCategory:
+                      type:
+                      - string
+                      - 'null'
+                    testType:
+                      enum:
+                      - Manual
+                      - Automated
+                      type: string
+                    assignee:
+                      type:
+                      - string
+                      - 'null'
+                    executedBy:
+                      type:
+                      - string
+                      - 'null'
+                    plannedStartDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    plannedEndDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    automation:
+                      type: object
+                      properties:
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                        id:
+                          type:
+                          - string
+                          - 'null'
+                        content:
+                          type:
+                          - string
+                          - 'null'
+                        result:
+                          type:
+                          - string
+                          - 'null'
+                      additionalProperties: false
+                    components:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    componentsNames:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    labels:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: string
+                    cycleName:
+                      type:
+                      - string
+                      - 'null'
+                    folderPath:
+                      type:
+                      - string
+                      - 'null'
+                    fields:
+                      type:
+                      - array
+                      - 'null'
+                      items:
+                        type: object
+                        properties:
+                          schemeId:
+                            type: string
+                            format: uuid
+                          schemeType:
+                            enum:
+                            - List
+                            - String
+                            type: string
+                          schemeName:
+                            type:
+                            - string
+                            - 'null'
+                          alloweValueId:
+                            type:
+                            - string
+                            - 'null'
+                            format: uuid
+                          allowedValueName:
+                            type:
+                            - string
+                            - 'null'
+                          value:
+                            type:
+                            - string
+                            - 'null'
+                        additionalProperties: false
+                  additionalProperties: false
+              examples:
+                TestRunApiResponseExampleData:
+                  value:
+                  - id: 29b2b978-5a07-4b30-8a72-16a7bd5d7f80
+                    key: DE-TR-1
+                    created: '2026-08-02T12:59:08.8712645Z'
+                    updated: '2026-08-02T12:59:08.8712646Z'
+                    createdBy: Tricentis
+                    updatedBy: Tricentis
+                    cycle:
+                      id: ed006d79-f78f-4346-be48-0165975aa246
+                      name: CycleName
+                      version:
+                        id: c2b09c14-ab14-4cbd-a9f3-b724c8b13133
+                        jiraId: '10000'
+                        name: 1.0.0
+                    steps:
+                    - index: 0
+                      status: unexecuted
+                      actualResult: user name filled
+                      comment: no comment
+                      description: Enter username
+                      expectedResult: user name filled
+                    testCaseKey: DE-1
+                    status: unexecuted
+                    name: Login
+                    description: Login into Test Management
+                    priority: High
+                    testCategory: Functional
+                    testType: Manual
+                    assignee: User
+                    executedBy: User
+                    plannedStartDate: '2026-08-01T12:59:08.8712645Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8712644Z'
+                    folderPath: first/second
+                    fields:
+                    - schemeName: Environments
+                      allowedValueName: Development
+                    - schemeName: Execution timer
+                      value: '5'
+                  - id: 48e86c18-35dd-419a-a98e-026b0049fb6b
+                    key: DE-TR-2
+                    created: '2026-08-02T12:59:08.8712698Z'
+                    updated: '2026-08-02T12:59:08.8712698Z'
+                    createdBy: Tricentis
+                    updatedBy: Tricentis
+                    cycle:
+                      id: 3cc98c55-bc23-4656-bece-bc74fa1db4f4
+                      name: CycleName
+                      version:
+                        id: 431321d6-45f0-4ccd-a585-eaad4a2b578b
+                        jiraId: '10000'
+                        name: 1.0.0
+                    testCaseKey: DE-2
+                    status: passeed
+                    name: Register
+                    description: Register into Test Management
+                    priority: Low
+                    testCategory: NonFunctional
+                    testType: Automated
+                    assignee: User
+                    executedBy: User
+                    plannedStartDate: '2026-08-01T12:59:08.8712697Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8712697Z'
+                    automation:
+                      name: Register to Test Management
+                      id: Test Id
+                      content: Click on register button, enter registration details
+                      result: Test passed as expected
+                    folderPath: first/third
+                  - id: 1ae9cdec-f91c-437e-81f0-898c6dd1add2
+                    cycle:
+                      id: faa95a73-a110-4b9e-ad59-bf2ea9c209a7
+                      name: CycleName
+                      version:
+                        id: 79af04c5-17ce-4081-ab46-075d5718cab4
+                        jiraId: '10000'
+                        name: 1.0.0
+                    steps:
+                    - index: 1
+                      status: unexecuted
+                      actualResult: user name filled
+                      comment: no comment
+                      description: Enter username
+                      expectedResult: user name filled
+                    testCaseKey: DE-2
+                    status: passed
+                    name: Register
+                    description: Register into Test Management
+                    priority: Low
+                    testCategory: NonFunctional
+                    testType: Automated
+                    assignee: User
+                    plannedStartDate: '2026-08-01T12:59:08.8712738Z'
+                    plannedEndDate: '2026-08-02T12:59:08.8712738Z'
+                    automation:
+                      name: Register to Test Management
+                      id: Test Id
+                      content: Click on register button, enter registration details
+                    cycleName: Cycle Name 2
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+  /v1/projects/{project-key}/test-runs/{test-run-key}:
+    put:
+      tags:
+      - Test Runs
+      summary: Update test run(s).
+      description: "## Update an existing test run.\n##### Note: Any values you enter will override existing values in the test run.\n            \n#### Body fields:\n* **testCategory** _(optional)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n* **executedBy** _(optional)_: the username or email which the test run is executed by.\n* **assignee** _(optional)_: the username or email which the test run will be assigned to.\n* **priority** _(optional)_: priority of the test run (\"Highes\",\"Low\",etc..).\n* **status** _(optional)_: the status of the test run. Status of test runs is defined in JIRA under the admin page. Mandatory field.\n* **plannedStartDate** _(optional)_: the test run planned start date.\n* **plannedEndDate** _(optional)_: the test run planned end date.\n* **cycleId** _(optional)_: specify the cycle Id which the test runs will be under.\n* **folderPath** _(optional)_: Specify the folder path where you want to move the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle.\n* **components** _(optional)_: the test runs components.\n* **labels** _(optional)_: the test runs labels.\n* **automation** _(optional)_: the automation content of the test run.\nIn case TestType is Manual, Automation will be ignore (Manual test run can't contain automation content).\n    * **name** _(optional)_: the name of automation tool.\n    * **id** _(optional)_: the id of the test run in the automation tool.\n    * **content** _(mandatory)_: the test run automation content.\n    * **result** _(optional)_: the test run automation result.\n* **steps** _(optional)_: list of steps of the test run.\nIn case TestType is Automated, Steps will be ignore (Automated test run can't contain steps).\n    * **status** _(mandatory)_: the status of the test run step.\n    * **actualResult** _(optional)_: the actual result of the steps.\n    * **comment** _(optional)_: the test run step's comment.\n    * **data** _(optional)_: the test run step's data.\n    * **description** _(optional)_: the test run step's description.\n    * **expectedResult** _(optional)_: the test run step's expectedResult.\n    * **fields** _(optional)_: list of fields of the test run.\n    In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) 'value' must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).\n        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).\n        * **value** _(optional)_: the value of the scheme (for example 130)."
+      parameters:
+      - name: test-run-key
+        in: path
+        description: Test Run Key.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Patch document.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                testCategory:
+                  type:
+                  - string
+                  - 'null'
+                assignee:
+                  type:
+                  - string
+                  - 'null'
+                executedBy:
+                  type:
+                  - string
+                  - 'null'
+                plannedStartDate:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                plannedEndDate:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                priority:
+                  type:
+                  - string
+                  - 'null'
+                status:
+                  type:
+                  - string
+                  - 'null'
+                cycleId:
+                  type:
+                  - string
+                  - 'null'
+                  format: uuid
+                folderPath:
+                  type:
+                  - string
+                  - 'null'
+                components:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                labels:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                fields:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: object
+                    properties:
+                      schemeId:
+                        type: string
+                        format: uuid
+                      schemeType:
+                        enum:
+                        - List
+                        - String
+                        type: string
+                      schemeName:
+                        type:
+                        - string
+                        - 'null'
+                      alloweValueId:
+                        type:
+                        - string
+                        - 'null'
+                        format: uuid
+                      allowedValueName:
+                        type:
+                        - string
+                        - 'null'
+                      value:
+                        type:
+                        - string
+                        - 'null'
+                    additionalProperties: false
+                steps:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: object
+                    properties:
+                      status:
+                        type:
+                        - string
+                        - 'null'
+                      actualResult:
+                        type:
+                        - string
+                        - 'null'
+                      data:
+                        type:
+                        - string
+                        - 'null'
+                      comment:
+                        type:
+                        - string
+                        - 'null'
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      expectedResult:
+                        type:
+                        - string
+                        - 'null'
+                    additionalProperties: false
+                automation:
+                  type: object
+                  properties:
+                    name:
+                      type:
+                      - string
+                      - 'null'
+                    id:
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      type:
+                      - string
+                      - 'null'
+                    result:
+                      type:
+                      - string
+                      - 'null'
+                  additionalProperties: false
+              additionalProperties: false
+            examples:
+              TestRunApiUpdateRequestData:
+                value:
+                  testCategory: Functional
+                  assignee: User
+                  executedBy: User
+                  plannedStartDate: '2026-08-01T12:59:08.8769893Z'
+                  plannedEndDate: '2026-08-02T12:59:08.8769891Z'
+                  priority: High
+                  status: unexecuted
+                  cycleId: 1adc0c38-0fdf-44fc-871c-82286a9a429e
+                  folderPath: first/second
+                  components:
+                  - My componenet
+                  labels:
+                  - My labels
+                  steps:
+                  - status: unexecuted
+                    actualResult: user name filled
+                    data: https://api.ttm4j.tricentis.com/
+                    comment: no comment
+                    description: Enter username
+                    expectedResult: user name filled
+                  automation:
+                    name: Register to Test Management
+                    id: Test Id
+                    content: Click on register button, enter registration details
+      responses:
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+    delete:
+      tags:
+      - Test Runs
+      summary: Delete test run(s).
+      description: '## Delete existing test run(s).'
+      parameters:
+      - name: test-run-key
+        in: path
+        description: Test Run Key.
+        required: true
+        schema:
+          type: string
+      - name: project-key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: '`Invalid parameters`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                BadDataResponse:
+                  value:
+                    message: bad data
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: unauthorized
+        '404':
+          description: '`Not Found`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type:
+                    - string
+                    - 'null'
+                  title:
+                    type:
+                    - string
+                    - 'null'
+                  status:
+                    type:
+                    - integer
+                    - 'null'
+                    format: int32
+                  detail:
+                    type:
+                    - string
+                    - 'null'
+                  instance:
+                    type:
+                    - string
+                    - 'null'
+                additionalProperties: {}
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: not found
+      security:
+      - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: TTM4J API Key
+      name: Authorization
+      in: header
+externalDocs:
+  description: Documentation
+  url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

@@ -1,0 +1,743 @@
+openapi: 3.2.0
+info:
+  version: '3.0'
+  title: NeoLoad Workspaces API
+security:
+- NeoloadAuthorizer: []
+tags:
+- name: Workspaces
+paths:
+  /v3/workspaces:
+    get:
+      operationId: GetWorkspaceList
+      summary: Get the list of all accessible Workspaces
+      description: Lists all accessible Workspaces.
+      tags:
+      - Workspaces
+      parameters:
+      - name: allWorkspaces
+        in: query
+        required: false
+        description: If true (reserved to admin users), returns all existing workspaces, including the workspaces I am not member of. If false, returns only the workspaces I am a member of.
+        schema:
+          type: boolean
+          default: false
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceDefinitionList'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+    post:
+      tags:
+      - Workspaces
+      summary: Create a new Workspace
+      description: Create a new Workspace
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullWorkspaceDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '404':
+          $ref: '#/components/responses/error_404'
+        '413':
+          $ref: '#/components/responses/error_413'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+  /v3/workspaces/{workspaceId}:
+    get:
+      tags:
+      - Workspaces
+      summary: Get a Workspace
+      description: Get a Workspace
+      operationId: find
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullWorkspaceDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '404':
+          $ref: '#/components/responses/error_404'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+    patch:
+      tags:
+      - Workspaces
+      summary: Update a Workspace
+      description: Update only the specified fields of the Workspace
+      operationId: patch_1
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceUpdateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullWorkspaceDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '404':
+          $ref: '#/components/responses/error_404'
+        '413':
+          $ref: '#/components/responses/error_413'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+  /v3/workspaces/{workspaceId}/members/add:
+    patch:
+      tags:
+      - Workspaces
+      summary: Add member(s) to a Workspace
+      description: Add member(s) to a Workspace
+      operationId: addMembersToWorkspace
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberListDefinition'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullWorkspaceDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '404':
+          $ref: '#/components/responses/error_404'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+  /v3/workspaces/{workspaceId}/members/remove:
+    patch:
+      tags:
+      - Workspaces
+      summary: Remove member(s) from a Workspace
+      description: Remove member(s) from a Workspace
+      operationId: removeMembersFromWorkspace
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberListDefinition'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullWorkspaceDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '404':
+          $ref: '#/components/responses/error_404'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+  /v3/workspaces/{workspaceId}/name/{workspaceName}:
+    delete:
+      tags:
+      - Workspaces
+      summary: Delete a Workspace
+      description: 'WARNING: All related resources will be deleted and definitively lost. Delete the Workspace with the specified id. The Workspace name is also required to make sure you actually delete the good Workspace.'
+      operationId: delete_1
+      parameters:
+      - name: workspaceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: workspaceName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullWorkspaceDefinition'
+        '400':
+          $ref: '#/components/responses/error_400'
+        '401':
+          $ref: '#/components/responses/error_401'
+        '403':
+          $ref: '#/components/responses/error_403'
+        '404':
+          $ref: '#/components/responses/error_404'
+        '429':
+          $ref: '#/components/responses/error_429'
+        '500':
+          $ref: '#/components/responses/error_500'
+components:
+  parameters:
+    page_offset:
+      name: offset
+      in: query
+      required: false
+      description: The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements.
+      schema:
+        type: integer
+        default: 0
+    page_limit:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of elements returned by this call. The maximum must be less than or equal to 200.
+      schema:
+        type: integer
+        maximum: 200
+        default: 50
+  schemas:
+    WorkspaceDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5e3acde2e860a132744ca916
+          description: Unique identifier of the Workspace.
+        name:
+          type: string
+          description: Name of the Workspace.
+          example: Default Workspace
+        description:
+          type: string
+          description: Description of the Workspace.
+          example: Workspace description
+        lastChange:
+          type: object
+          $ref: '#/components/schemas/LastChangeDefinition'
+    WorkspaceVuQuotaDefinition:
+      type: object
+      properties:
+        sap:
+          type: integer
+          description: SAP quota
+          format: int32
+        unlimited:
+          type: boolean
+          description: True if quotas are unlimited
+        web:
+          type: integer
+          description: Web quota
+          format: int32
+      description: Quotas assigned to Workspace
+    WorkspaceDefinitionList:
+      type: array
+      items:
+        $ref: '#/components/schemas/WorkspaceDefinition'
+    MemberDefinition:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        login:
+          type: string
+          description: User login
+        userSource:
+          type: string
+          description: User source
+          enum:
+          - SAAS
+          - INTERNAL
+          - LDAP
+          - ONPREMISE_SSO
+          - SCIM
+      description: Members assigned to Workspace
+    WorkspaceCreateRequest:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+          default: false
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        name:
+          type: string
+          description: Name of the Workspace
+          example: My first Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    MemberListDefinition:
+      type: object
+      properties:
+        logins:
+          type: array
+          description: Login list
+          items:
+            type: string
+            description: Login list
+    FullWorkspaceDefinition:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        id:
+          type: string
+          description: Unique identifier of the Workspace
+          example: 5e3acde2e860a132744ca916
+        lastChange:
+          $ref: '#/components/schemas/LastChangeDefinition'
+        members:
+          uniqueItems: true
+          type: array
+          description: Members assigned to Workspace
+          items:
+            $ref: '#/components/schemas/MemberDefinition'
+        name:
+          type: string
+          description: Name of the Workspace
+          example: Default Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    WorkspaceUpdateRequest:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        name:
+          type: string
+          description: Name of the Workspace
+          example: Default Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    LastChangeDefinition:
+      type: object
+      properties:
+        lastAction:
+          type: string
+          description: Last action performed on the Workspace.
+          example: CREATE
+          enum:
+          - CREATE
+          - UPDATE
+          - DELETE
+        lastUpdateDate:
+          type: integer
+          description: Timestamp when the Workspace was updated for the last time. Number of seconds since January 1, 1970.
+          format: int64
+          example: 1582550442
+      description: Workspace last change
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      description: 'Existing error codes are:
+
+        - HTTP 401 | Code: 101 | Message : Unauthorized, please provide an API token.
+
+        - HTTP 429 | Code: 102 | Message : Too many requests, you reached your maximum number of requests per minute.
+
+        - HTTP 403 | Code: 103 | Message : Unauthorized operation for the given API token, please provide an API token with sufficient privilege
+
+        - HTTP 400 | Code: 104 | Message : Error while parsing json body.
+
+        - HTTP 400 | Code: 105 | Message : Entity not in the specified Workspace.
+
+        - HTTP 404 | Code: 201 | Message : Test Result not found.
+
+        - HTTP 400 | Code: 202 | Message : Error while requesting the Test Result
+
+        - HTTP 400 | Code: 203 | Message : Error while searching the Test Result
+
+        - HTTP 400 | Code: 204 | Message : Type is mandatory as request parameter.
+
+        - HTTP 400 | Code: 205 | Message : Invalid element type in request.
+
+        - HTTP 400 | Code: 206 | Message : Error requesting aggregated values.
+
+        - HTTP 400 | Code: 207 | Message : Error requesting elements.
+
+        - HTTP 400 | Code: 208 | Message : Element ID is mandatory in request path.
+
+        - HTTP 400 | Code: 209 | Message : Invalid element id in request.
+
+        - HTTP 400 | Code: 210 | Message : Statistics is mandatory in request path.
+
+        - HTTP 400 | Code: 211 | Message : Invalid statistic in request.
+
+        - HTTP 400 | Code: 212 | Message : Error getting monitors.
+
+        - HTTP 400 | Code: 213 | Message : Error getting monitor values.
+
+        - HTTP 400 | Code: 214 | Message : Error getting monitor points.
+
+        - HTTP 400 | Code: 215 | Message : Monitor ID is mandatory in request path.
+
+        - HTTP 400 | Code: 216 | Message : Test ID is mandatory in request path.
+
+        - HTTP 400 | Code: 217 | Message : Error while deleting the test. This test is not TERMINATED.
+
+        - HTTP 400 | Code: 218 | Message : Error while deleting the test.
+
+        - HTTP 400 | Code: 219 | Message : Error requesting aggregated points.
+
+        - HTTP 400 | Code: 220 | Message : Error requesting SLA status for element.
+
+        - HTTP 400 | Code: 221 | Message : Error updating a Test Result.
+
+        - HTTP 404 | Code: 222 | Message : Fail to attach the Test Result to a Test because Test not found.
+
+        - HTTP 204 | Code: 223 | Message : Update successful, no content.
+
+        - HTTP 400 | Code: 224 | Message : Error while parsing json body for updating a test.
+
+        - HTTP 400 | Code: 225 | Message : Error while parsing json body for custom monitors.
+
+        - HTTP 400 | Code: 226 | Message : Error while creating custom monitors.
+
+        - HTTP 400 | Code: 227 | Message : Path too long.
+
+        - HTTP 400 | Code: 228 | Message : Clock Synchronization Issue: timestamp received before the beginning of the test.
+
+        - HTTP 400 | Code: 229 | Message : Clock Synchronization Issue: timestamp received more than 10 minutes in the future.
+
+        - HTTP 400 | Code: 230 | Message : Duplicate key: same timestamp and same path received in multiple requests.
+
+        - HTTP 400 | Code: 231 | Message : Max number of Paths reached.
+
+        - HTTP 400 | Code: 232 | Message : Max number of Monitors reached.
+
+        - HTTP 400 | Code: 233 | Message : ''|'' character is not allowed.
+
+        - HTTP 400 | Code: 234 | Message : A test is already launching.
+
+        - HTTP 400 | Code: 235 | Message : Error while parsing the LG zones parameter.
+
+        - HTTP 400 | Code: 236 | Message : NeoLoad project file ID does not exist.
+
+        - HTTP 400 | Code: 237 | Message : NeoLoad project not found.
+
+        - HTTP 400 | Code: 238 | Message : Upload project URL not found.
+
+        - HTTP 400 | Code: 239 | Message : The scenario does not exist.
+
+        - HTTP 400 | Code: 240 | Message : The size of the image to generate is invalid.
+
+        - HTTP 400 | Code: 241 | Message : Reservation parameters are invalid.
+
+        - HTTP 400 | Code: 242 | Message : Reservation duration must be at least 60 seconds.
+
+        - HTTP 400 | Code: 243 | Message : Reservation not found.
+
+        - HTTP 400 | Code: 244 | Message : Reservation is failed or not ready to use.
+
+        - HTTP 400 | Code: 245 | Message : Reservation not matching scenario requirements: Number of virtual users.
+
+        - HTTP 400 | Code: 246 | Message : Unauthorized Reservation
+
+        - HTTP 400 | Code: 247 | Message : Error requesting SLA Per-Run of the Test Result.
+
+        - HTTP 400 | Code: 248 | Message : Error requesting SLA Per-Run while the test is not terminated.
+
+        - HTTP 400 | Code: 249 | Message : As-code file extension must be yaml, yml or json.
+
+        - HTTP 400 | Code: 250 | Message : Error getting Test Results events.
+
+        - HTTP 400 | Code: 251 | Message : Error requesting element.
+
+        - HTTP 400 | Code: 252 | Message : Error requesting counter.
+
+        - HTTP 400 | Code: 253 | Message : Invalid monitor id in request.
+
+        - HTTP 400 | Code: 254 | Message : Invalid as-code file path.
+
+        - HTTP 400 | Code: 255 | Message : Error requesting all zones.
+
+        - HTTP 400 | Code: 256 | Message : Error requesting all reservations.
+
+        - HTTP 400 | Code: 257 | Message : The date is not in the right format.
+
+        - HTTP 400 | Code: 306 | Message : Date range invalid, start date should be before end date.
+
+        - HTTP 400 | Code: 260 | Message : Requested statistics are not valid, PERCENTILES_DURATION must not be mixed with other element statistics neither with monitor statistic.
+
+        - HTTP 400 | Code: 261 | Message : A test with the same name already exists.
+
+        - HTTP 400 | Code: 262 | Message : Error while processing json body. It is not a valid json.
+
+        - HTTP 400 | Code: 263 | Message : The name property is required.
+
+        - HTTP 400 | Code: 264 | Message : The property lgZones is a bad format.
+
+        - HTTP 404 | Code: 265 | Message : Test not found.
+
+        - HTTP 400 | Code: 266 | Message : Format is mandatory as request parameter.
+
+        - HTTP 400 | Code: 267 | Message : Invalid format in request.
+
+        - HTTP 400 | Code: 268 | Message : This name is already used for a scenario in the project.
+
+        - HTTP 400 | Code: 270 | Message : Fail to move to Workspace and attach to a Test because Test not in destination Workspace.
+
+        - HTTP 400 | Code: 271 | Message : Fail to move to Workspace and attach to a Test.
+
+        - HTTP 400 | Code: 272 | Message : The Test Result has been successfully moved to the specified Workspace and Test but other fields update failed.
+
+        - HTTP 400 | Code: 275 | Message : Unknown stopPolicy value. Allowed are TERMINATE or GRACEFUL.
+
+        - HTTP 400 | Code: 276 | Message : Error stopping the test.
+
+        - HTTP 400 | Code: 277 | Message : Error stopping the test. The test is not running.
+
+        - HTTP 400 | Code: 278 | Message : Zone does not exist.
+
+        - HTTP 400 | Code: 279 | Message : Error starting the test.
+
+        - HTTP 400 | Code: 280 | Message : The workspace id is mandatory.
+
+        - HTTP 400 | Code: 281 | Message : The workspace name can''t be empty.
+
+        - HTTP 400 | Code: 282 | Message : The workspace name already exist.
+
+        - HTTP 400 | Code: 283 | Message : Can not delete default workspace.
+
+        - HTTP 400 | Code: 284 | Message : The workspace can not be deleted : One or more tests are running.
+
+        - HTTP 400 | Code: 285 | Message : Login(s) don''t exist : ${loginList}
+
+        - HTTP 400 | Code: 286 | Message : Workspace id and name do not match, not proceeding.
+
+        - HTTP 400 | Code: 287 | Message : Workspace is public (allUsersEnabled) : can not specify members.
+
+        - HTTP 404 | Code: 288 | Message : The workspace does not exist.
+
+        - HTTP 404 | Code: 289 | Message : No data found.
+
+        - HTTP 400 | Code: 290 | Message : This user is still in the LDAP, to remove it from NLWeb, remove it from the LDAP. No need to call this endpoint.
+
+        - HTTP 404 | Code: 291 | Message : This user does not exist.
+
+        - HTTP 400 | Code: 292 | Message : This option is only allowed in NLWeb SaaS.
+
+        - HTTP 400 | Code: 293 | Message : User self-deletion is forbidden.
+
+        - HTTP 400 | Code: 294 | Message : Only allowed for users with Account Administrator roles (SaaS only role).
+
+        - HTTP 400 | Code: 295 | Message : User "admin" cannot be deleted.
+
+        - HTTP 400 | error: FILE_ID_NOT_FOUND | Message : File ID not found.
+
+        - HTTP 400 | error: FILE_CANCELED | Message : Upload for file ID has been canceled.
+
+        - HTTP 400 | error: INVALID_FILE_STATUS | Message : File status is invalid.
+
+        - HTTP 400 | error: INVALID_FILE_ID | Message : Invalid file ID.
+
+        - HTTP 400 | error: FILE_TOO_LARGE | Message : File is too large.
+
+        - HTTP 400 | error: MAX_UPLOADED_FILES_REACHED | Message : Maximum uploaded files is reached.
+
+        - HTTP 400 | error: PARSING_ERROR_NO_NLP | Message : No .nlp file found in project archive.
+
+        - HTTP 400 | error: PARSING_ERROR_NO_SCENARIO_DEFINED | Message : No NeoLoad scenario found in project archive.
+
+        - HTTP 400 | error: PARSING_INVALID_ZIP_STREAM | Message : Invalid stream, not a zip.
+
+        - HTTP 400 | error: PARSING_INVALID_AS_CODE_FILE | Message : Invalid as-code file.
+
+        - HTTP 400 | error: PARSING_INVALID_AS_CODE_FILE_PATH | Message : Invalid as-code file path found.
+
+        - HTTP 400 | Code: 304 | Message : Invalid color in request.
+
+        - HTTP 400 | Code: 305 | Message : The field elementPath is mandatory.
+
+        - HTTP 400 | Code: 450 | Message : No Controller available in the given zone.
+
+        - HTTP 400 | Code: 451 | Message : Controllers in the given zone can not be used, minimum version requirement not fulfilled.
+
+        - HTTP 400 | Code: 452 | Message : Not enough Load Generator for available Controller versions, Controller and Load Generator need to have the same version in a run.
+
+        - HTTP 400 | Code: 454 | Message : Not enough VU from license for running the test.
+
+        - HTTP 400 | Code: 456 | Message : Not enough VU from reservation for running the test.
+
+        - HTTP 400 | Code: 457 | Message : Reservation duration is not enough for running the test, it must be longer than the test duration increased by 20 minutes.
+
+        - HTTP 400 | Code: 458 | Message : The number of Cloud Load Generators exceeds the current capacity. Please contact your NeoLoad representative.
+
+        - HTTP 400 | Code: 459 | Message : The number of Dynamic Load Generators exceeds the current capacity. Please contact your NeoLoad representative.
+
+        - HTTP 400 | Code: 460 | Message : The Neoload cloud platform is not available.
+
+        - HTTP 400 | Code: 461 | Message : Not enough cloud credits available to start NCP infrastructure.
+
+        - HTTP 400 | Code: 462 | Message : Not enough VUH available for running the test.
+
+        - HTTP 400 | Code: 463 | Message : Not enough concurrent runs available.
+
+        - HTTP 503 | Code: 300 | Message : An unexpected error occurred while processing the request.
+
+        - HTTP 501 | Code: 301 | Message : Not supported when the reservation mode is enabled.
+
+        - HTTP 501 | Code: 302 | Message : Not supported when the reservation mode is OFF.
+
+        - HTTP 413 | Message : Request Entity Too Large.
+
+        '
+  responses:
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    NeoloadAuthorizer:
+      type: apiKey
+      name: accountToken
+      in: header
