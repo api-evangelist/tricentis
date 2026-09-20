@@ -1,0 +1,304 @@
+slug: tricentis
+provider: Tricentis
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 29
+edges:
+- tag: Test Cases
+  spec_file: tricentis-test-cases-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.95
+  evidence: POST /v1/projects/{project-key}/test-cases    Create test case(s). ... PUT /v1/projects/{project-key}/test-cases/{key}/automation    Add
+    or update automation content for a test case.
+  reason: Explicit CRUD and automation linkage for software test cases in a test management product —
+    plainly software quality engineering / test asset stewardship.
+- tag: Test Runs
+  spec_file: tricentis-test-runs-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.92
+  evidence: POST /v1/projects/{project-key}/import/execution/junit    Create test runs from junit xml
+    string.
+  reason: Records and manages test execution runs, including JUnit result import — test suite execution
+    and results management within software quality engineering.
+- tag: test-case
+  spec_file: tricentis-test-case-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.92
+  evidence: POST /api/v3/projects/{projectId}/test-cases createTestCase 'Creates a Test Case'; schema
+    TestStepResource, TestCaseWithCustomFieldResource
+  reason: qTest Manager test-case authoring and lifecycle (create/update/approve test cases, test steps)
+    is test asset stewardship, i.e. software quality engineering.
+- tag: test-log
+  spec_file: tricentis-test-log-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.9
+  evidence: POST .../auto-test-logs submitAutomationTestLogs 'Submits multiple test results'; schema AutomationTestLog,
+    ManualTestLogResource
+  reason: Submission and retrieval of manual/automated test results — test execution reporting under software
+    quality engineering.
+- tag: test-run
+  spec_file: tricentis-test-run-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.9
+  evidence: POST /api/v3/projects/{projectId}/test-runs createTestRun 'Creates a Test Run'; GET .../test-runs/execution-statuses
+    'Gets Test Run statuses'
+  reason: Test run creation, parameterisation and execution status tracking — core test management / software
+    quality engineering.
+- tag: test-cycle
+  spec_file: tricentis-test-cycle-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.88
+  evidence: POST /api/v3/projects/{projectId}/test-cycles createCycle 'Create a Test Cycle'; TestCycleResource
+  reason: Test cycle organisation for test execution planning within a test management tool — software
+    quality engineering, not a business-domain cycle.
+- tag: test-suite
+  spec_file: tricentis-test-suite-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.88
+  evidence: POST /api/v3/projects/{projectId}/test-suites createTestSuite 'Creates a Test Suite'
+  reason: Test suite CRUD in qTest test management — organisation of automated/manual test suites, i.e.
+    software quality engineering.
+- tag: Tests
+  spec_file: tricentis-tests-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.85
+  evidence: 'POST /v3/workspaces/{workspaceId}/tests  PostCreateTest  Create a new test — schemas: TestDefinition,
+    LoadInjectionProvider'
+  reason: CRUD over performance/load test definitions (LoadInjectionProvider) in NeoLoad — stewardship
+    of automated test assets, i.e. software quality engineering.
+- tag: defects
+  spec_file: tricentis-defects-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.85
+  evidence: Create defects and link to test run. / Link Defects to test run.
+  reason: Defects created and linked to test runs — defect management within software test execution,
+    i.e. software quality engineering.
+- tag: Tests|Runtime
+  spec_file: tricentis-tests-runtime-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.8
+  evidence: POST /v3/workspaces/{workspaceId}/tests/{testId}/start  GetTestsRun  Starts a test
+  reason: Starts and stops load test executions — automated test execution control, core to software quality
+    engineering.
+- tag: tosca
+  spec_file: tricentis-tosca-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.8
+  evidence: POST /api/v3/projects/{projectId}/tosca/import/test-event notifyTestEventImport 'Import Tosca
+    TestEvent objects'; ToscaTestCaseResource, ToscaExecutionEntryResource
+  reason: Imports Tosca test cases and execution entries into qTest — integration of automated test assets
+    and results, i.e. software quality engineering.
+- tag: automation-job
+  spec_file: tricentis-automation-job-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.78
+  evidence: Search automation agents / Create a Schedule (POST /api/v3/automation/jobs/schedule/create)
+  reason: Scheduling automated test execution jobs and agents in qTest is automated test suite stewardship,
+    i.e. software quality engineering. Could arguably be CI, but the surface is test-automation orchestration.
+- tag: Cycles
+  spec_file: tricentis-cycles-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.75
+  evidence: '''Tricentis Test Management for Jira'' — ''Create cycle(s).'' / ''Update cycle.'' / ''Get
+    cycles.'' under /v1/projects/{project-key}/cycles'
+  reason: Cycles here are test cycles inside a test-management product, i.e. organisation of test execution
+    — software quality engineering. Slight ambiguity as the operations do not spell out 'test' explicitly.
+- tag: Results
+  spec_file: tricentis-results-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.75
+  evidence: '''Lists Test Results'', ''Get the logs from a test result'', ''Test Result main statistics'''
+  reason: CRUD and analytics over performance test results from NeoLoad — test execution outcomes and
+    reporting, i.e. software quality engineering. Some ambiguity versus performance/capacity management
+    since NeoLoad is a load-testing tool.
+- tag: v3-session
+  spec_file: tricentis-v3-session-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.75
+  evidence: '"Create a session.", "Change status of session by Id", schemas CreateSession, Session (qTest
+    Explorer | Sessions)'
+  reason: Core lifecycle management of qTest Explorer exploratory testing sessions — test execution/management,
+    i.e. Software Quality Engineering. 'Session' here is a test session, not a user login session, given
+    AppInfo/SysInfo/Screen context.
+- tag: auth-systems
+  spec_file: tricentis-auth-systems-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: Get multiple Authentication Systems / Associate Manager users with LDAP users / Get all LDAP
+    users of an authentication LDAP config
+  reason: Operations configure LDAP/SAML SSO authentication systems and map application users to directory
+    users, which is identity federation and access management. Moderate confidence since it is product-internal
+    auth configuration.
+- tag: testcases
+  spec_file: tricentis-testcases-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.72
+  evidence: GET /testcases 'Get entities from testcases'; schema ...datasource.testcase (Tricentis Analytics
+    OData APIs)
+  reason: Read-only analytics feed over test case entities; the subject matter is test assets, so software
+    quality engineering, though the surface is a generic OData query endpoint.
+- tag: Attachments
+  spec_file: tricentis-attachments-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: '"Upload attachment to a test run." and "Upload attachment to a test run step." — Tricentis
+    Test Management for Jira'
+  reason: Attachments are bound to test runs and test-run steps in a test management product, so the surface
+    supports software test execution evidence — software quality engineering. Mapped at moderate confidence
+    since the tag itself is a generic file-attachment surface.
+- tag: Datasets
+  spec_file: tricentis-datasets-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: '''qTest Parameters API documentation'' with /api/v1/data-sets/create and schemas CreateDatasetModel,
+    DatasetValueModel'
+  reason: Datasets of parameter values used for data-driven test execution in qTest, a test management
+    tool; supports test suite stewardship. Thin operation summaries lower confidence.
+- tag: Parameters
+  spec_file: tricentis-parameters-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: '''qTest Parameters API documentation'' with /api/v1/parameters/create and schemas CreateParameterModel,
+    ParameterValueModel'
+  reason: Management of test parameters and their values for data-driven testing within qTest test management;
+    part of automated test suite stewardship. Operation summaries are empty, so confidence is moderate.
+- tag: Results|Elements
+  spec_file: tricentis-results-elements-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: '''Test Result percentiles transaction since the beginning of the Test Result'', ''Test Result
+    elements SLA status'''
+  reason: Detailed metrics of load-test result elements (transactions, percentiles, SLA status) — test
+    execution result analysis within a testing product. Could alternatively be read as performance testing
+    under capacity management, hence moderate confidence.
+- tag: Tests|Projects
+  spec_file: tricentis-tests-projects-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: POST /v3/workspaces/{workspaceId}/tests/{testId}/project  PostUploadProject  Uploads a NeoLoad
+    project zip file or a standalone as-code file
+  reason: Uploads and reads test project artefacts (as-code test scripts/scenarios) attached to a test
+    — management of automated test suite assets. Partly file-upload plumbing, hence moderate confidence.
+- tag: requirement
+  spec_file: tricentis-requirement-api-openapi.yml
+  capability_id: BC-4200.20
+  capability_id_l1: BC-4200
+  capability_name: Product Specification Management
+  confidence: 0.7
+  evidence: POST /api/v3/projects/{projectId}/requirements  createRequirement  Creates a Requirement;
+    GET .../requirements/trace-matrix-report  Gets Requirement Traceability Matrix Report
+  reason: Full lifecycle of software requirements (create/update/delete, comments, traceability matrix,
+    linked defects) inside a test management product — this is capture and stewardship of intended behaviour
+    and acceptance criteria for engineering, i.e. product specification management. Some overlap with
+    quality engineering traceability keeps confidence moderate.
+- tag: requirements
+  spec_file: tricentis-requirements-api-openapi.yml
+  capability_id: BC-4200.20
+  capability_id_l1: BC-4200
+  capability_name: Product Specification Management
+  confidence: 0.7
+  evidence: POST /v1/projects/{project-key}/test-cases/requirements    Create Requirements.; POST /v1/projects/{project-key}/test-cases/{key}/requirement/link    Link
+    Requirements to test case.
+  reason: Creation of requirements and linkage of requirements to test cases — authoring and maintaining
+    specification artefacts with acceptance-criteria traceability. Moderate confidence because part of
+    the surface is generic OData reads and the traceability angle also touches quality engineering.
+- tag: testrunlogs
+  spec_file: tricentis-testrunlogs-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: GET /testrunlogs 'Get entities from testrunlogs'; schema ...datasource.testrunlog
+  reason: Analytics read access to test run log records — test execution result data, i.e. software quality
+    engineering; thin generic OData surface lowers confidence.
+- tag: testruns
+  spec_file: tricentis-testruns-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: GET /testruns 'Get entities from testruns'; schema ...datasource.testrun
+  reason: Analytics read access to test run entities; subject is test execution data under software quality
+    engineering, but only generic OData GETs are exposed.
+- tag: testsuites
+  spec_file: tricentis-testsuites-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: GET /testsuites 'Get entities from testsuites'; schema ...datasource.testsuite
+  reason: Analytics read access to test suite entities — test asset data for quality engineering reporting;
+    generic OData surface limits confidence.
+- tag: v2-session
+  spec_file: tricentis-v2-session-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: POST /sessions    Create a session.; GET /coverages/sessions    Get all sessions relate to
+    a qTest manager object
+  reason: qTest Explorer exploratory test sessions — creating, statusing and linking test sessions to
+    qTest Manager test objects is test execution/management, i.e. software quality engineering. Internal-only
+    spec tempers confidence.
+- tag: v3-coverage
+  spec_file: tricentis-v3-coverage-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.7
+  evidence: '"Gets all Coverages by session id", "Creates a Coverage by session id"'
+  reason: Coverage records attached to exploratory test sessions in qTest Explorer are test-coverage artefacts,
+    part of test strategy/suite stewardship under Software Quality Engineering.
