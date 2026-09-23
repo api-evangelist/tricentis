@@ -1,18 +1,22 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Common API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: common
+- name: Common
   description: Common API
 paths:
   /api/v3/projects/{projectId}/settings/{objectType}/custom-fields/active:
     post:
       tags:
-      - common
+      - Common
       summary: Update active or inactive custom fields of an Object Type
       description: To update active or inactive custom fields of an Object Type
       operationId: updateCustomFieldStatus
@@ -62,7 +66,7 @@ paths:
   /api/v3/projects/{projectId}/settings/{objectType}/system-fields/{fieldId}:
     post:
       tags:
-      - common
+      - Common
       summary: Edit System Field of an Object Type by the field
       description: To edit System Field of an Object Type by the field
       operationId: editSystemField
@@ -114,6 +118,40 @@ paths:
         required: true
 components:
   schemas:
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
     FieldResource:
       type: object
       required:
@@ -194,40 +232,6 @@ components:
           type: string
           example: <link to object>
           description: URL to the resource
-    AllowedValueResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        value:
-          type: integer
-          format: int64
-          example: 601
-          description: Value of AllowedValue
-        label:
-          type: string
-          example: Passed
-          description: Label of AllowedValue
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of AllowedValue
-        is_default:
-          type: boolean
-          example: true
-          description: Is default value or not
-        is_active:
-          type: boolean
-          example: true
-          description: Is active or not
-        color:
-          type: string
-          example: '#c0c0c0'
-          description: 'Color of AllowedValue if Field is Test Run''s Status '
   securitySchemes:
     Authorization:
       type: apiKey

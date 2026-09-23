@@ -138,11 +138,11 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   parameters:
-    result-id:
-      name: resultId
+    test-id:
+      name: testId
       in: path
       required: true
-      description: Unique identifier representing a specific Test Result.
+      description: Unique identifier representing a specific test.
       schema:
         type: string
     workspace-id:
@@ -152,63 +152,14 @@ components:
       description: Unique identifier representing a Workspace.
       schema:
         type: string
-    test-id:
-      name: testId
+    result-id:
+      name: resultId
       in: path
       required: true
-      description: Unique identifier representing a specific test.
+      description: Unique identifier representing a specific Test Result.
       schema:
         type: string
-  responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_501:
-      description: Not Implemented
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    RunTestDefinition:
-      type: object
-      properties:
-        resultId:
-          type: string
-          description: Unique identifier of the Test Result.
     RateLimitError:
       type: object
       properties:
@@ -218,6 +169,22 @@ components:
           type: string
         retry-after:
           type: integer
+    TestResultStopRequest:
+      type: object
+      properties:
+        stopPolicy:
+          type: string
+          enum:
+          - GRACEFUL
+          - TERMINATE
+          description: How to stop the Test Result. Default is GRACEFUL.<ul><li>GRACEFUL stops gently the Test Result.</li><li>TERMINATE terminates the Test Result (kill it).</li></ul>
+          example: GRACEFUL
+    RunTestDefinition:
+      type: object
+      properties:
+        resultId:
+          type: string
+          description: Unique identifier of the Test Result.
     Error:
       type: object
       properties:
@@ -478,16 +445,49 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    TestResultStopRequest:
-      type: object
-      properties:
-        stopPolicy:
-          type: string
-          enum:
-          - GRACEFUL
-          - TERMINATE
-          description: How to stop the Test Result. Default is GRACEFUL.<ul><li>GRACEFUL stops gently the Test Result.</li><li>TERMINATE terminates the Test Result (kill it).</li></ul>
-          example: GRACEFUL
+  responses:
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_501:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

@@ -1,6 +1,10 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Auth Systems API
 servers:
@@ -71,7 +75,7 @@ paths:
       description: 'Get all LDAP users of an authentication LDAP config with pagination supported. Users are mapped with qTest users won''t be returned.
 
 
-        If <strong>pageSize</strong> and <strong>page</strong> is omitted, all users will be returned without any default paging data.'
+        If pageSize and page is omitted, all users will be returned without any default paging data.'
       operationId: getAllLdapUsers
       parameters:
       - name: ldapAuthConfigId
@@ -108,6 +112,33 @@ paths:
       - Authorization: []
 components:
   schemas:
+    SSOSamlConfigDetailResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        is_activated:
+          type: boolean
+        auth_type:
+          type: string
+          example: SSO_SAML2
+          description: Type of authentication system
+          enum:
+          - INTERNAL
+          - LDAP
+          - SSO_SAML2
+          - TUA_OPENID
+        name:
+          type: string
+        metadata_link:
+          type: string
+          description: Metadata link of SSO system
+        auto_create_user:
+          type: boolean
+          description: Auto create user or not
+        metadata_filename:
+          type: string
     LdapUserVM:
       type: object
       properties:
@@ -132,6 +163,17 @@ components:
           type: string
         externalUserId:
           type: string
+    AuthSystemResponse:
+      type: object
+      properties:
+        ldaps:
+          type: array
+          items:
+            $ref: '#/components/schemas/LdapConfigDetailResponse'
+        sso:
+          $ref: '#/components/schemas/SSOSamlConfigDetailResponse'
+        tua:
+          $ref: '#/components/schemas/TUAConfigDetailResponse'
     LdapConfigDetailResponse:
       type: object
       properties:
@@ -186,52 +228,16 @@ components:
           type: boolean
           example: false
           description: Is active directory or not
-    AuthSystemResponse:
+    LdapUserResource:
       type: object
       properties:
-        ldaps:
-          type: array
-          items:
-            $ref: '#/components/schemas/LdapConfigDetailResponse'
-        sso:
-          $ref: '#/components/schemas/SSOSamlConfigDetailResponse'
-        tua:
-          $ref: '#/components/schemas/TUAConfigDetailResponse'
-    ResponseWrapper:
-      type: object
-      properties:
-        result:
-          type: object
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorMessage'
-    SSOSamlConfigDetailResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        is_activated:
-          type: boolean
-        auth_type:
+        ldap_username:
           type: string
-          example: SSO_SAML2
-          description: Type of authentication system
-          enum:
-          - INTERNAL
-          - LDAP
-          - SSO_SAML2
-          - TUA_OPENID
-        name:
+        first_name:
           type: string
-        metadata_link:
+        last_name:
           type: string
-          description: Metadata link of SSO system
-        auto_create_user:
-          type: boolean
-          description: Auto create user or not
-        metadata_filename:
+        email:
           type: string
     TUAConfigDetailResponse:
       type: object
@@ -268,17 +274,6 @@ components:
         page:
           type: integer
           format: int32
-    LdapUserResource:
-      type: object
-      properties:
-        ldap_username:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
     ErrorMessage:
       type: object
       properties:
@@ -286,6 +281,15 @@ components:
           type: string
         additionalInfo:
           type: object
+    ResponseWrapper:
+      type: object
+      properties:
+        result:
+          type: object
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
   securitySchemes:
     Authorization:
       type: apiKey

@@ -3,16 +3,17 @@ info:
   title: Tricentis User API
   version: '1.0'
   description: 'Operations tagged user across 2 of this provider''s published API definitions: tricentis-qtest-manager-openapi.yaml, tricentis-qtest-pulse-openapi.yaml. Each path carries the servers of the definition it was published in.'
-schemes:
-- https
+servers:
+- url: https://apitryout.qtestnet.com/
+- url: https://pulse-us-east-1.qtestnet.com/api
 tags:
-- name: user
+- name: User
   description: User API
 paths:
   /api/v3/re-evaluation:
     get:
       tags:
-      - user
+      - User
       summary: Gets current user's information
       description: To retrieve your information such as username, email, first name, and last name
       operationId: reevaluateToken
@@ -20,23 +21,28 @@ paths:
       - name: includeInaccessibleApps
         in: query
         required: false
-        type: boolean
+        schema:
+          type: boolean
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/LoggedUser'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggedUser'
       security:
       - Authorization: []
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/search/user:
     get:
       tags:
-      - user
+      - User
       summary: Queries Users by Project Name
       description: 'To query for users by names of their assigned projects
 
 
-        - Admin users with <em>Manage Client Users</em> permission can query users in any projects
+        - Admin users with Manage Client Users permission can query users in any projects
 
 
         - For other users: the API only returns users within projects to which the requesting user is assigned'
@@ -49,7 +55,8 @@ paths:
 
           <strong>IMPORTANT:</strong> Project name is case sensitive'
         required: false
-        type: string
+        schema:
+          type: string
       - name: inactive
         in: query
         description: '<em>inactive=false</em> - default value. Inactive users are excluded from the response
@@ -57,8 +64,9 @@ paths:
 
           <em>inactive=true</em> - include inactive users'
         required: false
-        type: boolean
-        default: true
+        schema:
+          type: boolean
+          default: true
       - name: pagination
         in: query
         description: '<em>pagination=true</em> - default value. The result is paginated
@@ -66,118 +74,139 @@ paths:
 
           <em>pagination=false</em> - the result is not paginated'
         required: false
-        type: boolean
-        default: true
+        schema:
+          type: boolean
+          default: true
       - name: page
         in: query
         description: By default the first page is returned but you can specify any page number to retrieve objects
         required: false
-        type: integer
-        default: 1
-        format: int64
+        schema:
+          type: integer
+          format: int64
+          default: 1
       - name: pageSize
         in: query
         description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 999) in this parameter
         required: false
-        type: integer
-        default: 100
-        format: int64
+        schema:
+          type: integer
+          format: int64
+          default: 100
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/SearchUserResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchUserResponse'
       security:
       - Authorization: []
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/users:
     post:
       tags:
-      - user
+      - User
       summary: Invites a User
-      description: 'To invite a user to your qTest Manager instance and activate the account. If the password is omitted, the default "<em>admin123</em>" will be used
+      description: 'To invite a user to your qTest Manager instance and activate the account. If the password is omitted, the default "admin123" will be used
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: createUser
-      parameters:
-      - in: body
-        name: body
-        description: "Invited user's information\n\n<em>username (require)</em>: email of new user\n\n<em>email</em>: This field will be ignored and primary email will be set\n\n<em>password</em>: password of new user. If the password is omitted, the default \"admin123\" will be used\n\n<em>first_name (require)</em>: First name of new user\n\n<em>last_name (require)</em>: Last name of new user\n\n<em>user_group_ids</em>: List usergroup ids will be assigned for new user.\n\n<em>send_activation_email</em>: activation email will be ignored if this is set to <strong>false</strong>. Default value is <strong>false</strong>\n\n<em>external_auth_config_id</em>: auto assign this new user with External Authentication system by this providing config id here. If this value is provided, <em>\"external_user_name\"</em> need to have value, or it will failed to create.\n\n<em>external_user_name</em>: external username that will be assigned to newly created qTest user \n\n<em>include_default_groups</em>:Include default groups or not. Default value is <strong>false</strong>"
-        required: true
-        schema:
-          $ref: '#/definitions/UserResource'
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/UserResource'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
       security:
       - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserResource'
+        description: "Invited user's information\n\n<em>username (require)</em>: email of new user\n\n<em>email</em>: This field will be ignored and primary email will be set\n\n<em>password</em>: password of new user. If the password is omitted, the default \"admin123\" will be used\n\n<em>first_name (require)</em>: First name of new user\n\n<em>last_name (require)</em>: Last name of new user\n\n<em>user_group_ids</em>: List usergroup ids will be assigned for new user.\n\n<em>send_activation_email</em>: activation email will be ignored if this is set to <strong>false</strong>. Default value is <strong>false</strong>\n\n<em>external_auth_config_id</em>: auto assign this new user with External Authentication system by this providing config id here. If this value is provided, <em>\"external_user_name\"</em> need to have value, or it will failed to create.\n\n<em>external_user_name</em>: external username that will be assigned to newly created qTest user \n\n<em>include_default_groups</em>:Include default groups or not. Default value is <strong>false</strong>"
+        required: true
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/users/projects:
     post:
       tags:
-      - user
+      - User
       summary: Assigns multiple Users to a Project
       description: 'To assign a list of Users to a Project
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: assignUsersToProject
       parameters:
-      - in: body
-        name: body
-        description: ID of the Project and an array of assigned Users' IDs. If the profile is not provided, Developer profile is used by default
-        required: true
-        schema:
-          $ref: '#/definitions/AssignedUsersProject'
       - name: skipEmailNotifications
         in: query
         description: Set to true to skip email notifications about associating user with a project.
         required: false
-        type: boolean
+        schema:
+          type: boolean
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/AssignedUsersProject'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignedUsersProject'
       security:
       - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignedUsersProject'
+        description: ID of the Project and an array of assigned Users' IDs. If the profile is not provided, Developer profile is used by default
+        required: true
     put:
       tags:
-      - user
+      - User
       summary: Remove association between users and projects
       description: To remove association between users and projects
       operationId: removeAssociationUsersAndProjects
       parameters:
-      - in: body
-        name: body
-        description: "An array of pairs project_id and user_ids\n\n <em>project_id:</em> ID of the project\n\n<em>user_ids: </em> List of User IDs which are being removed from the project"
-        required: true
-        schema:
-          type: array
-          items:
-            $ref: '#/definitions/ProjectWithUserIdsObject'
       - name: skipEmailNotifications
         in: query
         description: Set to true to skip email notifications about removing user's association with a project.
         required: false
-        type: boolean
+        schema:
+          type: boolean
       responses:
         200:
           description: ''
-          schema:
-            $ref: '#/definitions/Message'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
       security:
       - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProjectWithUserIdsObject'
+        description: "An array of pairs project_id and user_ids\n\n <em>project_id:</em> ID of the project\n\n<em>user_ids: </em> List of User IDs which are being removed from the project"
+        required: true
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/users/search:
     get:
       tags:
-      - user
+      - User
       summary: Queries Users by Username
       description: 'To query for users by their username
 
 
-        <strong>qTest Manager version:</strong> 8.4.2+'
+        qTest Manager version: 8.4.2+'
       operationId: findByUserNameOrEmail
       parameters:
       - name: username
@@ -193,7 +222,8 @@ paths:
 
           - LDAP or SSO username or external username - for users created from LDAP or SSO'
         required: false
-        type: string
+        schema:
+          type: string
       - name: includeInactiveUsers
         in: query
         description: '<em>includeInactiveUsers=false</em> - default value. Inactive users are excluded from the response
@@ -201,7 +231,8 @@ paths:
 
           <em>includeInactiveUsers=true</em> - inactive users are included in the response'
         required: false
-        type: boolean
+        schema:
+          type: boolean
       - name: pagination
         in: query
         description: '<em>pagination=true</em> - default value. The result is paginated
@@ -209,42 +240,51 @@ paths:
 
           <em>pagination=false</em> - the result is not paginated'
         required: false
-        type: boolean
-        default: true
+        schema:
+          type: boolean
+          default: true
       - name: authSystemConfigIds
         in: query
         description: LDAP Configuration Ids
         required: false
-        type: array
-        items:
-          type: integer
-          format: int64
-        collectionFormat: multi
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
       - name: page
         in: query
         description: By default the first page is returned but you can specify any page number to retrieve objects
         required: false
-        type: integer
-        default: 1
-        format: int64
+        schema:
+          type: integer
+          format: int64
+          default: 1
       - name: pageSize
         in: query
         description: The result is paginated. By the default, the number of objects in each page is 100 if this is omitted. You can specify your custom number (up to 100) in this parameter.
         required: false
-        type: integer
-        default: 100
-        format: int64
+        schema:
+          type: integer
+          format: int64
+          default: 100
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/SearchUserResourceExtensionResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchUserResourceExtensionResponse'
       security:
       - Authorization: []
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/users/{userId}:
     get:
       tags:
-      - user
+      - User
       summary: Gets a User
       description: To retrieve a User's information
       operationId: getUserById
@@ -253,18 +293,21 @@ paths:
         in: path
         description: ID of the user.
         required: true
-        type: integer
-        format: int64
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/UserResource'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
       security:
       - Authorization: []
     put:
       tags:
-      - user
+      - User
       summary: Update user's information
       description: 'To update information of a user, like : recovery email, password, status...'
       operationId: updateUser
@@ -273,10 +316,23 @@ paths:
         in: path
         description: ID of the user.
         required: true
-        type: integer
-        format: int64
-      - in: body
-        name: body
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateResource'
         description: 'Update user''s information
 
 
@@ -303,19 +359,12 @@ paths:
 
           <em>status</em>: New status id of user. Status id must be <strong>1</strong> for Active or <strong>3</strong> for Inactive status.'
         required: true
-        schema:
-          $ref: '#/definitions/UserUpdateResource'
-      responses:
-        200:
-          description: successful operation
-          schema:
-            $ref: '#/definitions/UserResource'
-      security:
-      - Authorization: []
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/users/{userId}/avatar:
     get:
       tags:
-      - user
+      - User
       summary: Gets a User's Avatar
       description: To retrieve a User's Avatar
       operationId: getAvatar
@@ -324,19 +373,24 @@ paths:
         in: path
         description: ID of the user.
         required: true
-        type: integer
-        format: int64
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/OutputStream'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputStream'
       security:
       - Authorization: []
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /api/v3/users/{userId}/projects:
     post:
       tags:
-      - user
+      - User
       summary: Assigns a User to a Project
       description: To assign a User to a Project
       operationId: assignToProject
@@ -345,659 +399,694 @@ paths:
         in: path
         description: ID of the user.
         required: true
-        type: integer
-        format: int64
-      - in: body
-        name: body
-        description: The project ID and the assigned user profile in the project. If the profile is not provided, profile Developer is used by default
-        required: true
         schema:
-          $ref: '#/definitions/AssignedProject'
+          type: integer
+          format: int64
       responses:
         200:
           description: successful operation
-          schema:
-            $ref: '#/definitions/AssignedProject'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignedProject'
       security:
       - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignedProject'
+        description: The project ID and the assigned user profile in the project. If the profile is not provided, profile Developer is used by default
+        required: true
+    servers:
+    - url: https://apitryout.qtestnet.com/
   /me:
     get:
       tags:
-      - user
+      - User
       summary: Get current logged-in user
       description: To get current logged-in user
       responses:
         400:
-          $ref: '#/responses/BadRequest'
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: '#/responses/Unauthorized'
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: '#/responses/Forbidden'
+          $ref: '#/components/responses/Forbidden'
         default:
-          $ref: '#/responses/Default'
+          $ref: '#/components/responses/Default'
         200:
           description: OK
-          schema:
-            $ref: '#/definitions/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
       security:
       - qtestToken: []
         qtestUrl: []
+      operationId: getMe
+      x-operation-id-source: derived
     put:
       tags:
-      - user
+      - User
       summary: Update current user
-      parameters:
-      - name: user
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/UserInput'
       responses:
         400:
-          $ref: '#/responses/BadRequest'
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: '#/responses/Unauthorized'
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: '#/responses/Forbidden'
+          $ref: '#/components/responses/Forbidden'
         default:
-          $ref: '#/responses/Default'
+          $ref: '#/components/responses/Default'
         200:
           description: OK
-          schema:
-            $ref: '#/definitions/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+        required: true
       security:
       - qtestToken: []
         qtestUrl: []
+      operationId: putMe
+      x-operation-id-source: derived
     patch:
       tags:
-      - user
+      - User
       summary: Update current user
-      parameters:
-      - name: user
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/UserInput'
       responses:
         400:
-          $ref: '#/responses/BadRequest'
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: '#/responses/Unauthorized'
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: '#/responses/Forbidden'
+          $ref: '#/components/responses/Forbidden'
         default:
-          $ref: '#/responses/Default'
+          $ref: '#/components/responses/Default'
         200:
           description: OK
-          schema:
-            $ref: '#/definitions/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+        required: true
       security:
       - qtestToken: []
         qtestUrl: []
-definitions:
-  SearchUserResourceExtensionResponse:
-    type: object
-    properties:
-      links:
-        type: array
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      page:
-        type: integer
-        format: int32
-        example: 1
-        description: Current page number
-      page_size:
-        type: integer
-        format: int32
-        example: 25
-        description: Current page size number
-      total:
-        type: integer
-        format: int64
-        example: 100
-        description: Total user found
-      items:
-        type: array
-        description: Arrays of User
-        items:
-          $ref: '#/definitions/UserResourceExtension'
-  SearchUserResponse:
-    type: object
-    properties:
-      links:
-        type: array
-        description: Link to resource
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      page:
-        type: integer
-        format: int32
-        example: 1
-        description: Current page number
-      page_size:
-        type: integer
-        format: int32
-        example: 25
-        description: Current page size number
-      total:
-        type: integer
-        format: int64
-        example: 100
-        description: Total user found
-      items:
-        type: array
-        description: Arrays of User
-        items:
-          $ref: '#/definitions/SearchUserResource'
-      total_project:
-        type: integer
-        format: int64
-        example: 10
-        description: Total Project found
-  UserInput:
-    properties:
-      settings:
-        $ref: '#/definitions/UserSettings'
-  LoggedUser:
-    type: object
-    properties:
-      links:
-        type: array
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of the User
-      user_name:
-        type: string
-        example: example.user@qtest.com
-        description: Login email of the User
-      past_usernames:
-        type: string
-      first_name:
-        type: string
-        example: User
-        description: First name
-      last_name:
-        type: string
-        example: Example
-        description: Last name
-      client_id:
-        type: integer
-        format: int64
-        example: 2
-        description: ID of qTest site that User logged in
-      client_name:
-        type: string
-        example: Example
-        description: qTest instance client site name
-      client_site:
-        type: string
-        example: https://apitryout.qtestnet.com
-        description: URL of qTest instance
-      timezone_offset:
-        type: string
-      avatar:
-        type: string
-        example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-        description: URL to User's Avatar
-      access_admin_page:
-        type: boolean
-        example: true
-        description: Can access admin page or not
-      client_site_name:
-        type: string
-        example: exmaple
-        description: qTest instance sub domain name
-      package_type:
-        type: string
-        example: Elite
-        description: Package type
-      applications:
-        type: array
-        description: List qTest products which User can access
-        items:
-          $ref: '#/definitions/AppDetail'
-      support_links:
-        type: object
-        description: Arrays of Supports link
-        additionalProperties:
-          type: string
-  Message:
-    type: object
-    properties:
-      noLogging:
-        type: boolean
-      message:
-        type: string
-        example: Error message
-        description: Error message text
-        readOnly: true
-  AssignedProject:
-    type: object
-    properties:
-      project_id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of the Project
-      profile:
-        $ref: '#/definitions/Profile'
-  Link:
-    type: object
-    properties:
-      rel:
-        type: string
-        example: self
-        description: Relationship of link to object
-      href:
-        type: string
-        example: <link to object>
-        description: URL to the resource
-  UserUpdateResource:
-    type: object
-    properties:
-      links:
-        type: array
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      id:
-        type: integer
-        format: int64
-        example: 1
-      email:
-        type: string
-        example: example.user@qtest.com
-      password:
-        type: string
-      first_name:
-        type: string
-        example: Example
-      last_name:
-        type: string
-        example: User
-      status:
-        type: integer
-        format: int32
-        example: 1
-      user_group_ids:
-        type: array
-        items:
+      operationId: patchMe
+      x-operation-id-source: derived
+    servers:
+    - url: https://pulse-us-east-1.qtestnet.com/api
+components:
+  schemas:
+    UserUpdateResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
           type: integer
           format: int64
-      external_auth_config_id:
-        type: integer
-        format: int64
-      external_user_name:
-        type: string
-  Project:
-    allOf:
-    - $ref: '#/definitions/Doc'
-    - required:
-      - qtestProjectId
-      - name
-      properties:
-        qtestProjectId:
+          example: 1
+        email:
+          type: string
+          example: example.user@qtest.com
+        password:
+          type: string
+        first_name:
+          type: string
+          example: Example
+        last_name:
+          type: string
+          example: User
+        status:
+          type: integer
+          format: int32
+          example: 1
+        user_group_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        external_auth_config_id:
           type: integer
           format: int64
-        name:
+        external_user_name:
           type: string
-  User:
-    allOf:
-    - $ref: '#/definitions/Doc'
-    - $ref: '#/definitions/UserInput'
-    - required:
-      - qtestUserId
-      - username
-      - firstName
-      - lastName
-      - avatar
-      - account
-      - applications
-      - projects
+    OutputStream:
+      type: object
+    SearchUserResource:
+      type: object
       properties:
-        qtestUserId:
-          type: string
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
         username:
           type: string
-        firstName:
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
           type: string
-        lastName:
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: Example
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: Avatar URL of the User
+        ldap_username:
+          type: string
+          description: LDAP username
+        user_group_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        external_auth_config_id:
+          type: integer
+          format: int64
+        external_user_name:
+          type: string
+        assigned_projects:
+          type: array
+          description: Arrays of Project that user assigned to
+          items:
+            type: integer
+            format: int64
+            example: 1
+    AssignedUsersProject:
+      type: object
+      properties:
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        profile:
+          $ref: '#/components/schemas/Profile'
+        user_ids:
+          type: array
+          description: Array User ID
+          items:
+            type: integer
+            format: int64
+            example: 1
+    UserResource:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+          description: Password of the User
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: User
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+        ldap_username:
+          type: string
+          description: LDAP username of the User
+        user_group_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        external_auth_config_id:
+          type: integer
+          format: int64
+          description: External authentication system id
+        external_user_name:
+          type: string
+          description: External authentication username
+    SearchUserResourceExtensionResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page number
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size number
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total user found
+        items:
+          type: array
+          description: Arrays of User
+          items:
+            $ref: '#/components/schemas/UserResourceExtension'
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Profile
+        name:
+          type: string
+          example: Project Manager
+          description: Name of Profile
+    LoggedUser:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        user_name:
+          type: string
+          example: example.user@qtest.com
+          description: Login email of the User
+        past_usernames:
+          type: string
+        first_name:
+          type: string
+          example: User
+          description: First name
+        last_name:
+          type: string
+          example: Example
+          description: Last name
+        client_id:
+          type: integer
+          format: int64
+          example: 2
+          description: ID of qTest site that User logged in
+        client_name:
+          type: string
+          example: Example
+          description: qTest instance client site name
+        client_site:
+          type: string
+          example: https://apitryout.qtestnet.com
+          description: URL of qTest instance
+        timezone_offset:
           type: string
         avatar:
           type: string
-        account:
-          $ref: '#/definitions/Account'
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: URL to User's Avatar
+        access_admin_page:
+          type: boolean
+          example: true
+          description: Can access admin page or not
+        client_site_name:
+          type: string
+          example: exmaple
+          description: qTest instance sub domain name
+        package_type:
+          type: string
+          example: Elite
+          description: Package type
         applications:
           type: array
+          description: List qTest products which User can access
           items:
-            $ref: '#/definitions/Application'
-        projects:
+            $ref: '#/components/schemas/AppDetail'
+        support_links:
+          type: object
+          description: Arrays of Supports link
+          additionalProperties:
+            type: string
+    ProjectWithUserIdsObject:
+      type: object
+      properties:
+        project_id:
+          type: integer
+          format: int64
+          description: ID of the Project
+        user_ids:
           type: array
+          description: Array User ID
+          uniqueItems: true
           items:
-            $ref: '#/definitions/Project'
-  Application:
-    required:
-    - name
-    - logoUrl
-    - displayOrder
-    - url
-    - hasLicense
-    - hasPermission
-    properties:
-      name:
-        type: string
-      logoUrl:
-        type: string
-      displayOrder:
-        type: integer
-        format: int32
-      url:
-        type: string
-      hasLicense:
-        type: boolean
-      hasPermission:
-        type: boolean
-  Doc:
-    required:
-    - id
-    properties:
-      id:
-        type: string
-  SearchUserResource:
-    type: object
-    properties:
-      links:
-        type: array
-        description: Link to resource
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of the User
-      username:
-        type: string
-        example: example.user@qtest.com
-        description: Login username of the User
-      email:
-        type: string
-        example: example.user@qtest.com
-        description: Contact email of the User
-      password:
-        type: string
-      first_name:
-        type: string
-        example: Example
-        description: First name of the User
-      last_name:
-        type: string
-        example: Example
-        description: Last name of the User
-      status:
-        type: integer
-        format: int32
-        example: 0
-        description: Status of the User
-      avatar:
-        type: string
-        example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-        description: Avatar URL of the User
-      ldap_username:
-        type: string
-        description: LDAP username
-      user_group_ids:
-        type: array
-        items:
+            type: integer
+            format: int64
+    AppDetail:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Manager
+          description: Manager
+        logo_url:
+          type: string
+          example: https://apitryout.qtestnet.com/favicon.ico
+          description: <link to qTest application logo>
+        display_order:
           type: integer
-          format: int64
-      external_auth_config_id:
-        type: integer
-        format: int64
-      external_user_name:
-        type: string
-      assigned_projects:
-        type: array
-        description: Arrays of Project that user assigned to
-        items:
+          format: int32
+          example: 1
+          description: Display order of qTest application
+        url:
+          type: string
+          example: https://apitryout.qtestnet.com
+          description: URL to qTest application
+        redirect_url:
+          type: string
+        app_type:
+          type: string
+    UserResourceExtension:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
           type: integer
           format: int64
           example: 1
-  AppDetail:
-    type: object
-    properties:
-      name:
-        type: string
-        example: Manager
-        description: Manager
-      logo_url:
-        type: string
-        example: https://apitryout.qtestnet.com/favicon.ico
-        description: <link to qTest application logo>
-      display_order:
-        type: integer
-        format: int32
-        example: 1
-        description: Display order of qTest application
-      url:
-        type: string
-        example: https://apitryout.qtestnet.com
-        description: URL to qTest application
-      redirect_url:
-        type: string
-      app_type:
-        type: string
-  UserResource:
-    type: object
-    properties:
-      links:
-        type: array
-        description: Link to resource
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of the User
-      username:
-        type: string
-        example: example.user@qtest.com
-        description: Login username of the User
-      email:
-        type: string
-        example: example.user@qtest.com
-        description: Contact email of the User
-      password:
-        type: string
-        description: Password of the User
-      first_name:
-        type: string
-        example: Example
-        description: First name of the User
-      last_name:
-        type: string
-        example: User
-        description: Last name of the User
-      status:
-        type: integer
-        format: int32
-        example: 0
-        description: Status of the User
-      avatar:
-        type: string
-        example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-      ldap_username:
-        type: string
-        description: LDAP username of the User
-      user_group_ids:
-        type: array
-        items:
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+          description: Password of the User
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: User
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: Avatar URL of the User
+        external_username:
+          type: string
+          description: External username, could be LDAP username or SSO username
+        authentication_system:
+          type: string
+          description: Name of Login provider, could be LDAP or SSO
+        timezone_offset:
+          type: string
+        country_name:
+          type: string
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
+    SearchUserResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page number
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size number
+        total:
           type: integer
           format: int64
-      external_auth_config_id:
-        type: integer
-        format: int64
-        description: External authentication system id
-      external_user_name:
-        type: string
-        description: External authentication username
-  OutputStream:
-    type: object
-  ProjectWithUserIdsObject:
-    type: object
-    properties:
-      project_id:
-        type: integer
-        format: int64
-        description: ID of the Project
-      user_ids:
-        type: array
-        description: Array User ID
-        uniqueItems: true
+          example: 100
+          description: Total user found
         items:
+          type: array
+          description: Arrays of User
+          items:
+            $ref: '#/components/schemas/SearchUserResource'
+        total_project:
           type: integer
           format: int64
-  Account:
-    required:
-    - qtestClientId
-    - name
-    properties:
-      qtestClientId:
-        type: string
-      name:
-        type: string
-  Profile:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of Profile
-      name:
-        type: string
-        example: Project Manager
-        description: Name of Profile
-  AssignedUsersProject:
-    type: object
-    properties:
-      project_id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of the Project
-      profile:
-        $ref: '#/definitions/Profile'
-      user_ids:
-        type: array
-        description: Array User ID
-        items:
+          example: 10
+          description: Total Project found
+    AssignedProject:
+      type: object
+      properties:
+        project_id:
           type: integer
           format: int64
           example: 1
-  UserResourceExtension:
-    type: object
-    properties:
-      links:
-        type: array
-        description: Link to resource
-        readOnly: true
-        items:
-          $ref: '#/definitions/Link'
-      id:
-        type: integer
-        format: int64
-        example: 1
-        description: ID of the User
-      username:
-        type: string
-        example: example.user@qtest.com
-        description: Login username of the User
-      email:
-        type: string
-        example: example.user@qtest.com
-        description: Contact email of the User
-      password:
-        type: string
-        description: Password of the User
-      first_name:
-        type: string
-        example: Example
-        description: First name of the User
-      last_name:
-        type: string
-        example: User
-        description: Last name of the User
-      status:
-        type: integer
-        format: int32
-        example: 0
-        description: Status of the User
-      avatar:
-        type: string
-        example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-        description: Avatar URL of the User
-      external_username:
-        type: string
-        description: External username, could be LDAP username or SSO username
-      authentication_system:
-        type: string
-        description: Name of Login provider, could be LDAP or SSO
-      timezone_offset:
-        type: string
-      country_name:
-        type: string
-  Error:
-    required:
-    - message
-    properties:
-      message:
-        type: string
-  UserSettings:
-    properties:
-      notifiedVersion:
-        type: string
-responses:
-  Unauthorized:
-    description: Unauthorized
-    schema:
-      $ref: '#/definitions/Error'
-  Forbidden:
-    description: Forbidden
-    schema:
-      $ref: '#/definitions/Error'
-  Default:
-    description: Error
-    schema:
-      $ref: '#/definitions/Error'
-  BadRequest:
-    description: Bad Request
-    schema:
-      $ref: '#/definitions/Error'
-securityDefinitions:
-  Authorization:
-    type: apiKey
-    name: Authorization
-    in: header
-  qtestToken:
-    type: apiKey
-    in: header
-    name: Authorization
-  qtestUrl:
-    type: apiKey
-    in: header
-    name: x-qtest-url
+          description: ID of the Project
+        profile:
+          $ref: '#/components/schemas/Profile'
+    Project:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - required:
+        - qtestProjectId
+        - name
+        properties:
+          qtestProjectId:
+            type: integer
+            format: int64
+          name:
+            type: string
+    Account:
+      required:
+      - qtestClientId
+      - name
+      properties:
+        qtestClientId:
+          type: string
+        name:
+          type: string
+    User:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/UserInput'
+      - required:
+        - qtestUserId
+        - username
+        - firstName
+        - lastName
+        - avatar
+        - account
+        - applications
+        - projects
+        properties:
+          qtestUserId:
+            type: string
+          username:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          avatar:
+            type: string
+          account:
+            $ref: '#/components/schemas/Account'
+          applications:
+            type: array
+            items:
+              $ref: '#/components/schemas/Application'
+          projects:
+            type: array
+            items:
+              $ref: '#/components/schemas/Project'
+    UserInput:
+      properties:
+        settings:
+          $ref: '#/components/schemas/UserSettings'
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    UserSettings:
+      properties:
+        notifiedVersion:
+          type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Application:
+      required:
+      - name
+      - logoUrl
+      - displayOrder
+      - url
+      - hasLicense
+      - hasPermission
+      properties:
+        name:
+          type: string
+        logoUrl:
+          type: string
+        displayOrder:
+          type: integer
+          format: int32
+        url:
+          type: string
+        hasLicense:
+          type: boolean
+        hasPermission:
+          type: boolean
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    qtestToken:
+      type: apiKey
+      in: header
+      name: Authorization
+    qtestUrl:
+      type: apiKey
+      in: header
+      name: x-qtest-url
 externalDocs:
   description: Introduction to qTest Pulse API
   url: https://documentation.tricentis.com/qtest/od/en/content/apis/apis/common_apis.htm

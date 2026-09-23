@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - AccessFiles
-      summary: Produce a list of files.
+      summary: Produce a list of files
       description: Produce a list of files, each with its own filepath. Use this information to start a file download.
       parameters:
       - name: apiKey
@@ -55,11 +55,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponseMessage'
+      operationId: getFiles
+      x-operation-id-source: derived
   /file/{filepath}:
     get:
       tags:
       - AccessFiles
-      summary: Download a file.
+      summary: Download a file
       description: Download a file from the filepath produced by the GET request /files. Files in a folder are listed in increasing numerical order. Read the file numbers from least to greatest. For example, 0000_part_00.parquet, 0000_part_01.parquet, 0001_part_00.parquet, 0001_part_01.parquet, and so on.
       parameters:
       - name: filepath
@@ -99,17 +101,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponseMessage'
+      operationId: getFileByFilepath
+      x-operation-id-source: derived
 components:
   schemas:
-    CustomErrorMessage:
+    SuccessResponseMessage:
       type: object
       properties:
-        code:
-          type: string
-        field:
-          type: string
-        resource:
-          type: string
+        message:
+          type: object
     CustomError:
       type: object
       properties:
@@ -121,6 +121,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomErrorMessage'
+    CustomErrorMessage:
+      type: object
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        resource:
+          type: string
+    ObjectResponse:
+      type: object
+      properties:
+        pageToken:
+          type: string
+        lastPage:
+          type: boolean
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectDetails'
+    ErrorResponseMessage:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        error:
+          $ref: '#/components/schemas/CustomError'
     ObjectDetails:
       type: object
       properties:
@@ -134,30 +162,6 @@ components:
         sizeKB:
           type: integer
           format: int64
-    ErrorResponseMessage:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        error:
-          $ref: '#/components/schemas/CustomError'
-    SuccessResponseMessage:
-      type: object
-      properties:
-        message:
-          type: object
-    ObjectResponse:
-      type: object
-      properties:
-        pageToken:
-          type: string
-        lastPage:
-          type: boolean
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/ObjectDetails'
 externalDocs:
   description: Introduction to qTest Data Export
   url: https://documentation.tricentis.com/qtest/od/en/content/apis/data_export/data_export_overview.htm

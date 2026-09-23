@@ -1,23 +1,27 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Test Run API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: test-run
+- name: Test Run
   description: Test Run API
 paths:
   /api/v3/projects/{projectId}/test-runs:
     get:
       tags:
-      - test-run
+      - Test Run
       summary: Gets multiple Test Runs
       description: 'To retrieve all Test Runs under root or under a container (Release, Test Cycle or Test Suite)
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: getOf
       parameters:
       - name: projectId
@@ -88,12 +92,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - test-run
+      - Test Run
       summary: Creates a Test Run
       description: 'To create a Test Run under root or a container (Release, Test Cycle or Test Suite)
 
 
-        <strong>qTest Manager version:</strong> 6+You can optionally specify a parent in the request parameter to create its test runs.
+        qTest Manager version: 6+You can optionally specify a parent in the request parameter to create its test runs.
 
 
         The associated Test Case is specified in the request body'
@@ -146,8 +150,8 @@ paths:
   /api/v3/projects/{projectId}/test-runs/assign-parameter-values/dataset:
     post:
       tags:
-      - test-run
-      summary: Create multiple Test Runs with Parameter values from dataset.
+      - Test Run
+      summary: Create multiple Test Runs with Parameter values from dataset
       description: To create multiple Test Runs with parameter values under root or a container (Release, Test Cycle or Test Suite). Number of test runs can be created depend on number_of_rows property and it should not more than 100.
       operationId: addTestRunWithParametersDataset
       parameters:
@@ -198,7 +202,7 @@ paths:
   /api/v3/projects/{projectId}/test-runs/assign-parameter-values/manually:
     post:
       tags:
-      - test-run
+      - Test Run
       summary: Create multiple Test Runs with Parameter values manual
       description: To create multiple Test Runs with parameter values under root or a container (Release, Test Cycle or Test Suite). Maximum number of test runs can be created is 100.
       operationId: addTestRunWithParameters
@@ -250,8 +254,8 @@ paths:
   /api/v3/projects/{projectId}/test-runs/assign-parameter-values/randomize:
     post:
       tags:
-      - test-run
-      summary: Create multiple Test Runs with Parameter values random from selection combine type.
+      - Test Run
+      summary: Create multiple Test Runs with Parameter values random from selection combine…
       description: To create multiple Test Runs with parameter values under root or a container (Release, Test Cycle or Test Suite). Maximum number of test runs can be created depend on combine type.
       operationId: addTestRunWithParametersRandomize
       parameters:
@@ -302,9 +306,8 @@ paths:
   /api/v3/projects/{projectId}/test-runs/execution-statuses:
     get:
       tags:
-      - test-run
+      - Test Run
       summary: Gets Test Run statuses
-      description: Gets Test Run statuses
       operationId: getStatusValuable
       parameters:
       - name: projectId
@@ -328,9 +331,12 @@ paths:
   /api/v3/projects/{projectId}/test-runs/subhierarchy:
     get:
       tags:
-      - test-run
+      - Test Run
       summary: Gets a Sub Hierarchy
-      description: "To retrieve a Sub Hierarchy of a container (root, release, test-cycle) \n\n<strong>qTest Manager version:</strong> 9.3.4+"
+      description: 'To retrieve a Sub Hierarchy of a container (root, release, test-cycle)
+
+
+        qTest Manager version: 9.3.4+'
       operationId: getSubhierachy
       parameters:
       - name: projectId
@@ -365,12 +371,12 @@ paths:
   /api/v3/projects/{projectId}/test-runs/{idOrKey}/comments:
     get:
       tags:
-      - test-run
+      - Test Run
       summary: Gets all Comments of a Test Run
       description: 'To retrieve all Comments of a Test Run
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: getTestRunComments
       parameters:
       - name: projectId
@@ -397,12 +403,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - test-run
+      - Test Run
       summary: Adds a Comment to a Test Run
       description: 'To add a Comment to a Test Run
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: addTestRunComment
       parameters:
       - name: projectId
@@ -437,12 +443,12 @@ paths:
   /api/v3/projects/{projectId}/test-runs/{idOrKey}/comments/{commentId}:
     get:
       tags:
-      - test-run
+      - Test Run
       summary: Gets a Comment from a Test Run
       description: 'To retrieve a specific Comment from a Test Run
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: getTestRunCommentById
       parameters:
       - name: projectId
@@ -476,12 +482,12 @@ paths:
       - Authorization: []
     put:
       tags:
-      - test-run
+      - Test Run
       summary: Updates a Comment of a Test Run
       description: 'To update a Comment of a Test Run
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: updateCommentById
       parameters:
       - name: projectId
@@ -522,12 +528,12 @@ paths:
         required: true
     delete:
       tags:
-      - test-run
+      - Test Run
       summary: Deletes a Comment of a Test Run
       description: 'To delete a Comment of a Test Run
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: deleteCommentById
       parameters:
       - name: projectId
@@ -562,12 +568,12 @@ paths:
   /api/v3/projects/{projectId}/test-runs/{testRunId}:
     get:
       tags:
-      - test-run
+      - Test Run
       summary: Gets a Test Run
       description: 'To retrieve a Test Run
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: getTestRunById
       parameters:
       - name: projectId
@@ -608,12 +614,12 @@ paths:
       - Authorization: []
     put:
       tags:
-      - test-run
+      - Test Run
       summary: Updates a Test Run
       description: 'To update a Test Run or move it to another container
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: updateTestRunById
       parameters:
       - name: projectId
@@ -672,12 +678,12 @@ paths:
         required: true
     delete:
       tags:
-      - test-run
+      - Test Run
       summary: Deletes a Test Run
       description: 'To delete a Test Run
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: deleteTestRunById
       parameters:
       - name: projectId
@@ -705,6 +711,186 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    ShortTestLogResource:
+      type: object
+      properties:
+        status:
+          type: string
+        id:
+          type: integer
+          format: int64
+        exe_start_date:
+          type: string
+          format: date-time
+        exe_end_date:
+          type: string
+          format: date-time
+    ParameterInfo:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    TestStepResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 111
+        description:
+          type: string
+          example: Test Step description
+        expected:
+          type: string
+          example: Test step expected result
+        order:
+          type: integer
+          format: int32
+          example: 1
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
+    AutomationObjectTree:
+      type: object
+      properties:
+        artifactType:
+          type: string
+          enum:
+          - INVALID
+          - ROOT
+          - TEST_CASE
+          - TEST_CYCLE
+          - TEST_SUITE
+          - TEST_CASE_RUN
+          - RELEASE
+        targetReleaseId:
+          type: integer
+          format: int64
+        targetBuildId:
+          type: integer
+          format: int64
+        parent:
+          $ref: '#/components/schemas/AutomationObjectTree'
+        type:
+          type: string
+          example: release
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Example release name
+        order:
+          type: integer
+          format: int32
+          example: 1
+        children:
+          type: array
+          readOnly: true
+          items:
+            type: string
+            example: <Container's direct children>
+    ParameterizationText:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        rawText:
+          type: string
+        htmlText:
+          type: string
+        plainText:
+          type: string
+        valueText:
+          type: string
+        editedParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        plainValueText:
+          type: string
+    ParameterValueVM:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
     Message:
       type: object
       properties:
@@ -715,40 +901,6 @@ components:
           example: Error message
           description: Error message text
           readOnly: true
-    ParameterTestStepResource:
-      type: object
-      properties:
-        step_id:
-          type: integer
-          format: int64
-        description_parameter_values:
-          type: array
-          items:
-            type: string
-        expected_parameter_values:
-          type: array
-          items:
-            type: string
-    TestRunWithParameterCreateRandomResource:
-      type: object
-      required:
-      - combined_type
-      - test_case
-      properties:
-        name:
-          type: string
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        test_case:
-          $ref: '#/components/schemas/TestCaseWithParameterResource'
-        combined_type:
-          type: integer
-          format: int32
-        number_of_combinations:
-          type: integer
-          format: int32
     TestRunListResource:
       type: object
       properties:
@@ -770,78 +922,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TestRunWithCustomFieldResource'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    PropertyResource:
+    TestRunWithParameterCreateRandomResource:
       type: object
       required:
-      - field_id
+      - combined_type
+      - test_case
       properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
-    AttachmentAuthor:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        first_name:
-          type: string
-          example: First name of the User
-          description: First name of the User
-        last_name:
-          type: string
-          example: Last name of the User
-          description: Last name of the User
-    CustomFieldInfo:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        value:
-          type: string
-        objectId:
-          type: integer
-          format: int64
-        type:
-          type: string
         name:
           type: string
-        stripHTMLValue:
-          type: string
-        propertyEditorComponent:
-          type: boolean
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        test_case:
+          $ref: '#/components/schemas/TestCaseWithParameterResource'
+        combined_type:
+          type: integer
+          format: int32
+        number_of_combinations:
+          type: integer
+          format: int32
+    ParameterTestStepResource:
+      type: object
+      properties:
+        step_id:
+          type: integer
+          format: int64
+        description_parameter_values:
+          type: array
+          items:
+            type: string
+        expected_parameter_values:
+          type: array
+          items:
+            type: string
     ParameterVM:
       type: object
       properties:
@@ -864,6 +978,96 @@ components:
           format: int32
         parameterName:
           type: string
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    TestRunWithParameterCreateManualResource:
+      type: object
+      required:
+      - test_case
+      - test_runs
+      properties:
+        name:
+          type: string
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        test_case:
+          $ref: '#/components/schemas/TestCaseWithParameterResource'
+        test_runs:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TestStepWithParameterResource'
+    TestStepInformationVM:
+      type: object
+      properties:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    TestStepWithParameterResource:
+      type: object
+      required:
+      - step_id
+      properties:
+        step_id:
+          type: integer
+          format: int64
+        description_parameter_values:
+          type: array
+          items:
+            type: string
+        expected_parameter_values:
+          type: array
+          items:
+            type: string
+    TestParameter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
     TestRunWithCustomFieldResource:
       type: object
       required:
@@ -950,327 +1154,6 @@ components:
         configuration_id:
           type: string
           format: uuid
-    ShortTestLogResource:
-      type: object
-      properties:
-        status:
-          type: string
-        id:
-          type: integer
-          format: int64
-        exe_start_date:
-          type: string
-          format: date-time
-        exe_end_date:
-          type: string
-          format: date-time
-    TestCaseWithParameterResource:
-      type: object
-      required:
-      - id
-      properties:
-        test_case_version_id:
-          type: integer
-          format: int64
-        id:
-          type: integer
-          format: int64
-    TestRunWithParameterCreateManualResource:
-      type: object
-      required:
-      - test_case
-      - test_runs
-      properties:
-        name:
-          type: string
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        test_case:
-          $ref: '#/components/schemas/TestCaseWithParameterResource'
-        test_runs:
-          type: array
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TestStepWithParameterResource'
-    TestStepResource:
-      type: object
-      required:
-      - description
-      - expected
-      properties:
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 111
-        description:
-          type: string
-          example: Test Step description
-        expected:
-          type: string
-          example: Test step expected result
-        order:
-          type: integer
-          format: int32
-          example: 1
-          minimum: 1
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          maxItems: 2147483647
-          minItems: 0
-        group:
-          type: integer
-          format: int32
-        called_test_case_name:
-          type: string
-        root_called_test_case_id:
-          type: integer
-          format: int64
-        called_test_case:
-          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
-        parent_test_step_id:
-          type: integer
-          format: int64
-        information:
-          $ref: '#/components/schemas/TestStepInformationVM'
-        plain_value_text:
-          type: string
-        parameter_values:
-          type: array
-          items:
-            type: string
-        called_test_case_id:
-          type: integer
-          format: int64
-    CommentResource:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          description: Created date of Comment
-        updated:
-          type: string
-          format: date-time
-          description: Last updated date of Comment
-        userId:
-          type: integer
-          format: int64
-          example: 5202
-          description: ID of the User who create this Comment
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 2602608
-          description: ID of the Comment
-        content:
-          type: string
-          example: The comment's content
-          description: Comment text
-    AttachmentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        name:
-          type: string
-          example: Sample.docx
-          description: Attachment name
-        content_type:
-          type: string
-          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-          description: Attachment content type
-        data:
-          type: string
-          description: Used for uploading and ignored during download
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Attachment
-        web_url:
-          type: string
-          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
-          description: Web URL to Attachment
-          readOnly: true
-        created_date:
-          type: string
-          format: date-time
-          description: The date Attachment was created
-        author:
-          $ref: '#/components/schemas/AttachmentAuthor'
-        artifact_id:
-          type: integer
-          format: int64
-          example: 1
-          description: Artifact ID which Attachment linked to
-          readOnly: true
-    TestStepWithParameterResource:
-      type: object
-      required:
-      - step_id
-      properties:
-        step_id:
-          type: integer
-          format: int64
-        description_parameter_values:
-          type: array
-          items:
-            type: string
-        expected_parameter_values:
-          type: array
-          items:
-            type: string
-    ParameterInfo:
-      type: object
-      properties:
-        parameter:
-          $ref: '#/components/schemas/ParameterVM'
-        info:
-          $ref: '#/components/schemas/TestParameter'
-        parameterValue:
-          $ref: '#/components/schemas/ParameterValueVM'
-    StatusResource:
-      type: object
-      properties:
-        links:
-          type: array
-          description: Link to resource
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 601
-          description: ID of Test Run's status
-        name:
-          type: string
-          example: Passed
-          description: Name of Test Run's status
-        is_default:
-          type: boolean
-          example: false
-          description: Is default or not
-        color:
-          type: string
-          example: '#0cdda8'
-          description: Color of Test Run's status
-        active:
-          type: boolean
-          example: true
-          description: Active or not
-    AutomationObjectTree:
-      type: object
-      properties:
-        artifactType:
-          type: string
-          enum:
-          - INVALID
-          - ROOT
-          - TEST_CASE
-          - TEST_CYCLE
-          - TEST_SUITE
-          - TEST_CASE_RUN
-          - RELEASE
-        targetReleaseId:
-          type: integer
-          format: int64
-        targetBuildId:
-          type: integer
-          format: int64
-        parent:
-          $ref: '#/components/schemas/AutomationObjectTree'
-        type:
-          type: string
-          example: release
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Example release name
-        order:
-          type: integer
-          format: int32
-          example: 1
-        children:
-          type: array
-          readOnly: true
-          items:
-            type: string
-            example: <Container's direct children>
-    PagedResourceCommentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/CommentResource'
-    ParameterizationText:
-      type: object
-      properties:
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ParameterInfo'
-        rawText:
-          type: string
-        htmlText:
-          type: string
-        plainText:
-          type: string
-        valueText:
-          type: string
-        editedParameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ParameterInfo'
-        plainValueText:
-          type: string
     TestCaseWithCustomFieldResource:
       type: object
       required:
@@ -1377,6 +1260,96 @@ components:
           type: string
         last_modified_date_utc:
           type: string
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        objectId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        stripHTMLValue:
+          type: string
+        propertyEditorComponent:
+          type: boolean
+    AttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        name:
+          type: string
+          example: Sample.docx
+          description: Attachment name
+        content_type:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Attachment
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
+        created_date:
+          type: string
+          format: date-time
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
+          readOnly: true
+    StatusResource:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 601
+          description: ID of Test Run's status
+        name:
+          type: string
+          example: Passed
+          description: Name of Test Run's status
+        is_default:
+          type: boolean
+          example: false
+          description: Is default or not
+        color:
+          type: string
+          example: '#0cdda8'
+          description: Color of Test Run's status
+        active:
+          type: boolean
+          example: true
+          description: Active or not
     TestRunWithParameterCreateByDatasetResource:
       type: object
       required:
@@ -1398,30 +1371,6 @@ components:
         number_of_rows:
           type: integer
           format: int64
-    ParameterValueVM:
-      type: object
-      properties:
-        id:
-          type: string
-        value:
-          type: string
-    TestStepInformationVM:
-      type: object
-      properties:
-        description:
-          type: string
-        descriptionInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        expectedResult:
-          type: string
-        actualResult:
-          type: string
-        expectedResultInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
     QueueProcessingResponseTestRunDataVM:
       type: object
       properties:
@@ -1440,23 +1389,80 @@ components:
           example: application/json
         content:
           type: string
-    TestParameter:
+    CommentResource:
       type: object
       properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
         id:
-          type: string
-        name:
-          type: string
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-        clientId:
           type: integer
           format: int64
-        projectId:
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    TestCaseWithParameterResource:
+      type: object
+      required:
+      - id
+      properties:
+        test_case_version_id:
           type: integer
           format: int64
+        id:
+          type: integer
+          format: int64
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
   securitySchemes:
     Authorization:
       type: apiKey

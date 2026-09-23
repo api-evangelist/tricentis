@@ -1,23 +1,27 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Integration Settings API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: integration-settings
+- name: Integration settings
   description: Integration Settings
 paths:
   /api/v3/projects/{projectId}/settings/integration/connections:
     get:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Get all Jira connections of a project
       description: 'Get all Jira connections of a project
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: getConnections
       parameters:
       - name: projectId
@@ -38,12 +42,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Add a new Jira connection
       description: 'Add a new Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: addNewConnection
       parameters:
       - name: projectId
@@ -96,12 +100,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/oauthAuthorizeURL:
     get:
       tags:
-      - integration-settings
+      - Integration settings
       summary: OAuth Authorize URL
       description: 'OAuth Authorize URL (for Jira Server or DC only).
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: getAuthorizeURL
       parameters:
       - name: projectId
@@ -132,12 +136,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}:
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Activate or deactivate a Jira connection
       description: 'Activate or deactivate a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: updateIntegrationConnectionStatus
       parameters:
       - name: projectId
@@ -167,12 +171,12 @@ paths:
       - Authorization: []
     delete:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Delete a Jira connection
       description: 'Delete a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: deleteConnection
       parameters:
       - name: projectId
@@ -197,12 +201,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/defect:
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Enable or disable populating Jira Unlinked Defects of a Jira connection
       description: 'Enable or disable populating Jira Unlinked Defects of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: configurePopulatingJiraUnlinkedDefects
       parameters:
       - name: projectId
@@ -233,12 +237,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/defect/mappings:
     get:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Get Jira defect mappings of a Jira connection
       description: 'Get Jira defect mappings of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: getDefectMappings
       parameters:
       - name: projectId
@@ -278,12 +282,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Add a defect mapping to a Jira connection
       description: 'Add a defect mapping to a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: addNewDefectMapping
       parameters:
       - name: projectId
@@ -323,12 +327,12 @@ paths:
       - Authorization: []
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Update a defect mapping of Jira connection
       description: 'Update a defect mapping of Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: updateDefectMapping
       parameters:
       - name: projectId
@@ -379,12 +383,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/refreshFieldSettings:
     post:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Trigger retrieving latest field settings from a JIRA connection
       description: 'Trigger retrieving the latest Defects/Requirements field settings from Jira
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: refreshFieldSettings
       parameters:
       - name: projectId
@@ -428,12 +432,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/release:
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Enable or disable Release Integration feature of a Jira connection
       description: 'Enable or disable Release Integration feature
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: toggleReleaseIntegration
       parameters:
       - name: projectId
@@ -476,12 +480,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/release/mappings:
     get:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Get Jira release mappings of a Jira connection
       description: 'Get Jira release mappings of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: getReleaseMappings
       parameters:
       - name: projectId
@@ -523,9 +527,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Add a new Jira release mapping to a Jira connection
-      description: "Add a new Jira release mapping to a Jira connection. \n\n<strong>qTest Manager version:</strong> 9.7+"
+      description: 'Add a new Jira release mapping to a Jira connection.
+
+
+        qTest Manager version: 9.7+'
       operationId: addNewReleaseMapping
       parameters:
       - name: projectId
@@ -565,9 +572,12 @@ paths:
       - Authorization: []
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Update a Release Mapping of a Jira connection
-      description: "To configure a Release Mapping of a Jira connection. \n\n<strong>qTest Manager version:</strong> 9.7+"
+      description: 'To configure a Release Mapping of a Jira connection.
+
+
+        qTest Manager version: 9.7+'
       operationId: configureReleaseMapping
       parameters:
       - name: projectId
@@ -618,12 +628,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/requirement:
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Enable or disable a Requirement Integration feature of a Jira connection
       description: 'Enable or disable a Requirement Integration feature of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: toggleRequirementIntegration
       parameters:
       - name: projectId
@@ -654,12 +664,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/requirement/mappings:
     get:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Get requirement mappings of a Jira connection
       description: 'Get requirement mappings of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: retrieveAllRequirementMappingsOfConnection
       parameters:
       - name: projectId
@@ -701,12 +711,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Add a requirement mapping to a Jira connection
       description: 'Add a requirement mapping to a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: addNewRequirementMapping
       parameters:
       - name: projectId
@@ -746,12 +756,12 @@ paths:
       - Authorization: []
     put:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Update a requirement mapping of a Jira connection
       description: 'To configure a requirement mapping of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: configureRequirementMapping
       parameters:
       - name: projectId
@@ -805,12 +815,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/retrieve:
     get:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Trigger data retrieval from an integrated Jira system
       description: 'Trigger data retrieval from an integrated Jira system
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: triggerRetrievingDataForConnection
       parameters:
       - name: projectId
@@ -845,12 +855,12 @@ paths:
   /api/v3/projects/{projectId}/settings/integration/connections/{connectionId}/{artifact}/mappings:
     delete:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Remove a Mapping of a Jira connection
       description: 'Remove a Mapping of a Jira connection
 
 
-        <strong>qTest Manager version:</strong> 9.7+'
+        qTest Manager version: 9.7+'
       operationId: removeMapping
       parameters:
       - name: projectId
@@ -893,7 +903,7 @@ paths:
   /api/v3/projects/{projectId}/settings/jira-integration/defect/retrieve:
     post:
       tags:
-      - integration-settings
+      - Integration settings
       summary: Trigger defect retrieval from an integrated Jira system
       description: ''
       operationId: triggerRetrievingDefectDataForConnection
@@ -925,7 +935,41 @@ paths:
         required: true
 components:
   schemas:
-    IntegrationConnection:
+    IntegrationReleaseMappingResponse:
+      type: object
+      properties:
+        externalProjectId:
+          type: string
+          example: '10031'
+        externalIssueTypeId:
+          type: string
+          example: Sprint
+        data_retrieval_options:
+          type: array
+          items:
+            type: string
+            example: completed
+        auto_update_release_scope:
+          type: string
+          example: 'true'
+          readOnly: true
+    IntegrationReleaseConfigurationVM:
+      type: object
+      properties:
+        autoUpdate:
+          type: boolean
+          readOnly: true
+        configurationValues:
+          $ref: '#/components/schemas/IntegrationReleaseConfigurationValues'
+        data_retrieval_options:
+          type: array
+          items:
+            type: string
+            example: completed
+        auto_update_release_scope:
+          type: string
+          example: 'true'
+    IntegrationConnectionVM:
       type: object
       properties:
         id:
@@ -944,55 +988,9 @@ components:
         web_url:
           type: string
           example: https://example.atlassian.net
-        authentication_type:
-          type: string
-          example: Token
-        username:
-          type: string
-          example: username
-        token:
-          type: string
-          example: token
-    QueueProcessingResponseFetchDataVM:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        type:
-          type: string
-          example: FETCH_LINKED_DEFECTS
-        state:
-          type: string
-          example: IN_PROCESSING
-        contentType:
-          type: string
-          example: application/json
-        content:
-          type: string
-    AutoFillConfigurationVM:
-      type: object
-      properties:
-        externalFieldId:
-          type: string
-          example: summary
-        qTestFieldIds:
-          type: string
-          example: Assigned To
-    IntegrationReleaseConfigurationValues:
-      type: object
-      properties:
-        unreleased:
-          type: boolean
-        released:
-          type: boolean
         active:
           type: boolean
-        future:
-          type: boolean
-        completed:
-          type: boolean
+          example: false
     RequirementMapping:
       type: object
       properties:
@@ -1021,58 +1019,7 @@ components:
         active_external_fields:
           type: string
           example: id,status,summary,description
-    TokenSecretVerifierHolder:
-      type: object
-      properties:
-        jiraToken:
-          type: string
-        jiraSecret:
-          type: string
-        authorizeUrl:
-          type: string
-    IntegrationReleaseMappingResponse:
-      type: object
-      properties:
-        externalProjectId:
-          type: string
-          example: '10031'
-        externalIssueTypeId:
-          type: string
-          example: Sprint
-        data_retrieval_options:
-          type: array
-          items:
-            type: string
-            example: completed
-        auto_update_release_scope:
-          type: string
-          example: 'true'
-          readOnly: true
-    NewIntegrationConnectionInfo:
-      type: object
-      properties:
-        connection_id:
-          type: integer
-          format: int64
-          example: 1
-          readOnly: true
-        status:
-          type: string
-          example: 'false'
-          readOnly: true
-    IntegrationFieldMapVM:
-      type: object
-      properties:
-        externalFieldId:
-          type: string
-          example: id
-        externalFieldName:
-          type: string
-          example: ID
-        active:
-          type: boolean
-          example: true
-    IntegrationConnectionVM:
+    IntegrationConnection:
       type: object
       properties:
         id:
@@ -1091,9 +1038,76 @@ components:
         web_url:
           type: string
           example: https://example.atlassian.net
+        authentication_type:
+          type: string
+          example: Token
+        username:
+          type: string
+          example: username
+        token:
+          type: string
+          example: token
+    IntegrationAutoFillMappingVM:
+      type: object
+      properties:
+        externalProjectId:
+          type: string
+          example: '10031'
+          readOnly: true
+        externalTypeId:
+          type: string
+          example: '10100'
+          readOnly: true
+        sendAttachmentToJira:
+          type: string
+          example: 'true'
+        configures:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoFillConfigurationVM'
+    TokenSecretVerifierHolder:
+      type: object
+      properties:
+        jiraToken:
+          type: string
+        jiraSecret:
+          type: string
+        authorizeUrl:
+          type: string
+    IntegrationReleaseConfigurationValues:
+      type: object
+      properties:
+        unreleased:
+          type: boolean
+        released:
+          type: boolean
         active:
           type: boolean
-          example: false
+        future:
+          type: boolean
+        completed:
+          type: boolean
+    IntegrationFieldMapVM:
+      type: object
+      properties:
+        externalFieldId:
+          type: string
+          example: id
+        externalFieldName:
+          type: string
+          example: ID
+        active:
+          type: boolean
+          example: true
+    AutoFillConfigurationVM:
+      type: object
+      properties:
+        externalFieldId:
+          type: string
+          example: summary
+        qTestFieldIds:
+          type: string
+          example: Assigned To
     QueueProcessingResponse:
       type: object
       properties:
@@ -1117,40 +1131,36 @@ components:
           type: string
           example: AUTOMATION_TEST_LOG
           description: Type of task after batch submit automation test logs
-    IntegrationAutoFillMappingVM:
+    NewIntegrationConnectionInfo:
       type: object
       properties:
-        externalProjectId:
-          type: string
-          example: '10031'
+        connection_id:
+          type: integer
+          format: int64
+          example: 1
           readOnly: true
-        externalTypeId:
+        status:
           type: string
-          example: '10100'
+          example: 'false'
           readOnly: true
-        sendAttachmentToJira:
-          type: string
-          example: 'true'
-        configures:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutoFillConfigurationVM'
-    IntegrationReleaseConfigurationVM:
+    QueueProcessingResponseFetchDataVM:
       type: object
       properties:
-        autoUpdate:
-          type: boolean
-          readOnly: true
-        configurationValues:
-          $ref: '#/components/schemas/IntegrationReleaseConfigurationValues'
-        data_retrieval_options:
-          type: array
-          items:
-            type: string
-            example: completed
-        auto_update_release_scope:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        type:
           type: string
-          example: 'true'
+          example: FETCH_LINKED_DEFECTS
+        state:
+          type: string
+          example: IN_PROCESSING
+        contentType:
+          type: string
+          example: application/json
+        content:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

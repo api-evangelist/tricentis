@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V2 Session API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -13,7 +13,7 @@ paths:
     post:
       tags:
       - v2-session
-      summary: Create a session.
+      summary: Create a session
       description: ''
       responses:
         201:
@@ -38,6 +38,8 @@ paths:
               $ref: '#/components/schemas/CreateSession'
         description: Session object that needs to be created.
         required: true
+      operationId: postSessions
+      x-operation-id-source: derived
   /sessions/{sessionId}:
     get:
       tags:
@@ -80,6 +82,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.session
+      operationId: getSessionsBySessionId
+      x-operation-id-source: derived
     put:
       tags:
       - v2-session
@@ -111,6 +115,8 @@ paths:
               type: object
               $ref: '#/components/schemas/Session'
         required: true
+      operationId: putSessionsBySessionId
+      x-operation-id-source: derived
     delete:
       tags:
       - v2-session
@@ -137,6 +143,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.session
+      operationId: deleteSessionsBySessionId
+      x-operation-id-source: derived
   /sessions/{sessionId}/status:
     get:
       tags:
@@ -169,6 +177,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.session
+      operationId: getSessionsBySessionIdStatus
+      x-operation-id-source: derived
     put:
       tags:
       - v2-session
@@ -211,6 +221,8 @@ paths:
                   - reviewed
         description: status string that want to change to
         required: true
+      operationId: putSessionsBySessionIdStatus
+      x-operation-id-source: derived
   /coverages/sessions:
     get:
       tags:
@@ -265,6 +277,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.session
+      operationId: getCoveragesSessions
+      x-operation-id-source: derived
   /sessions/{sessionId}/history:
     get:
       tags:
@@ -303,55 +317,10 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.session
+      operationId: getSessionsBySessionIdHistory
+      x-operation-id-source: derived
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-    AppInfo:
-      type: object
-      required:
-      - name
-      - first_action_time
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        file_size:
-          type: string
-        file_version:
-          type: string
-        path:
-          type: string
-        version:
-          type: string
-        first_action_time:
-          type: string
-        file_last_modified:
-          type: string
-        created_date:
-          type: string
-        modified_date:
-          type: string
-        incl_file_last_modified:
-          type: boolean
-        incl_file_size:
-          type: boolean
-        incl_file_version:
-          type: boolean
-        incl_path:
-          type: boolean
-        incl_version:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
     Session:
       type: object
       properties:
@@ -452,14 +421,14 @@ components:
           $ref: '#/components/schemas/AppInfos'
         sys_info:
           $ref: '#/components/schemas/SysInfo'
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     AppInfos:
       type: array
       items:
         $ref: '#/components/schemas/AppInfo'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
     CreateSession:
       type: object
       required:
@@ -571,6 +540,53 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
     History:
       type: object
       properties:

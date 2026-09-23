@@ -15,8 +15,21 @@ paths:
     post:
       tags:
       - Test Runs Fields
-      summary: Add allowed value to scheme.
-      description: "## Add allowed value to scheme.\n##### Note: Allowed Scheme names: Environments, Builds.\n##### In case of trying to add existing allowed value, it will be ignored (duplicates are not allowed) and the response will be 200.\n            \n#### Body fields:\n* **allowedValues** _(mandatory)_: Provide a list of allowed values, with each value having the following fields:\n    * **name** _(mandatory)_: name of the allowed value.\n    * **description** _(optional)_: allowed value description."
+      summary: Add allowed value to scheme
+      description: '## Add allowed value to scheme.
+
+        ##### Note: Allowed Scheme names: Environments, Builds.
+
+        ##### In case of trying to add existing allowed value, it will be ignored (duplicates are not allowed) and the response will be 200.
+
+
+        #### Body fields:
+
+        * **allowedValues** _(mandatory)_: Provide a list of allowed values, with each value having the following fields:
+
+        * **name** _(mandatory)_: name of the allowed value.
+
+        * **description** _(optional)_: allowed value description.'
       parameters:
       - name: schemeName
         in: path
@@ -51,11 +64,13 @@ paths:
           description: '`Not Found`.'
       security:
       - api_key: []
+      operationId: postV1TestRunsSchemeBySchemeNameAllowedValues
+      x-operation-id-source: derived
   /v1/test-runs/scheme/{schemeName}/allowed-values/{allowedValueName}:
     delete:
       tags:
       - Test Runs Fields
-      summary: Delete allowed value from scheme.
+      summary: Delete allowed value from scheme
       description: '## Delete allowed value from scheme.
 
         ##### Note: Allowed Scheme names: Environments, Builds.'
@@ -81,6 +96,8 @@ paths:
           description: '`Not Found`.'
       security:
       - api_key: []
+      operationId: deleteV1TestRunsSchemeBySchemeNameAllowedValuesByAllowedValueName
+      x-operation-id-source: derived
 components:
   securitySchemes:
     api_key:

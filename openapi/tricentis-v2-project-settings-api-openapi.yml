@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V2 Project Settings API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -50,6 +50,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.projectSetting
+      operationId: getProjectSettingsByProjectId
+      x-operation-id-source: derived
     put:
       tags:
       - v2-project-settings
@@ -83,6 +85,8 @@ paths:
               $ref: '#/components/schemas/ProjectSettingsV2'
         description: Project settings need to be updated
         required: true
+      operationId: putProjectSettingsByProjectId
+      x-operation-id-source: derived
   /project-settings:
     get:
       tags:
@@ -124,12 +128,17 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.projectSetting
+      operationId: getProjectSettings
+      x-operation-id-source: derived
 components:
   schemas:
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
     ProjectSettingsV2:
       type: object
       properties:
@@ -147,13 +156,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NoteTimeType'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
     NoteTimeType:
       type: object
       properties:
@@ -171,6 +173,10 @@ components:
           type: string
         name:
           type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

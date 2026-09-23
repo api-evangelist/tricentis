@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V2 Application Information API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -46,6 +46,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.applicationInformation
+      operationId: getSessionsBySessionIdAppInfos
+      x-operation-id-source: derived
     post:
       tags:
       - v2-application-information
@@ -87,6 +89,8 @@ paths:
               $ref: '#/components/schemas/AppInfo'
         description: Application information object
         required: true
+      operationId: postSessionsBySessionIdAppInfos
+      x-operation-id-source: derived
     put:
       tags:
       - v2-application-information
@@ -119,6 +123,8 @@ paths:
               $ref: '#/components/schemas/AppInfos'
         description: List of application information object
         required: true
+      operationId: putSessionsBySessionIdAppInfos
+      x-operation-id-source: derived
   /sessions/{sessionId}/app-infos/{appInfoId}:
     delete:
       tags:
@@ -151,6 +157,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.applicationInformation
+      operationId: deleteSessionsBySessionIdAppInfosByAppInfoId
+      x-operation-id-source: derived
     get:
       tags:
       - v2-application-information
@@ -186,6 +194,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.applicationInformation
+      operationId: getSessionsBySessionIdAppInfosByAppInfoId
+      x-operation-id-source: derived
     put:
       tags:
       - v2-application-information
@@ -227,12 +237,10 @@ paths:
             schema:
               $ref: '#/components/schemas/AppInfo'
         required: true
+      operationId: putSessionsBySessionIdAppInfosByAppInfoId
+      x-operation-id-source: derived
 components:
   schemas:
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     Link:
       type: object
       properties:
@@ -284,6 +292,10 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/AppInfo'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

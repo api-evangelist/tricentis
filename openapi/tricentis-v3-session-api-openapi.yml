@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 Session API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -13,7 +13,7 @@ paths:
     post:
       tags:
       - v3-session
-      summary: Create a session.
+      summary: Create a session
       description: ''
       responses:
         201:
@@ -38,11 +38,13 @@ paths:
               $ref: '#/components/schemas/CreateSession'
         description: Session object that needs to be created.
         required: true
+      operationId: postApiSessions
+      x-operation-id-source: derived
   /api/sessions/batch:
     put:
       tags:
       - v3-session
-      summary: Update multiple sessions.
+      summary: Update multiple sessions
       description: ''
       responses:
         200:
@@ -86,10 +88,12 @@ paths:
                 $ref: '#/components/schemas/Session'
         description: Sessions object that needs to be updated.
         required: true
+      operationId: putApiSessionsBatch
+      x-operation-id-source: derived
     delete:
       tags:
       - v3-session
-      summary: Delete multiple sessions.
+      summary: Delete multiple sessions
       description: ''
       responses:
         200:
@@ -133,6 +137,8 @@ paths:
                 description: session's id
         description: Sessions id.
         required: true
+      operationId: deleteApiSessionsBatch
+      x-operation-id-source: derived
   /api/sessions/{sessionId}:
     get:
       tags:
@@ -175,6 +181,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.session
+      operationId: getApiSessionsBySessionId
+      x-operation-id-source: derived
     put:
       tags:
       - v3-session
@@ -206,6 +214,8 @@ paths:
               type: object
               $ref: '#/components/schemas/Session'
         required: true
+      operationId: putApiSessionsBySessionId
+      x-operation-id-source: derived
     delete:
       tags:
       - v3-session
@@ -232,6 +242,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.session
+      operationId: deleteApiSessionsBySessionId
+      x-operation-id-source: derived
   /api/sessions/{sessionId}/status:
     get:
       tags:
@@ -264,6 +276,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.session
+      operationId: getApiSessionsBySessionIdStatus
+      x-operation-id-source: derived
     put:
       tags:
       - v3-session
@@ -306,55 +320,10 @@ paths:
                   - reviewed
         description: status string that want to change to
         required: true
+      operationId: putApiSessionsBySessionIdStatus
+      x-operation-id-source: derived
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-    AppInfo:
-      type: object
-      required:
-      - name
-      - first_action_time
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        file_size:
-          type: string
-        file_version:
-          type: string
-        path:
-          type: string
-        version:
-          type: string
-        first_action_time:
-          type: string
-        file_last_modified:
-          type: string
-        created_date:
-          type: string
-        modified_date:
-          type: string
-        incl_file_last_modified:
-          type: boolean
-        incl_file_size:
-          type: boolean
-        incl_file_version:
-          type: boolean
-        incl_path:
-          type: boolean
-        incl_version:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
     Session:
       type: object
       properties:
@@ -455,14 +424,14 @@ components:
           $ref: '#/components/schemas/AppInfos'
         sys_info:
           $ref: '#/components/schemas/SysInfo'
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     AppInfos:
       type: array
       items:
         $ref: '#/components/schemas/AppInfo'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
     CreateSession:
       type: object
       required:
@@ -574,6 +543,53 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
   securitySchemes:
     v2_auth:
       type: apiKey

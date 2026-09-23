@@ -9,13 +9,13 @@ security:
 - qtestToken: []
   qtestUrl: []
 tags:
-- name: rule
+- name: Rule
   description: Rule API
 paths:
   /rules:
     get:
       tags:
-      - rule
+      - Rule
       summary: Get all rules of a project
       description: To get all rules of a project
       parameters:
@@ -39,9 +39,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Rule'
+      operationId: getRules
+      x-operation-id-source: derived
     post:
       tags:
-      - rule
+      - Rule
       summary: Create a rule
       description: To create a rule
       responses:
@@ -68,12 +70,14 @@ paths:
             schema:
               $ref: '#/components/schemas/RuleInput'
         required: true
+      operationId: postRules
+      x-operation-id-source: derived
   /rules/{id}:
     parameters:
     - $ref: '#/components/parameters/IdPath'
     get:
       tags:
-      - rule
+      - Rule
       summary: Get a rule
       description: To get a rule by id
       responses:
@@ -91,9 +95,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Rule'
+      operationId: getRulesById
+      x-operation-id-source: derived
     put:
       tags:
-      - rule
+      - Rule
       summary: Update a rule
       responses:
         400:
@@ -119,9 +125,11 @@ paths:
             schema:
               $ref: '#/components/schemas/RuleInput'
         required: true
+      operationId: putRulesById
+      x-operation-id-source: derived
     patch:
       tags:
-      - rule
+      - Rule
       summary: Update a rule
       responses:
         400:
@@ -147,9 +155,11 @@ paths:
             schema:
               $ref: '#/components/schemas/RuleInput'
         required: true
+      operationId: patchRulesById
+      x-operation-id-source: derived
     delete:
       tags:
-      - rule
+      - Rule
       summary: Delete a rule
       description: To delete a rule
       responses:
@@ -167,53 +177,35 @@ paths:
             application/json:
               schema:
                 type: string
+      operationId: deleteRulesById
+      x-operation-id-source: derived
 components:
-  parameters:
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    FirstQuery:
-      name: first
-      in: query
-      description: Return only the first N results
-      schema:
-        type: integer
-        format: int64
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Rule:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/RuleInput'
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
     RuleInput:
       allOf:
       - $ref: '#/components/schemas/ProjectDoc'
@@ -231,37 +223,57 @@ components:
             type: array
             items:
               type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    Rule:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/RuleInput'
     Error:
       required:
       - message
       properties:
         message:
           type: string
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+  parameters:
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
   securitySchemes:
     qtestToken:
       type: apiKey

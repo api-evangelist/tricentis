@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 Config API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -37,6 +37,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api
+      operationId: getApiConfig
+      x-operation-id-source: derived
   /api/user-settings:
     get:
       tags:
@@ -54,6 +56,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api
+      operationId: getApiUserSettings
+      x-operation-id-source: derived
     put:
       tags:
       - v3-config
@@ -73,6 +77,8 @@ paths:
               $ref: '#/components/schemas/UserSettings'
         description: body
         required: true
+      operationId: putApiUserSettings
+      x-operation-id-source: derived
 components:
   schemas:
     UserSettings:

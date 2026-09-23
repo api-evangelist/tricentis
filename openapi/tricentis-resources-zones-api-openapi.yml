@@ -38,64 +38,7 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SimpleResourceApiDefinition:
-      type: object
-      description: This object can represent a Controller or a Load Generator
-      properties:
-        name:
-          type: string
-          description: Name of the controller or address of the load generator
-          example: resource.domain.com:7100
-        version:
-          type: string
-          format: x.y.z
-          description: Version of the resource
-          example: 7.0.2
-        status:
-          type: string
-          description: Status of the resource
-          enum:
-          - AVAILABLE
-          - RESERVED
-          - BUSY
     ZoneDefinition:
       type: object
       properties:
@@ -134,6 +77,26 @@ components:
           type: string
         retry-after:
           type: integer
+    SimpleResourceApiDefinition:
+      type: object
+      description: This object can represent a Controller or a Load Generator
+      properties:
+        name:
+          type: string
+          description: Name of the controller or address of the load generator
+          example: resource.domain.com:7100
+        version:
+          type: string
+          format: x.y.z
+          description: Version of the resource
+          example: 7.0.2
+        status:
+          type: string
+          description: Status of the resource
+          enum:
+          - AVAILABLE
+          - RESERVED
+          - BUSY
     Error:
       type: object
       properties:
@@ -394,6 +357,43 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+  responses:
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

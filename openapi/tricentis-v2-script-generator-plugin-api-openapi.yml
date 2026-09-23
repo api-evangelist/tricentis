@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V2 Script Generator Plugin API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -44,6 +44,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.query
+      operationId: getPlugins
+      x-operation-id-source: derived
     post:
       tags:
       - v2-script-generator-plugin
@@ -70,6 +72,8 @@ paths:
             schema:
               type: object
               $ref: '#/components/schemas/CreateScriptGeneratorPlugin'
+      operationId: postPlugins
+      x-operation-id-source: derived
   /plugins/{pluginid}:
     delete:
       tags:
@@ -94,6 +98,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.query
+      operationId: deletePluginsByPluginid
+      x-operation-id-source: derived
   /plugins/{pluginid}/file:
     get:
       tags:
@@ -118,23 +124,10 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.query
+      operationId: getPluginsByPluginidFile
+      x-operation-id-source: derived
 components:
   schemas:
-    CreateScriptGeneratorPlugin:
-      type: object
-      properties:
-        name:
-          type: string
-        desc:
-          type: string
-        category_id:
-          type: integer
-        main_file_name:
-          type: string
-        main_file_content:
-          type: string
-        main_file_content_type:
-          type: string
     ScriptGeneratorPlugin:
       type: object
       properties:
@@ -153,6 +146,21 @@ components:
         main_file_path:
           type: string
         name:
+          type: string
+    CreateScriptGeneratorPlugin:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: string
+        category_id:
+          type: integer
+        main_file_name:
+          type: string
+        main_file_content:
+          type: string
+        main_file_content_type:
           type: string
   securitySchemes:
     v2_auth:

@@ -1,23 +1,27 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Build API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: build
+- name: Build
   description: Build API
 paths:
   /api/v3/projects/{projectId}/builds:
     get:
       tags:
-      - build
+      - Build
       summary: Gets multiple Builds
       description: 'To retrieve all Builds under a Release
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: getBuilds
       parameters:
       - name: projectId
@@ -49,12 +53,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - build
+      - Build
       summary: Creates a Build
       description: 'To create a Build under a parent Release
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: create
       parameters:
       - name: projectId
@@ -91,9 +95,9 @@ paths:
   /api/v3/projects/{projectId}/builds/{buildId}:
     get:
       tags:
-      - build
+      - Build
       summary: Gets a Build
-      description: To retrieve a Build<strong>qTest Manager version:</strong> 6+
+      description: 'To retrieve a BuildqTest Manager version: 6+'
       operationId: get
       parameters:
       - name: projectId
@@ -123,12 +127,12 @@ paths:
       - Authorization: []
     put:
       tags:
-      - build
+      - Build
       summary: Updates a Build
       description: 'To update a Build
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: update
       parameters:
       - name: projectId
@@ -165,12 +169,12 @@ paths:
         required: true
     delete:
       tags:
-      - build
+      - Build
       summary: Deletes a Build
       description: 'To delete a Build
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: delete
       parameters:
       - name: projectId
@@ -200,6 +204,17 @@ paths:
       - Authorization: []
 components:
   schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     BuildResource:
       type: object
       required:
@@ -243,17 +258,6 @@ components:
             $ref: '#/components/schemas/PropertyResource'
         release:
           $ref: '#/components/schemas/ReleaseWithCustomFieldResource'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     PropertyResource:
       type: object
       required:

@@ -1,23 +1,27 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Search API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: search
+- name: Search
   description: Search API
 paths:
   /api/v3/projects/{projectId}/comments:
     post:
       tags:
-      - search
+      - Search
       summary: Queries Comments
       description: 'To search for comments
 
 
-        <strong>qTest Manager version:</strong> 7.6+'
+        qTest Manager version: 7.6+'
       operationId: searchCommentWithQuery
       parameters:
       - name: projectId
@@ -74,12 +78,12 @@ paths:
   /api/v3/projects/{projectId}/histories:
     post:
       tags:
-      - search
+      - Search
       summary: Queries objects' histories
-      description: 'To query histories of Requirements, Test Cases, Test Runs and <em>internal</em> Defects
+      description: 'To query histories of Requirements, Test Cases, Test Runs and internal Defects
 
 
-        <strong>qTest Manager version:</strong> 7.6+'
+        qTest Manager version: 7.6+'
       operationId: queryHistories
       parameters:
       - name: projectId
@@ -139,9 +143,9 @@ paths:
   /api/v3/projects/{projectId}/search:
     post:
       tags:
-      - search
+      - Search
       summary: Queries objects
-      description: This API mimics the Data Query function of qTest Manager web app. It provides the capability to query Requirements, Test Cases, Test Runs and <em>internal</em> Defects
+      description: This API mimics the Data Query function of qTest Manager web app. It provides the capability to query Requirements, Test Cases, Test Runs and internal Defects
       operationId: searchArtifact
       parameters:
       - name: projectId
@@ -256,6 +260,92 @@ paths:
         required: true
 components:
   schemas:
+    HistoryQueryParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        object_type:
+          type: string
+          example: test-cases
+        fields:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          description: "Specify a structured query to retrieve history of objects specified in attribute object_query above\n\nOnly these 2 criteria are supported:\n\n created: it can be used for querying by updated date of the object. \n\nIts values need to be in ISO Date format. Applicable operator include: =, <>, &lt;= and >= \n\nauthor:it can be used for querying by Id of the users who made the update. Applicable operators include: = and <>\n\nYou can use operators and and or to combine an unlimited number of criteria above"
+        object_query:
+          type: string
+          description: Specify a structured query to search for qTest objects. Refer to attribute query in the request body of Query Objects API
+    QueryCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    LinkedObject:
+      type: object
+      properties:
+        object_type:
+          type: string
+        object_id:
+          type: integer
+          format: int64
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
     HistoryResource:
       type: object
       properties:
@@ -281,98 +371,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HistoryChange'
-    CommentQueryParams:
-      type: object
-      required:
-      - object_type
-      properties:
-        start:
-          type: string
-          format: date-time
-          description: 'StartDate with format: yyyy-MM-dd''T''HH:mm:ss.SSSZ or yyyy-MM-dd''T''HH:mm:ssZZ"'
-        end:
-          type: string
-          format: date-time
-          description: 'EndDate with format: yyyy-MM-dd''T''HH:mm:ss.SSSZ or yyyy-MM-dd''T''HH:mm:ssZZ"'
-        object_type:
-          type: string
-          example: requirements
-          description: 'Only support comments for object types: [requirements, defects, test-cases, test-runs]'
-        fields:
-          type: array
-          description: Specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included
-          uniqueItems: true
-          items:
-            type: string
-            example: '*'
-        object:
-          type: integer
-          format: int64
-          description: Id of the object from which you want to retrieve comments
-        author:
-          type: integer
-          format: int64
-          example: 1
-          description: Id of the user who made the comments
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    RepresentationModel:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-    HistoryQueryParams:
-      type: object
-      required:
-      - object_type
-      properties:
-        object_type:
-          type: string
-          example: test-cases
-        fields:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            example: '*'
-        query:
-          type: string
-          description: "Specify a structured query to retrieve history of objects specified in attribute object_query above\n\nOnly these 2 criteria are supported:\n\n created: it can be used for querying by updated date of the object. \n\nIts values need to be in ISO Date format. Applicable operator include: =, <>, &lt;= and >= \n\nauthor:it can be used for querying by Id of the users who made the update. Applicable operators include: = and <>\n\nYou can use operators and and or to combine an unlimited number of criteria above"
-        object_query:
-          type: string
-          description: Specify a structured query to search for qTest objects. Refer to attribute query in the request body of Query Objects API
-    ArtifactSearchParams:
-      type: object
-      required:
-      - object_type
-      properties:
-        object_type:
-          type: string
-          example: test-cases
-          description: Its value can be requirements, test-cases, test-runs, test-cycles, test-logs, builds or defects
-        fields:
-          type: array
-          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
-          uniqueItems: true
-          items:
-            type: string
-            example: '*'
-        query:
-          type: string
-          example: '''name'' ~ ''qTest'''
-          description: Represent text as Data Query
     PagedResource:
       type: object
       properties:
@@ -429,6 +427,78 @@ components:
           description: Data of records
           items:
             $ref: '#/components/schemas/HistoryResource'
+    ArtifactSearchParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        object_type:
+          type: string
+          example: test-cases
+          description: Its value can be requirements, test-cases, test-runs, test-cycles, test-logs, builds or defects
+        fields:
+          type: array
+          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          example: '''name'' ~ ''qTest'''
+          description: Represent text as Data Query
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    RepresentationModel:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+    CommentQueryParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: 'StartDate with format: yyyy-MM-dd''T''HH:mm:ss.SSSZ or yyyy-MM-dd''T''HH:mm:ssZZ"'
+        end:
+          type: string
+          format: date-time
+          description: 'EndDate with format: yyyy-MM-dd''T''HH:mm:ss.SSSZ or yyyy-MM-dd''T''HH:mm:ssZZ"'
+        object_type:
+          type: string
+          example: requirements
+          description: 'Only support comments for object types: [requirements, defects, test-cases, test-runs]'
+        fields:
+          type: array
+          description: Specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        object:
+          type: integer
+          format: int64
+          description: Id of the object from which you want to retrieve comments
+        author:
+          type: integer
+          format: int64
+          example: 1
+          description: Id of the user who made the comments
     HistoryChange:
       type: object
       properties:
@@ -438,72 +508,6 @@ components:
           type: string
         new_value:
           type: string
-    LinkedObject:
-      type: object
-      properties:
-        object_type:
-          type: string
-        object_id:
-          type: integer
-          format: int64
-    CommentResource:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          description: Created date of Comment
-        updated:
-          type: string
-          format: date-time
-          description: Last updated date of Comment
-        userId:
-          type: integer
-          format: int64
-          example: 5202
-          description: ID of the User who create this Comment
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 2602608
-          description: ID of the Comment
-        content:
-          type: string
-          example: The comment's content
-          description: Comment text
-    QueryCommentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/CommentResource'
   securitySchemes:
     Authorization:
       type: apiKey

@@ -89,18 +89,6 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
       content:
@@ -119,8 +107,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     error_401:
       description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:
@@ -132,6 +132,57 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    metrics:
+      type: object
+      properties:
+        color:
+          type: string
+          description: The color of the curve in the Test Analysis graph. Format hexadecimal.
+          example: '#d2b067'
+        elementPath:
+          type: string
+          description: 'The full path to the element of the metric, separated with /. The element must be a transaction. The special value ''all-transactions'' means &lt;All Transactions&gt;. Note: for compatibility reasons with older Test configurations, the elementPath may be a UUID, prefer replace it with the path to the transaction.'
+          example: scenario1/Actions/myTransaction
+        isDisplayed:
+          type: boolean
+          description: True to display the line of this metric in the overview graph. False to hide it.
+        isObjective:
+          type: boolean
+          description: True if the objective is enabled and will be used to determine the test result status.
+        objectiveValue:
+          type: number
+          description: The user-defined value of the objective of the metric. If referenceTestResultId is specified, it is replaced by the value of the metric for this test result. This value is ignored when objectiveType is not MANUAL. Required when isObjective is true.
+          format: double
+          example: 0.5
+        statistic:
+          type: string
+          description: The statistic of the metric
+          enum:
+          - Perc 99
+          - Perc 95
+          - Perc 90
+          - Perc 50
+          - Min
+          - Avg
+          - Max
+          - Count
+          - Errors
+          - Elements per Second
+          - Error rate
+          - Min.TTFB
+          - Avg.TTFB
+          - Max.TTFB
+          - Std Deviation
+      description: The metrics shown in Test Analysis. One metric represents one objective and is displayed as one curve in Test Analysis graph.
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     TestSettingsApiResponseDto:
       type: object
       properties:
@@ -212,57 +263,6 @@ components:
           description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
           format: int32
           example: 10
-    metrics:
-      type: object
-      properties:
-        color:
-          type: string
-          description: The color of the curve in the Test Analysis graph. Format hexadecimal.
-          example: '#d2b067'
-        elementPath:
-          type: string
-          description: 'The full path to the element of the metric, separated with /. The element must be a transaction. The special value ''all-transactions'' means &lt;All Transactions&gt;. Note: for compatibility reasons with older Test configurations, the elementPath may be a UUID, prefer replace it with the path to the transaction.'
-          example: scenario1/Actions/myTransaction
-        isDisplayed:
-          type: boolean
-          description: True to display the line of this metric in the overview graph. False to hide it.
-        isObjective:
-          type: boolean
-          description: True if the objective is enabled and will be used to determine the test result status.
-        objectiveValue:
-          type: number
-          description: The user-defined value of the objective of the metric. If referenceTestResultId is specified, it is replaced by the value of the metric for this test result. This value is ignored when objectiveType is not MANUAL. Required when isObjective is true.
-          format: double
-          example: 0.5
-        statistic:
-          type: string
-          description: The statistic of the metric
-          enum:
-          - Perc 99
-          - Perc 95
-          - Perc 90
-          - Perc 50
-          - Min
-          - Avg
-          - Max
-          - Count
-          - Errors
-          - Elements per Second
-          - Error rate
-          - Min.TTFB
-          - Avg.TTFB
-          - Max.TTFB
-          - Std Deviation
-      description: The metrics shown in Test Analysis. One metric represents one objective and is displayed as one curve in Test Analysis graph.
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
     Error:
       type: object
       properties:

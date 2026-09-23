@@ -11,7 +11,19 @@ paths:
     get:
       operationId: GetTestResultEvents
       summary: Test Result events
-      description: "List the events of the specified Test Result according to the method parameters.\n___\n*Sortable fields :*\n  - offset\n  - fullname\n  - code\n  - source\n"
+      description: 'List the events of the specified Test Result according to the method parameters.
+
+        ___
+
+        *Sortable fields :*
+
+        - offset
+
+        - fullname
+
+        - code
+
+        - source'
       tags:
       - Results|Events
       parameters:
@@ -47,7 +59,31 @@ paths:
     post:
       operationId: PostTestResultCustomEvent
       summary: Create a Test Result custom event
-      description: "Creates a Test Result custom event.\n\nCustom events stored by this endpoint can be retrieved using the [GetTestResultEvents](#/Results/GetTestResultEvents) endpoint.\n\nCustom events allow you to associate to a Test Result events that occurred outside of NeoLoad.\n\nCustom events can have two different kinds of timeframe:\n  - INSTANT: an event having a timestamp and a duration of 0 seconds.\n  - TIME_RANGE: an event having a start timestamp and an end timestamp.\n\nCustom events timestamps are in seconds.\n\nThe maximum of custom events per Test Result is 1000.\n\nCustom events must match some constraints, see <a href=\"#model-PostCustomEventRequest\">PostCustomEventRequest model</a> to get more details.\n____\n"
+      description: 'Creates a Test Result custom event.
+
+
+        Custom events stored by this endpoint can be retrieved using the GetTestResultEvents endpoint.
+
+
+        Custom events allow you to associate to a Test Result events that occurred outside of NeoLoad.
+
+
+        Custom events can have two different kinds of timeframe:
+
+        - INSTANT: an event having a timestamp and a duration of 0 seconds.
+
+        - TIME_RANGE: an event having a start timestamp and an end timestamp.
+
+
+        Custom events timestamps are in seconds.
+
+
+        The maximum of custom events per Test Result is 1000.
+
+
+        Custom events must match some constraints, see PostCustomEventRequest model to get more details.
+
+        ____'
       tags:
       - Results|Events
       parameters:
@@ -93,7 +129,27 @@ paths:
     patch:
       operationId: PatchTestResultCustomEvent
       summary: Partially update a Test Result custom event
-      description: "Update a field of an existing custom event:\n  - endTimestamp\n  - description\n  - url\n\nCustom events with INSTANT timeframe can be patched to TIME_RANGE timeframe by setting an endTimestamp different than the startTimestamp.\n\nCustom events with TIME_RANGE timeframe can be patched to INSTANT timeframe by setting an endTimestamp equals to the startTimestamp.\n\nCustom events timestamps are in seconds.\n\nRequest to patch a custom event has some constraints, see <a href=\"#model-PatchCustomEventRequest\">PatchCustomEventRequest model</a> to get more details.\n____\n"
+      description: 'Update a field of an existing custom event:
+
+        - endTimestamp
+
+        - description
+
+        - url
+
+
+        Custom events with INSTANT timeframe can be patched to TIME_RANGE timeframe by setting an endTimestamp different than the startTimestamp.
+
+
+        Custom events with TIME_RANGE timeframe can be patched to INSTANT timeframe by setting an endTimestamp equals to the startTimestamp.
+
+
+        Custom events timestamps are in seconds.
+
+
+        Request to patch a custom event has some constraints, see PatchCustomEventRequest model to get more details.
+
+        ____'
       tags:
       - Results|Events
       parameters:
@@ -141,21 +197,50 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
+  responses:
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    event-id:
-      name: eventId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result event.
-      schema:
-        type: string
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
     page_offset:
       name: offset
       in: query
@@ -164,6 +249,13 @@ components:
       schema:
         type: integer
         default: 0
+    event-id:
+      name: eventId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result event.
+      schema:
+        type: string
     event_types:
       name: types
       in: query
@@ -177,6 +269,13 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/EventType'
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
     result-id:
       name: resultId
       in: path
@@ -200,114 +299,7 @@ components:
       description: The key to sort the elements on. It may begin with a '+' or a '-' to specify an ascending or descending sort order. The list of available keys can be found in the endpoint description.
       schema:
         type: string
-  responses:
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    PatchCustomEventError_400:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 404
-        message:
-          type: string
-          example: Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
-      description: '- HTTP 400 | Code: 400 | Message : Error while parsing json body for custom event.
-
-        - HTTP 400 | Code: 405 | Message : Event end timestamp is before the event start timestamp.
-
-        - HTTP 400 | Code: 406 | Message : Event end timestamp is in the future. Make sure the timestamp is in seconds.
-
-        - HTTP 400 | Code: 407 | Message : Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
-
-        - HTTP 400 | Code: 413 | Message : Event description is too long.
-
-        - HTTP 400 | Code: 414 | Message : Event url is too long.
-
-        '
-    PatchCustomEventResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of the custom event patched.
-        offset:
-          type: number
-          example: 1000
-          description: Custom event start timestamp in milliseconds, relative to bench start timestamp.
-        duration:
-          type: number
-          example: 1000
-          description: Custom event duration in milliseconds.
-        timeframe:
-          type: string
-          enum:
-          - TIME_RANGE
-          - INSTANT
-          default: TIME_RANGE
-        fullname:
-          type: string
-          example: myCustomEvent
-          description: Custom event name. Max length 256 chars.
-        code:
-          type: string
-          example: Application Error
-          description: Custom event code. Max length 64 chars.
-        source:
-          type: string
-          example: APM
-          description: Custom event source. Max length 32 chars.
-        description:
-          type: string
-          description: Custom event description. Max length 512 chars.
-        url:
-          type: string
-          description: Custom event URL. Max length 2048 chars.
-    ArrayOfEventDefinition:
-      type: array
-      items:
-        $ref: '#/components/schemas/EventDefinition'
     RateLimitError:
       type: object
       properties:
@@ -317,168 +309,6 @@ components:
           type: string
         retry-after:
           type: integer
-    EventType:
-      type: string
-      enum:
-      - ERROR
-      - SLA
-      - ALERT
-      - CUSTOM
-      - OBJECTIVE
-      description: Type of the event
-    EventDefinition:
-      type: object
-      properties:
-        id:
-          type: string
-        code:
-          type: string
-        elementid:
-          type: string
-          format: uuid
-        fullname:
-          type: string
-        offset:
-          type: integer
-          format: int64
-        type:
-          $ref: '#/components/schemas/EventType'
-        duration:
-          type: integer
-        source:
-          type: string
-    PostCustomEventRequest:
-      type: object
-      properties:
-        startTimestamp:
-          type: number
-          example: 1600000000
-          description: Custom event start epoch timestamp in seconds. If not provided, current time is used.
-        endTimestamp:
-          type: number
-          example: 1600000000
-          description: Custom event end epoch timestamp in seconds. If not provided, then either startTimestamp is used (when timeframe is INSTANT), or Test Result end timestamp is used (when timeframe is TIME_RANGE).
-        timeframe:
-          type: string
-          enum:
-          - TIME_RANGE
-          - INSTANT
-          default: TIME_RANGE
-        fullname:
-          type: string
-          example: myCustomEvent
-          description: Custom event name. Max length 256 chars.
-        code:
-          type: string
-          example: Application Error
-          description: Custom event code. Max length 64 chars.
-        source:
-          type: string
-          example: APM
-          description: Custom event source. Max length 32 chars. If not set, source is set to 'External'.
-        description:
-          type: string
-          description: Custom event description. Max length 2048 chars.
-        url:
-          type: string
-          description: Custom event URL. Max length 2048 chars.
-      required:
-      - fullname
-    PostCustomEventError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 404
-        message:
-          type: string
-          example: Event start timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
-      description: '- HTTP 400 | Code: 400 | Message : Error while parsing json body for custom event.
-
-        - HTTP 400 | Code: 401 | Message : Bench did not start yet.
-
-        - HTTP 400 | Code: 402 | Message : Event start timestamp is before bench start timestamp.
-
-        - HTTP 400 | Code: 403 | Message : Event start timestamp is in the future. Make sure the timestamp is in seconds.
-
-        - HTTP 400 | Code: 404 | Message : Event start timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
-
-        - HTTP 400 | Code: 405 | Message : Event end timestamp is before the event start timestamp.
-
-        - HTTP 400 | Code: 406 | Message : Event end timestamp is in the future. Make sure the timestamp is in seconds.
-
-        - HTTP 400 | Code: 407 | Message : Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
-
-        - HTTP 400 | Code: 408 | Message : Event with INSTANT timeframe cannot have a end timestamp.
-
-        - HTTP 400 | Code: 409 | Message : Event name is empty.
-
-        - HTTP 400 | Code: 410 | Message : Event name is too long.
-
-        - HTTP 400 | Code: 411 | Message : Event code is too long.
-
-        - HTTP 400 | Code: 412 | Message : Event source is too long.
-
-        - HTTP 400 | Code: 413 | Message : Event description is too long.
-
-        - HTTP 400 | Code: 414 | Message : Event url is too long.
-
-        - HTTP 400 | Code: 415 | Message : Max count of custom event reached.
-
-        '
-    PatchCustomEventRequest:
-      type: object
-      properties:
-        endTimestamp:
-          type: number
-          example: 1600000000
-          description: Custom event end epoch timestamp in seconds.
-        description:
-          type: string
-          description: Custom event description. Max length 2048 chars.
-        url:
-          type: string
-          description: Custom event URL. Max length 2048 chars.
-      required:
-      - id
-    PostCustomEventResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of the custom event created.
-        offset:
-          type: number
-          example: 1000
-          description: Custom event start timestamp in milliseconds, relative to bench start timestamp.
-        duration:
-          type: number
-          example: 1000
-          description: Custom event duration in milliseconds.
-        timeframe:
-          type: string
-          enum:
-          - TIME_RANGE
-          - INSTANT
-          default: TIME_RANGE
-        fullname:
-          type: string
-          example: myCustomEvent
-          description: Custom event name. Max length 256 chars.
-        code:
-          type: string
-          example: Application Error
-          description: Custom event code. Max length 64 chars.
-        source:
-          type: string
-          example: APM
-          description: Custom event source. Max length 32 chars.
-        description:
-          type: string
-          description: Custom event description. Max length 512 chars.
-        url:
-          type: string
-          description: Custom event URL. Max length 2048 chars.
     Error:
       type: object
       properties:
@@ -739,6 +569,70 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    PostCustomEventError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Event start timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+      description: '- HTTP 400 | Code: 400 | Message : Error while parsing json body for custom event.
+
+        - HTTP 400 | Code: 401 | Message : Bench did not start yet.
+
+        - HTTP 400 | Code: 402 | Message : Event start timestamp is before bench start timestamp.
+
+        - HTTP 400 | Code: 403 | Message : Event start timestamp is in the future. Make sure the timestamp is in seconds.
+
+        - HTTP 400 | Code: 404 | Message : Event start timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+
+        - HTTP 400 | Code: 405 | Message : Event end timestamp is before the event start timestamp.
+
+        - HTTP 400 | Code: 406 | Message : Event end timestamp is in the future. Make sure the timestamp is in seconds.
+
+        - HTTP 400 | Code: 407 | Message : Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+
+        - HTTP 400 | Code: 408 | Message : Event with INSTANT timeframe cannot have a end timestamp.
+
+        - HTTP 400 | Code: 409 | Message : Event name is empty.
+
+        - HTTP 400 | Code: 410 | Message : Event name is too long.
+
+        - HTTP 400 | Code: 411 | Message : Event code is too long.
+
+        - HTTP 400 | Code: 412 | Message : Event source is too long.
+
+        - HTTP 400 | Code: 413 | Message : Event description is too long.
+
+        - HTTP 400 | Code: 414 | Message : Event url is too long.
+
+        - HTTP 400 | Code: 415 | Message : Max count of custom event reached.
+
+        '
+    PatchCustomEventError_400:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+      description: '- HTTP 400 | Code: 400 | Message : Error while parsing json body for custom event.
+
+        - HTTP 400 | Code: 405 | Message : Event end timestamp is before the event start timestamp.
+
+        - HTTP 400 | Code: 406 | Message : Event end timestamp is in the future. Make sure the timestamp is in seconds.
+
+        - HTTP 400 | Code: 407 | Message : Event end timestamp is after the bench end timestamp. Make sure the timestamp is in seconds.
+
+        - HTTP 400 | Code: 413 | Message : Event description is too long.
+
+        - HTTP 400 | Code: 414 | Message : Event url is too long.
+
+        '
     PatchCustomEventError_404:
       type: object
       properties:
@@ -751,6 +645,168 @@ components:
       description: '- HTTP 404 | Code: 417 | Message : Event with this eventId cannot be found for this bench.
 
         '
+    PostCustomEventRequest:
+      type: object
+      properties:
+        startTimestamp:
+          type: number
+          example: 1600000000
+          description: Custom event start epoch timestamp in seconds. If not provided, current time is used.
+        endTimestamp:
+          type: number
+          example: 1600000000
+          description: Custom event end epoch timestamp in seconds. If not provided, then either startTimestamp is used (when timeframe is INSTANT), or Test Result end timestamp is used (when timeframe is TIME_RANGE).
+        timeframe:
+          type: string
+          enum:
+          - TIME_RANGE
+          - INSTANT
+          default: TIME_RANGE
+        fullname:
+          type: string
+          example: myCustomEvent
+          description: Custom event name. Max length 256 chars.
+        code:
+          type: string
+          example: Application Error
+          description: Custom event code. Max length 64 chars.
+        source:
+          type: string
+          example: APM
+          description: Custom event source. Max length 32 chars. If not set, source is set to 'External'.
+        description:
+          type: string
+          description: Custom event description. Max length 2048 chars.
+        url:
+          type: string
+          description: Custom event URL. Max length 2048 chars.
+      required:
+      - fullname
+    PatchCustomEventRequest:
+      type: object
+      properties:
+        endTimestamp:
+          type: number
+          example: 1600000000
+          description: Custom event end epoch timestamp in seconds.
+        description:
+          type: string
+          description: Custom event description. Max length 2048 chars.
+        url:
+          type: string
+          description: Custom event URL. Max length 2048 chars.
+      required:
+      - id
+    PatchCustomEventResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the custom event patched.
+        offset:
+          type: number
+          example: 1000
+          description: Custom event start timestamp in milliseconds, relative to bench start timestamp.
+        duration:
+          type: number
+          example: 1000
+          description: Custom event duration in milliseconds.
+        timeframe:
+          type: string
+          enum:
+          - TIME_RANGE
+          - INSTANT
+          default: TIME_RANGE
+        fullname:
+          type: string
+          example: myCustomEvent
+          description: Custom event name. Max length 256 chars.
+        code:
+          type: string
+          example: Application Error
+          description: Custom event code. Max length 64 chars.
+        source:
+          type: string
+          example: APM
+          description: Custom event source. Max length 32 chars.
+        description:
+          type: string
+          description: Custom event description. Max length 512 chars.
+        url:
+          type: string
+          description: Custom event URL. Max length 2048 chars.
+    EventDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        elementid:
+          type: string
+          format: uuid
+        fullname:
+          type: string
+        offset:
+          type: integer
+          format: int64
+        type:
+          $ref: '#/components/schemas/EventType'
+        duration:
+          type: integer
+        source:
+          type: string
+    EventType:
+      type: string
+      enum:
+      - ERROR
+      - SLA
+      - ALERT
+      - CUSTOM
+      - OBJECTIVE
+      description: Type of the event
+    ArrayOfEventDefinition:
+      type: array
+      items:
+        $ref: '#/components/schemas/EventDefinition'
+    PostCustomEventResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the custom event created.
+        offset:
+          type: number
+          example: 1000
+          description: Custom event start timestamp in milliseconds, relative to bench start timestamp.
+        duration:
+          type: number
+          example: 1000
+          description: Custom event duration in milliseconds.
+        timeframe:
+          type: string
+          enum:
+          - TIME_RANGE
+          - INSTANT
+          default: TIME_RANGE
+        fullname:
+          type: string
+          example: myCustomEvent
+          description: Custom event name. Max length 256 chars.
+        code:
+          type: string
+          example: Application Error
+          description: Custom event code. Max length 64 chars.
+        source:
+          type: string
+          example: APM
+          description: Custom event source. Max length 32 chars.
+        description:
+          type: string
+          description: Custom event description. Max length 512 chars.
+        url:
+          type: string
+          description: Custom event URL. Max length 2048 chars.
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

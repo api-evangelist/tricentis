@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 System Information API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -53,6 +53,8 @@ paths:
               $ref: '#/components/schemas/CreateSysInfo'
         description: System information object
         required: true
+      operationId: postApiSessionsBySessionIdSysInfos
+      x-operation-id-source: derived
   /api/sessions/{sessionId}/sys-infos/{sysInfoId}:
     get:
       tags:
@@ -91,6 +93,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.systemInfomation
+      operationId: getApiSessionsBySessionIdSysInfosBySysInfoId
+      x-operation-id-source: derived
     put:
       tags:
       - v3-system-information
@@ -130,6 +134,8 @@ paths:
             schema:
               type: object
               $ref: '#/components/schemas/SysInfo'
+      operationId: putApiSessionsBySessionIdSysInfosBySysInfoId
+      x-operation-id-source: derived
     delete:
       tags:
       - v3-system-information
@@ -163,55 +169,10 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.systemInfomation
+      operationId: deleteApiSessionsBySessionIdSysInfosBySysInfoId
+      x-operation-id-source: derived
 components:
   schemas:
-    CreateSysInfo:
-      type: object
-      properties:
-        ado:
-          type: string
-        incl_ado:
-          type: boolean
-        app_version:
-          type: string
-        incl_app_version:
-          type: boolean
-        available_ram:
-          type: string
-        incl_available_ram:
-          type: boolean
-        cpu:
-          type: string
-        incl_cpu:
-          type: boolean
-        ie:
-          type: string
-        incl_ie:
-          type: boolean
-        os:
-          type: string
-        incl_os:
-          type: boolean
-        ram:
-          type: string
-        incl_ram:
-          type: boolean
-        resolutions:
-          type: string
-        incl_resolutions:
-          type: boolean
-        user:
-          type: string
-        incl_user:
-          type: boolean
-        computer_name:
-          type: string
-        incl_computer_name:
-          type: boolean
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     Link:
       type: object
       properties:
@@ -268,6 +229,53 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
+    CreateSysInfo:
+      type: object
+      properties:
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

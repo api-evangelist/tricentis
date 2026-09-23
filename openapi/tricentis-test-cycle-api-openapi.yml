@@ -1,6 +1,10 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Test Cycle API
 servers:
@@ -91,7 +95,7 @@ paths:
       description: 'To create a Test Cycle
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: createCycle
       parameters:
       - name: projectId
@@ -144,7 +148,7 @@ paths:
       description: 'To retrieve a Test Cycle
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: getTestCycle
       parameters:
       - name: projectId
@@ -183,7 +187,7 @@ paths:
       description: 'To update a Test Cycle or move it to another container
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: updateCycle
       parameters:
       - name: projectId
@@ -240,7 +244,7 @@ paths:
       description: 'To delete a Test Cycle
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: deleteCycle
       parameters:
       - name: projectId
@@ -274,27 +278,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     TestCycleResource:
       type: object
       properties:
@@ -348,28 +331,6 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
     TestSuiteWithCustomFieldResource:
       type: object
       required:
@@ -428,6 +389,49 @@ components:
         target_build_id:
           type: integer
           format: int64
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
   securitySchemes:
     Authorization:
       type: apiKey

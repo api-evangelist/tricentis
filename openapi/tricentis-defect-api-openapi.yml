@@ -1,6 +1,10 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Defect API
 servers:
@@ -111,7 +115,7 @@ paths:
       description: 'To retrieve a Defect
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: getDefect
       parameters:
       - name: projectId
@@ -143,7 +147,7 @@ paths:
       description: 'To update a Defect
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: updateDefect
       parameters:
       - name: projectId
@@ -192,7 +196,7 @@ paths:
       description: 'To retrieve all Comments of a Defect
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: getComments
       parameters:
       - name: projectId
@@ -240,7 +244,7 @@ paths:
       description: 'To add a Comment to a Defect
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: addComment
       parameters:
       - name: projectId
@@ -280,7 +284,7 @@ paths:
       description: 'To retrieve a specific Comment of a Defect
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: getDefectCommentById
       parameters:
       - name: projectId
@@ -319,7 +323,7 @@ paths:
       description: 'To update a specific Comment of a Defect
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: updateComment
       parameters:
       - name: projectId
@@ -365,7 +369,7 @@ paths:
       description: 'To delete a specific Comment of a Defect
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: deleteComment
       parameters:
       - name: projectId
@@ -399,7 +403,7 @@ paths:
       - Authorization: []
 components:
   schemas:
-    AttachmentResource:
+    PagedResourceCommentResource:
       type: object
       properties:
         links:
@@ -407,72 +411,26 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
-        name:
-          type: string
-          example: Sample.docx
-          description: Attachment name
-        content_type:
-          type: string
-          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-          description: Attachment content type
-        data:
-          type: string
-          description: Used for uploading and ignored during download
-        id:
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
           type: integer
           format: int64
-          example: 1
-          description: ID of the Attachment
-        web_url:
-          type: string
-          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
-          description: Web URL to Attachment
-          readOnly: true
-        created_date:
-          type: string
-          format: date-time
-          description: The date Attachment was created
-        author:
-          $ref: '#/components/schemas/AttachmentAuthor'
-        artifact_id:
-          type: integer
-          format: int64
-          example: 1
-          description: Artifact ID which Attachment linked to
-          readOnly: true
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
     AttachmentAuthor:
       type: object
       properties:
@@ -493,6 +451,47 @@ components:
           type: string
           example: Last name of the User
           description: Last name of the User
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     DefectResource:
       type: object
       properties:
@@ -543,7 +542,7 @@ components:
           example: https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1
           description: Web url to the Defect
           readOnly: true
-    PagedResourceCommentResource:
+    AttachmentResource:
       type: object
       properties:
         links:
@@ -551,56 +550,61 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/CommentResource'
-    CommentResource:
-      type: object
-      properties:
-        created:
+        name:
           type: string
-          format: date-time
-          description: Created date of Comment
-        updated:
+          example: Sample.docx
+          description: Attachment name
+        content_type:
           type: string
-          format: date-time
-          description: Last updated date of Comment
-        userId:
-          type: integer
-          format: int64
-          example: 5202
-          description: ID of the User who create this Comment
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
         id:
           type: integer
           format: int64
-          example: 2602608
-          description: ID of the Comment
-        content:
+          example: 1
+          description: ID of the Attachment
+        web_url:
           type: string
-          example: The comment's content
-          description: Comment text
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
+        created_date:
+          type: string
+          format: date-time
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
+          readOnly: true
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
   securitySchemes:
     Authorization:
       type: apiKey

@@ -15,7 +15,7 @@ paths:
     get:
       tags:
       - Attachments
-      summary: Get attachment of a test run.
+      summary: Get attachment of a test run
       parameters:
       - name: test-run-key
         in: path
@@ -144,11 +144,21 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: getV1ProjectsByProjectKeyTestRunsByTestRunKeyAttachments
+      x-operation-id-source: derived
     post:
       tags:
       - Attachments
-      summary: Upload attachment to a test run.
-      description: "## Initiate the attachment upload process for a test run.\n   Max Attachments Size allowed is 50MB (Per attachment).\n### After you use this endpoint, you need to do the following:\n* Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.\n* Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}."
+      summary: Upload attachment to a test run
+      description: '## Initiate the attachment upload process for a test run.
+
+        Max Attachments Size allowed is 50MB (Per attachment).
+
+        ### After you use this endpoint, you need to do the following:
+
+        * Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.
+
+        * Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}.'
       parameters:
       - name: test-run-key
         in: path
@@ -313,11 +323,13 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyTestRunsByTestRunKeyAttachments
+      x-operation-id-source: derived
   /v1/projects/{project-key}/test-runs/attachments/{attachmentId}:
     get:
       tags:
       - Attachments
-      summary: Get attachment link.
+      summary: Get attachment link
       parameters:
       - name: attachmentId
         in: path
@@ -433,12 +445,22 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: getV1ProjectsByProjectKeyTestRunsAttachmentsByAttachmentId
+      x-operation-id-source: derived
   /v1/projects/{project-key}/test-runs/{test-run-key}/steps/{step-number}/attachments:
     post:
       tags:
       - Attachments
-      summary: Upload attachment to a test run step.
-      description: "## Initiate the attachment upload process for a test run step.\n   Max Attachments Size allowed is 50MB (Per attachment).\n### After you use this endpoint, you need to do the following:\n* Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.\n* Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}."
+      summary: Upload attachment to a test run step
+      description: '## Initiate the attachment upload process for a test run step.
+
+        Max Attachments Size allowed is 50MB (Per attachment).
+
+        ### After you use this endpoint, you need to do the following:
+
+        * Send a PUT request to the S3 link with the attachment as binary data to upload the attachment file with the information received.
+
+        * Confirm the upload is finished with the PUT request v1/projects/{project-key}test-runs/attachments/{id}.'
       parameters:
       - name: test-run-key
         in: path
@@ -610,12 +632,21 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyTestRunsByTestRunKeyStepsByStepNumberAttachments
+      x-operation-id-source: derived
   /v1/projects/{project-key}/test-runs/attachments/{id}:
     put:
       tags:
       - Attachments
-      summary: Query if attachment is uploaded to storage.
-      description: "## Query if the attachment file was successfully uploaded to storage.\n            \nUse this to confirm the following:\n* Upload information was received from **POST** v1/projects/{project-key}/test-runs/{test-run-key}/attachments\n* The file successfully uploaded to storage as binary data."
+      summary: Query if attachment is uploaded to storage
+      description: '## Query if the attachment file was successfully uploaded to storage.
+
+
+        Use this to confirm the following:
+
+        * Upload information was received from **POST** v1/projects/{project-key}/test-runs/{test-run-key}/attachments
+
+        * The file successfully uploaded to storage as binary data.'
       parameters:
       - name: id
         in: path
@@ -733,6 +764,8 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: putV1ProjectsByProjectKeyTestRunsAttachmentsById
+      x-operation-id-source: derived
 components:
   securitySchemes:
     api_key:

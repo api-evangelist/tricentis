@@ -9,13 +9,13 @@ security:
 - qtestToken: []
   qtestUrl: []
 tags:
-- name: action
+- name: Action
   description: Action API
 paths:
   /actions:
     get:
       tags:
-      - action
+      - Action
       summary: Get all actions of a project
       description: To get all actions of a project
       parameters:
@@ -39,9 +39,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Action'
+      operationId: getActions
+      x-operation-id-source: derived
     post:
       tags:
-      - action
+      - Action
       summary: Create an action
       description: To create an action
       responses:
@@ -68,12 +70,14 @@ paths:
             schema:
               $ref: '#/components/schemas/ActionInput'
         required: true
+      operationId: postActions
+      x-operation-id-source: derived
   /actions/{id}:
     parameters:
     - $ref: '#/components/parameters/IdPath'
     get:
       tags:
-      - action
+      - Action
       summary: Get an action
       description: To get an action by id
       responses:
@@ -91,9 +95,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Action'
+      operationId: getActionsById
+      x-operation-id-source: derived
     put:
       tags:
-      - action
+      - Action
       summary: Update an action
       description: To update an action
       responses:
@@ -120,9 +126,11 @@ paths:
             schema:
               $ref: '#/components/schemas/ActionInput'
         required: true
+      operationId: putActionsById
+      x-operation-id-source: derived
     patch:
       tags:
-      - action
+      - Action
       summary: Update an action
       description: To update an action
       responses:
@@ -149,9 +157,11 @@ paths:
             schema:
               $ref: '#/components/schemas/ActionInput'
         required: true
+      operationId: patchActionsById
+      x-operation-id-source: derived
     delete:
       tags:
-      - action
+      - Action
       summary: Delete an action
       description: To delete an action
       responses:
@@ -169,37 +179,45 @@ paths:
             application/json:
               schema:
                 type: string
+      operationId: deleteActionsById
+      x-operation-id-source: derived
 components:
-  parameters:
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    FirstQuery:
-      name: first
-      in: query
-      description: Return only the first N results
-      schema:
-        type: integer
-        format: int64
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Action:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ActionInput'
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
     ActionInput:
       allOf:
       - $ref: '#/components/schemas/ProjectDoc'
@@ -212,53 +230,47 @@ components:
             type: string
           code:
             type: string
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
     Error:
       required:
       - message
       properties:
         message:
           type: string
-    Action:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/ActionInput'
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+  parameters:
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
   securitySchemes:
     qtestToken:
       type: apiKey

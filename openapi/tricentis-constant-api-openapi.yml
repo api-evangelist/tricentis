@@ -39,6 +39,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Constant'
+      operationId: getConstants
+      x-operation-id-source: derived
     post:
       tags:
       - constant
@@ -68,6 +70,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ConstantInput'
         required: true
+      operationId: postConstants
+      x-operation-id-source: derived
   /constants/{id}:
     parameters:
     - $ref: '#/components/parameters/IdPath'
@@ -91,6 +95,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Constant'
+      operationId: getConstantsById
+      x-operation-id-source: derived
     put:
       tags:
       - constant
@@ -120,6 +126,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ConstantInput'
         required: true
+      operationId: putConstantsById
+      x-operation-id-source: derived
     patch:
       tags:
       - constant
@@ -149,6 +157,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ConstantInput'
         required: true
+      operationId: patchConstantsById
+      x-operation-id-source: derived
     delete:
       tags:
       - constant
@@ -169,29 +179,35 @@ paths:
             application/json:
               schema:
                 type: string
+      operationId: deleteConstantsById
+      x-operation-id-source: derived
 components:
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    FirstQuery:
-      name: first
-      in: query
-      description: Return only the first N results
-      schema:
-        type: integer
-        format: int64
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: ID of the project
-      schema:
-        type: string
     OffsetQuery:
       name: offset
       in: query
@@ -199,12 +215,43 @@ components:
       schema:
         type: integer
         format: int64
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
   schemas:
+    Constant:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ConstantInput'
     Doc:
       required:
       - id
       properties:
         id:
+          type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
           type: string
     ProjectDoc:
       required:
@@ -212,10 +259,6 @@ components:
       properties:
         projectId:
           type: string
-    Constant:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/ConstantInput'
     ConstantInput:
       allOf:
       - $ref: '#/components/schemas/ProjectDoc'
@@ -229,37 +272,6 @@ components:
             type: boolean
           value:
             type: string
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     qtestToken:
       type: apiKey

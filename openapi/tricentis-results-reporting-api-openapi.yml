@@ -16,9 +16,7 @@ paths:
 
         Element statistics can be mixed with monitor statistics. Only limitation is around PERCENTILES_DURATION element statistic that cannot be mixed with other element statistics neither with monitor statistics.
 
-        The graph width is limited to 800 pixels and the graph height is limited to 400 pixels.
-
-        '
+        The graph width is limited to 800 pixels and the graph height is limited to 400 pixels.'
       tags:
       - Results|Reporting
       requestBody:
@@ -63,9 +61,7 @@ paths:
     post:
       operationId: GetTestReportResult
       summary: Test Result report
-      description: 'Provides the PDF Test Result report.
-
-        '
+      description: Provides the PDF Test Result report.
       tags:
       - Results|Reporting
       parameters:
@@ -149,18 +145,6 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
       content:
@@ -179,8 +163,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     error_401:
       description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:
@@ -191,36 +187,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
   schemas:
-    TestResultIdDefinition:
+    RateLimitError:
       type: object
-      description: The map of Test Result ids with their own statistics and counters definition.
       properties:
-        elementIds:
-          type: array
-          description: The list of elements.
-          items:
-            $ref: '#/components/schemas/ElementIdDefinition'
-        counterIds:
-          type: array
-          description: The list of counters.
-          items:
-            type: string
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     ElementIdDefinition:
       type: object
       properties:
@@ -284,87 +260,6 @@ components:
             example:
             - AVG_DURATION
             - ELEMENTS_PER_SECOND
-    TestResultRasterMultiConfiguration:
-      type: object
-      properties:
-        width:
-          type: integer
-          format: int32
-          description: The width of the generated graph.
-          example: 600
-        height:
-          type: integer
-          format: int32
-          description: The height of the generated graph.
-          example: 200
-        title:
-          type: string
-          description: The main title of the generated graph.
-          example: My Test
-        rasterType:
-          type: string
-          enum:
-          - PNG
-          - JPEG
-          description: The type of the generated graph. Can be PNG or JPEG. Default is PNG.
-          example: PNG
-        xAxisLabel:
-          type: string
-          description: The xAxis label of the generated graph.
-          example: X Axis
-        yAxisLabel:
-          type: string
-          description: The yAxis label of the generated graph.
-          example: Y Axis
-        legend:
-          type: boolean
-          description: If true the legend is displayed. Default is true.
-          example: true
-        multiYAxis:
-          type: boolean
-          description: If true, display one axis per serie. Default is false.
-          example: true
-        theme:
-          type: string
-          enum:
-          - DARK
-          - LIGHT
-          - TRANSPARENT
-          description: The theme of the graph. Default is TRANSPARENT.
-          example: DARK
-        resultIds:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/TestResultIdDefinition'
-          example:
-            d30fdcc2-319e-4be5-818e-f1978907a3ce:
-              elementIds:
-              - id: all-requests
-                statistics:
-                - AVG_DURATION
-              - id: b8bfc48e-b7ed-48f8-b5ea-404d3faf15cb
-                statistics:
-                - AVG_DURATION
-                - ELEMENTS_PER_SECOND
-            dbe589d4-a10c-48d1-999e-da1fafa5df28:
-              elementIds:
-              - id: all-requests
-                statistics:
-                - AVG_DURATION
-              counterIds:
-              - a4bed45a-06b2-48e1-94fd-3ea979e4f360
-              - b5be82ff-3563-4812-93a5-4ea888e4e254
-    TestResultReportBody:
-      type: object
-      properties:
-        language:
-          type: string
-          description: The language of the report, only en and fr are supported. If none is set, default will be en.
-          example: en
-        timeZone:
-          type: string
-          description: The timezone of the report. If none is set, default will be UTC.
-          example: Europe/Paris
     TestResultRasterConfiguration:
       type: object
       properties:
@@ -430,15 +325,17 @@ components:
           example:
           - a4bed45a-06b2-48e1-94fd-3ea979e4f360
           - b5be82ff-3563-4812-93a5-4ea888e4e254
-    RateLimitError:
+    TestResultReportBody:
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        language:
           type: string
-        retry-after:
-          type: integer
+          description: The language of the report, only en and fr are supported. If none is set, default will be en.
+          example: en
+        timeZone:
+          type: string
+          description: The timezone of the report. If none is set, default will be UTC.
+          example: Europe/Paris
     Error:
       type: object
       properties:
@@ -699,6 +596,105 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    TestResultRasterMultiConfiguration:
+      type: object
+      properties:
+        width:
+          type: integer
+          format: int32
+          description: The width of the generated graph.
+          example: 600
+        height:
+          type: integer
+          format: int32
+          description: The height of the generated graph.
+          example: 200
+        title:
+          type: string
+          description: The main title of the generated graph.
+          example: My Test
+        rasterType:
+          type: string
+          enum:
+          - PNG
+          - JPEG
+          description: The type of the generated graph. Can be PNG or JPEG. Default is PNG.
+          example: PNG
+        xAxisLabel:
+          type: string
+          description: The xAxis label of the generated graph.
+          example: X Axis
+        yAxisLabel:
+          type: string
+          description: The yAxis label of the generated graph.
+          example: Y Axis
+        legend:
+          type: boolean
+          description: If true the legend is displayed. Default is true.
+          example: true
+        multiYAxis:
+          type: boolean
+          description: If true, display one axis per serie. Default is false.
+          example: true
+        theme:
+          type: string
+          enum:
+          - DARK
+          - LIGHT
+          - TRANSPARENT
+          description: The theme of the graph. Default is TRANSPARENT.
+          example: DARK
+        resultIds:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TestResultIdDefinition'
+          example:
+            d30fdcc2-319e-4be5-818e-f1978907a3ce:
+              elementIds:
+              - id: all-requests
+                statistics:
+                - AVG_DURATION
+              - id: b8bfc48e-b7ed-48f8-b5ea-404d3faf15cb
+                statistics:
+                - AVG_DURATION
+                - ELEMENTS_PER_SECOND
+            dbe589d4-a10c-48d1-999e-da1fafa5df28:
+              elementIds:
+              - id: all-requests
+                statistics:
+                - AVG_DURATION
+              counterIds:
+              - a4bed45a-06b2-48e1-94fd-3ea979e4f360
+              - b5be82ff-3563-4812-93a5-4ea888e4e254
+    TestResultIdDefinition:
+      type: object
+      description: The map of Test Result ids with their own statistics and counters definition.
+      properties:
+        elementIds:
+          type: array
+          description: The list of elements.
+          items:
+            $ref: '#/components/schemas/ElementIdDefinition'
+        counterIds:
+          type: array
+          description: The list of counters.
+          items:
+            type: string
+  parameters:
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

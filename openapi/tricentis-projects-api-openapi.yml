@@ -7,15 +7,13 @@ servers:
 - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
 - url: https://api.ttm4j.tricentis.com
 tags:
-- name: projects
+- name: Projects
 paths:
   /projects:
-    servers:
-    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
     get:
       summary: Get entities from projects
       tags:
-      - projects
+      - Projects
       parameters:
       - $ref: '#/components/parameters/top'
       - $ref: '#/components/parameters/skip'
@@ -120,6 +118,10 @@ paths:
       security:
       - ApiKeyAuth: []
       - BasicAuth: []
+      operationId: getProjects
+      x-operation-id-source: derived
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
   /projects({id}):
     parameters:
     - description: 'key: id'
@@ -132,12 +134,10 @@ paths:
         - type: string
         format: int64
         example: '42'
-    servers:
-    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
     get:
       summary: Get entity from projects by key
       tags:
-      - projects
+      - Projects
       parameters:
       - name: $select
         description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
@@ -179,13 +179,15 @@ paths:
       security:
       - ApiKeyAuth: []
       - BasicAuth: []
-  /v1/projects:
+      operationId: getProjects({id})
+      x-operation-id-source: derived
     servers:
-    - url: https://api.ttm4j.tricentis.com
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+  /v1/projects:
     get:
       tags:
-      - projects
-      summary: Get Jira project(s).
+      - Projects
+      summary: Get Jira project(s)
       description: '## Get or retrieve Jira project(s).'
       parameters:
       - name: keys
@@ -373,42 +375,11 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: getV1Projects
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.ttm4j.tricentis.com
 components:
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-  parameters:
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
-      schema:
-        type: integer
-        minimum: 0
-      example: 50
-    count:
-      name: $count
-      in: query
-      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
-      schema:
-        type: boolean
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
-      schema:
-        type: integer
-        minimum: 0
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
-      schema:
-        type: string
   schemas:
     error:
       type: object
@@ -551,6 +522,41 @@ components:
       - type: number
       - type: string
       description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BasicAuth:
       type: http

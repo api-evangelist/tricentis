@@ -1,20 +1,24 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Attachment API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: attachment
+- name: Attachment
   description: Attachment API
 paths:
   /api/v3/projects/{projectId}/attachments:
     get:
       tags:
-      - attachment
+      - Attachment
       summary: Searches for Attachments
-      description: To query for attachments of <em>Releases</em>, <em>Builds</em>, <em>Requirements</em>, <em>Test Cases</em>, <em>Test Logs</em>, <em>Test Steps</em> or <em>Defects</em>
+      description: To query for attachments of Releases, Builds, Requirements, Test Cases, Test Logs, Test Steps or Defects
       operationId: search
       parameters:
       - name: projectId
@@ -108,7 +112,7 @@ paths:
   /api/v3/projects/{projectId}/{objectType}/{objectId}/attachments:
     get:
       tags:
-      - attachment
+      - Attachment
       summary: Gets all Attachments of an Object
       description: To retrieve all Attachments of a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect
       operationId: getAttachmentsOf
@@ -156,7 +160,7 @@ paths:
   /api/v3/projects/{projectId}/{objectType}/{objectId}/attachments/{attachmentId}:
     get:
       tags:
-      - attachment
+      - Attachment
       summary: Gets an Attachment of an Object
       description: To retrieve an Attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect
       operationId: getAttachment
@@ -216,7 +220,7 @@ paths:
   /api/v3/projects/{projectId}/{objectType}/{objectId}/blob-handles:
     post:
       tags:
-      - attachment
+      - Attachment
       summary: Uploads an Attachment to an Object
       description: To upload an Attachment to a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect
       operationId: upload
@@ -288,12 +292,12 @@ paths:
   /api/v3/projects/{projectId}/{objectType}/{objectId}/blob-handles/{blobHandleId}:
     delete:
       tags:
-      - attachment
+      - Attachment
       summary: Deletes an Attachment from an Object
       description: 'To delete an Attachment from a Release, Build, Requirement, Test Case, Test Log, Test Step, Test Step Log or Defect
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: deleteByBlobHandleId
       parameters:
       - name: projectId
@@ -352,6 +356,40 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OutputStream:
+      type: object
+    PagedResourceAttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     Message:
       type: object
       properties:
@@ -362,8 +400,6 @@ components:
           example: Error message
           description: Error message text
           readOnly: true
-    OutputStream:
-      type: object
     AttachmentResource:
       type: object
       properties:
@@ -405,17 +441,6 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     AttachmentAuthor:
       type: object
       properties:
@@ -436,27 +461,6 @@ components:
           type: string
           example: Last name of the User
           description: Last name of the User
-    PagedResourceAttachmentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
   securitySchemes:
     Authorization:
       type: apiKey

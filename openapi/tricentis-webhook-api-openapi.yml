@@ -1,18 +1,22 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Webhook API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: webhook
+- name: Webhook
   description: Webhook
 paths:
   /api/v3/webhooks:
     get:
       tags:
-      - webhook
+      - Webhook
       summary: Gets list of all registered webhooks
       description: To retrieve list of all registered webhooks
       operationId: getAllWebhooks
@@ -29,7 +33,7 @@ paths:
       - Authorization: []
     post:
       tags:
-      - webhook
+      - Webhook
       summary: Registers a webhook
       description: To register a webhook
       operationId: createWebhook
@@ -129,7 +133,7 @@ paths:
   /api/v3/webhooks/events:
     get:
       tags:
-      - webhook
+      - Webhook
       summary: Get list of webhook event names
       description: To retrieve list of all available event names for webhook registering
       operationId: getAllEventNames
@@ -147,7 +151,7 @@ paths:
   /api/v3/webhooks/{webhookId}:
     get:
       tags:
-      - webhook
+      - Webhook
       summary: Gets a webhook
       description: To retrieve details of a registered webhook
       operationId: getWebhookById
@@ -169,7 +173,7 @@ paths:
       - Authorization: []
     put:
       tags:
-      - webhook
+      - Webhook
       summary: Updates a webhook
       description: ''
       operationId: updateWebhook
@@ -276,7 +280,7 @@ paths:
         required: true
     delete:
       tags:
-      - webhook
+      - Webhook
       summary: Deletes a webhook
       description: To delete a registered webhook
       operationId: deleteWebhookById
@@ -298,6 +302,26 @@ paths:
       - Authorization: []
 components:
   schemas:
+    WebhookRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        events:
+          type: array
+          items:
+            type: string
+        secretKey:
+          type: string
+        responseType:
+          type: string
+        projectIds:
+          type: array
+          items:
+            type: integer
+            format: int64
     WebhookVM:
       type: object
       properties:
@@ -318,26 +342,6 @@ components:
         lastModifiedDate:
           type: string
           format: date-time
-        secretKey:
-          type: string
-        responseType:
-          type: string
-        projectIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-    WebhookRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-        events:
-          type: array
-          items:
-            type: string
         secretKey:
           type: string
         responseType:

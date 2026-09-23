@@ -243,9 +243,10 @@ paths:
     get:
       operationId: GetTestRawResultElement
       summary: Test Result raw data of a TRANSACTION element
-      description: 'Provides the Test Result raw data for an element of category TRANSACTION, with a content as CSV or JSON file. <br /><br /> <b><i>Retention period for raw data is 7 days after which this will be permanently deleted.</i></b>
+      description: 'Provides the Test Result raw data for an element of category TRANSACTION, with a content as CSV or JSON file.
 
-        '
+
+        Retention period for raw data is 7 days after which this will be permanently deleted.'
       tags:
       - Results|Elements
       parameters:
@@ -320,227 +321,44 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  parameters:
-    result-format:
-      name: format
-      in: query
-      required: true
-      schema:
-        type: string
-        enum:
-        - CSV
-        - JSON
-        default: CSV
-      description: The format of the Test Result data.
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    element_id:
-      name: elementId
-      in: path
-      required: true
-      description: Unique identifier representing a specific element.
-      schema:
-        type: string
+  responses:
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Points:
-      type: array
-      items:
-        $ref: '#/components/schemas/Point'
-    PercentilesPoints:
-      description: Representation of a percentile.
-      type: object
-      properties:
-        percent:
-          type: number
-          format: float
-          description: The k-th percentile where  0.0 < k <= 100.0.
-        duration:
-          type: number
-          format: float
-          description: Value (duration in milliseconds) of this k-th percentiles.
-    Point:
-      type: object
-      properties:
-        from:
-          type: integer
-          format: int64
-          description: ''
-        to:
-          type: integer
-          format: int64
-          description: ''
-        AVG_DURATION:
-          type: number
-          format: float
-          description: ''
-        MIN_DURATION:
-          type: number
-          format: float
-          description: ''
-        MAX_DURATION:
-          type: number
-          format: float
-          description: ''
-        COUNT:
-          type: number
-          format: float
-          description: ''
-        THROUGHPUT:
-          type: number
-          format: float
-          description: ''
-        ELEMENTS_PER_SECOND:
-          type: number
-          format: float
-          description: ''
-        ERRORS:
-          type: number
-          format: float
-          description: ''
-        ERRORS_PER_SECOND:
-          type: number
-          format: float
-          description: ''
-        ERROR_RATE:
-          type: number
-          format: float
-          description: ''
-        AVG_TTFB:
-          type: number
-          format: float
-          description: ''
-        MIN_TTFB:
-          type: number
-          format: float
-          description: ''
-        MAX_TTFB:
-          type: number
-          format: float
-          description: ''
-        AVG:
-          type: number
-          format: float
-          description: ''
-    ElementValues:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
-          description: Count statistics are the number of full executions of an element of a User Path. If the element is interrupted (because of error or end of test), then the count number is not incremented.
-        elementPerSecond:
-          type: number
-          format: float
-          description: Number of iterations of the element per second.
-        minDuration:
-          type: integer
-          format: int64
-          description: Shortest response time, in milliseconds.
-        maxDuration:
-          type: integer
-          format: int64
-          description: Longest response time, in milliseconds.
-        sumDuration:
-          type: integer
-          format: int64
-          description: Sum of response time of all iterations, in milliseconds.
-        avgDuration:
-          type: number
-          format: float
-          description: Average response time, in milliseconds.
-        minTTFB:
-          type: integer
-          format: int64
-          description: Shortest time to first byte, in milliseconds.
-        maxTTFB:
-          type: integer
-          format: int64
-          description: Longest time to first byte, in milliseconds.
-        sumTTFB:
-          type: integer
-          format: int64
-          description: Sum of time to first byte of all iterations, in milliseconds.
-        avgTTFB:
-          type: number
-          format: float
-          description: Average time to first byte, in milliseconds.
-        sumDownloadedBytes:
-          type: integer
-          format: int64
-          description: Total size of network traffic for the element, in bytes.
-        downloadedBytesPerSecond:
-          type: number
-          format: float
-          description: Average size of network traffic for the element, in bytes per seconds.
-        successCount:
-          type: integer
-          format: int64
-          description: Count of succeeded iterations.
-        successPerSecond:
-          type: number
-          format: float
-          description: Count of succeeded iterations per second.
-        successRate:
-          type: number
-          format: float
-          description: Percentage of succeeded iterations out of count.
-        failureCount:
-          type: integer
-          format: int64
-          description: Count of failed iterations.
-        failurePerSecond:
-          type: number
-          format: float
-          description: Count of failed iterations per second.
-        failureRate:
-          type: number
-          format: float
-          description: Percentage of failed iterations out of count.
-        percentile50:
-          type: number
-          format: float
-          description: 50th percentile of the element duration, in milliseconds.
-        percentile90:
-          type: number
-          format: float
-          description: 90th percentile of the element duration, in milliseconds.
-        percentile95:
-          type: number
-          format: float
-          description: 95th percentile of the element duration, in milliseconds.
-        percentile99:
-          type: number
-          format: float
-          description: 99th percentile of the element duration, in milliseconds.
-        standardDeviation:
-          type: number
-          format: float
-          description: Standard deviation of the element duration, in milliseconds.
-    ArrayOfElementDefinition:
-      type: array
-      items:
-        $ref: '#/components/schemas/ElementDefinition'
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
     Percentiles:
       description: An array of object representing available percentiles.
       example:
@@ -573,31 +391,27 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/PercentilesPoints'
-    ElementDefinition:
+    RateLimitError:
       type: object
       properties:
-        id:
+        code:
+          type: integer
+        message:
           type: string
-          description: Unique identifier of the element.
-          example: a6f2f595-7b62-4dc4-9368-a1cf670cd924
-        name:
-          type: string
-          description: Name of the element.
-          example: /home/login
-        path:
-          type: array
-          description: Full path of the element including the element itself.
-          items:
-            type: string
-          example:
-          - UserPath
-          - Actions
-          - Transaction login
-          - Login page
-          - /home/login
-        type:
-          type: string
-          description: Type of the element.
+        retry-after:
+          type: integer
+    PercentilesPoints:
+      description: Representation of a percentile.
+      type: object
+      properties:
+        percent:
+          type: number
+          format: float
+          description: The k-th percentile where  0.0 < k <= 100.0.
+        duration:
+          type: number
+          format: float
+          description: Value (duration in milliseconds) of this k-th percentiles.
     Sla:
       type: object
       properties:
@@ -608,90 +422,6 @@ components:
           - WARNING
           - FAILED
           - NO SLA
-    TestElementRawResult:
-      description: An array of object representing raw results.
-      example:
-      - Elapsed;Time;User Path;Virtual User ID;Parent;Element;Response time;Success;Population;Zone
-      - 5559;2020-06-04T12:40:07.278+02:00;"BrowserUser_Create_report";0-7;"Actions";"Home";2929;yes;"MyPopulationSmallCities";"Default zone"
-      - 5632;2020-06-04T12:40:07.351+02:00;"BrowserUser_Create_report";0-13;"Actions";"Home";3005;yes;"MyPopulationBigCities";"Default zone"
-      - 6398;2020-06-04T12:40:08.117+02:00;"BrowserUser_Create_report";0-8;"Actions";"Home";2512;yes;"MyPopulationSmallCities";"Default zone"
-      - 7323;2020-06-04T12:40:09.042+02:00;"BrowserUser_Create_report";0-9;"Actions";"Home";1471;yes;"MyPopulationSmallCities";"Default zone"
-      type: array
-      items:
-        type: object
-    Values:
-      type: array
-      items:
-        type: object
-        properties:
-          elementId:
-            type: string
-            description: Unique identifier of the element.
-            example: a6f2f595-7b62-4dc4-9368-a1cf670cd924
-          userpath:
-            type: string
-            description: The name of the user path in which the element is.
-            example: MyUserpath
-          count:
-            type: integer
-            format: int64
-            description: Count statistics are the number of full executions of an element of a User Path. If the element is interrupted (because of error or end of test), then the count number is not incremented.
-          elementPerSecond:
-            type: number
-            format: float
-            description: Number of iterations of the element per second.
-          minDuration:
-            type: integer
-            format: int64
-            description: Shortest response time, in milliseconds.
-          maxDuration:
-            type: integer
-            format: int64
-            description: Longest response time, in milliseconds.
-          avgDuration:
-            type: number
-            format: float
-            description: Average response time, in milliseconds.
-          minTTFB:
-            type: integer
-            format: int64
-            description: Shortest time to first byte, in milliseconds.
-          maxTTFB:
-            type: integer
-            format: int64
-            description: Longest time to first byte, in milliseconds.
-          avgTTFB:
-            type: number
-            format: float
-            description: Average time to first byte, in milliseconds.
-          failureCount:
-            type: integer
-            format: int64
-            description: Count of failed iterations.
-          failureRate:
-            type: number
-            format: float
-            description: Percentage of failed iterations out of count.
-          percentile50:
-            type: number
-            format: float
-            description: 50th percentile of the element duration, in milliseconds.
-          percentile90:
-            type: number
-            format: float
-            description: 90th percentile of the element duration, in milliseconds.
-          percentile95:
-            type: number
-            format: float
-            description: 95th percentile of the element duration, in milliseconds.
-          percentile99:
-            type: number
-            format: float
-            description: 99th percentile of the element duration, in milliseconds.
-          standardDeviation:
-            type: number
-            format: float
-            description: Standard deviation of the element duration, in milliseconds.
     Error:
       type: object
       properties:
@@ -952,43 +682,314 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-  responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Values:
+      type: array
+      items:
+        type: object
+        properties:
+          elementId:
+            type: string
+            description: Unique identifier of the element.
+            example: a6f2f595-7b62-4dc4-9368-a1cf670cd924
+          userpath:
+            type: string
+            description: The name of the user path in which the element is.
+            example: MyUserpath
+          count:
+            type: integer
+            format: int64
+            description: Count statistics are the number of full executions of an element of a User Path. If the element is interrupted (because of error or end of test), then the count number is not incremented.
+          elementPerSecond:
+            type: number
+            format: float
+            description: Number of iterations of the element per second.
+          minDuration:
+            type: integer
+            format: int64
+            description: Shortest response time, in milliseconds.
+          maxDuration:
+            type: integer
+            format: int64
+            description: Longest response time, in milliseconds.
+          avgDuration:
+            type: number
+            format: float
+            description: Average response time, in milliseconds.
+          minTTFB:
+            type: integer
+            format: int64
+            description: Shortest time to first byte, in milliseconds.
+          maxTTFB:
+            type: integer
+            format: int64
+            description: Longest time to first byte, in milliseconds.
+          avgTTFB:
+            type: number
+            format: float
+            description: Average time to first byte, in milliseconds.
+          failureCount:
+            type: integer
+            format: int64
+            description: Count of failed iterations.
+          failureRate:
+            type: number
+            format: float
+            description: Percentage of failed iterations out of count.
+          percentile50:
+            type: number
+            format: float
+            description: 50th percentile of the element duration, in milliseconds.
+          percentile90:
+            type: number
+            format: float
+            description: 90th percentile of the element duration, in milliseconds.
+          percentile95:
+            type: number
+            format: float
+            description: 95th percentile of the element duration, in milliseconds.
+          percentile99:
+            type: number
+            format: float
+            description: 99th percentile of the element duration, in milliseconds.
+          standardDeviation:
+            type: number
+            format: float
+            description: Standard deviation of the element duration, in milliseconds.
+    TestElementRawResult:
+      description: An array of object representing raw results.
+      example:
+      - Elapsed;Time;User Path;Virtual User ID;Parent;Element;Response time;Success;Population;Zone
+      - 5559;2020-06-04T12:40:07.278+02:00;"BrowserUser_Create_report";0-7;"Actions";"Home";2929;yes;"MyPopulationSmallCities";"Default zone"
+      - 5632;2020-06-04T12:40:07.351+02:00;"BrowserUser_Create_report";0-13;"Actions";"Home";3005;yes;"MyPopulationBigCities";"Default zone"
+      - 6398;2020-06-04T12:40:08.117+02:00;"BrowserUser_Create_report";0-8;"Actions";"Home";2512;yes;"MyPopulationSmallCities";"Default zone"
+      - 7323;2020-06-04T12:40:09.042+02:00;"BrowserUser_Create_report";0-9;"Actions";"Home";1471;yes;"MyPopulationSmallCities";"Default zone"
+      type: array
+      items:
+        type: object
+    ElementDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the element.
+          example: a6f2f595-7b62-4dc4-9368-a1cf670cd924
+        name:
+          type: string
+          description: Name of the element.
+          example: /home/login
+        path:
+          type: array
+          description: Full path of the element including the element itself.
+          items:
+            type: string
+          example:
+          - UserPath
+          - Actions
+          - Transaction login
+          - Login page
+          - /home/login
+        type:
+          type: string
+          description: Type of the element.
+    Points:
+      type: array
+      items:
+        $ref: '#/components/schemas/Point'
+    Point:
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int64
+          description: ''
+        to:
+          type: integer
+          format: int64
+          description: ''
+        AVG_DURATION:
+          type: number
+          format: float
+          description: ''
+        MIN_DURATION:
+          type: number
+          format: float
+          description: ''
+        MAX_DURATION:
+          type: number
+          format: float
+          description: ''
+        COUNT:
+          type: number
+          format: float
+          description: ''
+        THROUGHPUT:
+          type: number
+          format: float
+          description: ''
+        ELEMENTS_PER_SECOND:
+          type: number
+          format: float
+          description: ''
+        ERRORS:
+          type: number
+          format: float
+          description: ''
+        ERRORS_PER_SECOND:
+          type: number
+          format: float
+          description: ''
+        ERROR_RATE:
+          type: number
+          format: float
+          description: ''
+        AVG_TTFB:
+          type: number
+          format: float
+          description: ''
+        MIN_TTFB:
+          type: number
+          format: float
+          description: ''
+        MAX_TTFB:
+          type: number
+          format: float
+          description: ''
+        AVG:
+          type: number
+          format: float
+          description: ''
+    ElementValues:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+          description: Count statistics are the number of full executions of an element of a User Path. If the element is interrupted (because of error or end of test), then the count number is not incremented.
+        elementPerSecond:
+          type: number
+          format: float
+          description: Number of iterations of the element per second.
+        minDuration:
+          type: integer
+          format: int64
+          description: Shortest response time, in milliseconds.
+        maxDuration:
+          type: integer
+          format: int64
+          description: Longest response time, in milliseconds.
+        sumDuration:
+          type: integer
+          format: int64
+          description: Sum of response time of all iterations, in milliseconds.
+        avgDuration:
+          type: number
+          format: float
+          description: Average response time, in milliseconds.
+        minTTFB:
+          type: integer
+          format: int64
+          description: Shortest time to first byte, in milliseconds.
+        maxTTFB:
+          type: integer
+          format: int64
+          description: Longest time to first byte, in milliseconds.
+        sumTTFB:
+          type: integer
+          format: int64
+          description: Sum of time to first byte of all iterations, in milliseconds.
+        avgTTFB:
+          type: number
+          format: float
+          description: Average time to first byte, in milliseconds.
+        sumDownloadedBytes:
+          type: integer
+          format: int64
+          description: Total size of network traffic for the element, in bytes.
+        downloadedBytesPerSecond:
+          type: number
+          format: float
+          description: Average size of network traffic for the element, in bytes per seconds.
+        successCount:
+          type: integer
+          format: int64
+          description: Count of succeeded iterations.
+        successPerSecond:
+          type: number
+          format: float
+          description: Count of succeeded iterations per second.
+        successRate:
+          type: number
+          format: float
+          description: Percentage of succeeded iterations out of count.
+        failureCount:
+          type: integer
+          format: int64
+          description: Count of failed iterations.
+        failurePerSecond:
+          type: number
+          format: float
+          description: Count of failed iterations per second.
+        failureRate:
+          type: number
+          format: float
+          description: Percentage of failed iterations out of count.
+        percentile50:
+          type: number
+          format: float
+          description: 50th percentile of the element duration, in milliseconds.
+        percentile90:
+          type: number
+          format: float
+          description: 90th percentile of the element duration, in milliseconds.
+        percentile95:
+          type: number
+          format: float
+          description: 95th percentile of the element duration, in milliseconds.
+        percentile99:
+          type: number
+          format: float
+          description: 99th percentile of the element duration, in milliseconds.
+        standardDeviation:
+          type: number
+          format: float
+          description: Standard deviation of the element duration, in milliseconds.
+    ArrayOfElementDefinition:
+      type: array
+      items:
+        $ref: '#/components/schemas/ElementDefinition'
+  parameters:
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+    element_id:
+      name: elementId
+      in: path
+      required: true
+      description: Unique identifier representing a specific element.
+      schema:
+        type: string
+    result-format:
+      name: format
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - CSV
+        - JSON
+        default: CSV
+      description: The format of the Test Result data.
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

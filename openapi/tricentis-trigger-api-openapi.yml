@@ -9,13 +9,13 @@ security:
 - qtestToken: []
   qtestUrl: []
 tags:
-- name: trigger
+- name: Trigger
   description: Trigger API
 paths:
   /triggers:
     get:
       tags:
-      - trigger
+      - Trigger
       summary: Get all triggers of a project
       description: To get all triggers of a project
       parameters:
@@ -39,9 +39,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Trigger'
+      operationId: getTriggers
+      x-operation-id-source: derived
     post:
       tags:
-      - trigger
+      - Trigger
       summary: Create a trigger
       description: To create a trigger
       responses:
@@ -68,12 +70,14 @@ paths:
             schema:
               $ref: '#/components/schemas/TriggerInput'
         required: true
+      operationId: postTriggers
+      x-operation-id-source: derived
   /triggers/{id}:
     parameters:
     - $ref: '#/components/parameters/IdPath'
     get:
       tags:
-      - trigger
+      - Trigger
       summary: Get a trigger
       description: To get a trigger by id
       responses:
@@ -91,9 +95,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Trigger'
+      operationId: getTriggersById
+      x-operation-id-source: derived
     put:
       tags:
-      - trigger
+      - Trigger
       summary: Update a trigger
       description: To update a trigger
       responses:
@@ -120,9 +126,11 @@ paths:
             schema:
               $ref: '#/components/schemas/TriggerInput'
         required: true
+      operationId: putTriggersById
+      x-operation-id-source: derived
     patch:
       tags:
-      - trigger
+      - Trigger
       summary: Update a trigger
       description: To update a trigger
       responses:
@@ -149,9 +157,11 @@ paths:
             schema:
               $ref: '#/components/schemas/TriggerInput'
         required: true
+      operationId: patchTriggersById
+      x-operation-id-source: derived
     delete:
       tags:
-      - trigger
+      - Trigger
       summary: Delete a trigger
       description: To delete a trigger
       responses:
@@ -169,8 +179,80 @@ paths:
             application/json:
               schema:
                 type: string
+      operationId: deleteTriggersById
+      x-operation-id-source: derived
 components:
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    TriggerInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        properties:
+          name:
+            type: string
+    Trigger:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/TriggerInput'
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
   parameters:
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
     ProjectIdQuery:
       name: projectId
       in: query
@@ -185,76 +267,6 @@ components:
       description: ID of the project
       schema:
         type: string
-    FirstQuery:
-      name: first
-      in: query
-      description: Return only the first N results
-      schema:
-        type: integer
-        format: int64
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
-  schemas:
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Trigger:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/TriggerInput'
-    TriggerInput:
-      allOf:
-      - $ref: '#/components/schemas/ProjectDoc'
-      - required:
-        - name
-        properties:
-          name:
-            type: string
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     qtestToken:
       type: apiKey

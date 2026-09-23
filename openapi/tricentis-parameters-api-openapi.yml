@@ -79,6 +79,10 @@ paths:
               $ref: '#/components/schemas/CreateParameterModel'
         description: Parameter object that needs to be created
         required: true
+      summary: Create api parameters create
+      x-summary-source: derived
+      operationId: postApiV1ParametersCreate
+      x-operation-id-source: derived
   /api/v1/parameters/query:
     post:
       description: Query parameters
@@ -142,6 +146,10 @@ paths:
               $ref: '#/components/schemas/SearchParameterModel'
         description: Parameter query object.
         required: true
+      summary: Create api parameters query
+      x-summary-source: derived
+      operationId: postApiV1ParametersQuery
+      x-operation-id-source: derived
   /api/v1/parameters/bulk-query:
     post:
       description: Query parameters by identifiers
@@ -188,6 +196,10 @@ paths:
               $ref: '#/components/schemas/BulkQueryParametersRequestModel'
         description: Parameters query object.
         required: true
+      summary: Create api parameters bulk query
+      x-summary-source: derived
+      operationId: postApiV1ParametersBulkQuery
+      x-operation-id-source: derived
   /api/v1/parameters/{id}:
     get:
       description: Get a parameter by id
@@ -243,6 +255,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Get api parameters by id
+      x-summary-source: derived
+      operationId: getApiV1ParametersById
+      x-operation-id-source: derived
     delete:
       description: Delete/Archive a parameter by id
       tags:
@@ -289,6 +305,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Delete api parameters by id
+      x-summary-source: derived
+      operationId: deleteApiV1ParametersById
+      x-operation-id-source: derived
     put:
       description: Update a parameter by id
       tags:
@@ -362,6 +382,10 @@ paths:
               $ref: '#/components/schemas/UpdateParameterModel'
         description: Parameter object that needs to be updated
         required: true
+      summary: Replace api parameters by id
+      x-summary-source: derived
+      operationId: putApiV1ParametersById
+      x-operation-id-source: derived
   /api/v1/parameters/bulk-delete:
     post:
       description: Delete multiple parameters
@@ -426,6 +450,10 @@ paths:
                     example: 5a17c935b015841767bbec64
         description: List of parameter ids to be deleted
         required: true
+      summary: Create api parameters bulk delete
+      x-summary-source: derived
+      operationId: postApiV1ParametersBulkDelete
+      x-operation-id-source: derived
   /api/v1/parameters/bulk-archive:
     post:
       description: Archive multiple parameters
@@ -494,6 +522,10 @@ paths:
                   default: false
         description: List of parameter ids to be archived
         required: true
+      summary: Create api parameters bulk archive
+      x-summary-source: derived
+      operationId: postApiV1ParametersBulkArchive
+      x-operation-id-source: derived
   /api/v1/parameters/status:
     put:
       description: Update status of one or multiple parameters
@@ -564,6 +596,10 @@ paths:
                     example: 5a17c935b015841767bbec64
         description: List of parameter ids whose status are going to be updated
         required: true
+      summary: Replace api parameters status
+      x-summary-source: derived
+      operationId: putApiV1ParametersStatus
+      x-operation-id-source: derived
   /api/v1/parameters/import:
     post:
       description: Import parameters from excel file. The result is an import task id that the caller can poll to check for the importing progress/result
@@ -623,6 +659,10 @@ paths:
               required:
               - file
               - config
+      summary: Create api parameters import
+      x-summary-source: derived
+      operationId: postApiV1ParametersImport
+      x-operation-id-source: derived
   /api/v1/parameters/export:
     post:
       description: Export parameters to Excel file. The result is an export task id that the caller can poll to check for the exporting progress
@@ -688,6 +728,10 @@ paths:
                     example: 5a17c935b015841767bbec64
         description: name and parameter ids need to export
         required: true
+      summary: Create api parameters export
+      x-summary-source: derived
+      operationId: postApiV1ParametersExport
+      x-operation-id-source: derived
   /api/v1/download/parameters/export/{id}:
     get:
       description: Download exported Parameters in Excel file.
@@ -730,6 +774,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Get api download parameters export by id
+      x-summary-source: derived
+      operationId: getApiV1DownloadParametersExportById
+      x-operation-id-source: derived
   /api/v1/parameters/{pid}/values:
     post:
       description: Add new value to a parameter
@@ -799,6 +847,10 @@ paths:
                     sample parameter value 3'
         description: Multiple parameter value strings that needs to be added to the parameter, seperated by a new line character (\n)
         required: true
+      summary: Create api parameters by pid values
+      x-summary-source: derived
+      operationId: postApiV1ParametersByPidValues
+      x-operation-id-source: derived
   /api/v1/parameters/{pid}/values/{id}:
     put:
       description: Update a parameter value
@@ -863,6 +915,10 @@ paths:
               $ref: '#/components/schemas/UpdateParameterValueModel'
         description: Parameter value object that needs to be updated
         required: true
+      summary: Replace api parameters by pid values by id
+      x-summary-source: derived
+      operationId: putApiV1ParametersByPidValuesById
+      x-operation-id-source: derived
   /api/v1/parameters/{pid}/values/delete:
     post:
       description: Delete multiple parameter values
@@ -929,6 +985,10 @@ paths:
                 example: 5a17c935b015841767bbec68
         description: List of parameter value ids that needs to be deleted
         required: true
+      summary: Create api parameters by pid values delete
+      x-summary-source: derived
+      operationId: postApiV1ParametersByPidValuesDelete
+      x-operation-id-source: derived
   /api/v1/parameters/{pid}/values/query:
     post:
       description: Query parameter value
@@ -998,6 +1058,10 @@ paths:
             schema:
               $ref: '#/components/schemas/SearchParameterValueModel'
         description: Parameter value query object.
+      summary: Create api parameters by pid values query
+      x-summary-source: derived
+      operationId: postApiV1ParametersByPidValuesQuery
+      x-operation-id-source: derived
 components:
   schemas:
     SearchParameterValueModel:
@@ -1017,124 +1081,6 @@ components:
           enum:
           - asc
           - desc
-    ParameterModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: parameter id
-          example: 5a17c935b015841767bbec64
-        identifier:
-          type: string
-          description: parameter name
-          example: Sample Parameter Name
-        description:
-          type: string
-          description: parameter description
-          example: Sample Prameter Description
-        created:
-          type: string
-          description: created date in ISODate format
-          format: date-time
-        modified:
-          type: string
-          description: modified date in ISODate format
-          format: date-time
-        status:
-          type: string
-          description: parameter status active/inactive/archived
-          enum:
-          - Active
-          - Inactive
-          - Archived
-        project_ids:
-          type: array
-          description: ids of qTest Manager projects that this parameters belongs to
-          items:
-            type: number
-            example: 62592
-        tc_ids:
-          type: array
-          description: ids of qTest Manager Test Cases that this parameter is used
-          items:
-            type: string
-            example: 364482
-        ds_ids:
-          type: array
-          description: ids of datasets that this parameter is used
-          items:
-            type: string
-            example: 5a17c935b015841767bbec64
-    BulkQueryParametersRequestModel:
-      type: object
-      required:
-      - identifiers
-      properties:
-        identifiers:
-          type: array
-          description: the parameter identifiers to search for. System searches for parameter identifiers in case insensitive
-          items:
-            type: string
-            example:
-            - Param 1
-            - Param 2
-            - not found param
-        project_ids:
-          type: array
-          description: list of project ids to search for parameters that are associated to it. If no project ids is specified, query for parameters associated with any project of this client
-          items:
-            type: number
-            example: 62592
-        statuses:
-          type: array
-          description: If specified, query for parameters having one of the status in the array. If not specified at all (null or undefined), search for parameters having any status
-          items:
-            type: string
-            enum:
-            - Active
-            - Inactive
-            - Archived
-        used:
-          type: boolean
-          description: If specified, query for parameters are being used / not being used by testcases or datasets. If not specified at all (null or undefined), search for all parameters
-          example: false
-        offset:
-          type: number
-          description: page index. If this parameter is omitted or value is not set then first page will be returned
-          example: 1
-        limit:
-          type: number
-          description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
-          example: 50
-        sort_by:
-          type: string
-          description: field name to sort. Possible values are identifier | description | status | created. If this parameter is omitted or no field name is specified, system sorts parameters by last created date
-          enum:
-          - identifier
-          - description
-          - status
-          - created
-          - modified
-        sort_order:
-          type: string
-          description: either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
-          enum:
-          - asc
-          - desc
-    UpdateParameterValueModel:
-      type: object
-      required:
-      - order
-      - value
-      properties:
-        order:
-          type: number
-          description: parameter value order
-          example: 0
-        value:
-          type: string
-          description: parameter value
-          example: Update Sample Parameter Value
     SearchParameterModel:
       type: object
       properties:
@@ -1210,6 +1156,151 @@ components:
           type: string
           description: parameter identifier
           example: 5a17c935b015841767bbec64
+    BulkQueryParametersRequestModel:
+      type: object
+      required:
+      - identifiers
+      properties:
+        identifiers:
+          type: array
+          description: the parameter identifiers to search for. System searches for parameter identifiers in case insensitive
+          items:
+            type: string
+            example:
+            - Param 1
+            - Param 2
+            - not found param
+        project_ids:
+          type: array
+          description: list of project ids to search for parameters that are associated to it. If no project ids is specified, query for parameters associated with any project of this client
+          items:
+            type: number
+            example: 62592
+        statuses:
+          type: array
+          description: If specified, query for parameters having one of the status in the array. If not specified at all (null or undefined), search for parameters having any status
+          items:
+            type: string
+            enum:
+            - Active
+            - Inactive
+            - Archived
+        used:
+          type: boolean
+          description: If specified, query for parameters are being used / not being used by testcases or datasets. If not specified at all (null or undefined), search for all parameters
+          example: false
+        offset:
+          type: number
+          description: page index. If this parameter is omitted or value is not set then first page will be returned
+          example: 1
+        limit:
+          type: number
+          description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
+          example: 50
+        sort_by:
+          type: string
+          description: field name to sort. Possible values are identifier | description | status | created. If this parameter is omitted or no field name is specified, system sorts parameters by last created date
+          enum:
+          - identifier
+          - description
+          - status
+          - created
+          - modified
+        sort_order:
+          type: string
+          description: either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
+          enum:
+          - asc
+          - desc
+    ParameterModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: parameter id
+          example: 5a17c935b015841767bbec64
+        identifier:
+          type: string
+          description: parameter name
+          example: Sample Parameter Name
+        description:
+          type: string
+          description: parameter description
+          example: Sample Prameter Description
+        created:
+          type: string
+          description: created date in ISODate format
+          format: date-time
+        modified:
+          type: string
+          description: modified date in ISODate format
+          format: date-time
+        status:
+          type: string
+          description: parameter status active/inactive/archived
+          enum:
+          - Active
+          - Inactive
+          - Archived
+        project_ids:
+          type: array
+          description: ids of qTest Manager projects that this parameters belongs to
+          items:
+            type: number
+            example: 62592
+        tc_ids:
+          type: array
+          description: ids of qTest Manager Test Cases that this parameter is used
+          items:
+            type: string
+            example: 364482
+        ds_ids:
+          type: array
+          description: ids of datasets that this parameter is used
+          items:
+            type: string
+            example: 5a17c935b015841767bbec64
+    UpdateParameterModel:
+      type: object
+      required:
+      - identifier
+      - status
+      - project_ids
+      properties:
+        identifier:
+          type: string
+          description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
+          example: Sample Parameter Name
+        description:
+          type: string
+          description: The description of the new parameter
+          example: Sample Parameter Description
+        status:
+          type: string
+          description: The parameter status, must be one of the following
+          enum:
+          - Active
+          - Inactive
+        project_ids:
+          type: array
+          description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
+          items:
+            type: number
+            example: 62592
+    UpdateParameterValueModel:
+      type: object
+      required:
+      - order
+      - value
+      properties:
+        order:
+          type: number
+          description: parameter value order
+          example: 0
+        value:
+          type: string
+          description: parameter value
+          example: Update Sample Parameter Value
     CreateParameterModel:
       type: object
       required:
@@ -1314,33 +1405,6 @@ components:
                       type: string
                       description: parameter value
                       example: Sample Parameter Value
-    UpdateParameterModel:
-      type: object
-      required:
-      - identifier
-      - status
-      - project_ids
-      properties:
-        identifier:
-          type: string
-          description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
-          example: Sample Parameter Name
-        description:
-          type: string
-          description: The description of the new parameter
-          example: Sample Parameter Description
-        status:
-          type: string
-          description: The parameter status, must be one of the following
-          enum:
-          - Active
-          - Inactive
-        project_ids:
-          type: array
-          description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
-          items:
-            type: number
-            example: 62592
   securitySchemes:
     token:
       name: x-access-token

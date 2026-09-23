@@ -1,18 +1,22 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Field API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: field
+- name: Field
   description: Field API
 paths:
   /api/v3/fields/{objectType}:
     get:
       tags:
-      - field
+      - Field
       summary: Gets all site field of an object type
       description: To get all fields (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
       operationId: getAllSiteFields
@@ -74,7 +78,7 @@ paths:
       - Authorization: []
     post:
       tags:
-      - field
+      - Field
       summary: Creates a Custom Site Field of an Object Type
       description: To create a new Site Field for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
       operationId: createCustomSiteField
@@ -117,7 +121,7 @@ paths:
   /api/v3/fields/{objectType}/{fieldId}:
     get:
       tags:
-      - field
+      - Field
       summary: Gets a Custom Site Field of an Object Type
       description: To get a custom field (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
       operationId: getCustomSiteField
@@ -161,7 +165,7 @@ paths:
       - Authorization: []
     put:
       tags:
-      - field
+      - Field
       summary: Updates a Custom Site Field of an Object Type
       description: To update a custom field (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
       operationId: updateCustomSiteField
@@ -233,7 +237,7 @@ paths:
         required: true
     delete:
       tags:
-      - field
+      - Field
       summary: Deletes a Custom Site Field of an Object Type
       description: To delete a custom field (at site level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
       operationId: deleteCustomSiteField
@@ -278,7 +282,7 @@ paths:
   /api/v3/fields/{objectType}/{fieldId}/allowed-values:
     get:
       tags:
-      - field
+      - Field
       summary: Gets all allowed values of a Site Field
       description: To get all allowed values of a Site Field with Combo box/Multi selection combo box/Check box/User list data type
       operationId: getSiteFieldAllowedValues
@@ -351,7 +355,7 @@ paths:
       - Authorization: []
     post:
       tags:
-      - field
+      - Field
       summary: Creates allowed values of a Site Field
       description: Creates maximum 100 allowed values of a Site Field with Combo box/Multi selection combo box/Check box data type
       operationId: createSiteFieldAllowedValues
@@ -406,7 +410,7 @@ paths:
   /api/v3/fields/{objectType}/{fieldId}/allowed-values/{value}:
     put:
       tags:
-      - field
+      - Field
       summary: Updates an allowed value of a Site Field
       description: Update allowed values of a Site Field with Combo box/Multi selection combo box/Check box data type
       operationId: updateSiteFieldAllowedValues
@@ -463,7 +467,7 @@ paths:
         required: true
     delete:
       tags:
-      - field
+      - Field
       summary: Deletes an allowed value of a Site Field
       description: To delete an allowed value of a Site Field with Combo box/Multi selection combo box/Check box data type
       operationId: deleteSiteFieldValue
@@ -515,12 +519,12 @@ paths:
   /api/v3/projects/{projectId}/settings/{objectType}/fields:
     get:
       tags:
-      - field
+      - Field
       summary: Gets all Fields of an Object Type
       description: 'To retrieve Fields of an Object Type
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: getFields
       parameters:
       - name: projectId
@@ -564,7 +568,7 @@ paths:
       - Authorization: []
     post:
       tags:
-      - field
+      - Field
       summary: Creates a Custom Field of an Object Type
       description: To create a new custom Field for Release, Build, Requirement, Test Case, Test Suite, Test Run, or Defect
       operationId: createCustomField
@@ -655,7 +659,7 @@ paths:
   /api/v3/projects/{projectId}/settings/{objectType}/fields/{fieldId}:
     get:
       tags:
-      - field
+      - Field
       summary: Gets a Custom Field of an Object Type
       description: To get a custom field (at project level) for Release, Build, Requirement, Test Case, Test Step, Test Suite, Test Run, or Defect
       operationId: getCustomField
@@ -706,7 +710,7 @@ paths:
       - Authorization: []
     put:
       tags:
-      - field
+      - Field
       summary: Updates a Custom Field of an Object Type
       description: To update a custom field (at project level) for Release, Build, Requirement, Test Case, Test Suite, Test Run, or Defect
       operationId: updateCustomField
@@ -763,7 +767,7 @@ paths:
         required: true
     delete:
       tags:
-      - field
+      - Field
       summary: Deletes a Custom Field of an Object Type
       description: To delete a custom field (at project level) for Release, Build, Requirement, Test Case, Test Suite, Test Run, or Defect
       operationId: deleteCustomField
@@ -814,7 +818,7 @@ paths:
   /api/v3/projects/{projectId}/settings/{objectType}/fields/{fieldId}/allowed-values:
     get:
       tags:
-      - field
+      - Field
       summary: Gets all allowed values of a Project Field
       description: To get all allowed values of a Project Field with Combo box/Multi selection combo box/Check box/User list data type
       operationId: getProjectFieldAllowedValues
@@ -894,7 +898,7 @@ paths:
       - Authorization: []
     post:
       tags:
-      - field
+      - Field
       summary: Creates allowed values of a Project Field
       description: Creates maximum 100 allowed values of a Project Field with Combo box/Multi selection combo box/Check box data type
       operationId: createProjectFieldAllowedValues
@@ -955,7 +959,7 @@ paths:
   /api/v3/projects/{projectId}/settings/{objectType}/fields/{fieldId}/allowed-values/{value}:
     put:
       tags:
-      - field
+      - Field
       summary: Updates an allowed value of a Project Field
       description: Update allowed values of a Project Field with Combo box/Multi selection combo box/Check box data type
       operationId: updateProjectFieldAllowedValues
@@ -1018,7 +1022,7 @@ paths:
         required: true
     delete:
       tags:
-      - field
+      - Field
       summary: Deletes an allowed value of a Project Field
       description: To delete an allowed value of a Field (at project level) with Combo box/Multi selection combo box/Check box data type
       operationId: deleteProjectFieldValue
@@ -1075,174 +1079,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    AllowedValueResponseResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AllowedValueResource'
-    FieldResourceSwagger:
-      type: object
-      required:
-      - label
-      properties:
-        instanceType:
-          type: string
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-        attribute_type:
-          type: string
-        label:
-          type: string
-        required:
-          type: boolean
-        constrained:
-          type: boolean
-        order:
-          type: integer
-          format: int32
-        multiple:
-          type: boolean
-        data_type:
-          type: integer
-          format: int64
-          minimum: 1
-        searchable:
-          type: boolean
-        free_text_search:
-          type: boolean
-        default_value:
-          type: string
-        system_field:
-          type: boolean
-        original_name:
-          type: string
-        is_active:
-          type: boolean
-    AllowedValueInputResource:
-      type: object
-      properties:
-        default:
-          type: boolean
-        value:
-          type: integer
-          format: int64
-        label:
-          type: string
-        order:
-          type: integer
-          format: int32
-        is_default:
-          type: boolean
-        is_active:
-          type: boolean
-        color:
-          type: string
-    AllowedValueResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        value:
-          type: integer
-          format: int64
-          example: 601
-          description: Value of AllowedValue
-        label:
-          type: string
-          example: Passed
-          description: Label of AllowedValue
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of AllowedValue
-        is_default:
-          type: boolean
-          example: true
-          description: Is default value or not
-        is_active:
-          type: boolean
-          example: true
-          description: Is active or not
-        color:
-          type: string
-          example: '#c0c0c0'
-          description: 'Color of AllowedValue if Field is Test Run''s Status '
-    CustomeResourceSupport:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-    FieldInputResource:
-      type: object
-      properties:
-        label:
-          type: string
-          example: Name
-          description: Label of the Field Setting
-        required:
-          type: boolean
-          description: Is required or not
-        order:
-          type: integer
-          format: int32
-          description: Display order
-        allowed_values:
-          type: array
-          description: Allowed values
-          items:
-            $ref: '#/components/schemas/AllowedValueResource'
-        multiple:
-          type: boolean
-          description: Is allowed multiple values
-        data_type:
-          type: integer
-          format: int64
-          example: 1
-          description: Data type of the Field
-          minimum: 1
-        searchable:
-          type: boolean
-          description: Allowed full text search or not
-        default_value:
-          type: string
-          description: Default value of the Field
-        is_active:
-          type: boolean
-          description: Is active or disabled
     FieldResource:
       type: object
       required:
@@ -1312,6 +1148,174 @@ components:
           type: boolean
           example: true
           description: Is active or disabled
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
+    AllowedValueResponseResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+    FieldInputResource:
+      type: object
+      properties:
+        label:
+          type: string
+          example: Name
+          description: Label of the Field Setting
+        required:
+          type: boolean
+          description: Is required or not
+        order:
+          type: integer
+          format: int32
+          description: Display order
+        allowed_values:
+          type: array
+          description: Allowed values
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+        multiple:
+          type: boolean
+          description: Is allowed multiple values
+        data_type:
+          type: integer
+          format: int64
+          example: 1
+          description: Data type of the Field
+          minimum: 1
+        searchable:
+          type: boolean
+          description: Allowed full text search or not
+        default_value:
+          type: string
+          description: Default value of the Field
+        is_active:
+          type: boolean
+          description: Is active or disabled
+    CustomeResourceSupport:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+    AllowedValueInputResource:
+      type: object
+      properties:
+        default:
+          type: boolean
+        value:
+          type: integer
+          format: int64
+        label:
+          type: string
+        order:
+          type: integer
+          format: int32
+        is_default:
+          type: boolean
+        is_active:
+          type: boolean
+        color:
+          type: string
+    FieldResourceSwagger:
+      type: object
+      required:
+      - label
+      properties:
+        instanceType:
+          type: string
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        attribute_type:
+          type: string
+        label:
+          type: string
+        required:
+          type: boolean
+        constrained:
+          type: boolean
+        order:
+          type: integer
+          format: int32
+        multiple:
+          type: boolean
+        data_type:
+          type: integer
+          format: int64
+          minimum: 1
+        searchable:
+          type: boolean
+        free_text_search:
+          type: boolean
+        default_value:
+          type: string
+        system_field:
+          type: boolean
+        original_name:
+          type: string
+        is_active:
+          type: boolean
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
   securitySchemes:
     Authorization:
       type: apiKey

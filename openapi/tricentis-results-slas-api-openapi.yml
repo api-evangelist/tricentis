@@ -112,7 +112,58 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
+  parameters:
+    sla_status:
+      name: status
+      in: query
+      schema:
+        type: string
+        enum:
+        - PASSED
+        - WARNING
+        - FAILED
+      description: The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty.
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    sla_category:
+      name: category
+      in: query
+      schema:
+        type: string
+        enum:
+        - TRANSACTION
+        - ACTION
+        - PAGE
+        - REQUEST
+      description: The category of the element you expect to get the SLA for. It will return all the categories if the field is left empty.
   schemas:
+    SLAValueDefinition:
+      type: number
+      format: float
+      description: SLA value.
+    SLAStatusDefinition:
+      type: string
+      enum:
+      - PASSED
+      - WARNING
+      - FAILED
+      description: Status of the SLA
+    ArrayOfSLAPerTestResultDefinition:
+      type: array
+      items:
+        $ref: '#/components/schemas/SLAPerTestResultDefinition'
     SLAPerIntervalDefinition:
       type: object
       properties:
@@ -134,21 +185,6 @@ components:
           $ref: '#/components/schemas/ThresholdDefinition'
         element:
           $ref: '#/components/schemas/SLAElementDefinition'
-    SLAPerTestResultDefinition:
-      type: object
-      properties:
-        kpi:
-          $ref: '#/components/schemas/SLAKPIDefinition'
-        status:
-          $ref: '#/components/schemas/SLAStatusDefinition'
-        value:
-          $ref: '#/components/schemas/SLAValueDefinition'
-        warningThreshold:
-          $ref: '#/components/schemas/ThresholdDefinition'
-        failedThreshold:
-          $ref: '#/components/schemas/ThresholdDefinition'
-        element:
-          $ref: '#/components/schemas/SLAElementDefinition'
     SLAKPIDefinition:
       type: string
       enum:
@@ -165,20 +201,7 @@ components:
       - errors-per-sec
       - error-rate
       description: KPI
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-    ArrayOfSLAPerTestResultDefinition:
-      type: array
-      items:
-        $ref: '#/components/schemas/SLAPerTestResultDefinition'
-    SLAGlobalIndicatorDefinition:
+    SLAPerTestResultDefinition:
       type: object
       properties:
         kpi:
@@ -191,64 +214,17 @@ components:
           $ref: '#/components/schemas/ThresholdDefinition'
         failedThreshold:
           $ref: '#/components/schemas/ThresholdDefinition'
-    SLAStatusDefinition:
-      type: string
-      enum:
-      - PASSED
-      - WARNING
-      - FAILED
-      description: Status of the SLA
-    ArrayOfSLAGlobalIndicatorDefinition:
-      type: array
-      items:
-        $ref: '#/components/schemas/SLAGlobalIndicatorDefinition'
-    SLAValueDefinition:
-      type: number
-      format: float
-      description: SLA value.
-    ThresholdDefinition:
+        element:
+          $ref: '#/components/schemas/SLAElementDefinition'
+    RateLimitError:
       type: object
       properties:
-        operator:
+        code:
+          type: integer
+        message:
           type: string
-          enum:
-          - '>='
-          - <=
-          - ==
-          - btw
-          description: The operator of threshold definition
-        values:
-          type: array
-          items:
-            type: number
-            format: float
-          description: The values of threshold definition
-    SLAElementDefinition:
-      type: object
-      properties:
-        elementId:
-          type: string
-          description: Unique identifier of the element.
-        name:
-          type: string
-          description: Name of the element.
-        category:
-          type: string
-          enum:
-          - TRANSACTION
-          - ACTION
-          - PAGE
-          - REQUEST
-        userpath:
-          type: string
-          description: The name of the user path in which the element is.
-        parent:
-          type: string
-          description: The parent name of the element.
-    ArrayOfSLAPerIntervalDefinition:
-      type: array
-      items:
-        $ref: '#/components/schemas/SLAPerIntervalDefinition'
+        retry-after:
+          type: integer
     Error:
       type: object
       properties:
@@ -509,49 +485,67 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-  parameters:
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    sla_category:
-      name: category
-      in: query
-      schema:
-        type: string
-        enum:
-        - TRANSACTION
-        - ACTION
-        - PAGE
-        - REQUEST
-      description: The category of the element you expect to get the SLA for. It will return all the categories if the field is left empty.
-    sla_status:
-      name: status
-      in: query
-      schema:
-        type: string
-        enum:
-        - PASSED
-        - WARNING
-        - FAILED
-      description: The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty.
+    ArrayOfSLAPerIntervalDefinition:
+      type: array
+      items:
+        $ref: '#/components/schemas/SLAPerIntervalDefinition'
+    SLAElementDefinition:
+      type: object
+      properties:
+        elementId:
+          type: string
+          description: Unique identifier of the element.
+        name:
+          type: string
+          description: Name of the element.
+        category:
+          type: string
+          enum:
+          - TRANSACTION
+          - ACTION
+          - PAGE
+          - REQUEST
+        userpath:
+          type: string
+          description: The name of the user path in which the element is.
+        parent:
+          type: string
+          description: The parent name of the element.
+    ArrayOfSLAGlobalIndicatorDefinition:
+      type: array
+      items:
+        $ref: '#/components/schemas/SLAGlobalIndicatorDefinition'
+    ThresholdDefinition:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - '>='
+          - <=
+          - ==
+          - btw
+          description: The operator of threshold definition
+        values:
+          type: array
+          items:
+            type: number
+            format: float
+          description: The values of threshold definition
+    SLAGlobalIndicatorDefinition:
+      type: object
+      properties:
+        kpi:
+          $ref: '#/components/schemas/SLAKPIDefinition'
+        status:
+          $ref: '#/components/schemas/SLAStatusDefinition'
+        value:
+          $ref: '#/components/schemas/SLAValueDefinition'
+        warningThreshold:
+          $ref: '#/components/schemas/ThresholdDefinition'
+        failedThreshold:
+          $ref: '#/components/schemas/ThresholdDefinition'
   responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     error_400:
       description: An error occurred while processing the request. Please verify the parameters and try again.
       content:
@@ -560,6 +554,12 @@ components:
             $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:

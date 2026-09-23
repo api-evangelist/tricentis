@@ -1,6 +1,10 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Object Link API
 servers:
@@ -17,7 +21,7 @@ paths:
       description: 'To retrieve associated objects of given objects
 
 
-        <strong>qTest Manager version:</strong> 7.5+'
+        qTest Manager version: 7.5+'
       operationId: find
       parameters:
       - name: projectId
@@ -401,26 +405,6 @@ paths:
         required: true
 components:
   schemas:
-    LinkedArtifact:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of linked artifact
-        pid:
-          type: string
-          example: TC-1
-          description: PID of linked artifact
-        link_type:
-          type: string
-          example: is_covered_by
-          description: 'Type of relationship between source and linked Artifact '
-        self:
-          type: string
-          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
-          description: URL to linked artifact
     LinkedDefect:
       type: object
       properties:
@@ -488,6 +472,26 @@ components:
           description: Arrays of linked defect
           items:
             $ref: '#/components/schemas/LinkedDefect'
+    LinkedArtifact:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of linked artifact
+        pid:
+          type: string
+          example: TC-1
+          description: PID of linked artifact
+        link_type:
+          type: string
+          example: is_covered_by
+          description: 'Type of relationship between source and linked Artifact '
+        self:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
+          description: URL to linked artifact
   securitySchemes:
     Authorization:
       type: apiKey

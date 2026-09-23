@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V4 Query API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -34,6 +34,8 @@ paths:
               $ref: '#/components/schemas/CreateQuery'
         description: Create query model
         required: true
+      operationId: postApiV4Query
+      x-operation-id-source: derived
   /api/v4/query/{queryid}:
     put:
       tags:
@@ -68,6 +70,8 @@ paths:
               $ref: '#/components/schemas/Query'
         description: Update query
         required: true
+      operationId: putApiV4QueryByQueryid
+      x-operation-id-source: derived
     delete:
       tags:
       - v4-query
@@ -91,6 +95,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.query
+      operationId: deleteApiV4QueryByQueryid
+      x-operation-id-source: derived
   /api/v4/query/share:
     put:
       tags:
@@ -144,21 +150,10 @@ paths:
                     type: boolean
         description: Share queries
         required: true
+      operationId: putApiV4QueryShare
+      x-operation-id-source: derived
 components:
   schemas:
-    CreateQuery:
-      type: object
-      properties:
-        name:
-          type: string
-        queryClauses:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryClause'
-        isTeam:
-          type: boolean
-        projectId:
-          type: integer
     Query:
       type: object
       properties:
@@ -200,6 +195,19 @@ components:
           type: string
         value:
           type: string
+    CreateQuery:
+      type: object
+      properties:
+        name:
+          type: string
+        queryClauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryClause'
+        isTeam:
+          type: boolean
+        projectId:
+          type: integer
   securitySchemes:
     v2_auth:
       type: apiKey

@@ -44,7 +44,6 @@ paths:
       tags:
       - Deletion Policies
       summary: Create a new deletion policy
-      description: Create a new deletion policy
       operationId: create
       parameters:
       - name: workspaceId
@@ -83,7 +82,6 @@ paths:
       tags:
       - Deletion Policies
       summary: Get one deletion policy
-      description: Get one deletion policy
       operationId: get
       parameters:
       - name: workspaceId
@@ -162,7 +160,6 @@ paths:
       tags:
       - Deletion Policies
       summary: Delete a deletion policy
-      description: Delete a deletion policy
       operationId: delete
       parameters:
       - name: workspaceId
@@ -235,33 +232,11 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   schemas:
-    BenchDeletionPolicyApiUpdateRequestDto:
+    BenchDeletionSettingCount:
       type: object
       properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-    BenchDeletionFilterByResultName:
-      type: object
-      properties:
-        resultNamePattern:
-          type: string
-    BenchDeletionFilter:
-      type: object
-      description: filter to select element for deletion.
-      example:
-        resultNamePattern: toRemove.*
-      oneOf:
-      - $ref: '#/components/schemas/BenchDeletionFilterByProject'
-      - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
-      - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
-    BenchDeletionSettingDurationDto:
-      type: object
-      properties:
-        retentionDays:
+        retentionCount:
           type: integer
-          description: number of days before deletion
           format: int32
     BenchDeletionSetting:
       type: object
@@ -280,12 +255,6 @@ components:
           type: string
         retry-after:
           type: integer
-    BenchDeletionFilterByTestDto:
-      type: object
-      properties:
-        testSettingsId:
-          type: string
-          example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
     BenchDeletionPolicyApiFullRequestDto:
       type: object
       properties:
@@ -293,35 +262,15 @@ components:
           $ref: '#/components/schemas/BenchDeletionFilter'
         deletionSetting:
           $ref: '#/components/schemas/BenchDeletionSetting'
-    BenchDeletionPolicyApiResponseDto:
+    BenchDeletionFilter:
       type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-        id:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        lastModifiedUserName:
-          type: string
-        workspaceId:
-          type: string
-    BenchDeletionSettingCount:
-      type: object
-      properties:
-        retentionCount:
-          type: integer
-          format: int32
-    BenchDeletionFilterByProject:
-      type: object
-      properties:
-        projectName:
-          type: string
-        scenarioName:
-          type: string
+      description: filter to select element for deletion.
+      example:
+        resultNamePattern: toRemove.*
+      oneOf:
+      - $ref: '#/components/schemas/BenchDeletionFilterByProject'
+      - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
+      - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
     Error:
       type: object
       properties:
@@ -582,19 +531,55 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    BenchDeletionPolicyApiResponseDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+        id:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastModifiedUserName:
+          type: string
+        workspaceId:
+          type: string
+    BenchDeletionFilterByResultName:
+      type: object
+      properties:
+        resultNamePattern:
+          type: string
+    BenchDeletionPolicyApiUpdateRequestDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+    BenchDeletionSettingDurationDto:
+      type: object
+      properties:
+        retentionDays:
+          type: integer
+          description: number of days before deletion
+          format: int32
+    BenchDeletionFilterByTestDto:
+      type: object
+      properties:
+        testSettingsId:
+          type: string
+          example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
+    BenchDeletionFilterByProject:
+      type: object
+      properties:
+        projectName:
+          type: string
+        scenarioName:
+          type: string
   responses:
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     error_400:
       description: An error occurred while processing the request. Please verify the parameters and try again.
       content:
@@ -607,6 +592,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     error_429:
       description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
       content:
@@ -615,6 +606,12 @@ components:
             $ref: '#/components/schemas/RateLimitError'
     error_500:
       description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
       content:
         application/json:
           schema:

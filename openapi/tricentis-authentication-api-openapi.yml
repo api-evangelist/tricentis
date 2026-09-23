@@ -79,6 +79,10 @@ paths:
                   example: admin123
         description: qTest Manager URL and user credentials used to login to qTest Parameters
         required: true
+      summary: Create oauth login
+      x-summary-source: derived
+      operationId: postOauthV1Login
+      x-operation-id-source: derived
   /oauth/v1/token-login:
     post:
       description: Authenticate with qTest Manager and acquire authorized access token. Parameters API consumer must call this API in order to obtain the access token for subsequence API request.
@@ -142,6 +146,10 @@ paths:
                   example: YXBpdHJ5b3V0fGFwaS10ZXN0QHFhc3ltcGhvbnkuY29tOjE1NTQ3OTYxMjE4NDk6MDIwNTkwZTIzNDA3MmQ4NjVkMjhhODAxNTM3ZDUzZWM
         description: qTest Manager URL and qTest Manager API token used to login to qTest Parameters
         required: true
+      summary: Create oauth token login
+      x-summary-source: derived
+      operationId: postOauthV1TokenLogin
+      x-operation-id-source: derived
   /oauth/v1/logout:
     get:
       description: Logout of qTest
@@ -168,6 +176,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Get oauth logout
+      x-summary-source: derived
+      operationId: getOauthV1Logout
+      x-operation-id-source: derived
 components:
   securitySchemes:
     token:

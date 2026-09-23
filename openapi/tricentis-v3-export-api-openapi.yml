@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 Export API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -39,6 +39,8 @@ paths:
               $ref: '#/components/schemas/ExportSession'
         description: Export session object
         required: true
+      operationId: postApiExportImage
+      x-operation-id-source: derived
   /api/export/doc:
     post:
       tags:
@@ -69,6 +71,8 @@ paths:
               $ref: '#/components/schemas/ExportSession'
         description: Export session object
         required: true
+      operationId: postApiExportDoc
+      x-operation-id-source: derived
   /api/export/pdf:
     post:
       tags:
@@ -99,6 +103,8 @@ paths:
               $ref: '#/components/schemas/ExportSession'
         description: Export session object
         required: true
+      operationId: postApiExportPdf
+      x-operation-id-source: derived
   /api/export/testcase:
     post:
       tags:
@@ -129,6 +135,8 @@ paths:
               $ref: '#/components/schemas/ExportTestCase'
         description: Export testcase
         required: true
+      operationId: postApiExportTestcase
+      x-operation-id-source: derived
   /session/export/{exportId}:
     get:
       tags:
@@ -160,32 +168,10 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.export
+      operationId: getSessionExportByExportId
+      x-operation-id-source: derived
 components:
   schemas:
-    ExportScreen:
-      type: object
-      properties:
-        title:
-          type: string
-        image_key:
-          type: string
-        width":
-          type: number
-          format: double
-        height:
-          type: number
-          format: double
-        url:
-          type: string
-        steps:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
     ExportResult:
       type: object
       properties:
@@ -194,17 +180,6 @@ components:
           description: task id
         url:
           type: string
-    ExportSession:
-      type: object
-      properties:
-        session_id:
-          type: string
-        title:
-          type: string
-        screens:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportScreen'
     ExportTestCase:
       type: object
       properties:
@@ -238,6 +213,41 @@ components:
                   height:
                     type: number
                     format: double
+    ExportSession:
+      type: object
+      properties:
+        session_id:
+          type: string
+        title:
+          type: string
+        screens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportScreen'
+    ExportScreen:
+      type: object
+      properties:
+        title:
+          type: string
+        image_key:
+          type: string
+        width":
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        url:
+          type: string
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
   securitySchemes:
     v2_auth:
       type: apiKey

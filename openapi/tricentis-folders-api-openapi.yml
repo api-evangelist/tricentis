@@ -7,15 +7,13 @@ servers:
 - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
 - url: https://api.ttm4j.tricentis.com
 tags:
-- name: folders
+- name: Folders
 paths:
   /folders:
-    servers:
-    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
     get:
       summary: Get entities from folders
       tags:
-      - folders
+      - Folders
       parameters:
       - $ref: '#/components/parameters/top'
       - $ref: '#/components/parameters/skip'
@@ -108,6 +106,10 @@ paths:
       security:
       - ApiKeyAuth: []
       - BasicAuth: []
+      operationId: getFolders
+      x-operation-id-source: derived
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
   /folders({id}):
     parameters:
     - description: 'key: id'
@@ -120,12 +122,10 @@ paths:
         - type: string
         format: int64
         example: '42'
-    servers:
-    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
     get:
       summary: Get entity from folders by key
       tags:
-      - folders
+      - Folders
       parameters:
       - name: $select
         description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
@@ -163,14 +163,24 @@ paths:
       security:
       - ApiKeyAuth: []
       - BasicAuth: []
-  /v1/projects/{project-key}/folders:
+      operationId: getFolders({id})
+      x-operation-id-source: derived
     servers:
-    - url: https://api.ttm4j.tricentis.com
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+  /v1/projects/{project-key}/folders:
     get:
       tags:
-      - folders
-      summary: Get folder(s).
-      description: "## Get folders.\n            \n#### Query parameters to filter by:\n            \n* **name** : _(optional)_: The folder name.\n* **parentId** _(optional)_: The ID of the parent folder where the new folder should be located. (If not provided, only root folders will return)."
+      - Folders
+      summary: Get folder(s)
+      description: '## Get folders.
+
+
+        #### Query parameters to filter by:
+
+
+        * **name** : _(optional)_: The folder name.
+
+        * **parentId** _(optional)_: The ID of the parent folder where the new folder should be located. (If not provided, only root folders will return).'
       parameters:
       - name: name
         in: query
@@ -399,11 +409,21 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: getV1ProjectsByProjectKeyFolders
+      x-operation-id-source: derived
     post:
       tags:
-      - folders
-      summary: Create folder(s).
-      description: "## Create new folders. The body contains a list of folders to create.\n            \n#### Body fields:\n            \n* **name** : The folder name.\n* **parentId** _(optional)_ : The ID of the parent folder where the new folder should be located."
+      - Folders
+      summary: Create folder(s)
+      description: '## Create new folders. The body contains a list of folders to create.
+
+
+        #### Body fields:
+
+
+        * **name** : The folder name.
+
+        * **parentId** _(optional)_ : The ID of the parent folder where the new folder should be located.'
       parameters:
       - name: project-key
         in: path
@@ -634,14 +654,23 @@ paths:
                     message: not found
       security:
       - api_key: []
-  /v1/projects/{project-key}/folders/{folderId}:
+      operationId: postV1ProjectsByProjectKeyFolders
+      x-operation-id-source: derived
     servers:
     - url: https://api.ttm4j.tricentis.com
+  /v1/projects/{project-key}/folders/{folderId}:
     put:
       tags:
-      - folders
-      summary: Update folder.
-      description: "## Update folder.\n            \n#### Body fields:\n* **name** _(optional)_: The folder name.\n* **parentId** _(optional)_: In case parentId equal to 00000000-0000-0000-0000-000000000000, the folder will be moved to root."
+      - Folders
+      summary: Update folder
+      description: '## Update folder.
+
+
+        #### Body fields:
+
+        * **name** _(optional)_: The folder name.
+
+        * **parentId** _(optional)_: In case parentId equal to 00000000-0000-0000-0000-000000000000, the folder will be moved to root.'
       parameters:
       - name: folderId
         in: path
@@ -836,15 +865,46 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: putV1ProjectsByProjectKeyFoldersByFolderId
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.ttm4j.tricentis.com
 components:
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
     x26997ea37814ba1b9a423c590887c7a7c1262datasource.folder:
       title: folder
       type: object
@@ -923,46 +983,24 @@ components:
           - string
           - 'null'
           maxLength: 32768
-    error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            target:
-              type: string
-            details:
-              type: array
-              items:
-                type: object
-                required:
-                - code
-                - message
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-                  target:
-                    type: string
-            innererror:
-              type: object
-              description: The structure of this object is service-specific
     count:
       anyOf:
       - type: number
       - type: string
       description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
   parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
     top:
       name: $top
       in: query
@@ -971,12 +1009,6 @@ components:
         type: integer
         minimum: 0
       example: 50
-    count:
-      name: $count
-      in: query
-      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
-      schema:
-        type: boolean
     skip:
       name: $skip
       in: query
@@ -984,12 +1016,13 @@ components:
       schema:
         type: integer
         minimum: 0
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
-      schema:
-        type: string
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BasicAuth:
       type: http

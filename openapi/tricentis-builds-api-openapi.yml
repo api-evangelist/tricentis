@@ -9,13 +9,13 @@ security:
 - ApiKeyAuth: []
 - BasicAuth: []
 tags:
-- name: builds
+- name: Builds
 paths:
   /builds:
     get:
       summary: Get entities from builds
       tags:
-      - builds
+      - Builds
       parameters:
       - $ref: '#/components/parameters/top'
       - $ref: '#/components/parameters/skip'
@@ -111,6 +111,8 @@ paths:
                       $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.build'
         4XX:
           $ref: '#/components/responses/error'
+      operationId: getBuilds
+      x-operation-id-source: derived
   /builds({id}):
     parameters:
     - description: 'key: id'
@@ -126,7 +128,7 @@ paths:
     get:
       summary: Get entity from builds by key
       tags:
-      - builds
+      - Builds
       parameters:
       - name: $select
         description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
@@ -163,14 +165,9 @@ paths:
                 $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.build'
         4XX:
           $ref: '#/components/responses/error'
+      operationId: getBuilds({id})
+      x-operation-id-source: derived
 components:
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
     x26997ea37814ba1b9a423c590887c7a7c1262datasource.build:
       title: build
@@ -302,14 +299,12 @@ components:
       - type: string
       description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
   parameters:
-    top:
-      name: $top
+    search:
+      name: $search
       in: query
-      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
       schema:
-        type: integer
-        minimum: 0
-      example: 50
+        type: string
     count:
       name: $count
       in: query
@@ -323,12 +318,21 @@ components:
       schema:
         type: integer
         minimum: 0
-    search:
-      name: $search
+    top:
+      name: $top
       in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
       schema:
-        type: string
+        type: integer
+        minimum: 0
+      example: 50
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BasicAuth:
       type: http

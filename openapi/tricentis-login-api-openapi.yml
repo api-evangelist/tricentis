@@ -1,20 +1,23 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Login API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: login
+- name: Login
   description: Login API
 paths:
   /oauth/status:
     get:
       tags:
-      - login
+      - Login
       summary: Gets status of access token
-      description: Gets status of access token
       operationId: tokenStatus
       parameters:
       - name: Authorization
@@ -37,9 +40,12 @@ paths:
   /oauth/token:
     post:
       tags:
-      - login
+      - Login
       summary: Log in
-      description: "To authenticate the API client against qTest Manager and acquire authorized access token. \n\n Note: Please choose parameter <em>content-type=application/x-www-form-urlencoded</em>"
+      description: 'To authenticate the API client against qTest Manager and acquire authorized access token.
+
+
+        Note: Please choose parameter content-type=application/x-www-form-urlencoded'
       operationId: postAccessToken
       parameters:
       - name: Authorization
@@ -92,15 +98,6 @@ paths:
                   description: qTest refresh token to refresh access token associate with provided refresh token
 components:
   schemas:
-    OAuthTokenStatusVM:
-      type: object
-      properties:
-        expiration:
-          type: integer
-          format: int64
-        validityInMilliseconds:
-          type: integer
-          format: int64
     OAuthResponse:
       type: object
       properties:
@@ -128,6 +125,15 @@ components:
           format: int64
           example: 300
           description: Access token expire time in second
+    OAuthTokenStatusVM:
+      type: object
+      properties:
+        expiration:
+          type: integer
+          format: int64
+        validityInMilliseconds:
+          type: integer
+          format: int64
   securitySchemes:
     Authorization:
       type: apiKey

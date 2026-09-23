@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 Project Settings API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -39,6 +39,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.projectSetting
+      operationId: getApiProjectSettingsByProjectId
+      x-operation-id-source: derived
     put:
       tags:
       - v3-project-settings
@@ -72,32 +74,10 @@ paths:
               $ref: '#/components/schemas/ProjectSettingsV3'
         description: Project settings need to be updated
         required: true
+      operationId: putApiProjectSettingsByProjectId
+      x-operation-id-source: derived
 components:
   schemas:
-    ProjectSettingsV3:
-      type: object
-      properties:
-        always_on:
-          type: string
-        category:
-          type: object
-          properties:
-            note_types:
-              type: array
-              items:
-                $ref: '#/components/schemas/CategoryNoteTimeType'
-            time_types:
-              type: array
-              items:
-                $ref: '#/components/schemas/CategoryNoteTimeType'
-        note_types:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteTimeType'
-        time_types:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteTimeType'
     CategoryNoteTimeType:
       type: object
       properties:
@@ -124,6 +104,30 @@ components:
           type: string
         name:
           type: string
+    ProjectSettingsV3:
+      type: object
+      properties:
+        always_on:
+          type: string
+        category:
+          type: object
+          properties:
+            note_types:
+              type: array
+              items:
+                $ref: '#/components/schemas/CategoryNoteTimeType'
+            time_types:
+              type: array
+              items:
+                $ref: '#/components/schemas/CategoryNoteTimeType'
+        note_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteTimeType'
+        time_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteTimeType'
   securitySchemes:
     v2_auth:
       type: apiKey

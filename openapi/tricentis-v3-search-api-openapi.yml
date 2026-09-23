@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 Search API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -39,6 +39,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.search
+      operationId: getApiField
+      x-operation-id-source: derived
   /api/search/list:
     get:
       tags:
@@ -69,6 +71,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.search
+      operationId: getApiSearchList
+      x-operation-id-source: derived
 components:
   securitySchemes:
     v2_auth:

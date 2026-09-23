@@ -1,23 +1,27 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Module API
 servers:
 - url: https://apitryout.qtestnet.com/
 tags:
-- name: module
+- name: Module
   description: Module API
 paths:
   /api/v3/projects/{projectId}/modules:
     get:
       tags:
-      - module
+      - Module
       summary: Gets multiple Modules
       description: 'To search for Modules under root or sub-Modules under a parent Module
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: getSubModulesOf
       parameters:
       - name: projectId
@@ -60,12 +64,12 @@ paths:
       - Authorization: []
     post:
       tags:
-      - module
+      - Module
       summary: Creates a Module
       description: 'To create a Module under root or a sub-Module under a parent Module
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: createModule
       parameters:
       - name: projectId
@@ -113,12 +117,12 @@ paths:
   /api/v3/projects/{projectId}/modules/{moduleId}:
     get:
       tags:
-      - module
+      - Module
       summary: Gets a Module
       description: 'To retrieve a Module
 
 
-        <em>qTest Manager version:</em> 6+'
+        qTest Manager version: 6+'
       operationId: getModule
       parameters:
       - name: projectId
@@ -152,7 +156,7 @@ paths:
       - Authorization: []
     put:
       tags:
-      - module
+      - Module
       summary: Updates a Module
       description: To update a Module or move it to another parent Module
       operationId: updateModule
@@ -199,12 +203,12 @@ paths:
         required: true
     delete:
       tags:
-      - module
+      - Module
       summary: Deletes a Module
       description: 'To delete a Module
 
 
-        <strong>qTest Manager version:</strong> 6+'
+        qTest Manager version: 6+'
       operationId: deleteModule
       parameters:
       - name: projectId
@@ -241,16 +245,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
     Link:
       type: object
       properties:
@@ -262,6 +256,16 @@ components:
           type: string
           example: <link to object>
           description: URL to the resource
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
     ModuleResource:
       type: object
       properties:

@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Test Runs
-      summary: Create test runs from junit xml string.
+      summary: Create test runs from junit xml string
       description: '## Import test run(s) (execution result) from JUnit XML string.
 
         #### Body:
@@ -1065,12 +1065,31 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyImportExecutionJunit
+      x-operation-id-source: derived
   /v1/projects/{project-key}/test-runs/search:
     post:
       tags:
       - Test Runs
-      summary: Read test run(s).
-      description: "## Get or retrieve information from test run(s).\n            \n#### Body fields:\n* **cycles** _(optional)_: Specify the cycles to filter by the result.\n* **versions** _(optional)_: Specify the versions to filter by the result.\n* **keys** _(optional)_: Specify the test runs keys to filter by the result.\n* **testCasesKeys** _(optional)_: Specify the test cases keys to filter by the result.\n              When specified, only test runs that belong to these test cases will be returned.\n* **expand** _(optional)_: Specify which fields will return additionaly for each Test Run.\n              Allowed values: \"Steps\" - The test run steps."
+      summary: Read test run(s)
+      description: '## Get or retrieve information from test run(s).
+
+
+        #### Body fields:
+
+        * **cycles** _(optional)_: Specify the cycles to filter by the result.
+
+        * **versions** _(optional)_: Specify the versions to filter by the result.
+
+        * **keys** _(optional)_: Specify the test runs keys to filter by the result.
+
+        * **testCasesKeys** _(optional)_: Specify the test cases keys to filter by the result.
+
+        When specified, only test runs that belong to these test cases will be returned.
+
+        * **expand** _(optional)_: Specify which fields will return additionaly for each Test Run.
+
+        Allowed values: "Steps" - The test run steps.'
       parameters:
       - name: project-key
         in: path
@@ -1343,12 +1362,105 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyTestRunsSearch
+      x-operation-id-source: derived
   /v1/projects/{project-key}/test-runs:
     post:
       tags:
       - Test Runs
-      summary: Create test run(s).
-      description: "## Create or import test run(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **version** _(optional)_: Specify the version name which the test runs will be under.\nIf version won't be provided OR version will be equal to unversioned, the test runs will be created under unversioned.\n(creating and editing of releases (versions) are managed in Jira).\n* **cycleName** _(optional)_: Specify the cycle name which the test runs will be under.\n* **folderPath** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle.\n* **includeAttachments** _(optional)_: Specify if to include attachments (default value: false).\nCycle must be provided here or under test runs (for each test runs).\n* **testRuns** _(mandatory)_: Provide a list of test runs, with each test having the following fields:\n    * **testCaseKey** _(mandatory)_: test case key that the test run will be linked to.\n    * **status** _(mandatory)_: the status of the test run. Status of test runs is defined in JIRA under the admin page.\n    * **name** _(optional)_: name of the test run.\n    * **description** _(optional)_: description of the test run.\n    * **priority** _(mandatory)_: priority of the test run (\"Highes\",\"Low\",etc..).\n    * **testCategory** _(mandatory)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n    * **testType** _(mandatory)_: the test type of the test run (Manual, Automated).\n    * **cycleName** _(optional)_: specify the cycle name which the test runs will be under.\n    * **folder** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle. If you do not specify the folder in this field, the request uses the folder specified at the root level.\n    Cycle must be provided here or above testRuns in cycleName.\n    * **assignee** _(optional)_: the username or email which the test run will be assigned to.\n    * **executedBy** _(optional)_: the username or email which the test run is executed by.\n    * **automation** _(optional)_: the automation content of the test run.\n    In case TestType is Manual, Automation will be ignore (Manual test run can't contain automation content).\n        * **name** _(optional)_: the name of automation tool.\n        * **id** _(optional)_: the id of the test run in the automation tool.\n        * **content** _(mandatory)_: the test run automation content.\n        * **result** _(optional)_: the test run automation result.\n    * **plannedStartDate** _(optional)_: the test run planned start date.\n    * **plannedEndDate** _(optional)_: the test run planned end date.\n    * **components** _(optional)_: the test runs components.\n    * **labels** _(optional)_: the test runs labels.\n    * **steps** _(optional)_: list of steps of the test run.\n    In case TestType is Automated, and Steps will be provided (Test Run will contain Steps and Automation).\n        * **status** _(mandatory)_: the status of the test run step.\n        * **actualResult** _(optional)_: the actual result of the steps.\n        * **comment** _(optional)_: the test run step's comment.\n        * **data** _(optional)_: the test run step's data.\n        * **description** _(optional)_: the test run step's description.\n        * **expectedResult** _(optional)_: the test run step's expectedResult.\n    * **fields** _(optional)_: list of fields of the test run.\n    In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) 'value' must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).\n        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).\n        * **value** _(optional)_: the value of the scheme (for example 130)."
+      summary: Create test run(s)
+      description: '## Create or import test run(s).
+
+        ##### Note: Release versions are managed in Jira.
+
+
+        #### Body fields:
+
+        * **version** _(optional)_: Specify the version name which the test runs will be under.
+
+        If version won''t be provided OR version will be equal to unversioned, the test runs will be created under unversioned.
+
+        (creating and editing of releases (versions) are managed in Jira).
+
+        * **cycleName** _(optional)_: Specify the cycle name which the test runs will be under.
+
+        * **folderPath** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash "/". If you don''t specify a folder path, the test run will be under the cycle.
+
+        * **includeAttachments** _(optional)_: Specify if to include attachments (default value: false).
+
+        Cycle must be provided here or under test runs (for each test runs).
+
+        * **testRuns** _(mandatory)_: Provide a list of test runs, with each test having the following fields:
+
+        * **testCaseKey** _(mandatory)_: test case key that the test run will be linked to.
+
+        * **status** _(mandatory)_: the status of the test run. Status of test runs is defined in JIRA under the admin page.
+
+        * **name** _(optional)_: name of the test run.
+
+        * **description** _(optional)_: description of the test run.
+
+        * **priority** _(mandatory)_: priority of the test run ("Highes","Low",etc..).
+
+        * **testCategory** _(mandatory)_: The test run category of the test run ("Functional" or "NonFunctional").
+
+        * **testType** _(mandatory)_: the test type of the test run (Manual, Automated).
+
+        * **cycleName** _(optional)_: specify the cycle name which the test runs will be under.
+
+        * **folder** _(optional)_: Specify the folder path where you want to save the test run. A path is a string of concatenated parts separated by a slash "/". If you don''t specify a folder path, the test run will be under the cycle. If you do not specify the folder in this field, the request uses the folder specified at the root level.
+
+        Cycle must be provided here or above testRuns in cycleName.
+
+        * **assignee** _(optional)_: the username or email which the test run will be assigned to.
+
+        * **executedBy** _(optional)_: the username or email which the test run is executed by.
+
+        * **automation** _(optional)_: the automation content of the test run.
+
+        In case TestType is Manual, Automation will be ignore (Manual test run can''t contain automation content).
+
+        * **name** _(optional)_: the name of automation tool.
+
+        * **id** _(optional)_: the id of the test run in the automation tool.
+
+        * **content** _(mandatory)_: the test run automation content.
+
+        * **result** _(optional)_: the test run automation result.
+
+        * **plannedStartDate** _(optional)_: the test run planned start date.
+
+        * **plannedEndDate** _(optional)_: the test run planned end date.
+
+        * **components** _(optional)_: the test runs components.
+
+        * **labels** _(optional)_: the test runs labels.
+
+        * **steps** _(optional)_: list of steps of the test run.
+
+        In case TestType is Automated, and Steps will be provided (Test Run will contain Steps and Automation).
+
+        * **status** _(mandatory)_: the status of the test run step.
+
+        * **actualResult** _(optional)_: the actual result of the steps.
+
+        * **comment** _(optional)_: the test run step''s comment.
+
+        * **data** _(optional)_: the test run step''s data.
+
+        * **description** _(optional)_: the test run step''s description.
+
+        * **expectedResult** _(optional)_: the test run step''s expectedResult.
+
+        * **fields** _(optional)_: list of fields of the test run.
+
+        In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) ''value'' must be provided.
+
+        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).
+
+        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).
+
+        * **value** _(optional)_: the value of the scheme (for example 130).'
       parameters:
       - name: project-key
         in: path
@@ -2114,12 +2226,79 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyTestRuns
+      x-operation-id-source: derived
   /v1/projects/{project-key}/test-runs/{test-run-key}:
     put:
       tags:
       - Test Runs
-      summary: Update test run(s).
-      description: "## Update an existing test run.\n##### Note: Any values you enter will override existing values in the test run.\n            \n#### Body fields:\n* **testCategory** _(optional)_: The test run category of the test run (\"Functional\" or \"NonFunctional\").\n* **executedBy** _(optional)_: the username or email which the test run is executed by.\n* **assignee** _(optional)_: the username or email which the test run will be assigned to.\n* **priority** _(optional)_: priority of the test run (\"Highes\",\"Low\",etc..).\n* **status** _(optional)_: the status of the test run. Status of test runs is defined in JIRA under the admin page. Mandatory field.\n* **plannedStartDate** _(optional)_: the test run planned start date.\n* **plannedEndDate** _(optional)_: the test run planned end date.\n* **cycleId** _(optional)_: specify the cycle Id which the test runs will be under.\n* **folderPath** _(optional)_: Specify the folder path where you want to move the test run. A path is a string of concatenated parts separated by a slash \"/\".  If you don't specify a folder path, the test run will be under the cycle.\n* **components** _(optional)_: the test runs components.\n* **labels** _(optional)_: the test runs labels.\n* **automation** _(optional)_: the automation content of the test run.\nIn case TestType is Manual, Automation will be ignore (Manual test run can't contain automation content).\n    * **name** _(optional)_: the name of automation tool.\n    * **id** _(optional)_: the id of the test run in the automation tool.\n    * **content** _(mandatory)_: the test run automation content.\n    * **result** _(optional)_: the test run automation result.\n* **steps** _(optional)_: list of steps of the test run.\nIn case TestType is Automated, Steps will be ignore (Automated test run can't contain steps).\n    * **status** _(mandatory)_: the status of the test run step.\n    * **actualResult** _(optional)_: the actual result of the steps.\n    * **comment** _(optional)_: the test run step's comment.\n    * **data** _(optional)_: the test run step's data.\n    * **description** _(optional)_: the test run step's description.\n    * **expectedResult** _(optional)_: the test run step's expectedResult.\n    * **fields** _(optional)_: list of fields of the test run.\n    In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) 'value' must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).\n        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).\n        * **value** _(optional)_: the value of the scheme (for example 130)."
+      summary: Update test run(s)
+      description: '## Update an existing test run.
+
+        ##### Note: Any values you enter will override existing values in the test run.
+
+
+        #### Body fields:
+
+        * **testCategory** _(optional)_: The test run category of the test run ("Functional" or "NonFunctional").
+
+        * **executedBy** _(optional)_: the username or email which the test run is executed by.
+
+        * **assignee** _(optional)_: the username or email which the test run will be assigned to.
+
+        * **priority** _(optional)_: priority of the test run ("Highes","Low",etc..).
+
+        * **status** _(optional)_: the status of the test run. Status of test runs is defined in JIRA under the admin page. Mandatory field.
+
+        * **plannedStartDate** _(optional)_: the test run planned start date.
+
+        * **plannedEndDate** _(optional)_: the test run planned end date.
+
+        * **cycleId** _(optional)_: specify the cycle Id which the test runs will be under.
+
+        * **folderPath** _(optional)_: Specify the folder path where you want to move the test run. A path is a string of concatenated parts separated by a slash "/". If you don''t specify a folder path, the test run will be under the cycle.
+
+        * **components** _(optional)_: the test runs components.
+
+        * **labels** _(optional)_: the test runs labels.
+
+        * **automation** _(optional)_: the automation content of the test run.
+
+        In case TestType is Manual, Automation will be ignore (Manual test run can''t contain automation content).
+
+        * **name** _(optional)_: the name of automation tool.
+
+        * **id** _(optional)_: the id of the test run in the automation tool.
+
+        * **content** _(mandatory)_: the test run automation content.
+
+        * **result** _(optional)_: the test run automation result.
+
+        * **steps** _(optional)_: list of steps of the test run.
+
+        In case TestType is Automated, Steps will be ignore (Automated test run can''t contain steps).
+
+        * **status** _(mandatory)_: the status of the test run step.
+
+        * **actualResult** _(optional)_: the actual result of the steps.
+
+        * **comment** _(optional)_: the test run step''s comment.
+
+        * **data** _(optional)_: the test run step''s data.
+
+        * **description** _(optional)_: the test run step''s description.
+
+        * **expectedResult** _(optional)_: the test run step''s expectedResult.
+
+        * **fields** _(optional)_: list of fields of the test run.
+
+        In case the field is List type (like Environments) allowedValueName must be provided, otherwise (like execution timer) ''value'' must be provided.
+
+        * **schemeName** _(mandatory)_: the scheme name of the field (for example Execution Timer or Environments).
+
+        * **allowedValueName** _(optional)_: the allowed value of the scheme (for example Development).
+
+        * **value** _(optional)_: the value of the scheme (for example 130).'
       parameters:
       - name: test-run-key
         in: path
@@ -2405,10 +2584,12 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: putV1ProjectsByProjectKeyTestRunsByTestRunKey
+      x-operation-id-source: derived
     delete:
       tags:
       - Test Runs
-      summary: Delete test run(s).
+      summary: Delete test run(s)
       description: '## Delete existing test run(s).'
       parameters:
       - name: test-run-key
@@ -2524,6 +2705,256 @@ paths:
                     message: not found
       security:
       - api_key: []
+      operationId: deleteV1ProjectsByProjectKeyTestRunsByTestRunKey
+      x-operation-id-source: derived
+  /testruns:
+    get:
+      summary: Get entities from testruns
+      tags:
+      - Test Runs
+      parameters:
+      - $ref: '#/components/parameters/top'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/search'
+      - name: $filter
+        description: Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - name: $orderby
+        description: Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - id desc
+            - clientid
+            - clientid desc
+            - projectid
+            - projectid desc
+            - releaseid
+            - releaseid desc
+            - testcyclefolderid
+            - testcyclefolderid desc
+            - testsuiteid
+            - testsuiteid desc
+            - testcaseid
+            - testcaseid desc
+            - latesttestlogid
+            - latesttestlogid desc
+            - executionlistid
+            - executionlistid desc
+            - executionentryfolderid
+            - executionentryfolderid desc
+            - executionlistfolderid
+            - executionlistfolderid desc
+            - executionfolderid
+            - executionfolderid desc
+            - executioncomponentfolderid
+            - executioncomponentfolderid desc
+            - uiid
+            - uiid desc
+            - ismandate
+            - ismandate desc
+            - assigneduser
+            - assigneduser desc
+            - name
+            - name desc
+            - repetitions
+            - repetitions desc
+            - isdisabled
+            - isdisabled desc
+            - disableddescription
+            - disableddescription desc
+            - plannedstartdate
+            - plannedstartdate desc
+            - plannedenddate
+            - plannedenddate desc
+            - plannedstarttimestamp
+            - plannedstarttimestamp desc
+            - plannedendtimestamp
+            - plannedendtimestamp desc
+            - lateststatus
+            - lateststatus desc
+            - lastmodifieddate
+            - lastmodifieddate desc
+            - lastmodifiedtimestamp
+            - lastmodifiedtimestamp desc
+            - lastmodifieduser
+            - lastmodifieduser desc
+            - createddate
+            - createddate desc
+            - createdtimestamp
+            - createdtimestamp desc
+            - creator
+            - creator desc
+            - priority
+            - priority desc
+            - type
+            - type desc
+            - buildnumber
+            - buildnumber desc
+            - nodepath
+            - nodepath desc
+            - ssor
+            - ssor desc
+            - viewinggroupname
+            - viewinggroupname desc
+            - extrainfo
+            - extrainfo desc
+            - customfields
+            - customfields desc
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - releaseid
+            - testcyclefolderid
+            - testsuiteid
+            - testcaseid
+            - latesttestlogid
+            - executionlistid
+            - executionentryfolderid
+            - executionlistfolderid
+            - executionfolderid
+            - executioncomponentfolderid
+            - uiid
+            - ismandate
+            - assigneduser
+            - name
+            - repetitions
+            - isdisabled
+            - disableddescription
+            - plannedstartdate
+            - plannedenddate
+            - plannedstarttimestamp
+            - plannedendtimestamp
+            - lateststatus
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - createddate
+            - createdtimestamp
+            - creator
+            - priority
+            - type
+            - buildnumber
+            - nodepath
+            - ssor
+            - viewinggroupname
+            - extrainfo
+            - customfields
+      responses:
+        '200':
+          description: Retrieved entities
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Collection of testrun
+                properties:
+                  '@odata.count':
+                    $ref: '#/components/schemas/count'
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.testrun'
+        4XX:
+          $ref: '#/components/responses/error'
+      operationId: getTestruns
+      x-operation-id-source: derived
+  /testruns({id}):
+    parameters:
+    - description: 'key: id'
+      in: path
+      name: id
+      required: true
+      schema:
+        anyOf:
+        - type: integer
+        - type: string
+        format: int64
+        example: '42'
+    get:
+      summary: Get entity from testruns by key
+      tags:
+      - Test Runs
+      parameters:
+      - name: $select
+        description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
+        in: query
+        explode: false
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - id
+            - clientid
+            - projectid
+            - releaseid
+            - testcyclefolderid
+            - testsuiteid
+            - testcaseid
+            - latesttestlogid
+            - executionlistid
+            - executionentryfolderid
+            - executionlistfolderid
+            - executionfolderid
+            - executioncomponentfolderid
+            - uiid
+            - ismandate
+            - assigneduser
+            - name
+            - repetitions
+            - isdisabled
+            - disableddescription
+            - plannedstartdate
+            - plannedenddate
+            - plannedstarttimestamp
+            - plannedendtimestamp
+            - lateststatus
+            - lastmodifieddate
+            - lastmodifiedtimestamp
+            - lastmodifieduser
+            - createddate
+            - createdtimestamp
+            - creator
+            - priority
+            - type
+            - buildnumber
+            - nodepath
+            - ssor
+            - viewinggroupname
+            - extrainfo
+            - customfields
+      responses:
+        '200':
+          description: Retrieved entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.testrun'
+        4XX:
+          $ref: '#/components/responses/error'
+      operationId: getTestruns({id})
+      x-operation-id-source: derived
 components:
   securitySchemes:
     api_key:
@@ -2531,6 +2962,305 @@ components:
       description: TTM4J API Key
       name: Authorization
       in: header
+    BasicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey
+  schemas:
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+    x26997ea37814ba1b9a423c590887c7a7c1262datasource.testrun:
+      title: testrun
+      type: object
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        clientid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        projectid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        releaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcyclefolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testsuiteid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        testcaseid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        latesttestlogid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        executionlistid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionentryfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionlistfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executionfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        executioncomponentfolderid:
+          anyOf:
+          - type: integer
+          - type: string
+          format: int64
+          example: '42'
+        uiid:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ismandate:
+          type:
+          - boolean
+          - 'null'
+        assigneduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        repetitions:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        isdisabled:
+          type:
+          - boolean
+          - 'null'
+        disableddescription:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        plannedstartdate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        plannedenddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        plannedstarttimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        plannedendtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lateststatus:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        lastmodifieddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        lastmodifiedtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        lastmodifieduser:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        createddate:
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2017-04-13'
+        createdtimestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2017-04-13T15:51:04.000000Z'
+        creator:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        priority:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        type:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        buildnumber:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        nodepath:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        ssor:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        viewinggroupname:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        extrainfo:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+        customfields:
+          type:
+          - string
+          - 'null'
+          maxLength: 32768
+  parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
 externalDocs:
   description: Documentation
   url: https://documentation.tricentis.com/tricentis_test_management_for_jira/content/cover_web.htm

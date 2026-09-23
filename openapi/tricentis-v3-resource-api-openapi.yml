@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V3 Resource API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -37,6 +37,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.resource
+      operationId: getApiSessionsBySessionIdResources
+      x-operation-id-source: derived
   /api/sessions/{sessionId}/resources/{resourceId}:
     get:
       tags:
@@ -71,6 +73,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.resource
+      operationId: getApiSessionsBySessionIdResourcesByResourceId
+      x-operation-id-source: derived
     delete:
       tags:
       - v3-resource
@@ -100,6 +104,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.resource
+      operationId: deleteApiSessionsBySessionIdResourcesByResourceId
+      x-operation-id-source: derived
   /api/sessions/{sessionId}/resources/{resourceId}/download:
     get:
       tags:
@@ -128,6 +134,8 @@ paths:
       security:
       - v3_auth: []
       x-swagger-router-controller: api.resource
+      operationId: getApiSessionsBySessionIdResourcesByResourceIdDownload
+      x-operation-id-source: derived
   /api/sessions/{sessionId}/resources/upload:
     post:
       tags:
@@ -164,12 +172,10 @@ paths:
                   format: binary
               required:
               - file
+      operationId: postApiSessionsBySessionIdResourcesUpload
+      x-operation-id-source: derived
 components:
   schemas:
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     Link:
       type: object
       properties:
@@ -205,6 +211,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Resource'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

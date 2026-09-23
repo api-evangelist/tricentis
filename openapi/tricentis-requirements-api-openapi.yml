@@ -7,15 +7,13 @@ servers:
 - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
 - url: https://api.ttm4j.tricentis.com
 tags:
-- name: requirements
+- name: Requirements
 paths:
   /requirements:
-    servers:
-    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
     get:
       summary: Get entities from requirements
       tags:
-      - requirements
+      - Requirements
       parameters:
       - $ref: '#/components/parameters/top'
       - $ref: '#/components/parameters/skip'
@@ -144,6 +142,10 @@ paths:
       security:
       - ApiKeyAuth: []
       - BasicAuth: []
+      operationId: getRequirements
+      x-operation-id-source: derived
+    servers:
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
   /requirements({id}):
     parameters:
     - description: 'key: id'
@@ -156,12 +158,10 @@ paths:
         - type: string
         format: int64
         example: '42'
-    servers:
-    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
     get:
       summary: Get entity from requirements by key
       tags:
-      - requirements
+      - Requirements
       parameters:
       - name: $select
         description: Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)
@@ -211,14 +211,27 @@ paths:
       security:
       - ApiKeyAuth: []
       - BasicAuth: []
-  /v1/projects/{project-key}/test-cases/requirements:
+      operationId: getRequirements({id})
+      x-operation-id-source: derived
     servers:
-    - url: https://api.ttm4j.tricentis.com
+    - url: https://u8.analytics.api.tricentis.com/odata/v4/38549
+  /v1/projects/{project-key}/test-cases/requirements:
     post:
       tags:
-      - requirements
-      summary: Create Requirements.
-      description: "## Create Requirements and link to test case.\n##### Note: In case issue type won't be provided, default value will be \"Requirement\" issue type.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the requirement summary.\n* **description** _(optional)_: the requirement description.\n* **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..)."
+      - Requirements
+      summary: Create Requirements
+      description: '## Create Requirements and link to test case.
+
+        ##### Note: In case issue type won''t be provided, default value will be "Requirement" issue type.
+
+
+        #### Body fields:
+
+        * **summary** _(mandatory)_: the requirement summary.
+
+        * **description** _(optional)_: the requirement description.
+
+        * **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..).'
       parameters:
       - name: project-key
         in: path
@@ -462,14 +475,27 @@ paths:
           description: '`Unauthorized.'
       security:
       - api_key: []
-  /v1/projects/{project-key}/test-cases/{key}/requirements:
+      operationId: postV1ProjectsByProjectKeyTestCasesRequirements
+      x-operation-id-source: derived
     servers:
     - url: https://api.ttm4j.tricentis.com
+  /v1/projects/{project-key}/test-cases/{key}/requirements:
     post:
       tags:
-      - requirements
-      summary: Create Requirements and link to test case.
-      description: "## Create Requirements and link to test case.\n##### Note: In case issue type won't be provided, default value will be \"Requirement\" issue type.\n            \n#### Body fields:\n* **summary** _(mandatory)_: the requirement summary.\n* **description** _(optional)_: the requirement description.\n* **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..)."
+      - Requirements
+      summary: Create Requirements and link to test case
+      description: '## Create Requirements and link to test case.
+
+        ##### Note: In case issue type won''t be provided, default value will be "Requirement" issue type.
+
+
+        #### Body fields:
+
+        * **summary** _(mandatory)_: the requirement summary.
+
+        * **description** _(optional)_: the requirement description.
+
+        * **issueType** _(optional)_: the requirement issue type (for example: Task, Requirement, Bug, etc..).'
       parameters:
       - name: key
         in: path
@@ -719,14 +745,21 @@ paths:
           description: '`Unauthorized.'
       security:
       - api_key: []
-  /v1/projects/{project-key}/test-cases/{key}/requirement/link:
+      operationId: postV1ProjectsByProjectKeyTestCasesByKeyRequirements
+      x-operation-id-source: derived
     servers:
     - url: https://api.ttm4j.tricentis.com
+  /v1/projects/{project-key}/test-cases/{key}/requirement/link:
     post:
       tags:
-      - requirements
-      summary: Link Requirements to test case.
-      description: "## Link Requirements to test case.\n            \n#### Body fields:\n* **issueKey** _(mandatory)_: the issue key."
+      - Requirements
+      summary: Link Requirements to test case
+      description: '## Link Requirements to test case.
+
+
+        #### Body fields:
+
+        * **issueKey** _(mandatory)_: the issue key.'
       parameters:
       - name: key
         in: path
@@ -928,14 +961,11 @@ paths:
           description: '`Unauthorized.'
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyTestCasesByKeyRequirementLink
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.ttm4j.tricentis.com
 components:
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
     x26997ea37814ba1b9a423c590887c7a7c1262datasource.requirement:
       title: requirement
@@ -1123,14 +1153,12 @@ components:
       - type: string
       description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
   parameters:
-    top:
-      name: $top
+    search:
+      name: $search
       in: query
-      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
       schema:
-        type: integer
-        minimum: 0
-      example: 50
+        type: string
     count:
       name: $count
       in: query
@@ -1144,12 +1172,21 @@ components:
       schema:
         type: integer
         minimum: 0
-    search:
-      name: $search
+    top:
+      name: $top
       in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
       schema:
-        type: string
+        type: integer
+        minimum: 0
+      example: 50
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BasicAuth:
       type: http

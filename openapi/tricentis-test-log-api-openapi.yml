@@ -1,6 +1,10 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Test Log API
 servers:
@@ -17,7 +21,7 @@ paths:
       description: 'To submit Automation Test Logs of multiple Test Runs
 
 
-        <strong>qTest Manager version:</strong> 8.0.2+'
+        qTest Manager version: 8.0.2+'
       operationId: submitAutomationTestLogs
       parameters:
       - name: projectId
@@ -88,7 +92,22 @@ paths:
       tags:
       - test-log
       summary: Gets a Batch Test Log Submission job's state
-      description: "To check the state of a Batch Test Log Submission job. \n\nWhen you submit test results to qTest Manager using:\n\n<strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs?type=automation</strong>\n\nor <strong>POST /api/v3/projects/{projectId}/auto-test-logs?type=automation</strong>, their response include a job ID.\n\nYou will need to use this API and the returned ID to check if the submission job has completed.\n\nJob states include <i>IN_WAITING</i>, <i>IN_PROCESSING</i>, <i>FAILED</i>, <i>PENDING</i> and <i>SUCCESS</i>"
+      description: 'To check the state of a Batch Test Log Submission job.
+
+
+        When you submit test results to qTest Manager using:
+
+
+        POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs?type=automation
+
+
+        or POST /api/v3/projects/{projectId}/auto-test-logs?type=automation, their response include a job ID.
+
+
+        You will need to use this API and the returned ID to check if the submission job has completed.
+
+
+        Job states include IN_WAITING, IN_PROCESSING, FAILED, PENDING and SUCCESS'
       operationId: track
       parameters:
       - name: id
@@ -111,14 +130,14 @@ paths:
     post:
       tags:
       - test-log
-      summary: Submits multiple test results and specifies Test Design and Test Execution tree structures
-      description: 'This is the extended version of this API <strong>POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs</strong>. It allows submitting multiple test logs in one API request, and creating Test Cases and Test Runs in hierarchical structure which is specified in the request body
+      summary: Submits multiple test results and specifies Test Design and Test Execution tree…
+      description: 'This is the extended version of this API POST /api/v3.1/projects/{projectId}/test-runs/{testRunId}/auto-test-logs. It allows submitting multiple test logs in one API request, and creating Test Cases and Test Runs in hierarchical structure which is specified in the request body
 
 
-        <strong>Important:</strong> This API does not update names and locations of existing Test Cases and Test Runs
+        Important: This API does not update names and locations of existing Test Cases and Test Runs
 
 
-        <strong>Known Issue:</strong> This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release'
+        Known Issue: This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release'
       operationId: submitAutomationTestLogsWithTreeStructure
       parameters:
       - name: projectId
@@ -250,10 +269,10 @@ paths:
       description: 'To submit test result of an Automation Test Run
 
 
-        <strong>Known Issue:</strong> This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release
+        Known Issue: This API currently does not update Test Case Version when Test Case Properties are updated, and Tricentis is working on a fix that will be shipped in an upcoming release
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: submitAutomationLog
       parameters:
       - name: projectId
@@ -348,10 +367,10 @@ paths:
       tags:
       - test-log
       summary: Modify an Automation Test Log
-      description: 'To modify test result of a <em>automation</em> Test Run
+      description: 'To modify test result of a automation Test Run
 
 
-        <strong>qTest Manager version:</strong> 9.1.5+'
+        qTest Manager version: 9.1.5+'
       operationId: modifyAutomationLog
       parameters:
       - name: projectId
@@ -428,7 +447,7 @@ paths:
       description: 'To retrieve all Test Logs of a Test Run
 
 
-        <strong>qTest Manager version:</strong> 7.6'
+        qTest Manager version: 7.6'
       operationId: getTestLogsList
       parameters:
       - name: projectId
@@ -476,10 +495,10 @@ paths:
       tags:
       - test-log
       summary: Submits a Manual Test Log
-      description: 'To submit test result of a <em>manual</em> Test Run
+      description: 'To submit test result of a manual Test Run
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: submitTestLog
       parameters:
       - name: projectId
@@ -524,7 +543,7 @@ paths:
       description: 'To retrieve a Test Run''s latest test result
 
 
-        <strong>qTest Manager version:</strong> 4+'
+        qTest Manager version: 4+'
       operationId: getLastRunLog
       parameters:
       - name: projectId
@@ -602,10 +621,10 @@ paths:
       tags:
       - test-log
       summary: Modify a Manual Test Log
-      description: 'To modify test result of an <em>manual</em> Test Run
+      description: 'To modify test result of an manual Test Run
 
 
-        <strong>qTest Manager version:</strong> 9.1.5+'
+        qTest Manager version: 9.1.5+'
       operationId: modifyTestLog
       parameters:
       - name: projectId
@@ -649,6 +668,339 @@ paths:
         required: true
 components:
   schemas:
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        siteName:
+          type: string
+        maxFailedLoginAttempt:
+          type: integer
+          format: int32
+        passwordShelfLife:
+          type: integer
+          format: int32
+        passwordHealthyPeriod:
+          type: integer
+          format: int32
+        minimumUniquePasswordsSequenceLength:
+          type: integer
+          format: int32
+        licenseBlobId:
+          type: integer
+          format: int64
+        sessionTimeoutEnabled:
+          type: boolean
+        sessionTimeoutMinute:
+          type: integer
+          format: int32
+        terminateIdleEnabled:
+          type: boolean
+        terminateIdleMinute:
+          type: integer
+          format: int32
+        dateFormat:
+          type: string
+        rememberMeTimeoutEnabled:
+          type: boolean
+        rememberMeTimeoutDay:
+          type: integer
+          format: int32
+        mailRecipients:
+          type: string
+        useCustomPasswordPolicy:
+          type: boolean
+        minimumPasswordLength:
+          type: integer
+          format: int32
+        passwordContainsCapitalLetters:
+          type: boolean
+        passwordContainsLowercaseLetters:
+          type: boolean
+        passwordContainsNumericChars:
+          type: boolean
+        passwordContainsSpecialChars:
+          type: boolean
+        searchStatus:
+          type: string
+          enum:
+          - ELASTICSEARCH
+          - REINDEXING
+          - ELASTICSEARCH_MIGRATED
+        searchMigrationDuration:
+          type: integer
+          format: int64
+        trackingRequirementTestcaseVersionLink:
+          type: boolean
+        trackingConfigurationTestcaseVersionLink:
+          type: boolean
+        enableSiteAi:
+          type: boolean
+        enableAITestCaseGeneration:
+          type: boolean
+        executableFileEnabled:
+          type: boolean
+        inactive:
+          type: boolean
+        tdstenantId:
+          type: string
+        forExplorer:
+          type: boolean
+        forOnPremise:
+          type: boolean
+    ParameterInfo:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    TestStepResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 111
+        description:
+          type: string
+          example: Test Step description
+        expected:
+          type: string
+          example: Test step expected result
+        order:
+          type: integer
+          format: int32
+          example: 1
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
+    TestStepLogResource:
+      type: object
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        test_step_id:
+          type: integer
+          format: int64
+          example: 11
+        test_step_log_id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+          example: 5202
+        status:
+          $ref: '#/components/schemas/StatusResource'
+        description:
+          type: string
+        expected_result:
+          type: string
+        actual_result:
+          type: string
+          example: Actual result is failed
+        called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case_name:
+          type: string
+        order:
+          type: integer
+          format: int32
+          example: 1
+        group:
+          type: integer
+          format: int32
+        test_step:
+          $ref: '#/components/schemas/TestStepResource'
+        defects:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedDefectResource'
+        called_test_case_log:
+          $ref: '#/components/schemas/TestLogResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        exe_date:
+          type: string
+          format: date-time
+          description: Execution date
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+    ParameterizationText:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        rawText:
+          type: string
+        htmlText:
+          type: string
+        plainText:
+          type: string
+        valueText:
+          type: string
+        editedParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        plainValueText:
+          type: string
+    ParameterValueVM:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+    AutomationTestLogResourceResponse:
+      type: object
+      required:
+      - exe_end_date
+      - exe_start_date
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        test_case_version_id:
+          type: integer
+          format: int64
+        exe_start_date:
+          type: string
+          format: date-time
+        exe_end_date:
+          type: string
+          format: date-time
+        note:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        name:
+          type: string
+        planned_exe_time:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9999999
+        actual_exe_time:
+          type: integer
+          format: int64
+        build_number:
+          type: string
+        build_url:
+          type: string
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        automation_content:
+          type: string
+        linkedDefects:
+          $ref: '#/components/schemas/AutomationLinkedDefectResponse'
+        system_name:
+          type: string
+        status:
+          type: string
+        order:
+          type: integer
+          format: int64
+        test_step_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationTestStepLog'
+        testcase_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        module_names:
+          type: array
+          items:
+            type: string
+        agent_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        defect_pids:
+          type: array
+          description: Defect pids
+          items:
+            type: string
+            example: MTR-1,MTR-2
+        tosca_guid:
+          type: string
+        tosca_node_path:
+          type: string
+        tosca_state:
+          type: string
     AutomationTestLog:
       type: object
       required:
@@ -704,53 +1056,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AutomationStepLog'
-    AutomationFailLinkedDefectResponse:
-      type: object
-      properties:
-        pids:
-          type: array
-          description: Failed linked defects
-          items:
-            type: string
-            example: MTR-2
-        error:
-          type: string
-          example: Could not find defect(s) in qTest Manager
-          description: Error message
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
-    ProjectModule:
+    TestCycle:
       type: object
       properties:
         creatorId:
@@ -771,48 +1077,55 @@ components:
         pid:
           type: integer
           format: int64
+        parentTestCycleId:
+          type: integer
+          format: int64
+        objOrder:
+          type: integer
+          format: int64
+        name:
+          type: string
         clientId:
+          type: integer
+          format: int64
+        testCycleType:
+          type: integer
+          format: int32
+        releaseId:
+          type: integer
+          format: int64
+        buildId:
           type: integer
           format: int64
         projectId:
           type: integer
           format: int64
-        project:
-          $ref: '#/components/schemas/Project'
-        objOrder:
-          type: integer
-          format: int64
-        parentModuleId:
-          type: integer
-          format: int64
-        parentModule:
-          $ref: '#/components/schemas/ProjectModule'
-        name:
-          type: string
-        description:
-          type: string
-        moduleType:
-          type: string
-          format: byte
         deleted:
           type: boolean
-        shared:
-          type: boolean
-        damage:
-          type: integer
-          format: int64
-        frequency:
-          type: integer
-          format: int64
-        weight:
-          type: integer
-          format: int64
-        tdsFlowId:
+        description:
           type: string
-        subModules:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        subCycles:
           type: array
           items:
-            $ref: '#/components/schemas/ProjectModule'
+            $ref: '#/components/schemas/TestCycle'
+        toscaUniqueId:
+          type: string
+        toscaNodePath:
+          type: string
+        toscaObjectType:
+          type: string
+        toscaUrl:
+          type: string
+        toscaRootEventId:
+          type: string
+        deletedToscaObjectType:
+          type: string
         objectType:
           type: integer
           format: int64
@@ -825,6 +1138,8 @@ components:
         parentObjectType:
           type: integer
           format: int64
+        toscaKey:
+          type: string
         artifactType:
           type: integer
           format: int32
@@ -835,44 +1150,18 @@ components:
           type: string
         createDateTimeString:
           type: string
-    AttachmentAuthor:
+    CustomFieldTemplate:
       type: object
       properties:
         id:
           type: integer
           format: int64
-          example: 1
-          description: ID of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        first_name:
-          type: string
-          example: First name of the User
-          description: First name of the User
-        last_name:
-          type: string
-          example: Last name of the User
-          description: Last name of the User
-    CustomFieldInfo:
-      type: object
-      properties:
-        id:
+        clientId:
           type: integer
           format: int64
-        value:
-          type: string
-        objectId:
-          type: integer
-          format: int64
-        type:
-          type: string
         name:
           type: string
-        stripHTMLValue:
-          type: string
-        propertyEditorComponent:
+        default:
           type: boolean
     ParameterVM:
       type: object
@@ -895,6 +1184,276 @@ components:
           type: integer
           format: int32
         parameterName:
+          type: string
+    AutomationTestStepLog:
+      type: object
+      required:
+      - description
+      - expected_result
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        description:
+          type: string
+          example: description
+          description: Test Step Log's description
+        expected_result:
+          type: string
+          example: expected result
+          description: Test Step Log's expected result
+        actual_result:
+          type: string
+          example: actual result
+          description: Test Step Log's actual result
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Test Step Log's order
+        status:
+          type: string
+          example: PASSED
+          description: Test Step Log's status
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        defect_pids:
+          type: array
+          description: Defect Pids
+          items:
+            type: string
+            example: MTR-1,MTR-2
+        exe_date:
+          type: string
+          format: date-time
+          description: Execution date
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    LinkedDefectResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Defect
+        external_defect_id:
+          type: string
+          example: EXP-1
+          description: External ID of Defect
+        connection_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the external Integration Connection
+        external_project_id:
+          type: string
+          example: EXP
+          description: ID of external Project
+        summary:
+          type: string
+          example: Defect summary
+          description: Summary of external Defect
+        status:
+          type: string
+          example: New
+          description: Status of external Defect
+        pid:
+          type: string
+          example: EXP-1
+          description: PID of external Defect
+        web_url:
+          type: string
+          example: https://example.com/EXP-1
+          description: Web url to external Defect
+          readOnly: true
+        description:
+          type: string
+          example: Defect description
+          description: Description of external Defect
+    AutomationLinkedDefectResponse:
+      type: object
+      properties:
+        success:
+          type: array
+          description: Successfully linked defects
+          items:
+            type: string
+            example: MTR-1
+        fail:
+          type: array
+          description: Failed linked defects with reasons
+          items:
+            $ref: '#/components/schemas/AutomationFailLinkedDefectResponse'
+    AutomationRequest:
+      type: object
+      required:
+      - test_logs
+      properties:
+        testSuiteModel:
+          $ref: '#/components/schemas/TestSuite'
+        parentModuleModel:
+          $ref: '#/components/schemas/ProjectModule'
+        parentTestCycleModel:
+          $ref: '#/components/schemas/TestCycle'
+        skipCreatingAutomationModule:
+          type: boolean
+        shouldCheckUnlinkRequirement:
+          type: boolean
+        test_suite:
+          type: string
+          example: TS-1
+          description: ID or PID of Test Suite
+        parent_module:
+          type: string
+          example: MD-1
+          description: ID or PID of Module
+        test_logs:
+          type: array
+          description: Array of Test Log
+          items:
+            $ref: '#/components/schemas/AutomationTestLogResource'
+        execution_date:
+          type: string
+          format: date-time
+          description: Execution Date
+        test_cycle:
+          type: string
+          example: TC-1
+          description: ID or PID of Test Cycle
+    TestStepInformationVM:
+      type: object
+      properties:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    Project:
+      type: object
+      properties:
+        creatorId:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        description:
+          type: string
+        projectStatusId:
+          type: integer
+          format: int64
+        patchIncidentStatus:
+          type: integer
+          format: int32
+        automation:
+          type: boolean
+        defectworkflow:
+          type: boolean
+        uuid:
+          type: string
+        cloneStatus:
+          type: integer
+          format: int32
+        sourceProjectId:
+          type: integer
+          format: int64
+        client:
+          $ref: '#/components/schemas/Client'
+        trxId:
+          type: string
+          format: date-time
+        customFieldTemplateId:
+          type: integer
+          format: int64
+        internally:
+          type: boolean
+        customFieldTemplate:
+          $ref: '#/components/schemas/CustomFieldTemplate'
+        indexingStatus:
+          type: boolean
+        autoPopulateClosedDate:
+          type: boolean
+        active:
+          type: boolean
+        cloneCanceled:
+          type: boolean
+        newStyleSample:
+          type: boolean
+        cloning:
+          type: boolean
+        cloned:
+          type: boolean
+        patchedIncidents:
+          type: boolean
+        sampleProject:
+          type: boolean
+        longId:
+          type: integer
+          format: int64
+        createDateTimeString:
           type: string
     AutomationTestLogResource:
       type: object
@@ -1006,26 +1565,19 @@ components:
           description: Node Path of Tosca test case.
         tosca_state:
           type: string
-    AutomationStepLog:
+    AutomationFailLinkedDefectResponse:
       type: object
-      required:
-      - test_step_log_id
       properties:
-        test_step_log_id:
-          type: integer
-          format: int64
-        actual_result:
-          type: string
-        status:
-          type: string
-        exe_date:
-          type: string
-          format: date-time
-          description: Execution date
-        attachments:
+        pids:
           type: array
+          description: Failed linked defects
           items:
-            $ref: '#/components/schemas/AttachmentResource'
+            type: string
+            example: MTR-2
+        error:
+          type: string
+          example: Could not find defect(s) in qTest Manager
+          description: Error message
     ManualTestLogResource:
       type: object
       required:
@@ -1107,129 +1659,148 @@ components:
           description: Array of Defect
           items:
             $ref: '#/components/schemas/LinkedDefectResource'
-    TestStepLogResource:
+    TestParameter:
       type: object
       properties:
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        test_step_id:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
           type: integer
           format: int64
-          example: 11
-        test_step_log_id:
+        projectId:
           type: integer
           format: int64
-        user_id:
-          type: integer
-          format: int64
-          example: 5202
-        status:
-          $ref: '#/components/schemas/StatusResource'
-        description:
-          type: string
-        expected_result:
-          type: string
-        actual_result:
-          type: string
-          example: Actual result is failed
-        called_test_case_id:
-          type: integer
-          format: int64
-        called_test_case_name:
-          type: string
-        order:
-          type: integer
-          format: int32
-          example: 1
-        group:
-          type: integer
-          format: int32
-        test_step:
-          $ref: '#/components/schemas/TestStepResource'
-        defects:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedDefectResource'
-        called_test_case_log:
-          $ref: '#/components/schemas/TestLogResource'
-        parent_test_step_id:
-          type: integer
-          format: int64
-        exe_date:
-          type: string
-          format: date-time
-          description: Execution date
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-    TestStepResource:
+    TestCaseWithCustomFieldResource:
       type: object
       required:
-      - description
-      - expected
+      - properties
       properties:
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
         links:
           type: array
+          description: Link to resource
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
         id:
           type: integer
           format: int64
-          example: 111
-        description:
+          example: 1
+          description: ID of the Test Case
+        name:
           type: string
-          example: Test Step description
-        expected:
-          type: string
-          example: Test step expected result
+          example: Test Case 1
+          description: Name of the Test Case
+          minLength: 1
+          maxLength: 500
         order:
           type: integer
           format: int32
           example: 1
-          minimum: 1
+          description: Display order of the Test Case
+        pid:
+          type: string
+          example: TC-1
+          description: PID of the Test Case
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          description: Fields value of the Test Case
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
+          description: Web URL of the Test Case
+          readOnly: true
         attachments:
           type: array
+          description: Arrays of Attachment of the Test Case
           items:
             $ref: '#/components/schemas/AttachmentResource'
           maxItems: 2147483647
           minItems: 0
-        group:
-          type: integer
-          format: int32
-        called_test_case_name:
-          type: string
-        root_called_test_case_id:
+        parent_id:
           type: integer
           format: int64
-        called_test_case:
-          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
-        parent_test_step_id:
+          example: 2107628
+          description: Module ID of the Test Case
+        test_case_version_id:
           type: integer
           format: int64
-        information:
-          $ref: '#/components/schemas/TestStepInformationVM'
-        plain_value_text:
+          example: 11
+          description: ID of Test Case Version
+        version:
           type: string
-        parameter_values:
+          description: Test Case Version of the Test Case
+        description:
+          type: string
+          example: Description of test case 1
+          description: Description of the Test Case
+        precondition:
+          type: string
+          example: Precondition of test case 1
+          description: Precondition of the Test Case
+        creator_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User who create the Test Case
+        agent_ids:
           type: array
           items:
-            type: string
-        called_test_case_id:
+            type: integer
+            format: int64
+        test_steps:
+          type: array
+          description: Arrays of Test Step of the Test Case
+          items:
+            $ref: '#/components/schemas/TestStepResource'
+        tosca_guid:
+          type: string
+          description: GUID of Tosca test case.
+        tosca_node_path:
+          type: string
+          description: Node Path of Tosca test case.
+        tosca_url:
+          type: string
+        tosca_test_case_unique_id:
+          type: string
+        tosca_state:
+          type: string
+        tosca_workspace_url:
+          type: string
+        last_modified_date_utc:
+          type: string
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
           type: integer
           format: int64
+        value:
+          type: string
+        objectId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        stripHTMLValue:
+          type: string
+        propertyEditorComponent:
+          type: boolean
     AttachmentResource:
       type: object
       properties:
@@ -1271,151 +1842,6 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
-    AutomationTestLogResourceResponse:
-      type: object
-      required:
-      - exe_end_date
-      - exe_start_date
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-        test_case_version_id:
-          type: integer
-          format: int64
-        exe_start_date:
-          type: string
-          format: date-time
-        exe_end_date:
-          type: string
-          format: date-time
-        note:
-          type: string
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          maxItems: 2147483647
-          minItems: 0
-        name:
-          type: string
-        planned_exe_time:
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9999999
-        actual_exe_time:
-          type: integer
-          format: int64
-        build_number:
-          type: string
-        build_url:
-          type: string
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        automation_content:
-          type: string
-        linkedDefects:
-          $ref: '#/components/schemas/AutomationLinkedDefectResponse'
-        system_name:
-          type: string
-        status:
-          type: string
-        order:
-          type: integer
-          format: int64
-        test_step_logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationTestStepLog'
-        testcase_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        module_names:
-          type: array
-          items:
-            type: string
-        agent_ids:
-          type: array
-          items:
-            type: integer
-            format: int64
-        defect_pids:
-          type: array
-          description: Defect pids
-          items:
-            type: string
-            example: MTR-1,MTR-2
-        tosca_guid:
-          type: string
-        tosca_node_path:
-          type: string
-        tosca_state:
-          type: string
-    ParameterInfo:
-      type: object
-      properties:
-        parameter:
-          $ref: '#/components/schemas/ParameterVM'
-        info:
-          $ref: '#/components/schemas/TestParameter'
-        parameterValue:
-          $ref: '#/components/schemas/ParameterValueVM'
-    LinkedDefectResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Defect
-        external_defect_id:
-          type: string
-          example: EXP-1
-          description: External ID of Defect
-        connection_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the external Integration Connection
-        external_project_id:
-          type: string
-          example: EXP
-          description: ID of external Project
-        summary:
-          type: string
-          example: Defect summary
-          description: Summary of external Defect
-        status:
-          type: string
-          example: New
-          description: Status of external Defect
-        pid:
-          type: string
-          example: EXP-1
-          description: PID of external Defect
-        web_url:
-          type: string
-          example: https://example.com/EXP-1
-          description: Web url to external Defect
-          readOnly: true
-        description:
-          type: string
-          example: Defect description
-          description: Description of external Defect
     StatusResource:
       type: object
       properties:
@@ -1469,27 +1895,6 @@ components:
           type: string
           example: AUTOMATION_TEST_LOG
           description: Type of task after batch submit automation test logs
-    TestLogListResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestLogResource'
     TestSuite:
       type: object
       properties:
@@ -1611,124 +2016,165 @@ components:
           type: string
         createDateTimeString:
           type: string
-    CustomFieldTemplate:
+    ProjectModule:
       type: object
       properties:
+        creatorId:
+          type: integer
+          format: int64
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
         id:
+          type: integer
+          format: int64
+        pid:
           type: integer
           format: int64
         clientId:
           type: integer
           format: int64
+        projectId:
+          type: integer
+          format: int64
+        project:
+          $ref: '#/components/schemas/Project'
+        objOrder:
+          type: integer
+          format: int64
+        parentModuleId:
+          type: integer
+          format: int64
+        parentModule:
+          $ref: '#/components/schemas/ProjectModule'
         name:
           type: string
-        default:
+        description:
+          type: string
+        moduleType:
+          type: string
+          format: byte
+        deleted:
           type: boolean
-    ParameterizationText:
-      type: object
-      properties:
-        parameters:
+        shared:
+          type: boolean
+        damage:
+          type: integer
+          format: int64
+        frequency:
+          type: integer
+          format: int64
+        weight:
+          type: integer
+          format: int64
+        tdsFlowId:
+          type: string
+        subModules:
           type: array
           items:
-            $ref: '#/components/schemas/ParameterInfo'
-        rawText:
+            $ref: '#/components/schemas/ProjectModule'
+        objectType:
+          type: integer
+          format: int64
+        statusId:
+          type: integer
+          format: int64
+        parentArtifactId:
+          type: integer
+          format: int64
+        parentObjectType:
+          type: integer
+          format: int64
+        artifactType:
+          type: integer
+          format: int32
+        longId:
+          type: integer
+          format: int64
+        pidWithPrefix:
           type: string
-        htmlText:
+        createDateTimeString:
           type: string
-        plainText:
-          type: string
-        valueText:
-          type: string
-        editedParameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ParameterInfo'
-        plainValueText:
-          type: string
-    Client:
+    TestLogListResource:
       type: object
       properties:
-        id:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
           type: integer
           format: int64
-        name:
-          type: string
-        siteName:
-          type: string
-        maxFailedLoginAttempt:
-          type: integer
-          format: int32
-        passwordShelfLife:
-          type: integer
-          format: int32
-        passwordHealthyPeriod:
-          type: integer
-          format: int32
-        minimumUniquePasswordsSequenceLength:
-          type: integer
-          format: int32
-        licenseBlobId:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestLogResource'
+    AutomationStepLog:
+      type: object
+      required:
+      - test_step_log_id
+      properties:
+        test_step_log_id:
           type: integer
           format: int64
-        sessionTimeoutEnabled:
-          type: boolean
-        sessionTimeoutMinute:
-          type: integer
-          format: int32
-        terminateIdleEnabled:
-          type: boolean
-        terminateIdleMinute:
-          type: integer
-          format: int32
-        dateFormat:
+        actual_result:
           type: string
-        rememberMeTimeoutEnabled:
-          type: boolean
-        rememberMeTimeoutDay:
-          type: integer
-          format: int32
-        mailRecipients:
+        status:
           type: string
-        useCustomPasswordPolicy:
-          type: boolean
-        minimumPasswordLength:
-          type: integer
-          format: int32
-        passwordContainsCapitalLetters:
-          type: boolean
-        passwordContainsLowercaseLetters:
-          type: boolean
-        passwordContainsNumericChars:
-          type: boolean
-        passwordContainsSpecialChars:
-          type: boolean
-        searchStatus:
+        exe_date:
           type: string
-          enum:
-          - ELASTICSEARCH
-          - REINDEXING
-          - ELASTICSEARCH_MIGRATED
-        searchMigrationDuration:
+          format: date-time
+          description: Execution date
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
           type: integer
           format: int64
-        trackingRequirementTestcaseVersionLink:
-          type: boolean
-        trackingConfigurationTestcaseVersionLink:
-          type: boolean
-        enableSiteAi:
-          type: boolean
-        enableAITestCaseGeneration:
-          type: boolean
-        executableFileEnabled:
-          type: boolean
-        inactive:
-          type: boolean
-        tdstenantId:
+          example: 1
+          description: ID of Field
+        field_name:
           type: string
-        forExplorer:
-          type: boolean
-        forOnPremise:
-          type: boolean
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
     TestLogResource:
       type: object
       required:
@@ -1804,433 +2250,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkedDefectResource'
-    AutomationLinkedDefectResponse:
-      type: object
-      properties:
-        success:
-          type: array
-          description: Successfully linked defects
-          items:
-            type: string
-            example: MTR-1
-        fail:
-          type: array
-          description: Failed linked defects with reasons
-          items:
-            $ref: '#/components/schemas/AutomationFailLinkedDefectResponse'
-    TestCaseWithCustomFieldResource:
-      type: object
-      required:
-      - properties
-      properties:
-        links:
-          type: array
-          description: Link to resource
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Test Case
-        name:
-          type: string
-          example: Test Case 1
-          description: Name of the Test Case
-          minLength: 1
-          maxLength: 500
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of the Test Case
-        pid:
-          type: string
-          example: TC-1
-          description: PID of the Test Case
-        created_date:
-          type: string
-          format: date-time
-        last_modified_date:
-          type: string
-          format: date-time
-        properties:
-          type: array
-          description: Fields value of the Test Case
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        web_url:
-          type: string
-          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
-          description: Web URL of the Test Case
-          readOnly: true
-        attachments:
-          type: array
-          description: Arrays of Attachment of the Test Case
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          maxItems: 2147483647
-          minItems: 0
-        parent_id:
-          type: integer
-          format: int64
-          example: 2107628
-          description: Module ID of the Test Case
-        test_case_version_id:
-          type: integer
-          format: int64
-          example: 11
-          description: ID of Test Case Version
-        version:
-          type: string
-          description: Test Case Version of the Test Case
-        description:
-          type: string
-          example: Description of test case 1
-          description: Description of the Test Case
-        precondition:
-          type: string
-          example: Precondition of test case 1
-          description: Precondition of the Test Case
-        creator_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User who create the Test Case
-        agent_ids:
-          type: array
-          items:
-            type: integer
-            format: int64
-        test_steps:
-          type: array
-          description: Arrays of Test Step of the Test Case
-          items:
-            $ref: '#/components/schemas/TestStepResource'
-        tosca_guid:
-          type: string
-          description: GUID of Tosca test case.
-        tosca_node_path:
-          type: string
-          description: Node Path of Tosca test case.
-        tosca_url:
-          type: string
-        tosca_test_case_unique_id:
-          type: string
-        tosca_state:
-          type: string
-        tosca_workspace_url:
-          type: string
-        last_modified_date_utc:
-          type: string
-    Project:
-      type: object
-      properties:
-        creatorId:
-          type: integer
-          format: int64
-        createdDate:
-          type: string
-          format: date-time
-        lastModifiedUserId:
-          type: integer
-          format: int64
-        lastModifiedDate:
-          type: string
-          format: date-time
-        id:
-          type: integer
-          format: int64
-        clientId:
-          type: integer
-          format: int64
-        name:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        description:
-          type: string
-        projectStatusId:
-          type: integer
-          format: int64
-        patchIncidentStatus:
-          type: integer
-          format: int32
-        automation:
-          type: boolean
-        defectworkflow:
-          type: boolean
-        uuid:
-          type: string
-        cloneStatus:
-          type: integer
-          format: int32
-        sourceProjectId:
-          type: integer
-          format: int64
-        client:
-          $ref: '#/components/schemas/Client'
-        trxId:
-          type: string
-          format: date-time
-        customFieldTemplateId:
-          type: integer
-          format: int64
-        internally:
-          type: boolean
-        customFieldTemplate:
-          $ref: '#/components/schemas/CustomFieldTemplate'
-        indexingStatus:
-          type: boolean
-        autoPopulateClosedDate:
-          type: boolean
-        active:
-          type: boolean
-        cloneCanceled:
-          type: boolean
-        newStyleSample:
-          type: boolean
-        cloning:
-          type: boolean
-        cloned:
-          type: boolean
-        patchedIncidents:
-          type: boolean
-        sampleProject:
-          type: boolean
-        longId:
-          type: integer
-          format: int64
-        createDateTimeString:
-          type: string
-    AutomationTestStepLog:
-      type: object
-      required:
-      - description
-      - expected_result
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        description:
-          type: string
-          example: description
-          description: Test Step Log's description
-        expected_result:
-          type: string
-          example: expected result
-          description: Test Step Log's expected result
-        actual_result:
-          type: string
-          example: actual result
-          description: Test Step Log's actual result
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Test Step Log's order
-        status:
-          type: string
-          example: PASSED
-          description: Test Step Log's status
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          maxItems: 2147483647
-          minItems: 0
-        defect_pids:
-          type: array
-          description: Defect Pids
-          items:
-            type: string
-            example: MTR-1,MTR-2
-        exe_date:
-          type: string
-          format: date-time
-          description: Execution date
-    TestCycle:
-      type: object
-      properties:
-        creatorId:
-          type: integer
-          format: int64
-        createdDate:
-          type: string
-          format: date-time
-        lastModifiedUserId:
-          type: integer
-          format: int64
-        lastModifiedDate:
-          type: string
-          format: date-time
-        id:
-          type: integer
-          format: int64
-        pid:
-          type: integer
-          format: int64
-        parentTestCycleId:
-          type: integer
-          format: int64
-        objOrder:
-          type: integer
-          format: int64
-        name:
-          type: string
-        clientId:
-          type: integer
-          format: int64
-        testCycleType:
-          type: integer
-          format: int32
-        releaseId:
-          type: integer
-          format: int64
-        buildId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
-        deleted:
-          type: boolean
-        description:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        subCycles:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestCycle'
-        toscaUniqueId:
-          type: string
-        toscaNodePath:
-          type: string
-        toscaObjectType:
-          type: string
-        toscaUrl:
-          type: string
-        toscaRootEventId:
-          type: string
-        deletedToscaObjectType:
-          type: string
-        objectType:
-          type: integer
-          format: int64
-        statusId:
-          type: integer
-          format: int64
-        parentArtifactId:
-          type: integer
-          format: int64
-        parentObjectType:
-          type: integer
-          format: int64
-        toscaKey:
-          type: string
-        artifactType:
-          type: integer
-          format: int32
-        longId:
-          type: integer
-          format: int64
-        pidWithPrefix:
-          type: string
-        createDateTimeString:
-          type: string
-    ParameterValueVM:
-      type: object
-      properties:
-        id:
-          type: string
-        value:
-          type: string
-    TestStepInformationVM:
-      type: object
-      properties:
-        description:
-          type: string
-        descriptionInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        expectedResult:
-          type: string
-        actualResult:
-          type: string
-        expectedResultInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
-    AutomationRequest:
-      type: object
-      required:
-      - test_logs
-      properties:
-        testSuiteModel:
-          $ref: '#/components/schemas/TestSuite'
-        parentModuleModel:
-          $ref: '#/components/schemas/ProjectModule'
-        parentTestCycleModel:
-          $ref: '#/components/schemas/TestCycle'
-        skipCreatingAutomationModule:
-          type: boolean
-        shouldCheckUnlinkRequirement:
-          type: boolean
-        test_suite:
-          type: string
-          example: TS-1
-          description: ID or PID of Test Suite
-        parent_module:
-          type: string
-          example: MD-1
-          description: ID or PID of Module
-        test_logs:
-          type: array
-          description: Array of Test Log
-          items:
-            $ref: '#/components/schemas/AutomationTestLogResource'
-        execution_date:
-          type: string
-          format: date-time
-          description: Execution Date
-        test_cycle:
-          type: string
-          example: TC-1
-          description: ID or PID of Test Cycle
-    TestParameter:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-        clientId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
   securitySchemes:
     Authorization:
       type: apiKey

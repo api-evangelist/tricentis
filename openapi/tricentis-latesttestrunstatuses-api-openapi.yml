@@ -105,6 +105,8 @@ paths:
                       $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.latesttestrunstatus'
         4XX:
           $ref: '#/components/responses/error'
+      operationId: getLatesttestrunstatuses
+      x-operation-id-source: derived
   /latesttestrunstatuses({id}):
     parameters:
     - description: 'key: id'
@@ -155,42 +157,9 @@ paths:
                 $ref: '#/components/schemas/x26997ea37814ba1b9a423c590887c7a7c1262datasource.latesttestrunstatus'
         4XX:
           $ref: '#/components/responses/error'
+      operationId: getLatesttestrunstatuses({id})
+      x-operation-id-source: derived
 components:
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-  parameters:
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
-      schema:
-        type: integer
-        minimum: 0
-      example: 50
-    count:
-      name: $count
-      in: query
-      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
-      schema:
-        type: boolean
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
-      schema:
-        type: integer
-        minimum: 0
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
-      schema:
-        type: string
   schemas:
     error:
       type: object
@@ -226,11 +195,6 @@ components:
             innererror:
               type: object
               description: The structure of this object is service-specific
-    count:
-      anyOf:
-      - type: number
-      - type: string
-      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
     x26997ea37814ba1b9a423c590887c7a7c1262datasource.latesttestrunstatus:
       title: latesttestrunstatus
       type: object
@@ -311,6 +275,46 @@ components:
           - type: string
           format: int64
           example: '42'
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+  parameters:
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BasicAuth:
       type: http

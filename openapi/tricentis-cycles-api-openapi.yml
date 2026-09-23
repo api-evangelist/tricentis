@@ -15,8 +15,33 @@ paths:
     post:
       tags:
       - Cycles
-      summary: Create cycle(s).
-      description: "## Create cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycles** _(mandatory)_: Provide a list of cycles, with each test having the following fields:\n    * **name** _(mandatory)_: name of the cycle.\n    * **version** _(optional)_: cycle's version (if not provided the version will be under 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Environments and Builds are allowed. AllowedValueName must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).\n        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development)."
+      summary: Create cycle(s)
+      description: '## Create cycle(s).
+
+        ##### Note: Release versions are managed in Jira.
+
+
+        #### Body fields:
+
+        * **cycles** _(mandatory)_: Provide a list of cycles, with each test having the following fields:
+
+        * **name** _(mandatory)_: name of the cycle.
+
+        * **version** _(optional)_: cycle''s version (if not provided the version will be under ''unversioned'').
+
+        * **assignee** _(optional)_: the username or email which the cycle will be assigned to.
+
+        * **plannedStartDate** _(optional)_: the cycle planned start date.
+
+        * **plannedEndDate** _(optional)_: the cycle planned end date.
+
+        * **fields** _(optional)_: list of fields of the cycle.
+
+        Only Environments and Builds are allowed. AllowedValueName must be provided.
+
+        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).
+
+        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development).'
       parameters:
       - name: project-key
         in: path
@@ -218,12 +243,37 @@ paths:
           description: '`Not Found`.'
       security:
       - api_key: []
+      operationId: postV1ProjectsByProjectKeyCycles
+      x-operation-id-source: derived
   /v1/projects/{project-key}/cycles/{cycleId}:
     put:
       tags:
       - Cycles
-      summary: Update cycle.
-      description: "## Update cycle.\n##### Note: Release versions are managed in Jira.\n            \n#### Body fields:\n* **cycle** : Provide the cycle details to update:\n    * **name** _(optional)_: name of the cycle.\n    * **assignee** _(optional)_: the username or email which the cycle will be assigned to.\n    * **plannedStartDate** _(optional)_: the cycle planned start date.\n    * **plannedEndDate** _(optional)_: the cycle planned end date.\n    * **fields** _(optional)_: list of fields of the cycle.\n    Only Environments and Builds are allowed. AllowedValueName must be provided.\n        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).\n        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development)."
+      summary: Update cycle
+      description: '## Update cycle.
+
+        ##### Note: Release versions are managed in Jira.
+
+
+        #### Body fields:
+
+        * **cycle** : Provide the cycle details to update:
+
+        * **name** _(optional)_: name of the cycle.
+
+        * **assignee** _(optional)_: the username or email which the cycle will be assigned to.
+
+        * **plannedStartDate** _(optional)_: the cycle planned start date.
+
+        * **plannedEndDate** _(optional)_: the cycle planned end date.
+
+        * **fields** _(optional)_: list of fields of the cycle.
+
+        Only Environments and Builds are allowed. AllowedValueName must be provided.
+
+        * **schemeName** _(mandatory)_: the scheme name of the field (for example Environments).
+
+        * **allowedValueName** _(mandatory)_: the allowed value of the scheme (for example Development).'
       parameters:
       - name: cycleId
         in: path
@@ -416,12 +466,27 @@ paths:
           description: '`Not Found`.'
       security:
       - api_key: []
+      operationId: putV1ProjectsByProjectKeyCyclesByCycleId
+      x-operation-id-source: derived
   /v1/projects/{project-key}/cycles/search:
     get:
       tags:
       - Cycles
-      summary: Get cycles.
-      description: "## Get cycle(s).\n##### Note: Release versions are managed in Jira.\n            \n#### Query parameter fields:\n* **cycle** : Provide the cycle details to filter by:\n    * **name** _(optional)_: filter cycles that contains name.\n    * **version** _(optional)_: cycle's version (if not provided the default value is 'unversioned').\n    * **assignee** _(optional)_: the username or email which the cycle is assigned to."
+      summary: Get cycles
+      description: '## Get cycle(s).
+
+        ##### Note: Release versions are managed in Jira.
+
+
+        #### Query parameter fields:
+
+        * **cycle** : Provide the cycle details to filter by:
+
+        * **name** _(optional)_: filter cycles that contains name.
+
+        * **version** _(optional)_: cycle''s version (if not provided the default value is ''unversioned'').
+
+        * **assignee** _(optional)_: the username or email which the cycle is assigned to.'
       parameters:
       - name: name
         in: query
@@ -573,6 +638,8 @@ paths:
           description: '`Not Found`.'
       security:
       - api_key: []
+      operationId: getV1ProjectsByProjectKeyCyclesSearch
+      x-operation-id-source: derived
 components:
   securitySchemes:
     api_key:

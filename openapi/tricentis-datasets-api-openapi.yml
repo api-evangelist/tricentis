@@ -61,6 +61,10 @@ paths:
               $ref: '#/components/schemas/CreateDatasetModel'
         description: Dataset object that needs to be created
         required: true
+      summary: Create api data sets create
+      x-summary-source: derived
+      operationId: postApiV1DataSetsCreate
+      x-operation-id-source: derived
   /api/v1/data-sets/{id}:
     get:
       description: Retrieve a dataset by id
@@ -116,6 +120,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Get api data sets by id
+      x-summary-source: derived
+      operationId: getApiV1DataSetsById
+      x-operation-id-source: derived
     delete:
       description: Delete a dataset by id
       tags:
@@ -148,6 +156,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Delete api data sets by id
+      x-summary-source: derived
+      operationId: deleteApiV1DataSetsById
+      x-operation-id-source: derived
     put:
       description: Update a dataset by id
       tags:
@@ -196,6 +208,10 @@ paths:
               $ref: '#/components/schemas/CreateDatasetModel'
         description: Dataset object that needs to be updated
         required: true
+      summary: Replace api data sets by id
+      x-summary-source: derived
+      operationId: putApiV1DataSetsById
+      x-operation-id-source: derived
   /api/v1/data-sets/query:
     post:
       description: Query datasets
@@ -259,6 +275,10 @@ paths:
               $ref: '#/components/schemas/SearchDatasetModel'
         description: Dataset query object.
         required: true
+      summary: Create api data sets query
+      x-summary-source: derived
+      operationId: postApiV1DataSetsQuery
+      x-operation-id-source: derived
   /api/v1/data-sets/bulk-delete:
     post:
       description: Delete multiple datasets
@@ -318,6 +338,10 @@ paths:
                 example: 5a17c935b015841767bbec66
         description: List of dataset ids that need to be deleted
         required: true
+      summary: Create api data sets bulk delete
+      x-summary-source: derived
+      operationId: postApiV1DataSetsBulkDelete
+      x-operation-id-source: derived
   /api/v1/data-sets/status:
     put:
       description: Update status of mulitple datasets speficied by dataset ids
@@ -388,6 +412,10 @@ paths:
                     example: 5a17c935b015841767bbec66
         description: List of dataset ids whose status is going to be updated
         required: true
+      summary: Replace api data sets status
+      x-summary-source: derived
+      operationId: putApiV1DataSetsStatus
+      x-operation-id-source: derived
   /api/v1/data-sets/import:
     post:
       description: Import dataset(s) from excel file. The result is an import task id that the caller can poll to check for the importing progress/result
@@ -446,6 +474,10 @@ paths:
               required:
               - file
               - config
+      summary: Create api data sets import
+      x-summary-source: derived
+      operationId: postApiV1DataSetsImport
+      x-operation-id-source: derived
   /api/v1/data-sets/{dsId}/rows:
     post:
       description: Create multiple dataset values
@@ -506,6 +538,10 @@ paths:
                 $ref: '#/components/schemas/CreateDatasetValueModel'
         description: Multiple dataset value objects to be created
         required: true
+      summary: Create api data sets by ds id rows
+      x-summary-source: derived
+      operationId: postApiV1DataSetsByDsIdRows
+      x-operation-id-source: derived
     get:
       description: Query dataset rows
       tags:
@@ -578,6 +614,10 @@ paths:
                 properties:
                   error:
                     type: string
+      summary: Get api data sets by ds id rows
+      x-summary-source: derived
+      operationId: getApiV1DataSetsByDsIdRows
+      x-operation-id-source: derived
   /api/v1/data-sets/{dsId}/rows/delete:
     post:
       description: Delete multiple dataset values
@@ -643,19 +683,15 @@ paths:
                 type: string
         description: Dataset value ids to be deleted
         required: true
+      summary: Create api data sets by ds id rows delete
+      x-summary-source: derived
+      operationId: postApiV1DataSetsByDsIdRowsDelete
+      x-operation-id-source: derived
 components:
   schemas:
-    DatasetValueModel:
+    CreateDatasetValueModel:
       type: object
       properties:
-        id:
-          type: string
-          description: dataset value id
-          example: 5a17c935b015841767bbec68
-        ds_id:
-          type: string
-          description: dataset id
-          example: 5a17c935b015841767bbec66
         cells:
           type: array
           description: list of data values
@@ -678,9 +714,17 @@ components:
                 type: string
                 description: parameter value
                 example: Sample Parameter Value
-    CreateDatasetValueModel:
+    DatasetValueModel:
       type: object
       properties:
+        id:
+          type: string
+          description: dataset value id
+          example: 5a17c935b015841767bbec68
+        ds_id:
+          type: string
+          description: dataset id
+          example: 5a17c935b015841767bbec66
         cells:
           type: array
           description: list of data values

@@ -43,8 +43,8 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   responses:
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
       content:
         application/json:
           schema:
@@ -61,14 +61,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
+    error_401:
+      description: Unauthorized. You must provide an API token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:

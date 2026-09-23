@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: qTest Explorer | Sessions V2 Screen API
   version: 1.0.0
-  description: "These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to \tsupport@tricentis.com."
+  description: These APIs are for internal reference by Tricentis development team only. They are not intended to be used publicly by any qTest or non-qTest users and so there is no support provided by Tricentis at any level. If you want to access these APIs, please send a support ticket to support@tricentis.com.
 servers:
 - url: https://session-js.qtestnet.com/
 tags:
@@ -49,6 +49,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: getSessionsBySessionIdScreens
+      x-operation-id-source: derived
     post:
       tags:
       - v2-screen
@@ -83,6 +85,8 @@ paths:
               $ref: '#/components/schemas/CreateScreen'
         description: Screen need to be created
         required: true
+      operationId: postSessionsBySessionIdScreens
+      x-operation-id-source: derived
     put:
       tags:
       - v2-screen
@@ -118,6 +122,8 @@ paths:
                 $ref: '#/components/schemas/UpdateScreen'
         description: Screens need to be updated
         required: true
+      operationId: putSessionsBySessionIdScreens
+      x-operation-id-source: derived
   /sessions/{sessionId}/screens/{screenId}:
     get:
       tags:
@@ -156,6 +162,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: getSessionsBySessionIdScreensByScreenId
+      x-operation-id-source: derived
     put:
       tags:
       - v2-screen
@@ -197,6 +205,8 @@ paths:
               $ref: '#/components/schemas/UpdateScreen'
         description: Screen need to be updated
         required: true
+      operationId: putSessionsBySessionIdScreensByScreenId
+      x-operation-id-source: derived
     delete:
       tags:
       - v2-screen
@@ -230,6 +240,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: deleteSessionsBySessionIdScreensByScreenId
+      x-operation-id-source: derived
   /sessions/{sessionId}/screens/{screenId}/images:
     get:
       tags:
@@ -269,6 +281,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: getSessionsBySessionIdScreensByScreenIdImages
+      x-operation-id-source: derived
     post:
       tags:
       - v2-screen
@@ -321,6 +335,8 @@ paths:
                   format: binary
               required:
               - file
+      operationId: postSessionsBySessionIdScreensByScreenIdImages
+      x-operation-id-source: derived
   /sessions/{sessionId}/screens/{screenId}/image-url:
     get:
       tags:
@@ -359,6 +375,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: getSessionsBySessionIdScreensByScreenIdImageUrl
+      x-operation-id-source: derived
   /sessions/{sessionId}/screens/{screenId}/thumbnail:
     get:
       tags:
@@ -398,6 +416,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: getSessionsBySessionIdScreensByScreenIdThumbnail
+      x-operation-id-source: derived
   /sessions/{sessionId}/screens/{screenId}/thumbnail-url:
     get:
       tags:
@@ -436,6 +456,8 @@ paths:
       security:
       - v2_auth: []
       x-swagger-router-controller: api.screen
+      operationId: getSessionsBySessionIdScreensByScreenIdThumbnailUrl
+      x-operation-id-source: derived
 components:
   schemas:
     Point:
@@ -447,33 +469,49 @@ components:
         y:
           type: number
           format: double
-    Link:
+    Screen:
       type: object
       properties:
-        rel:
-          type: string
-        href:
-          type: string
-    CreateScreen:
-      type: object
-      properties:
+        links:
+          $ref: '#/components/schemas/Links'
         id:
           type: string
+        ext_screen_id:
+          type: string
         order:
-          type: integer
+          type: string
         capture_mode:
           type: string
           enum:
           - Desktop
           - Application
           - Form
+        screenshot_filename:
+          type: string
+        thumbnail_filename:
+          type: string
         title:
           type: string
+        browser_url:
+          type: string
+        is_deleted:
+          type: boolean
         time_type:
           $ref: '#/components/schemas/TimeType'
+        finished_timestamp:
+          type: string
+          description: 'finished timestamp, Ex: 2018-01-15T21:46:30.000Z'
         timestamp:
           type: string
           description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        created_date:
+          type: string
+          description: 'created date, Ex: 2018-01-16T09:46:30.265Z'
+        modified_date:
+          type: string
+          description: 'modified date, Ex: 2018-04-05T15:30:09.865Z'
+        original_title:
+          type: string
         app_height:
           type: number
           format: double
@@ -508,37 +546,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
-        is_deleted:
-          type: boolean
+        image_url:
+          type: string
+        thumbnail:
+          type: string
+        direct_image_url:
+          type: string
+        direct_thumbnail:
+          type: string
     Links:
       type: array
       items:
         $ref: '#/components/schemas/Link'
-    ActionMetadata:
+    TimeType:
       type: object
       properties:
-        element_type:
-          type: string
         id:
           type: string
         name:
           type: string
-        css_selector:
+        color:
           type: string
-        tag_name:
-          type: string
-        xpath:
-          type: array
-          items:
-            type: string
-        value:
-          type: string
-        ctrl_type:
-          type: integer
-        action_type:
-          type: string
-        details:
-          type: object
     Annotation:
       type: object
       properties:
@@ -679,49 +707,58 @@ components:
             $ref: '#/components/schemas/Annotation'
         is_deleted:
           type: boolean
-    Screen:
+    ActionMetadata:
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
+        element_type:
+          type: string
         id:
           type: string
-        ext_screen_id:
+        name:
+          type: string
+        css_selector:
+          type: string
+        tag_name:
+          type: string
+        xpath:
+          type: array
+          items:
+            type: string
+        value:
+          type: string
+        ctrl_type:
+          type: integer
+        action_type:
+          type: string
+        details:
+          type: object
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    CreateScreen:
+      type: object
+      properties:
+        id:
           type: string
         order:
-          type: string
+          type: integer
         capture_mode:
           type: string
           enum:
           - Desktop
           - Application
           - Form
-        screenshot_filename:
-          type: string
-        thumbnail_filename:
-          type: string
         title:
           type: string
-        browser_url:
-          type: string
-        is_deleted:
-          type: boolean
         time_type:
           $ref: '#/components/schemas/TimeType'
-        finished_timestamp:
-          type: string
-          description: 'finished timestamp, Ex: 2018-01-15T21:46:30.000Z'
         timestamp:
           type: string
           description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
-        created_date:
-          type: string
-          description: 'created date, Ex: 2018-01-16T09:46:30.265Z'
-        modified_date:
-          type: string
-          description: 'modified date, Ex: 2018-04-05T15:30:09.865Z'
-        original_title:
-          type: string
         app_height:
           type: number
           format: double
@@ -756,23 +793,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
-        image_url:
-          type: string
-        thumbnail:
-          type: string
-        direct_image_url:
-          type: string
-        direct_thumbnail:
-          type: string
-    TimeType:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        color:
-          type: string
+        is_deleted:
+          type: boolean
   securitySchemes:
     v2_auth:
       type: apiKey

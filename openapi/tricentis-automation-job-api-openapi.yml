@@ -1,6 +1,10 @@
 openapi: 3.2.0
 info:
-  description: "[Introduction to qTest API Specification](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/qtest_api_specification.htm) \n[How to use interactive API Doc](https://documentation.tricentis.com/qtest/od/en/content/apis/overview/how_to_use_interactive_api_documentation.htm)\n The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab."
+  description: 'Introduction to qTest API Specification
+
+    How to use interactive API Doc
+
+    The bearer token can be found at `[qtestUrl/p/{projectId}/portal/project#tab=resource]` under the API & SDK tab.'
   version: v3.0
   title: qTest Manager API Version 3.0 Automation Job API
 servers:
@@ -14,7 +18,26 @@ paths:
       tags:
       - automation-job
       summary: Search automation agents
-      description: "To search automation agents in projects that user is assigned to \n\n<em>fields:</em> specify which property of Automation Agent you want to include in the response. If you omit it or specify an asterisk (*), all of following fields are included: id, name, project_id, host_id, framework, active, configuration\n\n\n<em>query:</em> specify a structured query (criteria, operator and value) with one or multiple clauses to search for Automation Agents. Following are supporting criteria\n\n| Criteria | Operators | Value |\n|-----|-----|-------|\n| name, framework   |  <>, ~, is empty, =, !~, is not empty   | string     |\n |host_name | <>, ~, =, !~ | string | \n| id, project_id, host_id | <>, >, <, <=, >=, =| id \n | active | = | active, inactive\n\n"
+      description: 'To search automation agents in projects that user is assigned to
+
+
+        fields: specify which property of Automation Agent you want to include in the response. If you omit it or specify an asterisk (*), all of following fields are included: id, name, project_id, host_id, framework, active, configuration
+
+
+        query: specify a structured query (criteria, operator and value) with one or multiple clauses to search for Automation Agents. Following are supporting criteria
+
+
+        | Criteria | Operators | Value |
+
+        |-----|-----|-------|
+
+        | name, framework | <>, ~, is empty, =, !~, is not empty | string |
+
+        |host_name | <>, ~, =, !~ | string |
+
+        | id, project_id, host_id | <>, >, =, =| id
+
+        | active | = | active, inactive'
       operationId: searchAutomationAgents
       parameters:
       - name: pageSize
@@ -56,10 +79,10 @@ paths:
       description: 'To create a new Schedule which will be executed immediately
 
 
-        <strong>NOTE:</strong> Try It Out function will not work for this API
+        NOTE: Try It Out function will not work for this API
 
 
-        <strong>qTest Manager version:</strong> 6+"'
+        qTest Manager version: 6+"'
       operationId: createSchedule
       responses:
         201:
@@ -79,17 +102,45 @@ paths:
         required: true
 components:
   schemas:
-    Link:
+    AutomationScheduleCreationAPI:
       type: object
+      required:
+      - agentId
+      - projectId
       properties:
-        rel:
+        clientId:
+          type: integer
+          format: int64
+        name:
           type: string
-          example: self
-          description: Relationship of link to object
-        href:
+          example: Demo Suite Auto
+          description: Name of schedule
+        agentId:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the agent which will execute your automation script
+        startDate:
           type: string
-          example: <link to object>
-          description: URL to the resource
+          format: date-time
+        creator:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+          example: 1
+        testRunIds:
+          type: array
+          description: Arrays of Test Run ID
+          items:
+            type: integer
+            format: int64
+        dynamic:
+          type: object
+          description: Additions values
+          additionalProperties:
+            type: string
     AutomationArtifactSearchParams:
       type: object
       properties:
@@ -137,45 +188,6 @@ components:
           type: boolean
         configuration:
           type: string
-    AutomationScheduleCreationAPI:
-      type: object
-      required:
-      - agentId
-      - projectId
-      properties:
-        clientId:
-          type: integer
-          format: int64
-        name:
-          type: string
-          example: Demo Suite Auto
-          description: Name of schedule
-        agentId:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the agent which will execute your automation script
-        startDate:
-          type: string
-          format: date-time
-        creator:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
-          example: 1
-        testRunIds:
-          type: array
-          description: Arrays of Test Run ID
-          items:
-            type: integer
-            format: int64
-        dynamic:
-          type: object
-          description: Additions values
-          additionalProperties:
-            type: string
     AutomationAgentSearchResult:
       type: object
       properties:
@@ -197,6 +209,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AutomationAgentResource'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
   securitySchemes:
     Authorization:
       type: apiKey
