@@ -334,6 +334,14 @@ components:
       - type: string
       description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
   parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
     search:
       name: $search
       in: query
@@ -353,14 +361,6 @@ components:
       schema:
         type: integer
         minimum: 0
-    top:
-      name: $top
-      in: query
-      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
-      schema:
-        type: integer
-        minimum: 0
-      example: 50
   responses:
     error:
       description: Error

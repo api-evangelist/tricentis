@@ -209,50 +209,109 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  responses:
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    counter_id:
+      name: counterId
+      in: path
+      required: true
+      description: Unique identifier representing a specific counter.
+      schema:
+        type: string
   schemas:
+    CounterDefinitionArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/CounterDefinition'
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    Points:
+      type: array
+      items:
+        $ref: '#/components/schemas/Point'
+    Point:
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int64
+          description: ''
+        to:
+          type: integer
+          format: int64
+          description: ''
+        AVG_DURATION:
+          type: number
+          format: float
+          description: ''
+        MIN_DURATION:
+          type: number
+          format: float
+          description: ''
+        MAX_DURATION:
+          type: number
+          format: float
+          description: ''
+        COUNT:
+          type: number
+          format: float
+          description: ''
+        THROUGHPUT:
+          type: number
+          format: float
+          description: ''
+        ELEMENTS_PER_SECOND:
+          type: number
+          format: float
+          description: ''
+        ERRORS:
+          type: number
+          format: float
+          description: ''
+        ERRORS_PER_SECOND:
+          type: number
+          format: float
+          description: ''
+        ERROR_RATE:
+          type: number
+          format: float
+          description: ''
+        AVG_TTFB:
+          type: number
+          format: float
+          description: ''
+        MIN_TTFB:
+          type: number
+          format: float
+          description: ''
+        MAX_TTFB:
+          type: number
+          format: float
+          description: ''
+        AVG:
+          type: number
+          format: float
+          description: ''
     CounterValues:
       type: object
       properties:
@@ -276,22 +335,38 @@ components:
           type: number
           format: float
           description: ''
-    RateLimitError:
+    CustomMonitor:
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        name:
           type: string
-        retry-after:
-          type: integer
-    MonitorPostRequest:
+          description: Name of custom monitor.
+        path:
+          type: array
+          description: Path of the custom monitor.
+          items:
+            type: string
+        unit:
+          type: string
+          description: Unit of the custom monitor.
+        values:
+          type: object
+          required: true
+          $ref: '#/components/schemas/CustomMonitorValues'
+    CounterDefinition:
       type: object
       properties:
-        monitors:
+        id:
+          type: string
+          description: Unique identifier of the counter.
+        name:
+          type: string
+          description: Name of the counter.
+        path:
           type: array
+          description: Full path of the counter including the counter itself.
           items:
-            $ref: '#/components/schemas/CustomMonitor'
+            type: string
     Error:
       type: object
       properties:
@@ -552,28 +627,6 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    CustomMonitor:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of custom monitor.
-        path:
-          type: array
-          description: Path of the custom monitor.
-          items:
-            type: string
-        unit:
-          type: string
-          description: Unit of the custom monitor.
-        values:
-          type: object
-          required: true
-          $ref: '#/components/schemas/CustomMonitorValues'
-    CounterDefinitionArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/CounterDefinition'
     CustomMonitorValues:
       type: array
       items:
@@ -587,109 +640,56 @@ components:
             type: number
             format: float
             description: Number for the value.
-    Points:
-      type: array
-      items:
-        $ref: '#/components/schemas/Point'
-    Point:
+    MonitorPostRequest:
       type: object
       properties:
-        from:
-          type: integer
-          format: int64
-          description: ''
-        to:
-          type: integer
-          format: int64
-          description: ''
-        AVG_DURATION:
-          type: number
-          format: float
-          description: ''
-        MIN_DURATION:
-          type: number
-          format: float
-          description: ''
-        MAX_DURATION:
-          type: number
-          format: float
-          description: ''
-        COUNT:
-          type: number
-          format: float
-          description: ''
-        THROUGHPUT:
-          type: number
-          format: float
-          description: ''
-        ELEMENTS_PER_SECOND:
-          type: number
-          format: float
-          description: ''
-        ERRORS:
-          type: number
-          format: float
-          description: ''
-        ERRORS_PER_SECOND:
-          type: number
-          format: float
-          description: ''
-        ERROR_RATE:
-          type: number
-          format: float
-          description: ''
-        AVG_TTFB:
-          type: number
-          format: float
-          description: ''
-        MIN_TTFB:
-          type: number
-          format: float
-          description: ''
-        MAX_TTFB:
-          type: number
-          format: float
-          description: ''
-        AVG:
-          type: number
-          format: float
-          description: ''
-    CounterDefinition:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the counter.
-        name:
-          type: string
-          description: Name of the counter.
-        path:
+        monitors:
           type: array
-          description: Full path of the counter including the counter itself.
           items:
-            type: string
-  parameters:
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    counter_id:
-      name: counterId
-      in: path
-      required: true
-      description: Unique identifier representing a specific counter.
-      schema:
-        type: string
+            $ref: '#/components/schemas/CustomMonitor'
+  responses:
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

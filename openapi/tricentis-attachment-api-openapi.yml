@@ -356,50 +356,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OutputStream:
-      type: object
-    PagedResourceAttachmentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
     AttachmentResource:
       type: object
       properties:
@@ -441,6 +397,39 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
+    OutputStream:
+      type: object
+    PagedResourceAttachmentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
     AttachmentAuthor:
       type: object
       properties:
@@ -461,6 +450,17 @@ components:
           type: string
           example: Last name of the User
           description: Last name of the User
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
   securitySchemes:
     Authorization:
       type: apiKey

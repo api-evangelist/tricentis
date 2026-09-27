@@ -689,45 +689,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CreateDatasetValueModel:
-      type: object
-      properties:
-        cells:
-          type: array
-          description: list of data values
-          items:
-            type: object
-            properties:
-              col:
-                type: number
-                description: column index
-                example: 0
-              param_id:
-                type: string
-                description: parameter id
-                example: 5a17c935b015841767bbec64
-              value_id:
-                type: string
-                description: parameter value id
-                example: 5a17c935b015841767bbec68
-              value_text:
-                type: string
-                description: parameter value
-                example: Sample Parameter Value
-    DatasetValueModel:
+    DatasetModel:
       type: object
       properties:
         id:
           type: string
-          description: dataset value id
-          example: 5a17c935b015841767bbec68
-        ds_id:
-          type: string
           description: dataset id
-          example: 5a17c935b015841767bbec66
-        cells:
+          example: 5a17c935b015841767bbec64
+        name:
+          type: string
+          description: dataset name
+          example: Sample Dataset name
+        description:
+          type: string
+          description: dataset description
+          example: Sample Dataset Description
+        status:
+          type: string
+          description: dataset status active/inactive
+          enum:
+          - Active
+          - Inactive
+        project_ids:
           type: array
-          description: list of data values
+          description: list of projects specified by projects id that this dataset belongs to
+          items:
+            type: number
+            example: 62592
+        created:
+          type: string
+          description: created date in ISODate format
+          format: date-time
+        modified:
+          type: string
+          description: modified date in ISODate format
+          format: date-time
+        header:
+          type: array
+          description: list of parameters
           items:
             type: object
             properties:
@@ -739,14 +738,10 @@ components:
                 type: string
                 description: parameter id
                 example: 5a17c935b015841767bbec64
-              value_id:
+              param_name:
                 type: string
-                description: parameter value id
-                example: 5a17c935b015841767bbec68
-              value_text:
-                type: string
-                description: parameter value
-                example: Sample Parameter Value
+                description: parameter name
+                example: Sample Parameter Name
     CreateDatasetModel:
       type: object
       required:
@@ -830,44 +825,20 @@ components:
             enum:
             - Active
             - Inactive
-    DatasetModel:
+    DatasetValueModel:
       type: object
       properties:
         id:
           type: string
+          description: dataset value id
+          example: 5a17c935b015841767bbec68
+        ds_id:
+          type: string
           description: dataset id
-          example: 5a17c935b015841767bbec64
-        name:
-          type: string
-          description: dataset name
-          example: Sample Dataset name
-        description:
-          type: string
-          description: dataset description
-          example: Sample Dataset Description
-        status:
-          type: string
-          description: dataset status active/inactive
-          enum:
-          - Active
-          - Inactive
-        project_ids:
+          example: 5a17c935b015841767bbec66
+        cells:
           type: array
-          description: list of projects specified by projects id that this dataset belongs to
-          items:
-            type: number
-            example: 62592
-        created:
-          type: string
-          description: created date in ISODate format
-          format: date-time
-        modified:
-          type: string
-          description: modified date in ISODate format
-          format: date-time
-        header:
-          type: array
-          description: list of parameters
+          description: list of data values
           items:
             type: object
             properties:
@@ -879,10 +850,39 @@ components:
                 type: string
                 description: parameter id
                 example: 5a17c935b015841767bbec64
-              param_name:
+              value_id:
                 type: string
-                description: parameter name
-                example: Sample Parameter Name
+                description: parameter value id
+                example: 5a17c935b015841767bbec68
+              value_text:
+                type: string
+                description: parameter value
+                example: Sample Parameter Value
+    CreateDatasetValueModel:
+      type: object
+      properties:
+        cells:
+          type: array
+          description: list of data values
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
+              value_id:
+                type: string
+                description: parameter value id
+                example: 5a17c935b015841767bbec68
+              value_text:
+                type: string
+                description: parameter value
+                example: Sample Parameter Value
   securitySchemes:
     token:
       name: x-access-token

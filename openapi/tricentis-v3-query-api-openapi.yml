@@ -143,6 +143,151 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    QueryClause:
+      type: object
+      properties:
+        leftGroup:
+          type: string
+        rightGroup:
+          type: string
+        criteria:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
+    SysInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+    Query:
+      type: object
+      properties:
+        id:
+          type: string
+        parent_id:
+          type: string
+        name:
+          type: string
+        summary:
+          type: string
+        type:
+          type: integer
+        is_system:
+          type: boolean
+        is_team:
+          type: boolean
+        qid:
+          type: string
+        query_clauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryClause'
+        children:
+          type: array
+          description: Queries array
+          items:
+            type: object
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
     QueryStatistic:
       type: object
       properties:
@@ -258,151 +403,6 @@ components:
           $ref: '#/components/schemas/AppInfos'
         sys_info:
           $ref: '#/components/schemas/SysInfo'
-    Query:
-      type: object
-      properties:
-        id:
-          type: string
-        parent_id:
-          type: string
-        name:
-          type: string
-        summary:
-          type: string
-        type:
-          type: integer
-        is_system:
-          type: boolean
-        is_team:
-          type: boolean
-        qid:
-          type: string
-        query_clauses:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryClause'
-        children:
-          type: array
-          description: Queries array
-          items:
-            type: object
-    AppInfos:
-      type: array
-      items:
-        $ref: '#/components/schemas/AppInfo'
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
-    QueryClause:
-      type: object
-      properties:
-        leftGroup:
-          type: string
-        rightGroup:
-          type: string
-        criteria:
-          type: string
-        operator:
-          type: string
-        value:
-          type: string
-    SysInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        ado:
-          type: string
-        incl_ado:
-          type: boolean
-        app_version:
-          type: string
-        incl_app_version:
-          type: boolean
-        available_ram:
-          type: string
-        incl_available_ram:
-          type: boolean
-        cpu:
-          type: string
-        incl_cpu:
-          type: boolean
-        ie:
-          type: string
-        incl_ie:
-          type: boolean
-        os:
-          type: string
-        incl_os:
-          type: boolean
-        ram:
-          type: string
-        incl_ram:
-          type: boolean
-        resolutions:
-          type: string
-        incl_resolutions:
-          type: boolean
-        user:
-          type: string
-        incl_user:
-          type: boolean
-        computer_name:
-          type: string
-        incl_computer_name:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    AppInfo:
-      type: object
-      required:
-      - name
-      - first_action_time
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        file_size:
-          type: string
-        file_version:
-          type: string
-        path:
-          type: string
-        version:
-          type: string
-        first_action_time:
-          type: string
-        file_last_modified:
-          type: string
-        created_date:
-          type: string
-        modified_date:
-          type: string
-        incl_file_last_modified:
-          type: boolean
-        incl_file_size:
-          type: boolean
-        incl_file_version:
-          type: boolean
-        incl_path:
-          type: boolean
-        incl_version:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
   securitySchemes:
     v2_auth:
       type: apiKey

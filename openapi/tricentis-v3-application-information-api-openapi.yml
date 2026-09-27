@@ -241,13 +241,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
     AppInfo:
       type: object
       required:
@@ -288,10 +285,13 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
-    AppInfos:
-      type: array
-      items:
-        $ref: '#/components/schemas/AppInfo'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
     Links:
       type: array
       items:

@@ -105,22 +105,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SuccessResponseMessage:
-      type: object
-      properties:
-        message:
-          type: object
-    CustomError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomErrorMessage'
     CustomErrorMessage:
       type: object
       properties:
@@ -162,6 +146,22 @@ components:
         sizeKB:
           type: integer
           format: int64
+    CustomError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomErrorMessage'
+    SuccessResponseMessage:
+      type: object
+      properties:
+        message:
+          type: object
 externalDocs:
   description: Introduction to qTest Data Export
   url: https://documentation.tricentis.com/qtest/od/en/content/apis/data_export/data_export_overview.htm

@@ -70,39 +70,7 @@ paths:
       operationId: getExecutionsById
       x-operation-id-source: derived
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
     FirstQuery:
       name: first
       in: query
@@ -110,15 +78,21 @@ components:
       schema:
         type: integer
         format: int64
-    ProjectIdQuery:
-      name: projectId
+    OffsetQuery:
+      name: offset
       in: query
-      required: true
-      description: ID of the project
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+    ActionIdQuery:
+      name: actionId
+      in: query
+      description: ID of the action in the project
       schema:
         type: string
-    FromQuery:
-      name: from
+    ToQuery:
+      name: to
       in: query
       description: Timestamp of the begining of an execution in milliseconds
       schema:
@@ -131,19 +105,45 @@ components:
       description: ID of the project
       schema:
         type: string
-    ToQuery:
-      name: to
+    FromQuery:
+      name: from
       in: query
       description: Timestamp of the begining of an execution in milliseconds
       schema:
         type: integer
         format: int64
-    ActionIdQuery:
-      name: actionId
+    ProjectIdQuery:
+      name: projectId
       in: query
-      description: ID of the action in the project
+      required: true
+      description: ID of the project
       schema:
         type: string
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Doc:
       required:
@@ -151,6 +151,40 @@ components:
       properties:
         id:
           type: string
+    BasicExecution:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - required:
+        - actionId
+        - status
+        properties:
+          actionId:
+            type: string
+          status:
+            type: string
+            enum:
+            - pending
+            - executing
+            - failed
+            - completed
+          payload:
+            properties:
+              sample:
+                type: string
+          start:
+            type: integer
+            format: int64
+          end:
+            type: integer
+            format: int64
+          out:
+            type: string
+          err:
+            type: string
+          result:
+            type: string
+          createAt:
+            type: string
     Execution:
       allOf:
       - $ref: '#/components/schemas/BasicExecution'
@@ -191,40 +225,6 @@ components:
       properties:
         message:
           type: string
-    BasicExecution:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - required:
-        - actionId
-        - status
-        properties:
-          actionId:
-            type: string
-          status:
-            type: string
-            enum:
-            - pending
-            - executing
-            - failed
-            - completed
-          payload:
-            properties:
-              sample:
-                type: string
-          start:
-            type: integer
-            format: int64
-          end:
-            type: integer
-            format: int64
-          out:
-            type: string
-          err:
-            type: string
-          result:
-            type: string
-          createAt:
-            type: string
   securitySchemes:
     qtestToken:
       type: apiKey

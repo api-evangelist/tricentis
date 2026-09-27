@@ -324,6 +324,172 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    SysInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    CreateSession:
+      type: object
+      required:
+      - title
+      - project_id
+      properties:
+        title:
+          type: string
+        captured_date:
+          type: string
+        client_name:
+          type: string
+        doc:
+          type: object
+          properties:
+            captured_date:
+              type: string
+            incl_sys_info_to_output:
+              type: boolean
+            version:
+              type: string
+        settings:
+          type: object
+          properties:
+            reset_trace_step_numbers:
+              type: boolean
+            show_timestamp:
+              type: boolean
+        sys_info:
+          $ref: '#/components/schemas/SysInfo'
+        app_infos:
+          $ref: '#/components/schemas/AppInfos'
+        edit_user:
+          type: string
+        has_meta_data:
+          type: boolean
+        owner_user:
+          type: string
+        planned_duration:
+          type: string
+        project_id:
+          type: number
+        status:
+          type: string
+        tester_name:
+          type: string
+        client_id:
+          type: number
+        desc:
+          type: string
+        assigned_user:
+          type: string
+        other_env_info:
+          type: string
+        overall_summary:
+          type: string
+        tags:
+          type: string
+        test_charter:
+          type: string
+        test_objectives:
+          type: string
+    AppInfo:
+      type: object
+      required:
+      - name
+      - first_action_time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        file_size:
+          type: string
+        file_version:
+          type: string
+        path:
+          type: string
+        version:
+          type: string
+        first_action_time:
+          type: string
+        file_last_modified:
+          type: string
+        created_date:
+          type: string
+        modified_date:
+          type: string
+        incl_file_last_modified:
+          type: boolean
+        incl_file_size:
+          type: boolean
+        incl_file_version:
+          type: boolean
+        incl_path:
+          type: boolean
+        incl_version:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
     Session:
       type: object
       properties:
@@ -424,172 +590,6 @@ components:
           $ref: '#/components/schemas/AppInfos'
         sys_info:
           $ref: '#/components/schemas/SysInfo'
-    AppInfos:
-      type: array
-      items:
-        $ref: '#/components/schemas/AppInfo'
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
-    CreateSession:
-      type: object
-      required:
-      - title
-      - project_id
-      properties:
-        title:
-          type: string
-        captured_date:
-          type: string
-        client_name:
-          type: string
-        doc:
-          type: object
-          properties:
-            captured_date:
-              type: string
-            incl_sys_info_to_output:
-              type: boolean
-            version:
-              type: string
-        settings:
-          type: object
-          properties:
-            reset_trace_step_numbers:
-              type: boolean
-            show_timestamp:
-              type: boolean
-        sys_info:
-          $ref: '#/components/schemas/SysInfo'
-        app_infos:
-          $ref: '#/components/schemas/AppInfos'
-        edit_user:
-          type: string
-        has_meta_data:
-          type: boolean
-        owner_user:
-          type: string
-        planned_duration:
-          type: string
-        project_id:
-          type: number
-        status:
-          type: string
-        tester_name:
-          type: string
-        client_id:
-          type: number
-        desc:
-          type: string
-        assigned_user:
-          type: string
-        other_env_info:
-          type: string
-        overall_summary:
-          type: string
-        tags:
-          type: string
-        test_charter:
-          type: string
-        test_objectives:
-          type: string
-    SysInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        ado:
-          type: string
-        incl_ado:
-          type: boolean
-        app_version:
-          type: string
-        incl_app_version:
-          type: boolean
-        available_ram:
-          type: string
-        incl_available_ram:
-          type: boolean
-        cpu:
-          type: string
-        incl_cpu:
-          type: boolean
-        ie:
-          type: string
-        incl_ie:
-          type: boolean
-        os:
-          type: string
-        incl_os:
-          type: boolean
-        ram:
-          type: string
-        incl_ram:
-          type: boolean
-        resolutions:
-          type: string
-        incl_resolutions:
-          type: boolean
-        user:
-          type: string
-        incl_user:
-          type: boolean
-        computer_name:
-          type: string
-        incl_computer_name:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    AppInfo:
-      type: object
-      required:
-      - name
-      - first_action_time
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        file_size:
-          type: string
-        file_version:
-          type: string
-        path:
-          type: string
-        version:
-          type: string
-        first_action_time:
-          type: string
-        file_last_modified:
-          type: string
-        created_date:
-          type: string
-        modified_date:
-          type: string
-        incl_file_last_modified:
-          type: boolean
-        incl_file_size:
-          type: boolean
-        incl_file_version:
-          type: boolean
-        incl_path:
-          type: boolean
-        incl_version:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
   securitySchemes:
     v2_auth:
       type: apiKey

@@ -232,20 +232,13 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   schemas:
-    BenchDeletionSettingCount:
+    BenchDeletionPolicyApiFullRequestDto:
       type: object
       properties:
-        retentionCount:
-          type: integer
-          format: int32
-    BenchDeletionSetting:
-      type: object
-      description: Delete by time or number
-      example:
-        retentionCount: 5
-      oneOf:
-      - $ref: '#/components/schemas/BenchDeletionSettingCount'
-      - $ref: '#/components/schemas/BenchDeletionSettingDurationDto'
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
     RateLimitError:
       type: object
       properties:
@@ -255,13 +248,17 @@ components:
           type: string
         retry-after:
           type: integer
-    BenchDeletionPolicyApiFullRequestDto:
+    BenchDeletionFilterByResultName:
       type: object
       properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
+        resultNamePattern:
+          type: string
+    BenchDeletionFilterByTestDto:
+      type: object
+      properties:
+        testSettingsId:
+          type: string
+          example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
     BenchDeletionFilter:
       type: object
       description: filter to select element for deletion.
@@ -271,6 +268,36 @@ components:
       - $ref: '#/components/schemas/BenchDeletionFilterByProject'
       - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
       - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
+    BenchDeletionPolicyApiResponseDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+        id:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastModifiedUserName:
+          type: string
+        workspaceId:
+          type: string
+    BenchDeletionPolicyApiUpdateRequestDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+    BenchDeletionSettingDurationDto:
+      type: object
+      properties:
+        retentionDays:
+          type: integer
+          description: number of days before deletion
+          format: int32
     Error:
       type: object
       properties:
@@ -531,47 +558,6 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    BenchDeletionPolicyApiResponseDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-        id:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        lastModifiedUserName:
-          type: string
-        workspaceId:
-          type: string
-    BenchDeletionFilterByResultName:
-      type: object
-      properties:
-        resultNamePattern:
-          type: string
-    BenchDeletionPolicyApiUpdateRequestDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-    BenchDeletionSettingDurationDto:
-      type: object
-      properties:
-        retentionDays:
-          type: integer
-          description: number of days before deletion
-          format: int32
-    BenchDeletionFilterByTestDto:
-      type: object
-      properties:
-        testSettingsId:
-          type: string
-          example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
     BenchDeletionFilterByProject:
       type: object
       properties:
@@ -579,15 +565,41 @@ components:
           type: string
         scenarioName:
           type: string
+    BenchDeletionSettingCount:
+      type: object
+      properties:
+        retentionCount:
+          type: integer
+          format: int32
+    BenchDeletionSetting:
+      type: object
+      description: Delete by time or number
+      example:
+        retentionCount: 5
+      oneOf:
+      - $ref: '#/components/schemas/BenchDeletionSettingCount'
+      - $ref: '#/components/schemas/BenchDeletionSettingDurationDto'
   responses:
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
+    error_401:
+      description: Unauthorized. You must provide an API token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
       content:
         application/json:
           schema:
@@ -606,18 +618,6 @@ components:
             $ref: '#/components/schemas/RateLimitError'
     error_500:
       description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
       content:
         application/json:
           schema:

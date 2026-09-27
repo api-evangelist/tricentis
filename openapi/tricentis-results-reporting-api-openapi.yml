@@ -145,18 +145,18 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   responses:
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
     error_413:
       description: Request entity too large.
       content:
@@ -175,28 +175,48 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
     error_403:
       description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
   schemas:
-    RateLimitError:
+    TestResultIdDefinition:
       type: object
+      description: The map of Test Result ids with their own statistics and counters definition.
       properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
+        elementIds:
+          type: array
+          description: The list of elements.
+          items:
+            $ref: '#/components/schemas/ElementIdDefinition'
+        counterIds:
+          type: array
+          description: The list of counters.
+          items:
+            type: string
     ElementIdDefinition:
       type: object
       properties:
@@ -336,6 +356,15 @@ components:
           type: string
           description: The timezone of the report. If none is set, default will be UTC.
           example: Europe/Paris
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     Error:
       type: object
       properties:
@@ -666,35 +695,6 @@ components:
               counterIds:
               - a4bed45a-06b2-48e1-94fd-3ea979e4f360
               - b5be82ff-3563-4812-93a5-4ea888e4e254
-    TestResultIdDefinition:
-      type: object
-      description: The map of Test Result ids with their own statistics and counters definition.
-      properties:
-        elementIds:
-          type: array
-          description: The list of elements.
-          items:
-            $ref: '#/components/schemas/ElementIdDefinition'
-        counterIds:
-          type: array
-          description: The list of counters.
-          items:
-            type: string
-  parameters:
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

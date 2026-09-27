@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   version: '3.0'
-  title: NeoLoad Results|SL As API
+  title: NeoLoad Results|SLAs API
 security:
 - NeoloadAuthorizer: []
 tags:
@@ -113,16 +113,6 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   parameters:
-    sla_status:
-      name: status
-      in: query
-      schema:
-        type: string
-        enum:
-        - PASSED
-        - WARNING
-        - FAILED
-      description: The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty.
     workspace-id:
       name: workspaceId
       in: path
@@ -148,59 +138,34 @@ components:
         - PAGE
         - REQUEST
       description: The category of the element you expect to get the SLA for. It will return all the categories if the field is left empty.
+    sla_status:
+      name: status
+      in: query
+      schema:
+        type: string
+        enum:
+        - PASSED
+        - WARNING
+        - FAILED
+      description: The status of the element you expect to get the SLA for. It will return all the statuses if the field is left empty.
   schemas:
-    SLAValueDefinition:
-      type: number
-      format: float
-      description: SLA value.
-    SLAStatusDefinition:
-      type: string
-      enum:
-      - PASSED
-      - WARNING
-      - FAILED
-      description: Status of the SLA
+    ArrayOfSLAGlobalIndicatorDefinition:
+      type: array
+      items:
+        $ref: '#/components/schemas/SLAGlobalIndicatorDefinition'
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     ArrayOfSLAPerTestResultDefinition:
       type: array
       items:
         $ref: '#/components/schemas/SLAPerTestResultDefinition'
-    SLAPerIntervalDefinition:
-      type: object
-      properties:
-        kpi:
-          $ref: '#/components/schemas/SLAKPIDefinition'
-        status:
-          $ref: '#/components/schemas/SLAStatusDefinition'
-        warning:
-          type: number
-          format: float
-          description: Percentage of intervals warning
-        warningThreshold:
-          $ref: '#/components/schemas/ThresholdDefinition'
-        failed:
-          type: number
-          format: float
-          description: Percentage of intervals failed
-        failedThreshold:
-          $ref: '#/components/schemas/ThresholdDefinition'
-        element:
-          $ref: '#/components/schemas/SLAElementDefinition'
-    SLAKPIDefinition:
-      type: string
-      enum:
-      - avg-request-resp-time
-      - avg-page-resp-time
-      - avg-transaction-resp-time
-      - perc-transaction-resp-time
-      - avg-request-per-sec
-      - avg-throughput-per-sec
-      - errors-count
-      - count
-      - throughput
-      - avg-resp-time
-      - errors-per-sec
-      - error-rate
-      description: KPI
     SLAPerTestResultDefinition:
       type: object
       properties:
@@ -216,15 +181,43 @@ components:
           $ref: '#/components/schemas/ThresholdDefinition'
         element:
           $ref: '#/components/schemas/SLAElementDefinition'
-    RateLimitError:
+    ThresholdDefinition:
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        operator:
           type: string
-        retry-after:
-          type: integer
+          enum:
+          - '>='
+          - <=
+          - ==
+          - btw
+          description: The operator of threshold definition
+        values:
+          type: array
+          items:
+            type: number
+            format: float
+          description: The values of threshold definition
+    SLAGlobalIndicatorDefinition:
+      type: object
+      properties:
+        kpi:
+          $ref: '#/components/schemas/SLAKPIDefinition'
+        status:
+          $ref: '#/components/schemas/SLAStatusDefinition'
+        value:
+          $ref: '#/components/schemas/SLAValueDefinition'
+        warningThreshold:
+          $ref: '#/components/schemas/ThresholdDefinition'
+        failedThreshold:
+          $ref: '#/components/schemas/ThresholdDefinition'
+    SLAStatusDefinition:
+      type: string
+      enum:
+      - PASSED
+      - WARNING
+      - FAILED
+      description: Status of the SLA
     Error:
       type: object
       properties:
@@ -485,10 +478,6 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    ArrayOfSLAPerIntervalDefinition:
-      type: array
-      items:
-        $ref: '#/components/schemas/SLAPerIntervalDefinition'
     SLAElementDefinition:
       type: object
       properties:
@@ -511,49 +500,66 @@ components:
         parent:
           type: string
           description: The parent name of the element.
-    ArrayOfSLAGlobalIndicatorDefinition:
+    SLAKPIDefinition:
+      type: string
+      enum:
+      - avg-request-resp-time
+      - avg-page-resp-time
+      - avg-transaction-resp-time
+      - perc-transaction-resp-time
+      - avg-request-per-sec
+      - avg-throughput-per-sec
+      - errors-count
+      - count
+      - throughput
+      - avg-resp-time
+      - errors-per-sec
+      - error-rate
+      description: KPI
+    SLAValueDefinition:
+      type: number
+      format: float
+      description: SLA value.
+    ArrayOfSLAPerIntervalDefinition:
       type: array
       items:
-        $ref: '#/components/schemas/SLAGlobalIndicatorDefinition'
-    ThresholdDefinition:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - '>='
-          - <=
-          - ==
-          - btw
-          description: The operator of threshold definition
-        values:
-          type: array
-          items:
-            type: number
-            format: float
-          description: The values of threshold definition
-    SLAGlobalIndicatorDefinition:
+        $ref: '#/components/schemas/SLAPerIntervalDefinition'
+    SLAPerIntervalDefinition:
       type: object
       properties:
         kpi:
           $ref: '#/components/schemas/SLAKPIDefinition'
         status:
           $ref: '#/components/schemas/SLAStatusDefinition'
-        value:
-          $ref: '#/components/schemas/SLAValueDefinition'
+        warning:
+          type: number
+          format: float
+          description: Percentage of intervals warning
         warningThreshold:
           $ref: '#/components/schemas/ThresholdDefinition'
+        failed:
+          type: number
+          format: float
+          description: Percentage of intervals failed
         failedThreshold:
           $ref: '#/components/schemas/ThresholdDefinition'
+        element:
+          $ref: '#/components/schemas/SLAElementDefinition'
   responses:
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
+    error_401:
+      description: Unauthorized. You must provide an API token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
       content:
         application/json:
           schema:
@@ -572,12 +578,6 @@ components:
             $ref: '#/components/schemas/RateLimitError'
     error_500:
       description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
       content:
         application/json:
           schema:

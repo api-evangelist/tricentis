@@ -214,13 +214,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
     Coverage:
       type: object
       properties:
@@ -263,6 +256,17 @@ components:
           type: string
         ext_sys_id:
           type: string
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
     Coverages:
       type: object
       properties:
@@ -274,10 +278,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Coverage'
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

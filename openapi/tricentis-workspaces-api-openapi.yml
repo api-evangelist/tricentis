@@ -255,72 +255,63 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  responses:
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    page_offset:
-      name: offset
-      in: query
-      required: false
-      description: The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements.
-      schema:
-        type: integer
-        default: 0
-    page_limit:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of elements returned by this call. The maximum must be less than or equal to 200.
-      schema:
-        type: integer
-        maximum: 200
-        default: 50
   schemas:
+    FullWorkspaceDefinition:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        id:
+          type: string
+          description: Unique identifier of the Workspace
+          example: 5e3acde2e860a132744ca916
+        lastChange:
+          $ref: '#/components/schemas/LastChangeDefinition'
+        members:
+          uniqueItems: true
+          type: array
+          description: Members assigned to Workspace
+          items:
+            $ref: '#/components/schemas/MemberDefinition'
+        name:
+          type: string
+          description: Name of the Workspace
+          example: Default Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    WorkspaceVuQuotaDefinition:
+      type: object
+      properties:
+        sap:
+          type: integer
+          description: SAP quota
+          format: int32
+        unlimited:
+          type: boolean
+          description: True if quotas are unlimited
+        web:
+          type: integer
+          description: Web quota
+          format: int32
+      description: Quotas assigned to Workspace
     WorkspaceDefinitionList:
       type: array
       items:
         $ref: '#/components/schemas/WorkspaceDefinition'
+    MemberListDefinition:
+      type: object
+      properties:
+        logins:
+          type: array
+          description: Login list
+          items:
+            type: string
+            description: Login list
     RateLimitError:
       type: object
       properties:
@@ -330,6 +321,74 @@ components:
           type: string
         retry-after:
           type: integer
+    WorkspaceUpdateRequest:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        name:
+          type: string
+          description: Name of the Workspace
+          example: Default Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    WorkspaceCreateRequest:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+          default: false
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        name:
+          type: string
+          description: Name of the Workspace
+          example: My first Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    WorkspaceDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5e3acde2e860a132744ca916
+          description: Unique identifier of the Workspace.
+        name:
+          type: string
+          description: Name of the Workspace.
+          example: Default Workspace
+        description:
+          type: string
+          description: Description of the Workspace.
+          example: Workspace description
+        lastChange:
+          type: object
+          $ref: '#/components/schemas/LastChangeDefinition'
+    LastChangeDefinition:
+      type: object
+      properties:
+        lastAction:
+          type: string
+          description: Last action performed on the Workspace.
+          example: CREATE
+          enum:
+          - CREATE
+          - UPDATE
+          - DELETE
+        lastUpdateDate:
+          type: integer
+          description: Timestamp when the Workspace was updated for the last time. Number of seconds since January 1, 1970.
+          format: int64
+          example: 1582550442
+      description: Workspace last change
     Error:
       type: object
       properties:
@@ -590,126 +649,6 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    WorkspaceUpdateRequest:
-      type: object
-      properties:
-        allUsersEnabled:
-          type: boolean
-          description: True if all users of the Workspace are enabled
-        description:
-          type: string
-          description: Description of the Workspace
-          example: Workspace description
-        name:
-          type: string
-          description: Name of the Workspace
-          example: Default Workspace
-        vuQuota:
-          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
-    WorkspaceCreateRequest:
-      type: object
-      properties:
-        allUsersEnabled:
-          type: boolean
-          description: True if all users of the Workspace are enabled
-          default: false
-        description:
-          type: string
-          description: Description of the Workspace
-          example: Workspace description
-        name:
-          type: string
-          description: Name of the Workspace
-          example: My first Workspace
-        vuQuota:
-          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
-    FullWorkspaceDefinition:
-      type: object
-      properties:
-        allUsersEnabled:
-          type: boolean
-          description: True if all users of the Workspace are enabled
-        description:
-          type: string
-          description: Description of the Workspace
-          example: Workspace description
-        id:
-          type: string
-          description: Unique identifier of the Workspace
-          example: 5e3acde2e860a132744ca916
-        lastChange:
-          $ref: '#/components/schemas/LastChangeDefinition'
-        members:
-          uniqueItems: true
-          type: array
-          description: Members assigned to Workspace
-          items:
-            $ref: '#/components/schemas/MemberDefinition'
-        name:
-          type: string
-          description: Name of the Workspace
-          example: Default Workspace
-        vuQuota:
-          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
-    WorkspaceVuQuotaDefinition:
-      type: object
-      properties:
-        sap:
-          type: integer
-          description: SAP quota
-          format: int32
-        unlimited:
-          type: boolean
-          description: True if quotas are unlimited
-        web:
-          type: integer
-          description: Web quota
-          format: int32
-      description: Quotas assigned to Workspace
-    LastChangeDefinition:
-      type: object
-      properties:
-        lastAction:
-          type: string
-          description: Last action performed on the Workspace.
-          example: CREATE
-          enum:
-          - CREATE
-          - UPDATE
-          - DELETE
-        lastUpdateDate:
-          type: integer
-          description: Timestamp when the Workspace was updated for the last time. Number of seconds since January 1, 1970.
-          format: int64
-          example: 1582550442
-      description: Workspace last change
-    MemberListDefinition:
-      type: object
-      properties:
-        logins:
-          type: array
-          description: Login list
-          items:
-            type: string
-            description: Login list
-    WorkspaceDefinition:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 5e3acde2e860a132744ca916
-          description: Unique identifier of the Workspace.
-        name:
-          type: string
-          description: Name of the Workspace.
-          example: Default Workspace
-        description:
-          type: string
-          description: Description of the Workspace.
-          example: Workspace description
-        lastChange:
-          type: object
-          $ref: '#/components/schemas/LastChangeDefinition'
     MemberDefinition:
       type: object
       properties:
@@ -732,6 +671,67 @@ components:
           - ONPREMISE_SSO
           - SCIM
       description: Members assigned to Workspace
+  responses:
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page_offset:
+      name: offset
+      in: query
+      required: false
+      description: The offset of the first element to return. Starting at this offset, the query will return a maximum of 'limit' elements.
+      schema:
+        type: integer
+        default: 0
+    page_limit:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of elements returned by this call. The maximum must be less than or equal to 200.
+      schema:
+        type: integer
+        maximum: 200
+        default: 50
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

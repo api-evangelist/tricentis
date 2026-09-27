@@ -1148,7 +1148,7 @@ components:
           type: boolean
           example: true
           description: Is active or disabled
-    AllowedValueResource:
+    CustomeResourceSupport:
       type: object
       properties:
         links:
@@ -1156,32 +1156,6 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
-        value:
-          type: integer
-          format: int64
-          example: 601
-          description: Value of AllowedValue
-        label:
-          type: string
-          example: Passed
-          description: Label of AllowedValue
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of AllowedValue
-        is_default:
-          type: boolean
-          example: true
-          description: Is default value or not
-        is_active:
-          type: boolean
-          example: true
-          description: Is active or not
-        color:
-          type: string
-          example: '#c0c0c0'
-          description: 'Color of AllowedValue if Field is Test Run''s Status '
     AllowedValueResponseResource:
       type: object
       properties:
@@ -1234,33 +1208,6 @@ components:
         is_active:
           type: boolean
           description: Is active or disabled
-    CustomeResourceSupport:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-    AllowedValueInputResource:
-      type: object
-      properties:
-        default:
-          type: boolean
-        value:
-          type: integer
-          format: int64
-        label:
-          type: string
-        order:
-          type: integer
-          format: int32
-        is_default:
-          type: boolean
-        is_active:
-          type: boolean
-        color:
-          type: string
     FieldResourceSwagger:
       type: object
       required:
@@ -1305,6 +1252,25 @@ components:
           type: string
         is_active:
           type: boolean
+    AllowedValueInputResource:
+      type: object
+      properties:
+        default:
+          type: boolean
+        value:
+          type: integer
+          format: int64
+        label:
+          type: string
+        order:
+          type: integer
+          format: int32
+        is_default:
+          type: boolean
+        is_active:
+          type: boolean
+        color:
+          type: string
     Link:
       type: object
       properties:
@@ -1316,6 +1282,40 @@ components:
           type: string
           example: <link to object>
           description: URL to the resource
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
   securitySchemes:
     Authorization:
       type: apiKey

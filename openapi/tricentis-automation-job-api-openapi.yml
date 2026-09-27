@@ -102,6 +102,20 @@ paths:
         required: true
 components:
   schemas:
+    AutomationArtifactSearchParams:
+      type: object
+      properties:
+        fields:
+          type: array
+          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          example: '''name'' ~ ''qTest'''
+          description: Represent text as Data Query
     AutomationScheduleCreationAPI:
       type: object
       required:
@@ -141,20 +155,27 @@ components:
           description: Additions values
           additionalProperties:
             type: string
-    AutomationArtifactSearchParams:
+    AutomationAgentSearchResult:
       type: object
       properties:
-        fields:
+        links:
           type: array
-          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
-          uniqueItems: true
+          readOnly: true
           items:
-            type: string
-            example: '*'
-        query:
-          type: string
-          example: '''name'' ~ ''qTest'''
-          description: Represent text as Data Query
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationAgentResource'
     AutomationAgentResource:
       type: object
       properties:
@@ -188,27 +209,6 @@ components:
           type: boolean
         configuration:
           type: string
-    AutomationAgentSearchResult:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationAgentResource'
     Link:
       type: object
       properties:

@@ -213,17 +213,6 @@ components:
                   height:
                     type: number
                     format: double
-    ExportSession:
-      type: object
-      properties:
-        session_id:
-          type: string
-        title:
-          type: string
-        screens:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportScreen'
     ExportScreen:
       type: object
       properties:
@@ -248,6 +237,17 @@ components:
                 type: string
               value:
                 type: string
+    ExportSession:
+      type: object
+      properties:
+        session_id:
+          type: string
+        title:
+          type: string
+        screens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportScreen'
   securitySchemes:
     v2_auth:
       type: apiKey
