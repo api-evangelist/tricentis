@@ -516,6 +516,255 @@ paths:
     - url: https://pulse-us-east-1.qtestnet.com/api
 components:
   schemas:
+    AssignedUsersProject:
+      type: object
+      properties:
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        profile:
+          $ref: '#/components/schemas/Profile'
+        user_ids:
+          type: array
+          description: Array User ID
+          items:
+            type: integer
+            format: int64
+            example: 1
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Profile
+        name:
+          type: string
+          example: Project Manager
+          description: Name of Profile
+    AppDetail:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Manager
+          description: Manager
+        logo_url:
+          type: string
+          example: https://apitryout.qtestnet.com/favicon.ico
+          description: <link to qTest application logo>
+        display_order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of qTest application
+        url:
+          type: string
+          example: https://apitryout.qtestnet.com
+          description: URL to qTest application
+        redirect_url:
+          type: string
+        app_type:
+          type: string
+    UserResourceExtension:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+          description: Password of the User
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: User
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: Avatar URL of the User
+        external_username:
+          type: string
+          description: External username, could be LDAP username or SSO username
+        authentication_system:
+          type: string
+          description: Name of Login provider, could be LDAP or SSO
+        timezone_offset:
+          type: string
+        country_name:
+          type: string
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
+    SearchUserResourceExtensionResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page number
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size number
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total user found
+        items:
+          type: array
+          description: Arrays of User
+          items:
+            $ref: '#/components/schemas/UserResourceExtension'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    SearchUserResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page number
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size number
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total user found
+        items:
+          type: array
+          description: Arrays of User
+          items:
+            $ref: '#/components/schemas/SearchUserResource'
+        total_project:
+          type: integer
+          format: int64
+          example: 10
+          description: Total Project found
+    SearchUserResource:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: Example
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: Avatar URL of the User
+        ldap_username:
+          type: string
+          description: LDAP username
+        user_group_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        external_auth_config_id:
+          type: integer
+          format: int64
+        external_user_name:
+          type: string
+        assigned_projects:
+          type: array
+          description: Arrays of Project that user assigned to
+          items:
+            type: integer
+            format: int64
+            example: 1
     UserResource:
       type: object
       properties:
@@ -572,6 +821,43 @@ components:
         external_user_name:
           type: string
           description: External authentication username
+    UserUpdateResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+        email:
+          type: string
+          example: example.user@qtest.com
+        password:
+          type: string
+        first_name:
+          type: string
+          example: Example
+        last_name:
+          type: string
+          example: User
+        status:
+          type: integer
+          format: int32
+          example: 1
+        user_group_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        external_auth_config_id:
+          type: integer
+          format: int64
+        external_user_name:
+          type: string
     LoggedUser:
       type: object
       properties:
@@ -640,50 +926,6 @@ components:
           description: Arrays of Supports link
           additionalProperties:
             type: string
-    AssignedProject:
-      type: object
-      properties:
-        project_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Project
-        profile:
-          $ref: '#/components/schemas/Profile'
-    SearchUserResponse:
-      type: object
-      properties:
-        links:
-          type: array
-          description: Link to resource
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page number
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size number
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total user found
-        items:
-          type: array
-          description: Arrays of User
-          items:
-            $ref: '#/components/schemas/SearchUserResource'
-        total_project:
-          type: integer
-          format: int64
-          example: 10
-          description: Total Project found
     ProjectWithUserIdsObject:
       type: object
       properties:
@@ -698,7 +940,7 @@ components:
           items:
             type: integer
             format: int64
-    AssignedUsersProject:
+    AssignedProject:
       type: object
       properties:
         project_id:
@@ -708,259 +950,13 @@ components:
           description: ID of the Project
         profile:
           $ref: '#/components/schemas/Profile'
-        user_ids:
-          type: array
-          description: Array User ID
-          items:
-            type: integer
-            format: int64
-            example: 1
-    UserUpdateResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 1
-        email:
-          type: string
-          example: example.user@qtest.com
-        password:
-          type: string
-        first_name:
-          type: string
-          example: Example
-        last_name:
-          type: string
-          example: User
-        status:
-          type: integer
-          format: int32
-          example: 1
-        user_group_ids:
-          type: array
-          items:
-            type: integer
-            format: int64
-        external_auth_config_id:
-          type: integer
-          format: int64
-        external_user_name:
-          type: string
     OutputStream:
       type: object
-    SearchUserResource:
-      type: object
-      properties:
-        links:
-          type: array
-          description: Link to resource
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        username:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Contact email of the User
-        password:
-          type: string
-        first_name:
-          type: string
-          example: Example
-          description: First name of the User
-        last_name:
-          type: string
-          example: Example
-          description: Last name of the User
-        status:
-          type: integer
-          format: int32
-          example: 0
-          description: Status of the User
-        avatar:
-          type: string
-          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-          description: Avatar URL of the User
-        ldap_username:
-          type: string
-          description: LDAP username
-        user_group_ids:
-          type: array
-          items:
-            type: integer
-            format: int64
-        external_auth_config_id:
-          type: integer
-          format: int64
-        external_user_name:
-          type: string
-        assigned_projects:
-          type: array
-          description: Arrays of Project that user assigned to
-          items:
-            type: integer
-            format: int64
-            example: 1
-    UserResourceExtension:
-      type: object
-      properties:
-        links:
-          type: array
-          description: Link to resource
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        username:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Contact email of the User
-        password:
-          type: string
-          description: Password of the User
-        first_name:
-          type: string
-          example: Example
-          description: First name of the User
-        last_name:
-          type: string
-          example: User
-          description: Last name of the User
-        status:
-          type: integer
-          format: int32
-          example: 0
-          description: Status of the User
-        avatar:
-          type: string
-          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-          description: Avatar URL of the User
-        external_username:
-          type: string
-          description: External username, could be LDAP username or SSO username
-        authentication_system:
-          type: string
-          description: Name of Login provider, could be LDAP or SSO
-        timezone_offset:
-          type: string
-        country_name:
-          type: string
-    AppDetail:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Manager
-          description: Manager
-        logo_url:
-          type: string
-          example: https://apitryout.qtestnet.com/favicon.ico
-          description: <link to qTest application logo>
-        display_order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of qTest application
-        url:
-          type: string
-          example: https://apitryout.qtestnet.com
-          description: URL to qTest application
-        redirect_url:
-          type: string
-        app_type:
-          type: string
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
-    SearchUserResourceExtensionResponse:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page number
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size number
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total user found
-        items:
-          type: array
-          description: Arrays of User
-          items:
-            $ref: '#/components/schemas/UserResourceExtension'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    Profile:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Profile
-        name:
-          type: string
-          example: Project Manager
-          description: Name of Profile
-    UserSettings:
-      properties:
-        notifiedVersion:
-          type: string
-    Doc:
+    Error:
       required:
-      - id
+      - message
       properties:
-        id:
+        message:
           type: string
     Application:
       required:
@@ -1018,6 +1014,10 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Project'
+    UserSettings:
+      properties:
+        notifiedVersion:
+          type: string
     Project:
       allOf:
       - $ref: '#/components/schemas/Doc'
@@ -1030,6 +1030,12 @@ components:
             format: int64
           name:
             type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
     Account:
       required:
       - qtestClientId
@@ -1043,15 +1049,15 @@ components:
       properties:
         settings:
           $ref: '#/components/schemas/UserSettings'
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
   responses:
-    Forbidden:
-      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
       content:
         application/json:
           schema:
@@ -1062,14 +1068,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad Request
+    Forbidden:
+      description: Forbidden
       content:
         application/json:
           schema:

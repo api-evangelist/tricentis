@@ -132,23 +132,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ProjectSettingsV2:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        project_id:
-          type: string
-        always_on:
-          type: string
-        note_types:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteTimeType'
-        time_types:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteTimeType'
     NoteTimeType:
       type: object
       properties:
@@ -166,6 +149,10 @@ components:
           type: string
         name:
           type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
     Link:
       type: object
       properties:
@@ -173,10 +160,23 @@ components:
           type: string
         href:
           type: string
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
+    ProjectSettingsV2:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        project_id:
+          type: string
+        always_on:
+          type: string
+        note_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteTimeType'
+        time_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoteTimeType'
   securitySchemes:
     v2_auth:
       type: apiKey

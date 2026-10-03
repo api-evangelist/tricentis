@@ -935,6 +935,65 @@ paths:
         required: true
 components:
   schemas:
+    QueueProcessingResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of task after batch submit automation test logs
+        state:
+          type: string
+          example: IN_PROCESSING
+          description: State of task after batch submit automation test logs
+        contentType:
+          type: string
+          example: application/json
+          description: Content type of task after batch submit automation test logs
+        content:
+          type: string
+          description: Data of task after batch submit automation test logs
+        type:
+          type: string
+          example: AUTOMATION_TEST_LOG
+          description: Type of task after batch submit automation test logs
+    IntegrationReleaseMappingResponse:
+      type: object
+      properties:
+        externalProjectId:
+          type: string
+          example: '10031'
+        externalIssueTypeId:
+          type: string
+          example: Sprint
+        data_retrieval_options:
+          type: array
+          items:
+            type: string
+            example: completed
+        auto_update_release_scope:
+          type: string
+          example: 'true'
+          readOnly: true
+    IntegrationAutoFillMappingVM:
+      type: object
+      properties:
+        externalProjectId:
+          type: string
+          example: '10031'
+          readOnly: true
+        externalTypeId:
+          type: string
+          example: '10100'
+          readOnly: true
+        sendAttachmentToJira:
+          type: string
+          example: 'true'
+        configures:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoFillConfigurationVM'
     IntegrationConnectionVM:
       type: object
       properties:
@@ -957,65 +1016,6 @@ components:
         active:
           type: boolean
           example: false
-    IntegrationFieldMapVM:
-      type: object
-      properties:
-        externalFieldId:
-          type: string
-          example: id
-        externalFieldName:
-          type: string
-          example: ID
-        active:
-          type: boolean
-          example: true
-    IntegrationReleaseConfigurationValues:
-      type: object
-      properties:
-        unreleased:
-          type: boolean
-        released:
-          type: boolean
-        active:
-          type: boolean
-        future:
-          type: boolean
-        completed:
-          type: boolean
-    QueueProcessingResponseFetchDataVM:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        type:
-          type: string
-          example: FETCH_LINKED_DEFECTS
-        state:
-          type: string
-          example: IN_PROCESSING
-        contentType:
-          type: string
-          example: application/json
-        content:
-          type: string
-    IntegrationReleaseConfigurationVM:
-      type: object
-      properties:
-        autoUpdate:
-          type: boolean
-          readOnly: true
-        configurationValues:
-          $ref: '#/components/schemas/IntegrationReleaseConfigurationValues'
-        data_retrieval_options:
-          type: array
-          items:
-            type: string
-            example: completed
-        auto_update_release_scope:
-          type: string
-          example: 'true'
     IntegrationConnection:
       type: object
       properties:
@@ -1044,42 +1044,6 @@ components:
         token:
           type: string
           example: token
-    IntegrationAutoFillMappingVM:
-      type: object
-      properties:
-        externalProjectId:
-          type: string
-          example: '10031'
-          readOnly: true
-        externalTypeId:
-          type: string
-          example: '10100'
-          readOnly: true
-        sendAttachmentToJira:
-          type: string
-          example: 'true'
-        configures:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutoFillConfigurationVM'
-    AutoFillConfigurationVM:
-      type: object
-      properties:
-        externalFieldId:
-          type: string
-          example: summary
-        qTestFieldIds:
-          type: string
-          example: Assigned To
-    TokenSecretVerifierHolder:
-      type: object
-      properties:
-        jiraToken:
-          type: string
-        jiraSecret:
-          type: string
-        authorizeUrl:
-          type: string
     RequirementMapping:
       type: object
       properties:
@@ -1108,24 +1072,6 @@ components:
         active_external_fields:
           type: string
           example: id,status,summary,description
-    IntegrationReleaseMappingResponse:
-      type: object
-      properties:
-        externalProjectId:
-          type: string
-          example: '10031'
-        externalIssueTypeId:
-          type: string
-          example: Sprint
-        data_retrieval_options:
-          type: array
-          items:
-            type: string
-            example: completed
-        auto_update_release_scope:
-          type: string
-          example: 'true'
-          readOnly: true
     NewIntegrationConnectionInfo:
       type: object
       properties:
@@ -1138,29 +1084,83 @@ components:
           type: string
           example: 'false'
           readOnly: true
-    QueueProcessingResponse:
+    IntegrationFieldMapVM:
+      type: object
+      properties:
+        externalFieldId:
+          type: string
+          example: id
+        externalFieldName:
+          type: string
+          example: ID
+        active:
+          type: boolean
+          example: true
+    TokenSecretVerifierHolder:
+      type: object
+      properties:
+        jiraToken:
+          type: string
+        jiraSecret:
+          type: string
+        authorizeUrl:
+          type: string
+    AutoFillConfigurationVM:
+      type: object
+      properties:
+        externalFieldId:
+          type: string
+          example: summary
+        qTestFieldIds:
+          type: string
+          example: Assigned To
+    IntegrationReleaseConfigurationVM:
+      type: object
+      properties:
+        autoUpdate:
+          type: boolean
+          readOnly: true
+        configurationValues:
+          $ref: '#/components/schemas/IntegrationReleaseConfigurationValues'
+        data_retrieval_options:
+          type: array
+          items:
+            type: string
+            example: completed
+        auto_update_release_scope:
+          type: string
+          example: 'true'
+    QueueProcessingResponseFetchDataVM:
       type: object
       properties:
         id:
           type: integer
           format: int64
           example: 1
-          description: ID of task after batch submit automation test logs
+        type:
+          type: string
+          example: FETCH_LINKED_DEFECTS
         state:
           type: string
           example: IN_PROCESSING
-          description: State of task after batch submit automation test logs
         contentType:
           type: string
           example: application/json
-          description: Content type of task after batch submit automation test logs
         content:
           type: string
-          description: Data of task after batch submit automation test logs
-        type:
-          type: string
-          example: AUTOMATION_TEST_LOG
-          description: Type of task after batch submit automation test logs
+    IntegrationReleaseConfigurationValues:
+      type: object
+      properties:
+        unreleased:
+          type: boolean
+        released:
+          type: boolean
+        active:
+          type: boolean
+        future:
+          type: boolean
+        completed:
+          type: boolean
   securitySchemes:
     Authorization:
       type: apiKey

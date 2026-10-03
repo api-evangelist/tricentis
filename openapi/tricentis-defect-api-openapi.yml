@@ -403,6 +403,89 @@ paths:
       - Authorization: []
 components:
   schemas:
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     AttachmentResource:
       type: object
       properties:
@@ -444,36 +527,6 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
-    CommentResource:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          description: Created date of Comment
-        updated:
-          type: string
-          format: date-time
-          description: Last updated date of Comment
-        userId:
-          type: integer
-          format: int64
-          example: 5202
-          description: ID of the User who create this Comment
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 2602608
-          description: ID of the Comment
-        content:
-          type: string
-          example: The comment's content
-          description: Comment text
     DefectResource:
       type: object
       properties:
@@ -524,59 +577,6 @@ components:
           example: https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1
           description: Web url to the Defect
           readOnly: true
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
-    AttachmentAuthor:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        first_name:
-          type: string
-          example: First name of the User
-          description: First name of the User
-        last_name:
-          type: string
-          example: Last name of the User
-          description: Last name of the User
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     PagedResourceCommentResource:
       type: object
       properties:

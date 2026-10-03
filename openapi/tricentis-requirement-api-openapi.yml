@@ -603,117 +603,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ParameterInfo:
-      type: object
-      properties:
-        parameter:
-          $ref: '#/components/schemas/ParameterVM'
-        info:
-          $ref: '#/components/schemas/TestParameter'
-        parameterValue:
-          $ref: '#/components/schemas/ParameterValueVM'
-    TestParameter:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-        clientId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
-    AttachmentAuthor:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        first_name:
-          type: string
-          example: First name of the User
-          description: First name of the User
-        last_name:
-          type: string
-          example: Last name of the User
-          description: Last name of the User
-    CustomFieldInfo:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        value:
-          type: string
-        objectId:
-          type: integer
-          format: int64
-        type:
-          type: string
-        name:
-          type: string
-        stripHTMLValue:
-          type: string
-        propertyEditorComponent:
-          type: boolean
-    ParameterValueVM:
-      type: object
-      properties:
-        id:
-          type: string
-        value:
-          type: string
-    TestStepInformationVM:
-      type: object
-      properties:
-        description:
-          type: string
-        descriptionInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        expectedResult:
-          type: string
-        actualResult:
-          type: string
-        expectedResultInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
     TraceabilityRequirement:
       type: object
       properties:
@@ -738,26 +627,85 @@ components:
           format: int64
           example: 1
           description: Order
-    ParameterizationText:
+    TestStepInformationVM:
       type: object
       properties:
-        parameters:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
           type: array
           items:
-            $ref: '#/components/schemas/ParameterInfo'
-        rawText:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
           type: string
-        htmlText:
+        objectId:
+          type: integer
+          format: int64
+        type:
           type: string
-        plainText:
+        name:
           type: string
-        valueText:
+        stripHTMLValue:
           type: string
-        editedParameters:
+        propertyEditorComponent:
+          type: boolean
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
           type: array
+          readOnly: true
           items:
-            $ref: '#/components/schemas/ParameterInfo'
-        plainValueText:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    ExternalPropertyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        link:
+          type: string
+        unique_id:
+          type: string
+    ParameterValueVM:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
           type: string
     ParameterVM:
       type: object
@@ -781,151 +729,101 @@ components:
           format: int32
         parameterName:
           type: string
-    TestStepNoCustomFieldResource:
+    ParameterizationText:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        rawText:
+          type: string
+        htmlText:
+          type: string
+        plainText:
+          type: string
+        valueText:
+          type: string
+        editedParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterInfo'
+        plainValueText:
+          type: string
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
       type: object
       required:
-      - description
-      - expected
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    AttachmentResource:
+      type: object
       properties:
         links:
           type: array
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-        description:
-          type: string
-        expected:
-          type: string
-        order:
-          type: integer
-          format: int32
-          minimum: 1
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          maxItems: 2147483647
-          minItems: 0
-        group:
-          type: integer
-          format: int32
-        called_test_case_name:
-          type: string
-        root_called_test_case_id:
-          type: integer
-          format: int64
-        called_test_case:
-          $ref: '#/components/schemas/TestCaseNoCustomFieldResource'
-        parent_test_step_id:
-          type: integer
-          format: int64
-        information:
-          $ref: '#/components/schemas/TestStepInformationVM'
-        plain_value_text:
-          type: string
-        parameter_values:
-          type: array
-          items:
-            type: string
-        called_test_case_id:
-          type: integer
-          format: int64
-    RequirementResource:
-      type: object
-      required:
-      - properties
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 4171806
         name:
           type: string
-          example: Video sections
-          minLength: 1
-          maxLength: 500
-        order:
-          type: integer
-          format: int32
-          example: 1
-        pid:
+          example: Sample.docx
+          description: Attachment name
+        content_type:
           type: string
-          example: RQ-5
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          description: Attachment content type
+        data:
+          type: string
+          description: Used for uploading and ignored during download
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Attachment
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
+          description: Web URL to Attachment
+          readOnly: true
         created_date:
           type: string
           format: date-time
-        last_modified_date:
-          type: string
-          format: date-time
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        web_url:
-          type: string
-          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806
+          description: The date Attachment was created
+        author:
+          $ref: '#/components/schemas/AttachmentAuthor'
+        artifact_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Artifact ID which Attachment linked to
           readOnly: true
-        parent_id:
-          type: integer
-          format: int64
-          example: 2107628
-        external_properties:
-          readOnly: true
-          $ref: '#/components/schemas/ExternalPropertyResource'
-    LatestTestLogResource:
-      type: object
-      properties:
-        status:
-          type: string
-        id:
-          type: integer
-          format: int64
-        tester:
-          type: string
-        exe_start_date:
-          type: string
-          format: date-time
-        exe_end_date:
-          type: string
-          format: date-time
-    CommentResource:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          description: Created date of Comment
-        updated:
-          type: string
-          format: date-time
-          description: Last updated date of Comment
-        userId:
-          type: integer
-          format: int64
-          example: 5202
-          description: ID of the User who create this Comment
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 2602608
-          description: ID of the Comment
-        content:
-          type: string
-          example: The comment's content
-          description: Comment text
     TestCaseNoCustomFieldResource:
       type: object
       properties:
@@ -987,6 +885,213 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TestStepNoCustomFieldResource'
+    LinkedDefectArtifactResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        pid:
+          type: string
+        submittedDate:
+          type: string
+          format: date-time
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastModifiedUserId:
+          type: integer
+          format: int64
+        testCaseId:
+          type: integer
+          format: int64
+        testCaseVersionId:
+          type: integer
+          format: int64
+        title:
+          type: string
+        priority:
+          type: string
+        status:
+          type: string
+        submitterUserId:
+          type: integer
+          format: int64
+        externalDefect:
+          type: object
+          additionalProperties:
+            type: object
+    CommentResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Created date of Comment
+        updated:
+          type: string
+          format: date-time
+          description: Last updated date of Comment
+        userId:
+          type: integer
+          format: int64
+          example: 5202
+          description: ID of the User who create this Comment
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 2602608
+          description: ID of the Comment
+        content:
+          type: string
+          example: The comment's content
+          description: Comment text
+    TestStepNoCustomFieldResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        description:
+          type: string
+        expected:
+          type: string
+        order:
+          type: integer
+          format: int32
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseNoCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
+    TestParameter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    RequirementResource:
+      type: object
+      required:
+      - properties
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 4171806
+        name:
+          type: string
+          example: Video sections
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 1
+        pid:
+          type: string
+          example: RQ-5
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=requirements&object=5&id=4171806
+          readOnly: true
+        parent_id:
+          type: integer
+          format: int64
+          example: 2107628
+        external_properties:
+          readOnly: true
+          $ref: '#/components/schemas/ExternalPropertyResource'
     TestRunNoCustomFieldResource:
       type: object
       required:
@@ -1048,136 +1153,31 @@ components:
         creator_id:
           type: integer
           format: int64
-    LinkedDefectArtifactResource:
+    ParameterInfo:
       type: object
       properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-        pid:
-          type: string
-        submittedDate:
-          type: string
-          format: date-time
-        lastModifiedDate:
-          type: string
-          format: date-time
-        lastModifiedUserId:
-          type: integer
-          format: int64
-        testCaseId:
-          type: integer
-          format: int64
-        testCaseVersionId:
-          type: integer
-          format: int64
-        title:
-          type: string
-        priority:
-          type: string
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    LatestTestLogResource:
+      type: object
+      properties:
         status:
           type: string
-        submitterUserId:
-          type: integer
-          format: int64
-        externalDefect:
-          type: object
-          additionalProperties:
-            type: object
-    ExternalPropertyResource:
-      type: object
-      properties:
-        id:
-          type: string
-        link:
-          type: string
-        unique_id:
-          type: string
-    AttachmentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        name:
-          type: string
-          example: Sample.docx
-          description: Attachment name
-        content_type:
-          type: string
-          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
-          description: Attachment content type
-        data:
-          type: string
-          description: Used for uploading and ignored during download
         id:
           type: integer
           format: int64
-          example: 1
-          description: ID of the Attachment
-        web_url:
+        tester:
           type: string
-          example: https://apitryout.qtestnet.com/p/1/portal/attachment/testcase/attachmentId/1
-          description: Web URL to Attachment
-          readOnly: true
-        created_date:
+        exe_start_date:
           type: string
           format: date-time
-          description: The date Attachment was created
-        author:
-          $ref: '#/components/schemas/AttachmentAuthor'
-        artifact_id:
-          type: integer
-          format: int64
-          example: 1
-          description: Artifact ID which Attachment linked to
-          readOnly: true
-    Link:
-      type: object
-      properties:
-        rel:
+        exe_end_date:
           type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    PagedResourceCommentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/CommentResource'
+          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

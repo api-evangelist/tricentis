@@ -1143,76 +1143,6 @@ components:
                       type: string
                       description: parameter value
                       example: Sample Parameter Value
-    SearchParameterModel:
-      type: object
-      properties:
-        identifier:
-          type: string
-          description: the parameter identifier to search for. If specified, system searches for parameters that has identifier containing the keyword, in case insensitive
-          example: param
-        exactly:
-          type: boolean
-          default: false
-          description: Set this parameter to true to search for parameter identifier in case sensitive
-        project_ids:
-          type: array
-          description: list of project ids to search for parameters that are associated to it. If no project ids is specified, query for parameters associated with any project of this client
-          items:
-            type: number
-            example: 62592
-        statuses:
-          type: array
-          description: If specified, query for parameters having one of the status in the array. If not specified at all (null or undefined), search for parameters having any status
-          items:
-            type: string
-            enum:
-            - Active
-            - Inactive
-            - Archived
-        used:
-          type: boolean
-          description: If specified, query for parameters are being used / not being used by testcases or datasets. If not specified at all (null or undefined), search for all parameters
-        offset:
-          type: number
-          description: page index. If this parameter is omitted or value is not set then first page will be returned
-          example: 1
-        limit:
-          type: number
-          description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
-          example: 50
-        sort_by:
-          type: string
-          description: field name to sort. Possible values are identifier | description | status | created. If this parameter is omitted or no field name is specified, system sorts parameters by last created date
-          enum:
-          - identifier
-          - description
-          - status
-          - created
-          - modified
-        sort_order:
-          type: string
-          description: either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
-          enum:
-          - asc
-          - desc
-        statistic:
-          type: boolean
-          default: false
-          description: Set this parameter to true to get statistics in the response
-    UpdateParameterValueModel:
-      type: object
-      required:
-      - order
-      - value
-      properties:
-        order:
-          type: number
-          description: parameter value order
-          example: 0
-        value:
-          type: string
-          description: parameter value
-          example: Update Sample Parameter Value
     SearchParameterValueModel:
       type: object
       properties:
@@ -1278,6 +1208,91 @@ components:
           items:
             type: string
             example: 5a17c935b015841767bbec64
+    CreateParameterModel:
+      type: object
+      required:
+      - identifier
+      - project_ids
+      properties:
+        identifier:
+          type: string
+          description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
+          example: Sample Parameter Name
+        description:
+          type: string
+          description: The description of the new parameter
+          example: Sample Parameter Description
+        status:
+          type: string
+          description: The parameter status, must be one of the following
+          enum:
+          - Active
+        project_ids:
+          type: array
+          description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
+          items:
+            type: number
+            example: 62592
+    ParameterValueModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: parameter value identifier
+          example: 5a17c935b015841767bbec68
+        value:
+          type: string
+          description: parameter value
+          example: Sample Parameter Value
+        order:
+          type: number
+          description: value order
+          example: 0
+        param_id:
+          type: string
+          description: parameter identifier
+          example: 5a17c935b015841767bbec64
+    UpdateParameterValueModel:
+      type: object
+      required:
+      - order
+      - value
+      properties:
+        order:
+          type: number
+          description: parameter value order
+          example: 0
+        value:
+          type: string
+          description: parameter value
+          example: Update Sample Parameter Value
+    UpdateParameterModel:
+      type: object
+      required:
+      - identifier
+      - status
+      - project_ids
+      properties:
+        identifier:
+          type: string
+          description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
+          example: Sample Parameter Name
+        description:
+          type: string
+          description: The description of the new parameter
+          example: Sample Parameter Description
+        status:
+          type: string
+          description: The parameter status, must be one of the following
+          enum:
+          - Active
+          - Inactive
+        project_ids:
+          type: array
+          description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
+          items:
+            type: number
+            example: 62592
     BulkQueryParametersRequestModel:
       type: object
       required:
@@ -1334,77 +1349,62 @@ components:
           enum:
           - asc
           - desc
-    CreateParameterModel:
+    SearchParameterModel:
       type: object
-      required:
-      - identifier
-      - project_ids
       properties:
         identifier:
           type: string
-          description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
-          example: Sample Parameter Name
-        description:
-          type: string
-          description: The description of the new parameter
-          example: Sample Parameter Description
-        status:
-          type: string
-          description: The parameter status, must be one of the following
-          enum:
-          - Active
+          description: the parameter identifier to search for. If specified, system searches for parameters that has identifier containing the keyword, in case insensitive
+          example: param
+        exactly:
+          type: boolean
+          default: false
+          description: Set this parameter to true to search for parameter identifier in case sensitive
         project_ids:
           type: array
-          description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
+          description: list of project ids to search for parameters that are associated to it. If no project ids is specified, query for parameters associated with any project of this client
           items:
             type: number
             example: 62592
-    ParameterValueModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: parameter value identifier
-          example: 5a17c935b015841767bbec68
-        value:
-          type: string
-          description: parameter value
-          example: Sample Parameter Value
-        order:
+        statuses:
+          type: array
+          description: If specified, query for parameters having one of the status in the array. If not specified at all (null or undefined), search for parameters having any status
+          items:
+            type: string
+            enum:
+            - Active
+            - Inactive
+            - Archived
+        used:
+          type: boolean
+          description: If specified, query for parameters are being used / not being used by testcases or datasets. If not specified at all (null or undefined), search for all parameters
+        offset:
           type: number
-          description: value order
-          example: 0
-        param_id:
+          description: page index. If this parameter is omitted or value is not set then first page will be returned
+          example: 1
+        limit:
+          type: number
+          description: page size. If this parameter is omitted or value is not set then system returns max 500 parameters
+          example: 50
+        sort_by:
           type: string
-          description: parameter identifier
-          example: 5a17c935b015841767bbec64
-    UpdateParameterModel:
-      type: object
-      required:
-      - identifier
-      - status
-      - project_ids
-      properties:
-        identifier:
-          type: string
-          description: The name of the new parameter. Identifier with special characters are not allowed, except space( ), underscore(_), minus(-), period(.)
-          example: Sample Parameter Name
-        description:
-          type: string
-          description: The description of the new parameter
-          example: Sample Parameter Description
-        status:
-          type: string
-          description: The parameter status, must be one of the following
+          description: field name to sort. Possible values are identifier | description | status | created. If this parameter is omitted or no field name is specified, system sorts parameters by last created date
           enum:
-          - Active
-          - Inactive
-        project_ids:
-          type: array
-          description: A list of qTest Manager project ids to associate this parameter to. At least one project id is required.
-          items:
-            type: number
-            example: 62592
+          - identifier
+          - description
+          - status
+          - created
+          - modified
+        sort_order:
+          type: string
+          description: either asc or desc. If this parameter is omitted or no value is specified, or value is not in either asc nor desc, then asc is the default sort order.
+          enum:
+          - asc
+          - desc
+        statistic:
+          type: boolean
+          default: false
+          description: Set this parameter to true to get statistics in the response
   securitySchemes:
     token:
       name: x-access-token

@@ -183,6 +183,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Constant:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ConstantInput'
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
     ConstantInput:
       allOf:
       - $ref: '#/components/schemas/ProjectDoc'
@@ -196,29 +218,14 @@ components:
             type: boolean
           value:
             type: string
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    Constant:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/ConstantInput'
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
   parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
     FirstQuery:
       name: first
       in: query
@@ -240,22 +247,9 @@ components:
       description: ID of the project
       schema:
         type: string
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
   responses:
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
+    BadRequest:
+      description: Bad Request
       content:
         application/json:
           schema:
@@ -266,8 +260,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad Request
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
       content:
         application/json:
           schema:

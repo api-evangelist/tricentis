@@ -82,117 +82,7 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-  parameters:
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
-    test-id:
-      name: testId
-      in: path
-      required: true
-      description: Unique identifier representing a specific test.
-      schema:
-        type: string
   schemas:
-    ProjectDefinition:
-      type: object
-      properties:
-        projectId:
-          type: string
-          description: Id of project file.
-          example: 5e5fc0102cc4f82e5d9e18d4
-        projectName:
-          type: string
-          description: Neoload Project name.
-        projectVersion:
-          type: string
-          description: Neoload Project version.
-        asCodeFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/AsCodeFile'
-        scenarios:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScenarioDefinition'
-    ScenarioDefinition:
-      type: object
-      properties:
-        scenarioName:
-          type: string
-          description: Scenario name.
-        scenarioDuration:
-          type: integer
-          format: int64
-          description: Duration (in seconds) of the scenario.
-        scenarioVUs:
-          type: integer
-          format: int32
-          description: Total Virtual User number of the scenario. Return 0 if the Virtual User number is not determined.
-        scenarioSource:
-          type: string
-          description: The scenarion location. Can be a yaml file or NLP path.
-    AsCodeFile:
-      type: object
-      properties:
-        path:
-          type: string
-          description: The yaml file path
-        includes:
-          type: array
-          description: List of yaml files included
-          items:
-            type: string
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
     Error:
       type: object
       properties:
@@ -453,6 +343,116 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    AsCodeFile:
+      type: object
+      properties:
+        path:
+          type: string
+          description: The yaml file path
+        includes:
+          type: array
+          description: List of yaml files included
+          items:
+            type: string
+    ScenarioDefinition:
+      type: object
+      properties:
+        scenarioName:
+          type: string
+          description: Scenario name.
+        scenarioDuration:
+          type: integer
+          format: int64
+          description: Duration (in seconds) of the scenario.
+        scenarioVUs:
+          type: integer
+          format: int32
+          description: Total Virtual User number of the scenario. Return 0 if the Virtual User number is not determined.
+        scenarioSource:
+          type: string
+          description: The scenarion location. Can be a yaml file or NLP path.
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    ProjectDefinition:
+      type: object
+      properties:
+        projectId:
+          type: string
+          description: Id of project file.
+          example: 5e5fc0102cc4f82e5d9e18d4
+        projectName:
+          type: string
+          description: Neoload Project name.
+        projectVersion:
+          type: string
+          description: Neoload Project version.
+        asCodeFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AsCodeFile'
+        scenarios:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScenarioDefinition'
+  responses:
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    test-id:
+      name: testId
+      in: path
+      required: true
+      description: Unique identifier representing a specific test.
+      schema:
+        type: string
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

@@ -168,6 +168,13 @@ paths:
       operationId: getBuilds({id})
       x-operation-id-source: derived
 components:
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
     top:
       name: $top
@@ -177,12 +184,6 @@ components:
         type: integer
         minimum: 0
       example: 50
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
-      schema:
-        type: string
     count:
       name: $count
       in: query
@@ -196,13 +197,12 @@ components:
       schema:
         type: integer
         minimum: 0
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
   schemas:
     error:
       type: object

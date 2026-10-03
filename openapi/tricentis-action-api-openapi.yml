@@ -182,7 +182,49 @@ paths:
       operationId: deleteActionsById
       x-operation-id-source: derived
 components:
+  schemas:
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Action:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ActionInput'
+    ActionInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          code:
+            type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
   parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
     FirstQuery:
       name: first
       in: query
@@ -204,22 +246,9 @@ components:
       description: ID of the project
       schema:
         type: string
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
   responses:
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
+    BadRequest:
+      description: Bad Request
       content:
         application/json:
           schema:
@@ -230,47 +259,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad Request
+    Default:
+      description: Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  schemas:
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    ActionInput:
-      allOf:
-      - $ref: '#/components/schemas/ProjectDoc'
-      - required:
-        - name
-        properties:
-          name:
-            type: string
-          description:
-            type: string
-          code:
-            type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    Action:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/ActionInput'
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     qtestToken:
       type: apiKey

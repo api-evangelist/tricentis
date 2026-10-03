@@ -689,98 +689,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    DatasetModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: dataset id
-          example: 5a17c935b015841767bbec64
-        name:
-          type: string
-          description: dataset name
-          example: Sample Dataset name
-        description:
-          type: string
-          description: dataset description
-          example: Sample Dataset Description
-        status:
-          type: string
-          description: dataset status active/inactive
-          enum:
-          - Active
-          - Inactive
-        project_ids:
-          type: array
-          description: list of projects specified by projects id that this dataset belongs to
-          items:
-            type: number
-            example: 62592
-        created:
-          type: string
-          description: created date in ISODate format
-          format: date-time
-        modified:
-          type: string
-          description: modified date in ISODate format
-          format: date-time
-        header:
-          type: array
-          description: list of parameters
-          items:
-            type: object
-            properties:
-              col:
-                type: number
-                description: column index
-                example: 0
-              param_id:
-                type: string
-                description: parameter id
-                example: 5a17c935b015841767bbec64
-              param_name:
-                type: string
-                description: parameter name
-                example: Sample Parameter Name
-    CreateDatasetModel:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: dataset name
-          example: Sample Dataset Name
-        description:
-          type: string
-          description: dataset description
-          example: Sample Dataset Description
-        status:
-          type: string
-          description: dataset status active/inactive
-          enum:
-          - Active
-          - Inactive
-        project_ids:
-          type: array
-          description: list of linked project id
-          items:
-            type: number
-            example: 62592
-        header:
-          type: array
-          description: list of parameter header
-          items:
-            type: object
-            properties:
-              col:
-                type: number
-                description: column index
-                example: 0
-              param_id:
-                type: string
-                description: parameter id
-                example: 5a17c935b015841767bbec64
     SearchDatasetModel:
       type: object
       properties:
@@ -858,6 +766,59 @@ components:
                 type: string
                 description: parameter value
                 example: Sample Parameter Value
+    DatasetModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: dataset id
+          example: 5a17c935b015841767bbec64
+        name:
+          type: string
+          description: dataset name
+          example: Sample Dataset name
+        description:
+          type: string
+          description: dataset description
+          example: Sample Dataset Description
+        status:
+          type: string
+          description: dataset status active/inactive
+          enum:
+          - Active
+          - Inactive
+        project_ids:
+          type: array
+          description: list of projects specified by projects id that this dataset belongs to
+          items:
+            type: number
+            example: 62592
+        created:
+          type: string
+          description: created date in ISODate format
+          format: date-time
+        modified:
+          type: string
+          description: modified date in ISODate format
+          format: date-time
+        header:
+          type: array
+          description: list of parameters
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
+              param_name:
+                type: string
+                description: parameter name
+                example: Sample Parameter Name
     CreateDatasetValueModel:
       type: object
       properties:
@@ -883,6 +844,45 @@ components:
                 type: string
                 description: parameter value
                 example: Sample Parameter Value
+    CreateDatasetModel:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: dataset name
+          example: Sample Dataset Name
+        description:
+          type: string
+          description: dataset description
+          example: Sample Dataset Description
+        status:
+          type: string
+          description: dataset status active/inactive
+          enum:
+          - Active
+          - Inactive
+        project_ids:
+          type: array
+          description: list of linked project id
+          items:
+            type: number
+            example: 62592
+        header:
+          type: array
+          description: list of parameter header
+          items:
+            type: object
+            properties:
+              col:
+                type: number
+                description: column index
+                example: 0
+              param_id:
+                type: string
+                description: parameter id
+                example: 5a17c935b015841767bbec64
   securitySchemes:
     token:
       name: x-access-token

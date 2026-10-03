@@ -1079,6 +1079,130 @@ paths:
       - Authorization: []
 components:
   schemas:
+    AllowedValueInputResource:
+      type: object
+      properties:
+        default:
+          type: boolean
+        value:
+          type: integer
+          format: int64
+        label:
+          type: string
+        order:
+          type: integer
+          format: int32
+        is_default:
+          type: boolean
+        is_active:
+          type: boolean
+        color:
+          type: string
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    FieldInputResource:
+      type: object
+      properties:
+        label:
+          type: string
+          example: Name
+          description: Label of the Field Setting
+        required:
+          type: boolean
+          description: Is required or not
+        order:
+          type: integer
+          format: int32
+          description: Display order
+        allowed_values:
+          type: array
+          description: Allowed values
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+        multiple:
+          type: boolean
+          description: Is allowed multiple values
+        data_type:
+          type: integer
+          format: int64
+          example: 1
+          description: Data type of the Field
+          minimum: 1
+        searchable:
+          type: boolean
+          description: Allowed full text search or not
+        default_value:
+          type: string
+          description: Default value of the Field
+        is_active:
+          type: boolean
+          description: Is active or disabled
+    AllowedValueResponseResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllowedValueResource'
+    CustomeResourceSupport:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
     FieldResource:
       type: object
       required:
@@ -1148,66 +1272,6 @@ components:
           type: boolean
           example: true
           description: Is active or disabled
-    CustomeResourceSupport:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-    AllowedValueResponseResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AllowedValueResource'
-    FieldInputResource:
-      type: object
-      properties:
-        label:
-          type: string
-          example: Name
-          description: Label of the Field Setting
-        required:
-          type: boolean
-          description: Is required or not
-        order:
-          type: integer
-          format: int32
-          description: Display order
-        allowed_values:
-          type: array
-          description: Allowed values
-          items:
-            $ref: '#/components/schemas/AllowedValueResource'
-        multiple:
-          type: boolean
-          description: Is allowed multiple values
-        data_type:
-          type: integer
-          format: int64
-          example: 1
-          description: Data type of the Field
-          minimum: 1
-        searchable:
-          type: boolean
-          description: Allowed full text search or not
-        default_value:
-          type: string
-          description: Default value of the Field
-        is_active:
-          type: boolean
-          description: Is active or disabled
     FieldResourceSwagger:
       type: object
       required:
@@ -1252,70 +1316,6 @@ components:
           type: string
         is_active:
           type: boolean
-    AllowedValueInputResource:
-      type: object
-      properties:
-        default:
-          type: boolean
-        value:
-          type: integer
-          format: int64
-        label:
-          type: string
-        order:
-          type: integer
-          format: int32
-        is_default:
-          type: boolean
-        is_active:
-          type: boolean
-        color:
-          type: string
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    AllowedValueResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        value:
-          type: integer
-          format: int64
-          example: 601
-          description: Value of AllowedValue
-        label:
-          type: string
-          example: Passed
-          description: Label of AllowedValue
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of AllowedValue
-        is_default:
-          type: boolean
-          example: true
-          description: Is default value or not
-        is_active:
-          type: boolean
-          example: true
-          description: Is active or not
-        color:
-          type: string
-          example: '#c0c0c0'
-          description: 'Color of AllowedValue if Field is Test Run''s Status '
   securitySchemes:
     Authorization:
       type: apiKey

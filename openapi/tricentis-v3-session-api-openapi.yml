@@ -324,63 +324,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SysInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        ado:
-          type: string
-        incl_ado:
-          type: boolean
-        app_version:
-          type: string
-        incl_app_version:
-          type: boolean
-        available_ram:
-          type: string
-        incl_available_ram:
-          type: boolean
-        cpu:
-          type: string
-        incl_cpu:
-          type: boolean
-        ie:
-          type: string
-        incl_ie:
-          type: boolean
-        os:
-          type: string
-        incl_os:
-          type: boolean
-        ram:
-          type: string
-        incl_ram:
-          type: boolean
-        resolutions:
-          type: string
-        incl_resolutions:
-          type: boolean
-        user:
-          type: string
-        incl_user:
-          type: boolean
-        computer_name:
-          type: string
-        incl_computer_name:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    AppInfos:
-      type: array
-      items:
-        $ref: '#/components/schemas/AppInfo'
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     CreateSession:
       type: object
       required:
@@ -590,6 +533,63 @@ components:
           $ref: '#/components/schemas/AppInfos'
         sys_info:
           $ref: '#/components/schemas/SysInfo'
+    SysInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        ado:
+          type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

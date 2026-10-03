@@ -232,72 +232,6 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   schemas:
-    BenchDeletionPolicyApiFullRequestDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-    BenchDeletionFilterByResultName:
-      type: object
-      properties:
-        resultNamePattern:
-          type: string
-    BenchDeletionFilterByTestDto:
-      type: object
-      properties:
-        testSettingsId:
-          type: string
-          example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
-    BenchDeletionFilter:
-      type: object
-      description: filter to select element for deletion.
-      example:
-        resultNamePattern: toRemove.*
-      oneOf:
-      - $ref: '#/components/schemas/BenchDeletionFilterByProject'
-      - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
-      - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
-    BenchDeletionPolicyApiResponseDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-        id:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        lastModifiedUserName:
-          type: string
-        workspaceId:
-          type: string
-    BenchDeletionPolicyApiUpdateRequestDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-    BenchDeletionSettingDurationDto:
-      type: object
-      properties:
-        retentionDays:
-          type: integer
-          description: number of days before deletion
-          format: int32
     Error:
       type: object
       properties:
@@ -558,6 +492,15 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    BenchDeletionFilter:
+      type: object
+      description: filter to select element for deletion.
+      example:
+        resultNamePattern: toRemove.*
+      oneOf:
+      - $ref: '#/components/schemas/BenchDeletionFilterByProject'
+      - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
+      - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
     BenchDeletionFilterByProject:
       type: object
       properties:
@@ -571,6 +514,63 @@ components:
         retentionCount:
           type: integer
           format: int32
+    BenchDeletionSettingDurationDto:
+      type: object
+      properties:
+        retentionDays:
+          type: integer
+          description: number of days before deletion
+          format: int32
+    BenchDeletionPolicyApiUpdateRequestDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+    BenchDeletionFilterByTestDto:
+      type: object
+      properties:
+        testSettingsId:
+          type: string
+          example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
+    BenchDeletionFilterByResultName:
+      type: object
+      properties:
+        resultNamePattern:
+          type: string
+    BenchDeletionPolicyApiFullRequestDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    BenchDeletionPolicyApiResponseDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+        id:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastModifiedUserName:
+          type: string
+        workspaceId:
+          type: string
     BenchDeletionSetting:
       type: object
       description: Delete by time or number
@@ -580,6 +580,12 @@ components:
       - $ref: '#/components/schemas/BenchDeletionSettingCount'
       - $ref: '#/components/schemas/BenchDeletionSettingDurationDto'
   responses:
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     error_401:
       description: Unauthorized. You must provide an API token.
       content:
@@ -604,20 +610,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     error_429:
       description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RateLimitError'
-    error_500:
-      description: Internal server error
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:

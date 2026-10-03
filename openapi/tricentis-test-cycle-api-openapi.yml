@@ -278,81 +278,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    TestCycleResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 462378
-        name:
-          type: string
-          example: Cycle 2.2
-          minLength: 1
-          maxLength: 500
-        order:
-          type: integer
-          format: int32
-          example: 3
-        pid:
-          type: string
-          example: CL-3
-        created_date:
-          type: string
-          format: date-time
-        last_modified_date:
-          type: string
-          format: date-time
-        web_url:
-          type: string
-          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378
-          readOnly: true
-        description:
-          type: string
-          example: The second Cycle under Release 2
-        target_release_id:
-          type: integer
-          format: int64
-          example: 149652
-        target_build_id:
-          type: integer
-          format: int64
-        test-cycles:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestCycleResource'
-        test-suites:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
     Message:
       type: object
       properties:
@@ -363,17 +288,6 @@ components:
           example: Error message
           description: Error message text
           readOnly: true
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     TestSuiteWithCustomFieldResource:
       type: object
       required:
@@ -432,6 +346,92 @@ components:
         target_build_id:
           type: integer
           format: int64
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    TestCycleResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 462378
+        name:
+          type: string
+          example: Cycle 2.2
+          minLength: 1
+          maxLength: 500
+        order:
+          type: integer
+          format: int32
+          example: 3
+        pid:
+          type: string
+          example: CL-3
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/39047/portal/project#tab=testexecution&object=4&id=462378
+          readOnly: true
+        description:
+          type: string
+          example: The second Cycle under Release 2
+        target_release_id:
+          type: integer
+          format: int64
+          example: 149652
+        target_build_id:
+          type: integer
+          format: int64
+        test-cycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCycleResource'
+        test-suites:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/TestSuiteWithCustomFieldResource'
   securitySchemes:
     Authorization:
       type: apiKey

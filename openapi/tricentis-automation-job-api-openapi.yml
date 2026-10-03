@@ -102,20 +102,6 @@ paths:
         required: true
 components:
   schemas:
-    AutomationArtifactSearchParams:
-      type: object
-      properties:
-        fields:
-          type: array
-          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
-          uniqueItems: true
-          items:
-            type: string
-            example: '*'
-        query:
-          type: string
-          example: '''name'' ~ ''qTest'''
-          description: Represent text as Data Query
     AutomationScheduleCreationAPI:
       type: object
       required:
@@ -155,6 +141,17 @@ components:
           description: Additions values
           additionalProperties:
             type: string
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     AutomationAgentSearchResult:
       type: object
       properties:
@@ -209,17 +206,20 @@ components:
           type: boolean
         configuration:
           type: string
-    Link:
+    AutomationArtifactSearchParams:
       type: object
       properties:
-        rel:
+        fields:
+          type: array
+          description: 'fields: specify which object fields you want to include in the response. If you omit it or specify an asterisk (*), all fields are included'
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
           type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
+          example: '''name'' ~ ''qTest'''
+          description: Represent text as Data Query
   securitySchemes:
     Authorization:
       type: apiKey

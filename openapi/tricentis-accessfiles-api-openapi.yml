@@ -105,6 +105,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponseMessage:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        error:
+          $ref: '#/components/schemas/CustomError'
     CustomErrorMessage:
       type: object
       properties:
@@ -114,25 +122,17 @@ components:
           type: string
         resource:
           type: string
-    ObjectResponse:
+    CustomError:
       type: object
       properties:
-        pageToken:
+        code:
           type: string
-        lastPage:
-          type: boolean
-        files:
+        message:
+          type: string
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/ObjectDetails'
-    ErrorResponseMessage:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        error:
-          $ref: '#/components/schemas/CustomError'
+            $ref: '#/components/schemas/CustomErrorMessage'
     ObjectDetails:
       type: object
       properties:
@@ -146,17 +146,17 @@ components:
         sizeKB:
           type: integer
           format: int64
-    CustomError:
+    ObjectResponse:
       type: object
       properties:
-        code:
+        pageToken:
           type: string
-        message:
-          type: string
-        errors:
+        lastPage:
+          type: boolean
+        files:
           type: array
           items:
-            $ref: '#/components/schemas/CustomErrorMessage'
+            $ref: '#/components/schemas/ObjectDetails'
     SuccessResponseMessage:
       type: object
       properties:

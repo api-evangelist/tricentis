@@ -112,6 +112,13 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+        additionalInfo:
+          type: object
     LdapConfigDetailResponse:
       type: object
       properties:
@@ -166,6 +173,26 @@ components:
           type: boolean
           example: false
           description: Is active directory or not
+    ResponseWrapper:
+      type: object
+      properties:
+        result:
+          type: object
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
+    LdapUserResource:
+      type: object
+      properties:
+        ldap_username:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
     AuthSystemResponse:
       type: object
       properties:
@@ -177,6 +204,49 @@ components:
           $ref: '#/components/schemas/SSOSamlConfigDetailResponse'
         tua:
           $ref: '#/components/schemas/TUAConfigDetailResponse'
+    SSOSamlConfigDetailResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        is_activated:
+          type: boolean
+        auth_type:
+          type: string
+          example: SSO_SAML2
+          description: Type of authentication system
+          enum:
+          - INTERNAL
+          - LDAP
+          - SSO_SAML2
+          - TUA_OPENID
+        name:
+          type: string
+        metadata_link:
+          type: string
+          description: Metadata link of SSO system
+        auto_create_user:
+          type: boolean
+          description: Auto create user or not
+        metadata_filename:
+          type: string
+    LDAPUsersResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LdapUserVM'
+        total:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
     TUAConfigDetailResponse:
       type: object
       properties:
@@ -220,76 +290,6 @@ components:
           type: string
         externalUserId:
           type: string
-    SSOSamlConfigDetailResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        is_activated:
-          type: boolean
-        auth_type:
-          type: string
-          example: SSO_SAML2
-          description: Type of authentication system
-          enum:
-          - INTERNAL
-          - LDAP
-          - SSO_SAML2
-          - TUA_OPENID
-        name:
-          type: string
-        metadata_link:
-          type: string
-          description: Metadata link of SSO system
-        auto_create_user:
-          type: boolean
-          description: Auto create user or not
-        metadata_filename:
-          type: string
-    ErrorMessage:
-      type: object
-      properties:
-        message:
-          type: string
-        additionalInfo:
-          type: object
-    LDAPUsersResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/LdapUserVM'
-        total:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        page:
-          type: integer
-          format: int32
-    LdapUserResource:
-      type: object
-      properties:
-        ldap_username:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-    ResponseWrapper:
-      type: object
-      properties:
-        result:
-          type: object
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorMessage'
   securitySchemes:
     Authorization:
       type: apiKey

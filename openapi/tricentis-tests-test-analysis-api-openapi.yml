@@ -88,181 +88,7 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
   schemas:
-    TestSettingsApiResponseDto:
-      type: object
-      properties:
-        displayTestResultsCount:
-          type: integer
-          description: 'The maximum number of Test Results to show in the Test Analysis graph. Allowed values: 10, 20, 50'
-          format: int32
-          example: 10
-        failOnObjective:
-          type: boolean
-          description: Make the Test Result fail as soon as any of the configured objectives is exceeded
-          example: true
-        metrics:
-          maxItems: 10
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/metrics'
-        objectiveTolerance:
-          type: number
-          description: The tolerance for the AUTOMATED objective type
-          format: double
-          example: 2
-        objectiveType:
-          type: string
-          description: 'The type of objective. MANUAL means that the objective value is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT means that the objective value is the value of the metric for the test result with id referenceTestResultId. AUTOMATED means that the objective value is computed at the end of the Test Result based on the metric value for the latest 50 previous PASSED Test Results with this formula: mean() + objectiveTolerance x standardDeviation()'
-          example: MANUAL
-          enum:
-          - MANUAL
-          - REFERENCE_TEST_RESULT
-          - AUTOMATED
-        referenceTestResultId:
-          type: string
-          description: The test result id that is the reference for objectives. The objectiveValue is the value of the metric for this test result if it exists, or else the user-defined value. This field is mandatory for the REFERENCE_TEST_RESULT objective type, it is ignored for other objective types
-          example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b
-        referentialObjectiveTolerance:
-          type: integer
-          description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
-          format: int32
-          example: 10
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-    TestSettingsApiFullRequestDto:
-      type: object
-      properties:
-        displayTestResultsCount:
-          type: integer
-          description: 'The maximum number of Test Results to show in the Test Analysis graph. Allowed values: 10, 20, 50'
-          format: int32
-          example: 10
-        failOnObjective:
-          type: boolean
-          description: Make the Test Result fail as soon as any of the configured objectives is exceeded
-          example: true
-        metrics:
-          maxItems: 10
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/metrics'
-        objectiveTolerance:
-          type: number
-          description: The tolerance for the AUTOMATED objective type
-          format: double
-          example: 2
-        objectiveType:
-          type: string
-          description: 'The type of objective. MANUAL means that the objective value is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT means that the objective value is the value of the metric for the test result with id referenceTestResultId. AUTOMATED means that the objective value is computed at the end of the Test Result based on the metric value for the latest 50 previous PASSED Test Results with this formula: mean() + objectiveTolerance x standardDeviation()'
-          example: MANUAL
-          enum:
-          - MANUAL
-          - REFERENCE_TEST_RESULT
-          - AUTOMATED
-        referenceTestResultId:
-          type: string
-          description: The test result id that is the reference for objectives. The objectiveValue is the value of the metric for this test result if it exists, or else the user-defined value. This field is mandatory for the REFERENCE_TEST_RESULT objective type, it is ignored for other objective types
-          example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b
-        referentialObjectiveTolerance:
-          type: integer
-          description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
-          format: int32
-          example: 10
-    metrics:
-      type: object
-      properties:
-        color:
-          type: string
-          description: The color of the curve in the Test Analysis graph. Format hexadecimal.
-          example: '#d2b067'
-        elementPath:
-          type: string
-          description: 'The full path to the element of the metric, separated with /. The element must be a transaction. The special value ''all-transactions'' means &lt;All Transactions&gt;. Note: for compatibility reasons with older Test configurations, the elementPath may be a UUID, prefer replace it with the path to the transaction.'
-          example: scenario1/Actions/myTransaction
-        isDisplayed:
-          type: boolean
-          description: True to display the line of this metric in the overview graph. False to hide it.
-        isObjective:
-          type: boolean
-          description: True if the objective is enabled and will be used to determine the test result status.
-        objectiveValue:
-          type: number
-          description: The user-defined value of the objective of the metric. If referenceTestResultId is specified, it is replaced by the value of the metric for this test result. This value is ignored when objectiveType is not MANUAL. Required when isObjective is true.
-          format: double
-          example: 0.5
-        statistic:
-          type: string
-          description: The statistic of the metric
-          enum:
-          - Perc 99
-          - Perc 95
-          - Perc 90
-          - Perc 50
-          - Min
-          - Avg
-          - Max
-          - Count
-          - Errors
-          - Elements per Second
-          - Error rate
-          - Min.TTFB
-          - Avg.TTFB
-          - Max.TTFB
-          - Std Deviation
-      description: The metrics shown in Test Analysis. One metric represents one objective and is displayed as one curve in Test Analysis graph.
     Error:
       type: object
       properties:
@@ -523,6 +349,180 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    metrics:
+      type: object
+      properties:
+        color:
+          type: string
+          description: The color of the curve in the Test Analysis graph. Format hexadecimal.
+          example: '#d2b067'
+        elementPath:
+          type: string
+          description: 'The full path to the element of the metric, separated with /. The element must be a transaction. The special value ''all-transactions'' means &lt;All Transactions&gt;. Note: for compatibility reasons with older Test configurations, the elementPath may be a UUID, prefer replace it with the path to the transaction.'
+          example: scenario1/Actions/myTransaction
+        isDisplayed:
+          type: boolean
+          description: True to display the line of this metric in the overview graph. False to hide it.
+        isObjective:
+          type: boolean
+          description: True if the objective is enabled and will be used to determine the test result status.
+        objectiveValue:
+          type: number
+          description: The user-defined value of the objective of the metric. If referenceTestResultId is specified, it is replaced by the value of the metric for this test result. This value is ignored when objectiveType is not MANUAL. Required when isObjective is true.
+          format: double
+          example: 0.5
+        statistic:
+          type: string
+          description: The statistic of the metric
+          enum:
+          - Perc 99
+          - Perc 95
+          - Perc 90
+          - Perc 50
+          - Min
+          - Avg
+          - Max
+          - Count
+          - Errors
+          - Elements per Second
+          - Error rate
+          - Min.TTFB
+          - Avg.TTFB
+          - Max.TTFB
+          - Std Deviation
+      description: The metrics shown in Test Analysis. One metric represents one objective and is displayed as one curve in Test Analysis graph.
+    TestSettingsApiResponseDto:
+      type: object
+      properties:
+        displayTestResultsCount:
+          type: integer
+          description: 'The maximum number of Test Results to show in the Test Analysis graph. Allowed values: 10, 20, 50'
+          format: int32
+          example: 10
+        failOnObjective:
+          type: boolean
+          description: Make the Test Result fail as soon as any of the configured objectives is exceeded
+          example: true
+        metrics:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/metrics'
+        objectiveTolerance:
+          type: number
+          description: The tolerance for the AUTOMATED objective type
+          format: double
+          example: 2
+        objectiveType:
+          type: string
+          description: 'The type of objective. MANUAL means that the objective value is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT means that the objective value is the value of the metric for the test result with id referenceTestResultId. AUTOMATED means that the objective value is computed at the end of the Test Result based on the metric value for the latest 50 previous PASSED Test Results with this formula: mean() + objectiveTolerance x standardDeviation()'
+          example: MANUAL
+          enum:
+          - MANUAL
+          - REFERENCE_TEST_RESULT
+          - AUTOMATED
+        referenceTestResultId:
+          type: string
+          description: The test result id that is the reference for objectives. The objectiveValue is the value of the metric for this test result if it exists, or else the user-defined value. This field is mandatory for the REFERENCE_TEST_RESULT objective type, it is ignored for other objective types
+          example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b
+        referentialObjectiveTolerance:
+          type: integer
+          description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
+          format: int32
+          example: 10
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    TestSettingsApiFullRequestDto:
+      type: object
+      properties:
+        displayTestResultsCount:
+          type: integer
+          description: 'The maximum number of Test Results to show in the Test Analysis graph. Allowed values: 10, 20, 50'
+          format: int32
+          example: 10
+        failOnObjective:
+          type: boolean
+          description: Make the Test Result fail as soon as any of the configured objectives is exceeded
+          example: true
+        metrics:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/metrics'
+        objectiveTolerance:
+          type: number
+          description: The tolerance for the AUTOMATED objective type
+          format: double
+          example: 2
+        objectiveType:
+          type: string
+          description: 'The type of objective. MANUAL means that the objective value is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT means that the objective value is the value of the metric for the test result with id referenceTestResultId. AUTOMATED means that the objective value is computed at the end of the Test Result based on the metric value for the latest 50 previous PASSED Test Results with this formula: mean() + objectiveTolerance x standardDeviation()'
+          example: MANUAL
+          enum:
+          - MANUAL
+          - REFERENCE_TEST_RESULT
+          - AUTOMATED
+        referenceTestResultId:
+          type: string
+          description: The test result id that is the reference for objectives. The objectiveValue is the value of the metric for this test result if it exists, or else the user-defined value. This field is mandatory for the REFERENCE_TEST_RESULT objective type, it is ignored for other objective types
+          example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b
+        referentialObjectiveTolerance:
+          type: integer
+          description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
+          format: int32
+          example: 10
+  responses:
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

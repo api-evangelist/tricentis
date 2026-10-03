@@ -180,7 +180,54 @@ paths:
       operationId: deleteRulesById
       x-operation-id-source: derived
 components:
+  schemas:
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Rule:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/RuleInput'
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+    RuleInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        - active
+        properties:
+          name:
+            type: string
+          active:
+            type: boolean
+          triggerId:
+            type: string
+          actionIds:
+            type: array
+            items:
+              type: string
   parameters:
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
     FirstQuery:
       name: first
       in: query
@@ -202,14 +249,19 @@ components:
       description: ID of the project
       schema:
         type: string
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
   responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Forbidden:
       description: Forbidden
       content:
@@ -222,58 +274,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Rule:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/RuleInput'
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    RuleInput:
-      allOf:
-      - $ref: '#/components/schemas/ProjectDoc'
-      - required:
-        - name
-        - active
-        properties:
-          name:
-            type: string
-          active:
-            type: boolean
-          triggerId:
-            type: string
-          actionIds:
-            type: array
-            items:
-              type: string
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
   securitySchemes:
     qtestToken:
       type: apiKey

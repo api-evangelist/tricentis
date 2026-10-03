@@ -144,227 +144,7 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
-  responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
   schemas:
-    TestResultIdDefinition:
-      type: object
-      description: The map of Test Result ids with their own statistics and counters definition.
-      properties:
-        elementIds:
-          type: array
-          description: The list of elements.
-          items:
-            $ref: '#/components/schemas/ElementIdDefinition'
-        counterIds:
-          type: array
-          description: The list of counters.
-          items:
-            type: string
-    ElementIdDefinition:
-      type: object
-      properties:
-        id:
-          type: string
-          description: 'The id of the element. Can be a specific element identifier or one of the following keywords: - all-requests - all-pages - all-transactions'
-          example: a6f2f595-7b62-4dc4-9368-a1cf670cd924
-        statistics:
-          type: array
-          items:
-            type: string
-            enum:
-            - AVG_DURATION
-            - MIN_DURATION
-            - MAX_DURATION
-            - COUNT
-            - THROUGHPUT
-            - ELEMENTS_PER_SECOND
-            - ERRORS
-            - ERRORS_PER_SECOND
-            - ERROR_RATE
-            - AVG_TTFB
-            - MIN_TTFB
-            - MAX_TTFB
-            - PERCENTILES_DURATION
-            description: 'Comma-separated list of statistics to get.
-
-
-              Available statistics are:
-
-              - AVG_DURATION (ms)
-
-              - MIN_DURATION (ms)
-
-              - MAX_DURATION (ms)
-
-              - COUNT
-
-              - THROUGHPUT (Byte/s)
-
-              - ELEMENTS_PER_SECOND
-
-              - ERRORS
-
-              - ERRORS_PER_SECOND
-
-              - ERROR_RATE (%)
-
-              - AVG_TTFB (ms)
-
-              - MIN_TTFB (ms)
-
-              - MAX_TTFB (ms)
-
-              - PERCENTILES_DURATION (ms)
-
-
-              Warning: PERCENTILES_DURATION cannot be mixed with other statistics.
-
-              '
-            example:
-            - AVG_DURATION
-            - ELEMENTS_PER_SECOND
-    TestResultRasterConfiguration:
-      type: object
-      properties:
-        width:
-          type: integer
-          format: int32
-          description: The width of the generated graph.
-          example: 600
-        height:
-          type: integer
-          format: int32
-          description: The height of the generated graph.
-          example: 200
-        title:
-          type: string
-          description: The main title of the generated graph.
-          example: My Test
-        rasterType:
-          type: string
-          enum:
-          - PNG
-          - JPEG
-          description: The type of the generated graph. Can be PNG or JPEG. Default is PNG.
-          example: PNG
-        xAxisLabel:
-          type: string
-          description: The xAxis label of the generated graph.
-          example: X Axis
-        yAxisLabel:
-          type: string
-          description: The yAxis label of the generated graph.
-          example: Y Axis
-        legend:
-          type: boolean
-          description: If true the legend is displayed. Default is true.
-          example: true
-        multiYAxis:
-          type: boolean
-          description: If true, display one axis per serie. Default is false.
-          example: true
-        theme:
-          type: string
-          enum:
-          - DARK
-          - LIGHT
-          - TRANSPARENT
-          description: The theme of the graph. Default is TRANSPARENT.
-          example: DARK
-        elementIds:
-          type: array
-          description: The list of elements.
-          items:
-            $ref: '#/components/schemas/ElementIdDefinition'
-          example:
-          - id: all-requests
-            statistics:
-            - AVG_DURATION
-        counterIds:
-          type: array
-          description: The list of counters.
-          items:
-            type: string
-          example:
-          - a4bed45a-06b2-48e1-94fd-3ea979e4f360
-          - b5be82ff-3563-4812-93a5-4ea888e4e254
-    TestResultReportBody:
-      type: object
-      properties:
-        language:
-          type: string
-          description: The language of the report, only en and fr are supported. If none is set, default will be en.
-          example: en
-        timeZone:
-          type: string
-          description: The timezone of the report. If none is set, default will be UTC.
-          example: Europe/Paris
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
     Error:
       type: object
       properties:
@@ -625,6 +405,31 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
+    TestResultReportBody:
+      type: object
+      properties:
+        language:
+          type: string
+          description: The language of the report, only en and fr are supported. If none is set, default will be en.
+          example: en
+        timeZone:
+          type: string
+          description: The timezone of the report. If none is set, default will be UTC.
+          example: Europe/Paris
+    TestResultIdDefinition:
+      type: object
+      description: The map of Test Result ids with their own statistics and counters definition.
+      properties:
+        elementIds:
+          type: array
+          description: The list of elements.
+          items:
+            $ref: '#/components/schemas/ElementIdDefinition'
+        counterIds:
+          type: array
+          description: The list of counters.
+          items:
+            type: string
     TestResultRasterMultiConfiguration:
       type: object
       properties:
@@ -695,6 +500,201 @@ components:
               counterIds:
               - a4bed45a-06b2-48e1-94fd-3ea979e4f360
               - b5be82ff-3563-4812-93a5-4ea888e4e254
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    ElementIdDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The id of the element. Can be a specific element identifier or one of the following keywords: - all-requests - all-pages - all-transactions'
+          example: a6f2f595-7b62-4dc4-9368-a1cf670cd924
+        statistics:
+          type: array
+          items:
+            type: string
+            enum:
+            - AVG_DURATION
+            - MIN_DURATION
+            - MAX_DURATION
+            - COUNT
+            - THROUGHPUT
+            - ELEMENTS_PER_SECOND
+            - ERRORS
+            - ERRORS_PER_SECOND
+            - ERROR_RATE
+            - AVG_TTFB
+            - MIN_TTFB
+            - MAX_TTFB
+            - PERCENTILES_DURATION
+            description: 'Comma-separated list of statistics to get.
+
+
+              Available statistics are:
+
+              - AVG_DURATION (ms)
+
+              - MIN_DURATION (ms)
+
+              - MAX_DURATION (ms)
+
+              - COUNT
+
+              - THROUGHPUT (Byte/s)
+
+              - ELEMENTS_PER_SECOND
+
+              - ERRORS
+
+              - ERRORS_PER_SECOND
+
+              - ERROR_RATE (%)
+
+              - AVG_TTFB (ms)
+
+              - MIN_TTFB (ms)
+
+              - MAX_TTFB (ms)
+
+              - PERCENTILES_DURATION (ms)
+
+
+              Warning: PERCENTILES_DURATION cannot be mixed with other statistics.
+
+              '
+            example:
+            - AVG_DURATION
+            - ELEMENTS_PER_SECOND
+    TestResultRasterConfiguration:
+      type: object
+      properties:
+        width:
+          type: integer
+          format: int32
+          description: The width of the generated graph.
+          example: 600
+        height:
+          type: integer
+          format: int32
+          description: The height of the generated graph.
+          example: 200
+        title:
+          type: string
+          description: The main title of the generated graph.
+          example: My Test
+        rasterType:
+          type: string
+          enum:
+          - PNG
+          - JPEG
+          description: The type of the generated graph. Can be PNG or JPEG. Default is PNG.
+          example: PNG
+        xAxisLabel:
+          type: string
+          description: The xAxis label of the generated graph.
+          example: X Axis
+        yAxisLabel:
+          type: string
+          description: The yAxis label of the generated graph.
+          example: Y Axis
+        legend:
+          type: boolean
+          description: If true the legend is displayed. Default is true.
+          example: true
+        multiYAxis:
+          type: boolean
+          description: If true, display one axis per serie. Default is false.
+          example: true
+        theme:
+          type: string
+          enum:
+          - DARK
+          - LIGHT
+          - TRANSPARENT
+          description: The theme of the graph. Default is TRANSPARENT.
+          example: DARK
+        elementIds:
+          type: array
+          description: The list of elements.
+          items:
+            $ref: '#/components/schemas/ElementIdDefinition'
+          example:
+          - id: all-requests
+            statistics:
+            - AVG_DURATION
+        counterIds:
+          type: array
+          description: The list of counters.
+          items:
+            type: string
+          example:
+          - a4bed45a-06b2-48e1-94fd-3ea979e4f360
+          - b5be82ff-3563-4812-93a5-4ea888e4e254
+  responses:
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

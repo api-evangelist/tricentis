@@ -222,17 +222,6 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     CreateSysInfo:
       type: object
       properties:
@@ -276,6 +265,17 @@ components:
           type: string
         incl_computer_name:
           type: boolean
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

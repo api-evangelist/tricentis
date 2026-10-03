@@ -245,6 +245,16 @@ paths:
       - Authorization: []
 components:
   schemas:
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
     Link:
       type: object
       properties:
@@ -256,16 +266,6 @@ components:
           type: string
           example: <link to object>
           description: URL to the resource
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
     ModuleResource:
       type: object
       properties:
