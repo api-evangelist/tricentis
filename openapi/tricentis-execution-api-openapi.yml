@@ -71,15 +71,49 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    BasicExecution:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - required:
+        - actionId
+        - status
+        properties:
+          actionId:
+            type: string
+          status:
+            type: string
+            enum:
+            - pending
+            - executing
+            - failed
+            - completed
+          payload:
+            properties:
+              sample:
+                type: string
+          start:
+            type: integer
+            format: int64
+          end:
+            type: integer
+            format: int64
+          out:
+            type: string
+          err:
+            type: string
+          result:
+            type: string
+          createAt:
+            type: string
     Error:
       required:
       - message
       properties:
         message:
           type: string
-    BasicExecution:
+    Execution:
       allOf:
-      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/BasicExecution'
       - required:
         - actionId
         - status
@@ -117,40 +151,6 @@ components:
       properties:
         id:
           type: string
-    Execution:
-      allOf:
-      - $ref: '#/components/schemas/BasicExecution'
-      - required:
-        - actionId
-        - status
-        properties:
-          actionId:
-            type: string
-          status:
-            type: string
-            enum:
-            - pending
-            - executing
-            - failed
-            - completed
-          payload:
-            properties:
-              sample:
-                type: string
-          start:
-            type: integer
-            format: int64
-          end:
-            type: integer
-            format: int64
-          out:
-            type: string
-          err:
-            type: string
-          result:
-            type: string
-          createAt:
-            type: string
   parameters:
     ActionIdQuery:
       name: actionId
@@ -158,9 +158,37 @@ components:
       description: ID of the action in the project
       schema:
         type: string
+    FromQuery:
+      name: from
+      in: query
+      description: Timestamp of the begining of an execution in milliseconds
+      schema:
+        type: integer
+        format: int64
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+    ToQuery:
+      name: to
+      in: query
+      description: Timestamp of the begining of an execution in milliseconds
+      schema:
+        type: integer
+        format: int64
     ProjectIdQuery:
       name: projectId
       in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    IdPath:
+      name: id
+      in: path
       required: true
       description: ID of the project
       schema:
@@ -172,55 +200,27 @@ components:
       schema:
         type: integer
         format: int64
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    ToQuery:
-      name: to
-      in: query
-      description: Timestamp of the begining of an execution in milliseconds
-      schema:
-        type: integer
-        format: int64
-    FromQuery:
-      name: from
-      in: query
-      description: Timestamp of the begining of an execution in milliseconds
-      schema:
-        type: integer
-        format: int64
   responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad Request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Default:
       description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden
       content:
         application/json:
           schema:

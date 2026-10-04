@@ -403,26 +403,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    AttachmentAuthor:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        first_name:
-          type: string
-          example: First name of the User
-          description: First name of the User
-        last_name:
-          type: string
-          example: Last name of the User
-          description: Last name of the User
     CommentResource:
       type: object
       properties:
@@ -453,6 +433,104 @@ components:
           type: string
           example: The comment's content
           description: Comment text
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    DefectResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        properties:
+          type: array
+          description: Properties of the Defect
+          items:
+            $ref: '#/components/schemas/PropertyResource'
+        attachments:
+          type: array
+          description: Attachments of the Defect
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Defect
+        pid:
+          type: string
+          example: DF-1
+          description: PID of the Defect
+        submitted_date:
+          type: string
+          format: date-time
+          description: The date Defect was created
+        last_modified_date:
+          type: string
+          format: date-time
+          description: Last modified date
+        submitter_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User who create the Defect
+        last_modified_user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: Last ID of the User who updated the Defect
+        web_url:
+          type: string
+          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1
+          description: Web url to the Defect
+          readOnly: true
     PropertyResource:
       type: object
       required:
@@ -527,84 +605,6 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
-    DefectResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        properties:
-          type: array
-          description: Properties of the Defect
-          items:
-            $ref: '#/components/schemas/PropertyResource'
-        attachments:
-          type: array
-          description: Attachments of the Defect
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Defect
-        pid:
-          type: string
-          example: DF-1
-          description: PID of the Defect
-        submitted_date:
-          type: string
-          format: date-time
-          description: The date Defect was created
-        last_modified_date:
-          type: string
-          format: date-time
-          description: Last modified date
-        submitter_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User who create the Defect
-        last_modified_user_id:
-          type: integer
-          format: int64
-          example: 1
-          description: Last ID of the User who updated the Defect
-        web_url:
-          type: string
-          example: https://apitryout.qtestnet.com/p/1/portal/project#tab=defects&object=17&id=1
-          description: Web url to the Defect
-          readOnly: true
-    PagedResourceCommentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/CommentResource'
   securitySchemes:
     Authorization:
       type: apiKey

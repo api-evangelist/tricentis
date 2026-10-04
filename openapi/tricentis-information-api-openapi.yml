@@ -343,12 +343,6 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    UsageEventGroup:
-      type: string
-      enum:
-      - Licensing
-      - Runtime
-      description: Group of the event
     UsageEventSubGroup:
       type: string
       enum:
@@ -356,11 +350,26 @@ components:
       - Result
       - VUH
       description: Sub Group of the event
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     Usage:
       description: An array of object representing audit events.
       type: array
       items:
         type: object
+    UsageEventGroup:
+      type: string
+      enum:
+      - Licensing
+      - Runtime
+      description: Group of the event
     InformationDefinition:
       type: object
       properties:
@@ -376,53 +385,14 @@ components:
           type: string
           example: SaaS
           description: NeoloadWeb platform version. Will be "SaaS" for official NeoLoad SaaS platform.
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-  responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    from_date_time:
+      name: fromDateTime
+      in: query
+      required: false
+      description: Date-time with an offset of the beginning of the search. Format YYYY-MM-DDTHH:mm:ssZ<br/> Example 2020-01-01T09:00:00+00:00
+      schema:
+        type: string
     page_offset:
       name: offset
       in: query
@@ -444,6 +414,27 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/UsageEventSubGroup'
+    usage_event_group:
+      name: groups
+      in: query
+      required: false
+      style: form
+      explode: false
+      description: 'The types of the usage data you expect to get. It will return all the types if the field is left empty. (Ctrl+click to select multiple values)
+
+        '
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/UsageEventGroup'
+    usage_page_limit:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of elements returned by this call.
+      schema:
+        type: integer
+        default: 0
     usage-format:
       name: format
       in: query
@@ -462,34 +453,43 @@ components:
       description: Date-time with an offset of the end of the search. Format YYYY-MM-DDTHH:mm:ssZ<br/> Example 2020-01-01T09:00:00+00:00
       schema:
         type: string
-    from_date_time:
-      name: fromDateTime
-      in: query
-      required: false
-      description: Date-time with an offset of the beginning of the search. Format YYYY-MM-DDTHH:mm:ssZ<br/> Example 2020-01-01T09:00:00+00:00
-      schema:
-        type: string
-    usage_page_limit:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of elements returned by this call.
-      schema:
-        type: integer
-        default: 0
-    usage_event_group:
-      name: groups
-      in: query
-      required: false
-      style: form
-      explode: false
-      description: 'The types of the usage data you expect to get. It will return all the types if the field is left empty. (Ctrl+click to select multiple values)
-
-        '
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/UsageEventGroup'
+  responses:
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

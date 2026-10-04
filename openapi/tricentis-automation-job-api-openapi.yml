@@ -102,6 +102,38 @@ paths:
         required: true
 components:
   schemas:
+    AutomationAgentSearchResult:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationAgentResource'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     AutomationScheduleCreationAPI:
       type: object
       required:
@@ -141,38 +173,6 @@ components:
           description: Additions values
           additionalProperties:
             type: string
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    AutomationAgentSearchResult:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationAgentResource'
     AutomationAgentResource:
       type: object
       properties:

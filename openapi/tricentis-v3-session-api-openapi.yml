@@ -386,6 +386,17 @@ components:
           type: string
         test_objectives:
           type: string
+    AppInfos:
+      type: array
+      items:
+        $ref: '#/components/schemas/AppInfo'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
     AppInfo:
       type: object
       required:
@@ -426,13 +437,55 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
-    Link:
+    SysInfo:
       type: object
       properties:
-        rel:
+        id:
           type: string
-        href:
+        ado:
           type: string
+        incl_ado:
+          type: boolean
+        app_version:
+          type: string
+        incl_app_version:
+          type: boolean
+        available_ram:
+          type: string
+        incl_available_ram:
+          type: boolean
+        cpu:
+          type: string
+        incl_cpu:
+          type: boolean
+        ie:
+          type: string
+        incl_ie:
+          type: boolean
+        os:
+          type: string
+        incl_os:
+          type: boolean
+        ram:
+          type: string
+        incl_ram:
+          type: boolean
+        resolutions:
+          type: string
+        incl_resolutions:
+          type: boolean
+        user:
+          type: string
+        incl_user:
+          type: boolean
+        computer_name:
+          type: string
+        incl_computer_name:
+          type: boolean
+        session_id:
+          type: string
+        links:
+          $ref: '#/components/schemas/Links'
     Session:
       type: object
       properties:
@@ -533,59 +586,6 @@ components:
           $ref: '#/components/schemas/AppInfos'
         sys_info:
           $ref: '#/components/schemas/SysInfo'
-    SysInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        ado:
-          type: string
-        incl_ado:
-          type: boolean
-        app_version:
-          type: string
-        incl_app_version:
-          type: boolean
-        available_ram:
-          type: string
-        incl_available_ram:
-          type: boolean
-        cpu:
-          type: string
-        incl_cpu:
-          type: boolean
-        ie:
-          type: string
-        incl_ie:
-          type: boolean
-        os:
-          type: string
-        incl_os:
-          type: boolean
-        ram:
-          type: string
-        incl_ram:
-          type: boolean
-        resolutions:
-          type: string
-        incl_resolutions:
-          type: boolean
-        user:
-          type: string
-        incl_user:
-          type: boolean
-        computer_name:
-          type: string
-        incl_computer_name:
-          type: boolean
-        session_id:
-          type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    AppInfos:
-      type: array
-      items:
-        $ref: '#/components/schemas/AppInfo'
     Links:
       type: array
       items:

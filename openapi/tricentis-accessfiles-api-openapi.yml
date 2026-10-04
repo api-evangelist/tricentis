@@ -105,6 +105,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    SuccessResponseMessage:
+      type: object
+      properties:
+        message:
+          type: object
+    ObjectResponse:
+      type: object
+      properties:
+        pageToken:
+          type: string
+        lastPage:
+          type: boolean
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectDetails'
     ErrorResponseMessage:
       type: object
       properties:
@@ -113,26 +129,6 @@ components:
           format: date-time
         error:
           $ref: '#/components/schemas/CustomError'
-    CustomErrorMessage:
-      type: object
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        resource:
-          type: string
-    CustomError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomErrorMessage'
     ObjectDetails:
       type: object
       properties:
@@ -146,22 +142,26 @@ components:
         sizeKB:
           type: integer
           format: int64
-    ObjectResponse:
+    CustomError:
       type: object
       properties:
-        pageToken:
+        code:
           type: string
-        lastPage:
-          type: boolean
-        files:
+        message:
+          type: string
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/ObjectDetails'
-    SuccessResponseMessage:
+            $ref: '#/components/schemas/CustomErrorMessage'
+    CustomErrorMessage:
       type: object
       properties:
-        message:
-          type: object
+        code:
+          type: string
+        field:
+          type: string
+        resource:
+          type: string
 externalDocs:
   description: Introduction to qTest Data Export
   url: https://documentation.tricentis.com/qtest/od/en/content/apis/data_export/data_export_overview.htm

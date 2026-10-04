@@ -128,6 +128,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CreateScriptGeneratorPlugin:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: string
+        category_id:
+          type: integer
+        main_file_name:
+          type: string
+        main_file_content:
+          type: string
+        main_file_content_type:
+          type: string
     ScriptGeneratorPlugin:
       type: object
       properties:
@@ -146,21 +161,6 @@ components:
         main_file_path:
           type: string
         name:
-          type: string
-    CreateScriptGeneratorPlugin:
-      type: object
-      properties:
-        name:
-          type: string
-        desc:
-          type: string
-        category_id:
-          type: integer
-        main_file_name:
-          type: string
-        main_file_content:
-          type: string
-        main_file_content_type:
           type: string
   securitySchemes:
     v2_auth:

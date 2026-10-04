@@ -138,6 +138,16 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   schemas:
+    TestResultStopRequest:
+      type: object
+      properties:
+        stopPolicy:
+          type: string
+          enum:
+          - GRACEFUL
+          - TERMINATE
+          description: How to stop the Test Result. Default is GRACEFUL.<ul><li>GRACEFUL stops gently the Test Result.</li><li>TERMINATE terminates the Test Result (kill it).</li></ul>
+          example: GRACEFUL
     Error:
       type: object
       properties:
@@ -398,16 +408,12 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    TestResultStopRequest:
+    RunTestDefinition:
       type: object
       properties:
-        stopPolicy:
+        resultId:
           type: string
-          enum:
-          - GRACEFUL
-          - TERMINATE
-          description: How to stop the Test Result. Default is GRACEFUL.<ul><li>GRACEFUL stops gently the Test Result.</li><li>TERMINATE terminates the Test Result (kill it).</li></ul>
-          example: GRACEFUL
+          description: Unique identifier of the Test Result.
     RateLimitError:
       type: object
       properties:
@@ -417,39 +423,43 @@ components:
           type: string
         retry-after:
           type: integer
-    RunTestDefinition:
-      type: object
-      properties:
-        resultId:
-          type: string
-          description: Unique identifier of the Test Result.
+  parameters:
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    test-id:
+      name: testId
+      in: path
+      required: true
+      description: Unique identifier representing a specific test.
+      schema:
+        type: string
   responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     error_501:
       description: Not Implemented
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
+    error_413:
+      description: Request entity too large.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_413:
-      description: Request entity too large.
+    error_500:
+      description: Internal server error
       content:
         application/json:
           schema:
@@ -466,28 +476,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    test-id:
-      name: testId
-      in: path
-      required: true
-      description: Unique identifier representing a specific test.
-      schema:
-        type: string
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

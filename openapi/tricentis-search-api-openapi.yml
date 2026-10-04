@@ -260,59 +260,6 @@ paths:
         required: true
 components:
   schemas:
-    HistoryResource:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-        description:
-          type: string
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-        author_id:
-          type: integer
-          format: int64
-        linked_object:
-          $ref: '#/components/schemas/LinkedObject'
-        changes:
-          type: array
-          items:
-            $ref: '#/components/schemas/HistoryChange'
-    PagedResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/RepresentationModel'
     CommentResource:
       type: object
       properties:
@@ -343,82 +290,6 @@ components:
           type: string
           example: The comment's content
           description: Comment text
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    ArtifactHistoryResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/HistoryResource'
-    HistoryChange:
-      type: object
-      properties:
-        field:
-          type: string
-        old_value:
-          type: string
-        new_value:
-          type: string
-    HistoryQueryParams:
-      type: object
-      required:
-      - object_type
-      properties:
-        object_type:
-          type: string
-          example: test-cases
-        fields:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            example: '*'
-        query:
-          type: string
-          description: "Specify a structured query to retrieve history of objects specified in attribute object_query above\n\nOnly these 2 criteria are supported:\n\n created: it can be used for querying by updated date of the object. \n\nIts values need to be in ISO Date format. Applicable operator include: =, <>, &lt;= and >= \n\nauthor:it can be used for querying by Id of the users who made the update. Applicable operators include: = and <>\n\nYou can use operators and and or to combine an unlimited number of criteria above"
-        object_query:
-          type: string
-          description: Specify a structured query to search for qTest objects. Refer to attribute query in the request body of Query Objects API
-    LinkedObject:
-      type: object
-      properties:
-        object_type:
-          type: string
-        object_id:
-          type: integer
-          format: int64
     QueryCommentResource:
       type: object
       properties:
@@ -447,6 +318,26 @@ components:
           description: Data of records
           items:
             $ref: '#/components/schemas/CommentResource'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    HistoryChange:
+      type: object
+      properties:
+        field:
+          type: string
+        old_value:
+          type: string
+        new_value:
+          type: string
     ArtifactSearchParams:
       type: object
       required:
@@ -467,6 +358,31 @@ components:
           type: string
           example: '''name'' ~ ''qTest'''
           description: Represent text as Data Query
+    HistoryResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        description:
+          type: string
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+        author_id:
+          type: integer
+          format: int64
+        linked_object:
+          $ref: '#/components/schemas/LinkedObject'
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryChange'
     CommentQueryParams:
       type: object
       required:
@@ -500,6 +416,34 @@ components:
           format: int64
           example: 1
           description: Id of the user who made the comments
+    PagedResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/RepresentationModel'
     RepresentationModel:
       type: object
       properties:
@@ -508,6 +452,62 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
+    HistoryQueryParams:
+      type: object
+      required:
+      - object_type
+      properties:
+        object_type:
+          type: string
+          example: test-cases
+        fields:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            example: '*'
+        query:
+          type: string
+          description: "Specify a structured query to retrieve history of objects specified in attribute object_query above\n\nOnly these 2 criteria are supported:\n\n created: it can be used for querying by updated date of the object. \n\nIts values need to be in ISO Date format. Applicable operator include: =, <>, &lt;= and >= \n\nauthor:it can be used for querying by Id of the users who made the update. Applicable operators include: = and <>\n\nYou can use operators and and or to combine an unlimited number of criteria above"
+        object_query:
+          type: string
+          description: Specify a structured query to search for qTest objects. Refer to attribute query in the request body of Query Objects API
+    ArtifactHistoryResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/HistoryResource'
+    LinkedObject:
+      type: object
+      properties:
+        object_type:
+          type: string
+        object_id:
+          type: integer
+          format: int64
   securitySchemes:
     Authorization:
       type: apiKey

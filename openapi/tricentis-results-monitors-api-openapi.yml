@@ -209,6 +209,71 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
+  parameters:
+    counter_id:
+      name: counterId
+      in: path
+      required: true
+      description: Unique identifier representing a specific counter.
+      schema:
+        type: string
+    result-id:
+      name: resultId
+      in: path
+      required: true
+      description: Unique identifier representing a specific Test Result.
+      schema:
+        type: string
+    workspace-id:
+      name: workspaceId
+      in: path
+      required: true
+      description: Unique identifier representing a Workspace.
+      schema:
+        type: string
+  responses:
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -470,10 +535,28 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    CounterDefinitionArray:
+    CustomMonitorValues:
       type: array
       items:
-        $ref: '#/components/schemas/CounterDefinition'
+        type: object
+        properties:
+          timestamp:
+            type: integer
+            format: int64
+            description: Timestamp in seconds for the value.
+          value:
+            type: number
+            format: float
+            description: Number for the value.
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     CounterValues:
       type: object
       properties:
@@ -511,23 +594,6 @@ components:
           description: Full path of the counter including the counter itself.
           items:
             type: string
-    Points:
-      type: array
-      items:
-        $ref: '#/components/schemas/Point'
-    CustomMonitorValues:
-      type: array
-      items:
-        type: object
-        properties:
-          timestamp:
-            type: integer
-            format: int64
-            description: Timestamp in seconds for the value.
-          value:
-            type: number
-            format: float
-            description: Number for the value.
     MonitorPostRequest:
       type: object
       properties:
@@ -535,15 +601,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomMonitor'
-    RateLimitError:
+    CustomMonitor:
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        name:
           type: string
-        retry-after:
-          type: integer
+          description: Name of custom monitor.
+        path:
+          type: array
+          description: Path of the custom monitor.
+          items:
+            type: string
+        unit:
+          type: string
+          description: Unit of the custom monitor.
+        values:
+          type: object
+          required: true
+          $ref: '#/components/schemas/CustomMonitorValues'
+    Points:
+      type: array
+      items:
+        $ref: '#/components/schemas/Point'
     Point:
       type: object
       properties:
@@ -607,89 +686,10 @@ components:
           type: number
           format: float
           description: ''
-    CustomMonitor:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of custom monitor.
-        path:
-          type: array
-          description: Path of the custom monitor.
-          items:
-            type: string
-        unit:
-          type: string
-          description: Unit of the custom monitor.
-        values:
-          type: object
-          required: true
-          $ref: '#/components/schemas/CustomMonitorValues'
-  responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    counter_id:
-      name: counterId
-      in: path
-      required: true
-      description: Unique identifier representing a specific counter.
-      schema:
-        type: string
-    result-id:
-      name: resultId
-      in: path
-      required: true
-      description: Unique identifier representing a specific Test Result.
-      schema:
-        type: string
-    workspace-id:
-      name: workspaceId
-      in: path
-      required: true
-      description: Unique identifier representing a Workspace.
-      schema:
-        type: string
+    CounterDefinitionArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/CounterDefinition'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

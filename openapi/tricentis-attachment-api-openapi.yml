@@ -356,6 +356,8 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OutputStream:
+      type: object
     AttachmentAuthor:
       type: object
       properties:
@@ -386,6 +388,17 @@ components:
           example: Error message
           description: Error message text
           readOnly: true
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
     PagedResourceAttachmentResource:
       type: object
       properties:
@@ -407,17 +420,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AttachmentResource'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     AttachmentResource:
       type: object
       properties:
@@ -459,8 +461,6 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
-    OutputStream:
-      type: object
   securitySchemes:
     Authorization:
       type: apiKey

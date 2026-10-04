@@ -58,6 +58,35 @@ paths:
         required: true
 components:
   schemas:
+    ToscaExecutionEntryResource:
+      type: object
+      required:
+      - name
+      - toscaNodePath
+      - toscaUniqueId
+      properties:
+        toscaUniqueId:
+          type: string
+          example: cd0de9f4-acef-47a4-b91d-99791c4d8e1c
+        name:
+          type: string
+          example: Execution Entry
+          minLength: 1
+          maxLength: 500
+        toscaNodePath:
+          type: string
+          example: /Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry
+        toscaUrl:
+          type: string
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+        associatedToscaTestCase:
+          $ref: '#/components/schemas/ToscaTestCaseResource'
+        associatedToscaTestCaseId:
+          type: string
     QueueProcessingResponse:
       type: object
       properties:
@@ -81,25 +110,6 @@ components:
           type: string
           example: AUTOMATION_TEST_LOG
           description: Type of task after batch submit automation test logs
-    ToscaTestCaseResource:
-      type: object
-      required:
-      - toscaNodePath
-      - toscaUniqueId
-      properties:
-        toscaUniqueId:
-          type: string
-          example: a606c5a8-d648-4b09-bc28-929d58773631
-        toscaNodePath:
-          type: string
-          example: /TestCases/Execution Entry
-        toscaUrl:
-          type: string
-        parentId:
-          type: integer
-          format: int64
-        parentType:
-          type: string
     ToscaTestCycleResource:
       type: object
       required:
@@ -140,34 +150,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ToscaExecutionEntryResource'
-    ToscaExecutionEntryResource:
+    ToscaTestCaseResource:
       type: object
       required:
-      - name
       - toscaNodePath
       - toscaUniqueId
       properties:
         toscaUniqueId:
           type: string
-          example: cd0de9f4-acef-47a4-b91d-99791c4d8e1c
-        name:
-          type: string
-          example: Execution Entry
-          minLength: 1
-          maxLength: 500
+          example: a606c5a8-d648-4b09-bc28-929d58773631
         toscaNodePath:
           type: string
-          example: /Execution/ExecutionLists/ExecutionEntry Folder/Execution List/Execution Entry
+          example: /TestCases/Execution Entry
         toscaUrl:
           type: string
         parentId:
           type: integer
           format: int64
         parentType:
-          type: string
-        associatedToscaTestCase:
-          $ref: '#/components/schemas/ToscaTestCaseResource'
-        associatedToscaTestCaseId:
           type: string
   securitySchemes:
     Authorization:

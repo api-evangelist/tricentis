@@ -118,6 +118,40 @@ paths:
         required: true
 components:
   schemas:
+    AllowedValueResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        value:
+          type: integer
+          format: int64
+          example: 601
+          description: Value of AllowedValue
+        label:
+          type: string
+          example: Passed
+          description: Label of AllowedValue
+        order:
+          type: integer
+          format: int32
+          example: 1
+          description: Display order of AllowedValue
+        is_default:
+          type: boolean
+          example: true
+          description: Is default value or not
+        is_active:
+          type: boolean
+          example: true
+          description: Is active or not
+        color:
+          type: string
+          example: '#c0c0c0'
+          description: 'Color of AllowedValue if Field is Test Run''s Status '
     FieldResource:
       type: object
       required:
@@ -187,40 +221,6 @@ components:
           type: boolean
           example: true
           description: Is active or disabled
-    AllowedValueResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        value:
-          type: integer
-          format: int64
-          example: 601
-          description: Value of AllowedValue
-        label:
-          type: string
-          example: Passed
-          description: Label of AllowedValue
-        order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of AllowedValue
-        is_default:
-          type: boolean
-          example: true
-          description: Is default value or not
-        is_active:
-          type: boolean
-          example: true
-          description: Is active or not
-        color:
-          type: string
-          example: '#c0c0c0'
-          description: 'Color of AllowedValue if Field is Test Run''s Status '
     Link:
       type: object
       properties:

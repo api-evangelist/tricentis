@@ -172,17 +172,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ExportSession:
-      type: object
-      properties:
-        session_id:
-          type: string
-        title:
-          type: string
-        screens:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportScreen'
     ExportResult:
       type: object
       properties:
@@ -191,6 +180,30 @@ components:
           description: task id
         url:
           type: string
+    ExportScreen:
+      type: object
+      properties:
+        title:
+          type: string
+        image_key:
+          type: string
+        width":
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        url:
+          type: string
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
     ExportTestCase:
       type: object
       properties:
@@ -224,30 +237,17 @@ components:
                   height:
                     type: number
                     format: double
-    ExportScreen:
+    ExportSession:
       type: object
       properties:
+        session_id:
+          type: string
         title:
           type: string
-        image_key:
-          type: string
-        width":
-          type: number
-          format: double
-        height:
-          type: number
-          format: double
-        url:
-          type: string
-        steps:
+        screens:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
+            $ref: '#/components/schemas/ExportScreen'
   securitySchemes:
     v2_auth:
       type: apiKey

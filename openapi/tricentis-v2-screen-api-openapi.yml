@@ -460,6 +460,105 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Point:
+      type: object
+      properties:
+        x:
+          type: number
+          format: double
+        y:
+          type: number
+          format: double
+    CreateScreen:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+        capture_mode:
+          type: string
+          enum:
+          - Desktop
+          - Application
+          - Form
+        title:
+          type: string
+        time_type:
+          $ref: '#/components/schemas/TimeType'
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        app_height:
+          type: number
+          format: double
+        app_left:
+          type: number
+          format: double
+        app_top:
+          type: number
+          format: double
+        app_width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        left:
+          type: number
+          format: double
+        top:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+        screen_height:
+          type: number
+          format: double
+        screen_width:
+          type: number
+          format: double
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+        is_deleted:
+          type: boolean
+    ActionMetadata:
+      type: object
+      properties:
+        element_type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        css_selector:
+          type: string
+        tag_name:
+          type: string
+        xpath:
+          type: array
+          items:
+            type: string
+        value:
+          type: string
+        ctrl_type:
+          type: integer
+        action_type:
+          type: string
+        details:
+          type: object
+    TimeType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
     Screen:
       type: object
       properties:
@@ -552,96 +651,6 @@ components:
           type: string
         href:
           type: string
-    Point:
-      type: object
-      properties:
-        x:
-          type: number
-          format: double
-        y:
-          type: number
-          format: double
-    CreateScreen:
-      type: object
-      properties:
-        id:
-          type: string
-        order:
-          type: integer
-        capture_mode:
-          type: string
-          enum:
-          - Desktop
-          - Application
-          - Form
-        title:
-          type: string
-        time_type:
-          $ref: '#/components/schemas/TimeType'
-        timestamp:
-          type: string
-          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
-        app_height:
-          type: number
-          format: double
-        app_left:
-          type: number
-          format: double
-        app_top:
-          type: number
-          format: double
-        app_width:
-          type: number
-          format: double
-        height:
-          type: number
-          format: double
-        left:
-          type: number
-          format: double
-        top:
-          type: number
-          format: double
-        width:
-          type: number
-          format: double
-        screen_height:
-          type: number
-          format: double
-        screen_width:
-          type: number
-          format: double
-        annotations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Annotation'
-        is_deleted:
-          type: boolean
-    ActionMetadata:
-      type: object
-      properties:
-        element_type:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        css_selector:
-          type: string
-        tag_name:
-          type: string
-        xpath:
-          type: array
-          items:
-            type: string
-        value:
-          type: string
-        ctrl_type:
-          type: integer
-        action_type:
-          type: string
-        details:
-          type: object
     UpdateScreen:
       type: object
       properties:
@@ -698,15 +707,6 @@ components:
             $ref: '#/components/schemas/Annotation'
         is_deleted:
           type: boolean
-    TimeType:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        color:
-          type: string
     Annotation:
       type: object
       properties:

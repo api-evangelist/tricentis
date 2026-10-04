@@ -89,6 +89,46 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   schemas:
+    TestSettingsApiFullRequestDto:
+      type: object
+      properties:
+        displayTestResultsCount:
+          type: integer
+          description: 'The maximum number of Test Results to show in the Test Analysis graph. Allowed values: 10, 20, 50'
+          format: int32
+          example: 10
+        failOnObjective:
+          type: boolean
+          description: Make the Test Result fail as soon as any of the configured objectives is exceeded
+          example: true
+        metrics:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/metrics'
+        objectiveTolerance:
+          type: number
+          description: The tolerance for the AUTOMATED objective type
+          format: double
+          example: 2
+        objectiveType:
+          type: string
+          description: 'The type of objective. MANUAL means that the objective value is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT means that the objective value is the value of the metric for the test result with id referenceTestResultId. AUTOMATED means that the objective value is computed at the end of the Test Result based on the metric value for the latest 50 previous PASSED Test Results with this formula: mean() + objectiveTolerance x standardDeviation()'
+          example: MANUAL
+          enum:
+          - MANUAL
+          - REFERENCE_TEST_RESULT
+          - AUTOMATED
+        referenceTestResultId:
+          type: string
+          description: The test result id that is the reference for objectives. The objectiveValue is the value of the metric for this test result if it exists, or else the user-defined value. This field is mandatory for the REFERENCE_TEST_RESULT objective type, it is ignored for other objective types
+          example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b
+        referentialObjectiveTolerance:
+          type: integer
+          description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
+          format: int32
+          example: 10
     Error:
       type: object
       properties:
@@ -391,6 +431,15 @@ components:
           - Max.TTFB
           - Std Deviation
       description: The metrics shown in Test Analysis. One metric represents one objective and is displayed as one curve in Test Analysis graph.
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
     TestSettingsApiResponseDto:
       type: object
       properties:
@@ -431,64 +480,27 @@ components:
           description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
           format: int32
           example: 10
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-    TestSettingsApiFullRequestDto:
-      type: object
-      properties:
-        displayTestResultsCount:
-          type: integer
-          description: 'The maximum number of Test Results to show in the Test Analysis graph. Allowed values: 10, 20, 50'
-          format: int32
-          example: 10
-        failOnObjective:
-          type: boolean
-          description: Make the Test Result fail as soon as any of the configured objectives is exceeded
-          example: true
-        metrics:
-          maxItems: 10
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/metrics'
-        objectiveTolerance:
-          type: number
-          description: The tolerance for the AUTOMATED objective type
-          format: double
-          example: 2
-        objectiveType:
-          type: string
-          description: 'The type of objective. MANUAL means that the objective value is the one manually specified in objectiveValue. REFERENCE_TEST_RESULT means that the objective value is the value of the metric for the test result with id referenceTestResultId. AUTOMATED means that the objective value is computed at the end of the Test Result based on the metric value for the latest 50 previous PASSED Test Results with this formula: mean() + objectiveTolerance x standardDeviation()'
-          example: MANUAL
-          enum:
-          - MANUAL
-          - REFERENCE_TEST_RESULT
-          - AUTOMATED
-        referenceTestResultId:
-          type: string
-          description: The test result id that is the reference for objectives. The objectiveValue is the value of the metric for this test result if it exists, or else the user-defined value. This field is mandatory for the REFERENCE_TEST_RESULT objective type, it is ignored for other objective types
-          example: 76890fbe-d2f2-4e82-a054-a1a2d584da4b
-        referentialObjectiveTolerance:
-          type: integer
-          description: The tolerance in percent for the REFERENCE_TEST_RESULT objective type
-          format: int32
-          example: 10
   responses:
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     error_500:
       description: Internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
       content:
         application/json:
           schema:
@@ -505,20 +517,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RateLimitError'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
       content:
         application/json:
           schema:

@@ -245,27 +245,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     ModuleResource:
       type: object
       properties:
@@ -333,6 +312,27 @@ components:
           description: Tosca folder node path. Use for creating Module and link with Tosca folder.
         tosca_state:
           type: string
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    Message:
+      type: object
+      properties:
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
+          readOnly: true
   securitySchemes:
     Authorization:
       type: apiKey

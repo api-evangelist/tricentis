@@ -380,14 +380,19 @@ paths:
     servers:
     - url: https://api.ttm4j.tricentis.com
 components:
-  responses:
-    error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   parameters:
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    search:
+      name: $search
+      in: query
+      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
+      schema:
+        type: string
     top:
       name: $top
       in: query
@@ -396,12 +401,6 @@ components:
         type: integer
         minimum: 0
       example: 50
-    count:
-      name: $count
-      in: query
-      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
-      schema:
-        type: boolean
     skip:
       name: $skip
       in: query
@@ -409,52 +408,7 @@ components:
       schema:
         type: integer
         minimum: 0
-    search:
-      name: $search
-      in: query
-      description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
-      schema:
-        type: string
   schemas:
-    error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            target:
-              type: string
-            details:
-              type: array
-              items:
-                type: object
-                required:
-                - code
-                - message
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-                  target:
-                    type: string
-            innererror:
-              type: object
-              description: The structure of this object is service-specific
-    count:
-      anyOf:
-      - type: number
-      - type: string
-      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
     x26997ea37814ba1b9a423c590887c7a7c1262datasource.project:
       title: project
       type: object
@@ -557,6 +511,52 @@ components:
           - string
           - 'null'
           maxLength: 32768
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
+    error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BasicAuth:
       type: http

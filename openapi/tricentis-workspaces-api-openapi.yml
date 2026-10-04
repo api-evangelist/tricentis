@@ -255,6 +255,49 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
+  responses:
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -516,15 +559,48 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    MemberListDefinition:
+    RateLimitError:
       type: object
       properties:
-        logins:
-          type: array
-          description: Login list
-          items:
-            type: string
-            description: Login list
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    LastChangeDefinition:
+      type: object
+      properties:
+        lastAction:
+          type: string
+          description: Last action performed on the Workspace.
+          example: CREATE
+          enum:
+          - CREATE
+          - UPDATE
+          - DELETE
+        lastUpdateDate:
+          type: integer
+          description: Timestamp when the Workspace was updated for the last time. Number of seconds since January 1, 1970.
+          format: int64
+          example: 1582550442
+      description: Workspace last change
+    WorkspaceUpdateRequest:
+      type: object
+      properties:
+        allUsersEnabled:
+          type: boolean
+          description: True if all users of the Workspace are enabled
+        description:
+          type: string
+          description: Description of the Workspace
+          example: Workspace description
+        name:
+          type: string
+          description: Name of the Workspace
+          example: Default Workspace
+        vuQuota:
+          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
     WorkspaceDefinition:
       type: object
       properties:
@@ -543,6 +619,21 @@ components:
         lastChange:
           type: object
           $ref: '#/components/schemas/LastChangeDefinition'
+    WorkspaceVuQuotaDefinition:
+      type: object
+      properties:
+        sap:
+          type: integer
+          description: SAP quota
+          format: int32
+        unlimited:
+          type: boolean
+          description: True if quotas are unlimited
+        web:
+          type: integer
+          description: Web quota
+          format: int32
+      description: Quotas assigned to Workspace
     MemberDefinition:
       type: object
       properties:
@@ -565,22 +656,10 @@ components:
           - ONPREMISE_SSO
           - SCIM
       description: Members assigned to Workspace
-    WorkspaceUpdateRequest:
-      type: object
-      properties:
-        allUsersEnabled:
-          type: boolean
-          description: True if all users of the Workspace are enabled
-        description:
-          type: string
-          description: Description of the Workspace
-          example: Workspace description
-        name:
-          type: string
-          description: Name of the Workspace
-          example: Default Workspace
-        vuQuota:
-          $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    WorkspaceDefinitionList:
+      type: array
+      items:
+        $ref: '#/components/schemas/WorkspaceDefinition'
     FullWorkspaceDefinition:
       type: object
       properties:
@@ -609,6 +688,15 @@ components:
           example: Default Workspace
         vuQuota:
           $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
+    MemberListDefinition:
+      type: object
+      properties:
+        logins:
+          type: array
+          description: Login list
+          items:
+            type: string
+            description: Login list
     WorkspaceCreateRequest:
       type: object
       properties:
@@ -626,94 +714,6 @@ components:
           example: My first Workspace
         vuQuota:
           $ref: '#/components/schemas/WorkspaceVuQuotaDefinition'
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-    WorkspaceVuQuotaDefinition:
-      type: object
-      properties:
-        sap:
-          type: integer
-          description: SAP quota
-          format: int32
-        unlimited:
-          type: boolean
-          description: True if quotas are unlimited
-        web:
-          type: integer
-          description: Web quota
-          format: int32
-      description: Quotas assigned to Workspace
-    WorkspaceDefinitionList:
-      type: array
-      items:
-        $ref: '#/components/schemas/WorkspaceDefinition'
-    LastChangeDefinition:
-      type: object
-      properties:
-        lastAction:
-          type: string
-          description: Last action performed on the Workspace.
-          example: CREATE
-          enum:
-          - CREATE
-          - UPDATE
-          - DELETE
-        lastUpdateDate:
-          type: integer
-          description: Timestamp when the Workspace was updated for the last time. Number of seconds since January 1, 1970.
-          format: int64
-          example: 1582550442
-      description: Workspace last change
-  responses:
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     page_offset:
       name: offset

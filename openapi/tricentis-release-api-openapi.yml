@@ -194,6 +194,39 @@ paths:
       - Authorization: []
 components:
   schemas:
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
     ReleaseWithCustomFieldResource:
       type: object
       required:
@@ -246,39 +279,6 @@ components:
         end_date:
           type: string
           format: date-time
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
   securitySchemes:
     Authorization:
       type: apiKey
