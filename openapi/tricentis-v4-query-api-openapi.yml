@@ -154,6 +154,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    QueryClause:
+      type: object
+      properties:
+        leftGroup:
+          type: string
+        rightGroup:
+          type: string
+        criteria:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
     Query:
       type: object
       properties:
@@ -195,19 +208,6 @@ components:
           type: boolean
         projectId:
           type: integer
-    QueryClause:
-      type: object
-      properties:
-        leftGroup:
-          type: string
-        rightGroup:
-          type: string
-        criteria:
-          type: string
-        operator:
-          type: string
-        value:
-          type: string
   securitySchemes:
     v2_auth:
       type: apiKey

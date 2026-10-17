@@ -98,18 +98,12 @@ components:
       schema:
         type: string
   responses:
-    error_500:
-      description: Internal server error
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/RateLimitError'
     error_400:
       description: An error occurred while processing the request. Please verify the parameters and try again.
       content:
@@ -128,34 +122,47 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+    error_500:
+      description: Internal server error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RateLimitError'
+            $ref: '#/components/schemas/Error'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ProjectDefinition:
+    ScenarioDefinition:
       type: object
       properties:
-        projectId:
+        scenarioName:
           type: string
-          description: Id of project file.
-          example: 5e5fc0102cc4f82e5d9e18d4
-        projectName:
+          description: Scenario name.
+        scenarioDuration:
+          type: integer
+          format: int64
+          description: Duration (in seconds) of the scenario.
+        scenarioVUs:
+          type: integer
+          format: int32
+          description: Total Virtual User number of the scenario. Return 0 if the Virtual User number is not determined.
+        scenarioSource:
           type: string
-          description: Neoload Project name.
-        projectVersion:
+          description: The scenarion location. Can be a yaml file or NLP path.
+    AsCodeFile:
+      type: object
+      properties:
+        path:
           type: string
-          description: Neoload Project version.
-        asCodeFiles:
+          description: The yaml file path
+        includes:
           type: array
+          description: List of yaml files included
           items:
-            $ref: '#/components/schemas/AsCodeFile'
-        scenarios:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScenarioDefinition'
+            type: string
     Error:
       type: object
       properties:
@@ -416,23 +423,27 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    ScenarioDefinition:
+    ProjectDefinition:
       type: object
       properties:
-        scenarioName:
+        projectId:
           type: string
-          description: Scenario name.
-        scenarioDuration:
-          type: integer
-          format: int64
-          description: Duration (in seconds) of the scenario.
-        scenarioVUs:
-          type: integer
-          format: int32
-          description: Total Virtual User number of the scenario. Return 0 if the Virtual User number is not determined.
-        scenarioSource:
+          description: Id of project file.
+          example: 5e5fc0102cc4f82e5d9e18d4
+        projectName:
           type: string
-          description: The scenarion location. Can be a yaml file or NLP path.
+          description: Neoload Project name.
+        projectVersion:
+          type: string
+          description: Neoload Project version.
+        asCodeFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AsCodeFile'
+        scenarios:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScenarioDefinition'
     RateLimitError:
       type: object
       properties:
@@ -442,17 +453,6 @@ components:
           type: string
         retry-after:
           type: integer
-    AsCodeFile:
-      type: object
-      properties:
-        path:
-          type: string
-          description: The yaml file path
-        includes:
-          type: array
-          description: List of yaml files included
-          items:
-            type: string
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

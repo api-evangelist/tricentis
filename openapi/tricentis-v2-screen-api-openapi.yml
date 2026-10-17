@@ -460,71 +460,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Point:
-      type: object
-      properties:
-        x:
-          type: number
-          format: double
-        y:
-          type: number
-          format: double
-    CreateScreen:
+    TimeType:
       type: object
       properties:
         id:
           type: string
-        order:
-          type: integer
-        capture_mode:
+        name:
           type: string
-          enum:
-          - Desktop
-          - Application
-          - Form
-        title:
+        color:
           type: string
-        time_type:
-          $ref: '#/components/schemas/TimeType'
-        timestamp:
-          type: string
-          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
-        app_height:
-          type: number
-          format: double
-        app_left:
-          type: number
-          format: double
-        app_top:
-          type: number
-          format: double
-        app_width:
-          type: number
-          format: double
-        height:
-          type: number
-          format: double
-        left:
-          type: number
-          format: double
-        top:
-          type: number
-          format: double
-        width:
-          type: number
-          format: double
-        screen_height:
-          type: number
-          format: double
-        screen_width:
-          type: number
-          format: double
-        annotations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Annotation'
-        is_deleted:
-          type: boolean
     ActionMetadata:
       type: object
       properties:
@@ -550,15 +494,99 @@ components:
           type: string
         details:
           type: object
-    TimeType:
+    Point:
       type: object
       properties:
-        id:
+        x:
+          type: number
+          format: double
+        y:
+          type: number
+          format: double
+    Annotation:
+      type: object
+      properties:
+        annotation_type:
           type: string
-        name:
+          enum:
+          - Action
+          - Rectangle
+          - Ellipse
+          - Callout
+          - Pencil
+          - Arrow
+          - Blackout
+          - TextBox
+        type:
           type: string
-        color:
+          enum:
+          - square
+          - round
+          - oval
+          - cloud
+          - line1
+          - line2
+          - line3
+          - line1AccentBar
+          - line2AccentBar
+          - line3AccentBar
+        order_number:
+          type: integer
+        desc:
           type: string
+        meta_data:
+          $ref: '#/components/schemas/ActionMetadata'
+        left:
+          type: number
+          format: double
+        top:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
+        hotspotx:
+          type: number
+          format: double
+        hotspoty:
+          type: number
+          format: double
+        anchor_point:
+          $ref: '#/components/schemas/Point'
+        background_color:
+          type: string
+        border_color:
+          type: string
+        border_size:
+          type: integer
+        content:
+          type: string
+        font_name:
+          type: string
+        font_size:
+          type: integer
+        text_color:
+          type: string
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/Point'
+        start_point:
+          $ref: '#/components/schemas/Point'
+        end_point:
+          $ref: '#/components/schemas/Point'
+        zindex:
+          type: integer
+        drop_shadow:
+          type: boolean
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-16T04:46:30+07'
+        is_visible_on_screen:
+          type: boolean
     Screen:
       type: object
       properties:
@@ -644,6 +672,10 @@ components:
           type: string
         direct_thumbnail:
           type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
     Link:
       type: object
       properties:
@@ -707,39 +739,41 @@ components:
             $ref: '#/components/schemas/Annotation'
         is_deleted:
           type: boolean
-    Annotation:
+    CreateScreen:
       type: object
       properties:
-        annotation_type:
+        id:
           type: string
-          enum:
-          - Action
-          - Rectangle
-          - Ellipse
-          - Callout
-          - Pencil
-          - Arrow
-          - Blackout
-          - TextBox
-        type:
-          type: string
-          enum:
-          - square
-          - round
-          - oval
-          - cloud
-          - line1
-          - line2
-          - line3
-          - line1AccentBar
-          - line2AccentBar
-          - line3AccentBar
-        order_number:
+        order:
           type: integer
-        desc:
+        capture_mode:
           type: string
-        meta_data:
-          $ref: '#/components/schemas/ActionMetadata'
+          enum:
+          - Desktop
+          - Application
+          - Form
+        title:
+          type: string
+        time_type:
+          $ref: '#/components/schemas/TimeType'
+        timestamp:
+          type: string
+          description: 'timestamp, Ex: 2018-01-15T21:46:30.000Z'
+        app_height:
+          type: number
+          format: double
+        app_left:
+          type: number
+          format: double
+        app_top:
+          type: number
+          format: double
+        app_width:
+          type: number
+          format: double
+        height:
+          type: number
+          format: double
         left:
           type: number
           format: double
@@ -749,52 +783,18 @@ components:
         width:
           type: number
           format: double
-        height:
+        screen_height:
           type: number
           format: double
-        hotspotx:
+        screen_width:
           type: number
           format: double
-        hotspoty:
-          type: number
-          format: double
-        anchor_point:
-          $ref: '#/components/schemas/Point'
-        background_color:
-          type: string
-        border_color:
-          type: string
-        border_size:
-          type: integer
-        content:
-          type: string
-        font_name:
-          type: string
-        font_size:
-          type: integer
-        text_color:
-          type: string
-        points:
+        annotations:
           type: array
           items:
-            $ref: '#/components/schemas/Point'
-        start_point:
-          $ref: '#/components/schemas/Point'
-        end_point:
-          $ref: '#/components/schemas/Point'
-        zindex:
-          type: integer
-        drop_shadow:
+            $ref: '#/components/schemas/Annotation'
+        is_deleted:
           type: boolean
-        timestamp:
-          type: string
-          description: 'timestamp, Ex: 2018-01-16T04:46:30+07'
-        is_visible_on_screen:
-          type: boolean
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
   securitySchemes:
     v2_auth:
       type: apiKey

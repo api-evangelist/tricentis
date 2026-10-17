@@ -455,23 +455,6 @@ components:
           type: string
           example: New
           description: Defect status
-    LinkedArtifactContainer:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of source artifact
-        pid:
-          type: string
-          example: RQ-1
-          description: PID of source artifact`
-        objects:
-          type: array
-          description: Arrays of linked artifact
-          items:
-            $ref: '#/components/schemas/LinkedArtifact'
     LinkedArtifact:
       type: object
       properties:
@@ -492,6 +475,23 @@ components:
           type: string
           example: https://apitryout.qtestnet.com/p/1/portal/project#tab=testdesign&object=1&id=1
           description: URL to linked artifact
+    LinkedArtifactContainer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of source artifact
+        pid:
+          type: string
+          example: RQ-1
+          description: PID of source artifact`
+        objects:
+          type: array
+          description: Arrays of linked artifact
+          items:
+            $ref: '#/components/schemas/LinkedArtifact'
   securitySchemes:
     Authorization:
       type: apiKey

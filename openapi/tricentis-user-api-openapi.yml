@@ -516,6 +516,18 @@ paths:
     - url: https://pulse-us-east-1.qtestnet.com/api
 components:
   schemas:
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Profile
+        name:
+          type: string
+          example: Project Manager
+          description: Name of Profile
     SearchUserResource:
       type: object
       properties:
@@ -579,50 +591,6 @@ components:
             example: 1
     OutputStream:
       type: object
-    AssignedProject:
-      type: object
-      properties:
-        project_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Project
-        profile:
-          $ref: '#/components/schemas/Profile'
-    Message:
-      type: object
-      properties:
-        noLogging:
-          type: boolean
-        message:
-          type: string
-          example: Error message
-          description: Error message text
-          readOnly: true
-    AppDetail:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Manager
-          description: Manager
-        logo_url:
-          type: string
-          example: https://apitryout.qtestnet.com/favicon.ico
-          description: <link to qTest application logo>
-        display_order:
-          type: integer
-          format: int32
-          example: 1
-          description: Display order of qTest application
-        url:
-          type: string
-          example: https://apitryout.qtestnet.com
-          description: URL to qTest application
-        redirect_url:
-          type: string
-        app_type:
-          type: string
     AssignedUsersProject:
       type: object
       properties:
@@ -640,73 +608,30 @@ components:
             type: integer
             format: int64
             example: 1
-    UserResource:
+    Message:
       type: object
       properties:
-        links:
-          type: array
-          description: Link to resource
+        noLogging:
+          type: boolean
+        message:
+          type: string
+          example: Error message
+          description: Error message text
           readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
+    ProjectWithUserIdsObject:
+      type: object
+      properties:
+        project_id:
           type: integer
           format: int64
-          example: 1
-          description: ID of the User
-        username:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Contact email of the User
-        password:
-          type: string
-          description: Password of the User
-        first_name:
-          type: string
-          example: Example
-          description: First name of the User
-        last_name:
-          type: string
-          example: User
-          description: Last name of the User
-        status:
-          type: integer
-          format: int32
-          example: 0
-          description: Status of the User
-        avatar:
-          type: string
-          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-        ldap_username:
-          type: string
-          description: LDAP username of the User
-        user_group_ids:
+          description: ID of the Project
+        user_ids:
           type: array
+          description: Array User ID
+          uniqueItems: true
           items:
             type: integer
             format: int64
-        external_auth_config_id:
-          type: integer
-          format: int64
-          description: External authentication system id
-        external_user_name:
-          type: string
-          description: External authentication username
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
     LoggedUser:
       type: object
       properties:
@@ -775,46 +700,6 @@ components:
           description: Arrays of Supports link
           additionalProperties:
             type: string
-    Profile:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Profile
-        name:
-          type: string
-          example: Project Manager
-          description: Name of Profile
-    SearchUserResourceExtensionResponse:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page number
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size number
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total user found
-        items:
-          type: array
-          description: Arrays of User
-          items:
-            $ref: '#/components/schemas/UserResourceExtension'
     UserResourceExtension:
       type: object
       properties:
@@ -867,6 +752,89 @@ components:
           type: string
         country_name:
           type: string
+    AssignedProject:
+      type: object
+      properties:
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        profile:
+          $ref: '#/components/schemas/Profile'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    SearchUserResourceExtensionResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page number
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size number
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total user found
+        items:
+          type: array
+          description: Arrays of User
+          items:
+            $ref: '#/components/schemas/UserResourceExtension'
+    SearchUserResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page number
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size number
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total user found
+        items:
+          type: array
+          description: Arrays of User
+          items:
+            $ref: '#/components/schemas/SearchUserResource'
+        total_project:
+          type: integer
+          format: int64
+          example: 10
+          description: Total Project found
     UserUpdateResource:
       type: object
       properties:
@@ -904,21 +872,7 @@ components:
           format: int64
         external_user_name:
           type: string
-    ProjectWithUserIdsObject:
-      type: object
-      properties:
-        project_id:
-          type: integer
-          format: int64
-          description: ID of the Project
-        user_ids:
-          type: array
-          description: Array User ID
-          uniqueItems: true
-          items:
-            type: integer
-            format: int64
-    SearchUserResponse:
+    UserResource:
       type: object
       properties:
         links:
@@ -927,35 +881,112 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
-        page:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+          description: Password of the User
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: User
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+        ldap_username:
+          type: string
+          description: LDAP username of the User
+        user_group_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        external_auth_config_id:
+          type: integer
+          format: int64
+          description: External authentication system id
+        external_user_name:
+          type: string
+          description: External authentication username
+    AppDetail:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Manager
+          description: Manager
+        logo_url:
+          type: string
+          example: https://apitryout.qtestnet.com/favicon.ico
+          description: <link to qTest application logo>
+        display_order:
           type: integer
           format: int32
           example: 1
-          description: Current page number
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size number
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total user found
-        items:
-          type: array
-          description: Arrays of User
-          items:
-            $ref: '#/components/schemas/SearchUserResource'
-        total_project:
-          type: integer
-          format: int64
-          example: 10
-          description: Total Project found
+          description: Display order of qTest application
+        url:
+          type: string
+          example: https://apitryout.qtestnet.com
+          description: URL to qTest application
+        redirect_url:
+          type: string
+        app_type:
+          type: string
     UserInput:
       properties:
         settings:
           $ref: '#/components/schemas/UserSettings'
+    Application:
+      required:
+      - name
+      - logoUrl
+      - displayOrder
+      - url
+      - hasLicense
+      - hasPermission
+      properties:
+        name:
+          type: string
+        logoUrl:
+          type: string
+        displayOrder:
+          type: integer
+          format: int32
+        url:
+          type: string
+        hasLicense:
+          type: boolean
+        hasPermission:
+          type: boolean
+    Account:
+      required:
+      - qtestClientId
+      - name
+      properties:
+        qtestClientId:
+          type: string
+        name:
+          type: string
     User:
       allOf:
       - $ref: '#/components/schemas/Doc'
@@ -990,11 +1021,21 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Project'
+    UserSettings:
+      properties:
+        notifiedVersion:
+          type: string
     Error:
       required:
       - message
       properties:
         message:
+          type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
           type: string
     Project:
       allOf:
@@ -1008,54 +1049,7 @@ components:
             format: int64
           name:
             type: string
-    UserSettings:
-      properties:
-        notifiedVersion:
-          type: string
-    Account:
-      required:
-      - qtestClientId
-      - name
-      properties:
-        qtestClientId:
-          type: string
-        name:
-          type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    Application:
-      required:
-      - name
-      - logoUrl
-      - displayOrder
-      - url
-      - hasLicense
-      - hasPermission
-      properties:
-        name:
-          type: string
-        logoUrl:
-          type: string
-        displayOrder:
-          type: integer
-          format: int32
-        url:
-          type: string
-        hasLicense:
-          type: boolean
-        hasPermission:
-          type: boolean
   responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized
       content:
@@ -1064,6 +1058,12 @@ components:
             $ref: '#/components/schemas/Error'
     Default:
       description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
       content:
         application/json:
           schema:

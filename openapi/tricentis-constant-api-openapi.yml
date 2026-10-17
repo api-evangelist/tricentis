@@ -182,57 +182,7 @@ paths:
       operationId: deleteConstantsById
       x-operation-id-source: derived
 components:
-  schemas:
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Constant:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/ConstantInput'
-    ConstantInput:
-      allOf:
-      - $ref: '#/components/schemas/ProjectDoc'
-      - required:
-        - name
-        - hidden
-        properties:
-          name:
-            type: string
-          hidden:
-            type: boolean
-          value:
-            type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
   parameters:
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
     IdPath:
       name: id
       in: path
@@ -247,13 +197,21 @@ components:
       schema:
         type: integer
         format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
   responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized
       content:
@@ -272,6 +230,48 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    Constant:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ConstantInput'
+    ConstantInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        - hidden
+        properties:
+          name:
+            type: string
+          hidden:
+            type: boolean
+          value:
+            type: string
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
   securitySchemes:
     qtestToken:
       type: apiKey

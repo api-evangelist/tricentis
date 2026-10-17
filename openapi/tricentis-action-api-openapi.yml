@@ -182,56 +182,7 @@ paths:
       operationId: deleteActionsById
       x-operation-id-source: derived
 components:
-  schemas:
-    Error:
-      required:
-      - message
-      properties:
-        message:
-          type: string
-    ProjectDoc:
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-    Action:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/ActionInput'
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    ActionInput:
-      allOf:
-      - $ref: '#/components/schemas/ProjectDoc'
-      - required:
-        - name
-        properties:
-          name:
-            type: string
-          description:
-            type: string
-          code:
-            type: string
   parameters:
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
     IdPath:
       name: id
       in: path
@@ -246,13 +197,21 @@ components:
       schema:
         type: integer
         format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
   responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized
       content:
@@ -271,6 +230,47 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ActionInput:
+      allOf:
+      - $ref: '#/components/schemas/ProjectDoc'
+      - required:
+        - name
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          code:
+            type: string
+    Error:
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    Action:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/ActionInput'
+    ProjectDoc:
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
   securitySchemes:
     qtestToken:
       type: apiKey

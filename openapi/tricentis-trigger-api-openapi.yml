@@ -183,17 +183,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Trigger:
+      allOf:
+      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/TriggerInput'
     Error:
       required:
       - message
       properties:
         message:
           type: string
-    ProjectDoc:
+    Doc:
       required:
-      - projectId
+      - id
       properties:
-        projectId:
+        id:
           type: string
     TriggerInput:
       allOf:
@@ -203,31 +207,13 @@ components:
         properties:
           name:
             type: string
-    Trigger:
-      allOf:
-      - $ref: '#/components/schemas/Doc'
-      - $ref: '#/components/schemas/TriggerInput'
-    Doc:
+    ProjectDoc:
       required:
-      - id
+      - projectId
       properties:
-        id:
+        projectId:
           type: string
   parameters:
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
     IdPath:
       name: id
       in: path
@@ -242,13 +228,21 @@ components:
       schema:
         type: integer
         format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
   responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized
       content:
@@ -263,6 +257,12 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
       content:
         application/json:
           schema:

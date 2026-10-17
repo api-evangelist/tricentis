@@ -58,6 +58,46 @@ paths:
         required: true
 components:
   schemas:
+    ToscaTestCycleResource:
+      type: object
+      required:
+      - name
+      - toscaNodePath
+      - toscaUniqueId
+      properties:
+        toscaUniqueId:
+          type: string
+          example: b0fd1f95-b925-43d3-9c47-d66ab584f9fc
+        name:
+          type: string
+          example: Execution List
+          minLength: 1
+          maxLength: 500
+        description:
+          type: string
+          example: Sample Execution List
+        toscaObjectType:
+          type: string
+          example: ExecutionList
+        toscaNodePath:
+          type: string
+          example: /Execution/ExecutionLists/ExecutionEntry Folder/Execution List
+        toscaUrl:
+          type: string
+        parentId:
+          type: integer
+          format: int64
+        parentType:
+          type: string
+        testCycles:
+          type: array
+          items:
+            type: string
+            example: ToscaTestCycleResource
+        testRuns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToscaExecutionEntryResource'
     ToscaExecutionEntryResource:
       type: object
       required:
@@ -110,46 +150,6 @@ components:
           type: string
           example: AUTOMATION_TEST_LOG
           description: Type of task after batch submit automation test logs
-    ToscaTestCycleResource:
-      type: object
-      required:
-      - name
-      - toscaNodePath
-      - toscaUniqueId
-      properties:
-        toscaUniqueId:
-          type: string
-          example: b0fd1f95-b925-43d3-9c47-d66ab584f9fc
-        name:
-          type: string
-          example: Execution List
-          minLength: 1
-          maxLength: 500
-        description:
-          type: string
-          example: Sample Execution List
-        toscaObjectType:
-          type: string
-          example: ExecutionList
-        toscaNodePath:
-          type: string
-          example: /Execution/ExecutionLists/ExecutionEntry Folder/Execution List
-        toscaUrl:
-          type: string
-        parentId:
-          type: integer
-          format: int64
-        parentType:
-          type: string
-        testCycles:
-          type: array
-          items:
-            type: string
-            example: ToscaTestCycleResource
-        testRuns:
-          type: array
-          items:
-            $ref: '#/components/schemas/ToscaExecutionEntryResource'
     ToscaTestCaseResource:
       type: object
       required:

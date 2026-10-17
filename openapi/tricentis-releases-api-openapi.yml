@@ -185,18 +185,25 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    count:
-      name: $count
-      in: query
-      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
-      schema:
-        type: boolean
     search:
       name: $search
       in: query
       description: Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)
       schema:
         type: string
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
     top:
       name: $top
       in: query
@@ -205,19 +212,7 @@ components:
         type: integer
         minimum: 0
       example: 50
-    skip:
-      name: $skip
-      in: query
-      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
-      schema:
-        type: integer
-        minimum: 0
   schemas:
-    count:
-      anyOf:
-      - type: number
-      - type: string
-      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
     x26997ea37814ba1b9a423c590887c7a7c1262datasource.release:
       title: release
       type: object
@@ -332,6 +327,11 @@ components:
           - string
           - 'null'
           maxLength: 32768
+    count:
+      anyOf:
+      - type: number
+      - type: string
+      description: The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option.
     error:
       type: object
       required:

@@ -102,7 +102,7 @@ paths:
         required: true
 components:
   schemas:
-    AutomationAgentSearchResult:
+    AutomationAgentResource:
       type: object
       properties:
         links:
@@ -110,30 +110,31 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        total:
+        id:
           type: integer
           format: int64
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationAgentResource'
-    Link:
-      type: object
-      properties:
-        rel:
+        agent_server_id:
+          type: integer
+          format: int64
+        name:
           type: string
-          example: self
-          description: Relationship of link to object
-        href:
+        project_id:
+          type: integer
+          format: int64
+        host_id:
+          type: integer
+          format: int64
+        framework:
           type: string
-          example: <link to object>
-          description: URL to the resource
+        framework_id:
+          type: string
+        agent_id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        configuration:
+          type: string
     AutomationScheduleCreationAPI:
       type: object
       required:
@@ -173,39 +174,6 @@ components:
           description: Additions values
           additionalProperties:
             type: string
-    AutomationAgentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-        agent_server_id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        project_id:
-          type: integer
-          format: int64
-        host_id:
-          type: integer
-          format: int64
-        framework:
-          type: string
-        framework_id:
-          type: string
-        agent_id:
-          type: integer
-          format: int64
-        active:
-          type: boolean
-        configuration:
-          type: string
     AutomationArtifactSearchParams:
       type: object
       properties:
@@ -220,6 +188,38 @@ components:
           type: string
           example: '''name'' ~ ''qTest'''
           description: Represent text as Data Query
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    AutomationAgentSearchResult:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationAgentResource'
   securitySchemes:
     Authorization:
       type: apiKey

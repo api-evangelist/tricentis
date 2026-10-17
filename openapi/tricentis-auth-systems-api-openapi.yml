@@ -112,6 +112,31 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ResponseWrapper:
+      type: object
+      properties:
+        result:
+          type: object
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
+    LDAPUsersResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LdapUserVM'
+        total:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
     ErrorMessage:
       type: object
       properties:
@@ -119,87 +144,6 @@ components:
           type: string
         additionalInfo:
           type: object
-    LdapUserVM:
-      type: object
-      properties:
-        uid:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        mail:
-          type: string
-        activationLink:
-          type: string
-        mappedUserId:
-          type: integer
-          format: int64
-        newMappedUserName:
-          type: string
-        disabled:
-          type: boolean
-        userDN:
-          type: string
-        externalUserId:
-          type: string
-    SSOSamlConfigDetailResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        is_activated:
-          type: boolean
-        auth_type:
-          type: string
-          example: SSO_SAML2
-          description: Type of authentication system
-          enum:
-          - INTERNAL
-          - LDAP
-          - SSO_SAML2
-          - TUA_OPENID
-        name:
-          type: string
-        metadata_link:
-          type: string
-          description: Metadata link of SSO system
-        auto_create_user:
-          type: boolean
-          description: Auto create user or not
-        metadata_filename:
-          type: string
-    AuthSystemResponse:
-      type: object
-      properties:
-        ldaps:
-          type: array
-          items:
-            $ref: '#/components/schemas/LdapConfigDetailResponse'
-        sso:
-          $ref: '#/components/schemas/SSOSamlConfigDetailResponse'
-        tua:
-          $ref: '#/components/schemas/TUAConfigDetailResponse'
-    TUAConfigDetailResponse:
-      type: object
-      properties:
-        url:
-          type: string
-        id:
-          type: integer
-          format: int64
-        is_activated:
-          type: boolean
-        auth_type:
-          type: string
-          enum:
-          - INTERNAL
-          - LDAP
-          - SSO_SAML2
-          - TUA_OPENID
-        name:
-          type: string
     LdapConfigDetailResponse:
       type: object
       properties:
@@ -254,22 +198,63 @@ components:
           type: boolean
           example: false
           description: Is active directory or not
-    LDAPUsersResponse:
+    AuthSystemResponse:
       type: object
       properties:
-        items:
+        ldaps:
           type: array
           items:
-            $ref: '#/components/schemas/LdapUserVM'
-        total:
+            $ref: '#/components/schemas/LdapConfigDetailResponse'
+        sso:
+          $ref: '#/components/schemas/SSOSamlConfigDetailResponse'
+        tua:
+          $ref: '#/components/schemas/TUAConfigDetailResponse'
+    TUAConfigDetailResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        id:
           type: integer
-          format: int32
-        page_size:
+          format: int64
+        is_activated:
+          type: boolean
+        auth_type:
+          type: string
+          enum:
+          - INTERNAL
+          - LDAP
+          - SSO_SAML2
+          - TUA_OPENID
+        name:
+          type: string
+    SSOSamlConfigDetailResponse:
+      type: object
+      properties:
+        id:
           type: integer
-          format: int32
-        page:
-          type: integer
-          format: int32
+          format: int64
+        is_activated:
+          type: boolean
+        auth_type:
+          type: string
+          example: SSO_SAML2
+          description: Type of authentication system
+          enum:
+          - INTERNAL
+          - LDAP
+          - SSO_SAML2
+          - TUA_OPENID
+        name:
+          type: string
+        metadata_link:
+          type: string
+          description: Metadata link of SSO system
+        auto_create_user:
+          type: boolean
+          description: Auto create user or not
+        metadata_filename:
+          type: string
     LdapUserResource:
       type: object
       properties:
@@ -281,15 +266,30 @@ components:
           type: string
         email:
           type: string
-    ResponseWrapper:
+    LdapUserVM:
       type: object
       properties:
-        result:
-          type: object
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorMessage'
+        uid:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        mail:
+          type: string
+        activationLink:
+          type: string
+        mappedUserId:
+          type: integer
+          format: int64
+        newMappedUserName:
+          type: string
+        disabled:
+          type: boolean
+        userDN:
+          type: string
+        externalUserId:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

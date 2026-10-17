@@ -151,51 +151,177 @@ paths:
         required: true
 components:
   schemas:
-    TestCyclePermission:
+    UserProfile:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        release:
+          $ref: '#/components/schemas/ReleasePermission'
+        build:
+          $ref: '#/components/schemas/BuildPermission'
+        test_configuration:
+          $ref: '#/components/schemas/TestConfigurationPermission'
+        test_configuration_variables:
+          $ref: '#/components/schemas/TestConfigurationVariablesPermission'
+        module:
+          $ref: '#/components/schemas/ModulePermission'
+        requirement:
+          $ref: '#/components/schemas/RequirementPermission'
+        test_case:
+          $ref: '#/components/schemas/TestCasePermission'
+        test_cycle:
+          $ref: '#/components/schemas/TestCyclePermission'
+        test_suite:
+          $ref: '#/components/schemas/TestSuitePermission'
+        test_run:
+          $ref: '#/components/schemas/TestRunPermission'
+        defect:
+          $ref: '#/components/schemas/DefectPermission'
+        project_setting:
+          $ref: '#/components/schemas/ProjectSettingPermission'
+        session:
+          $ref: '#/components/schemas/SessionManagerPermission'
+        project:
+          $ref: '#/components/schemas/ProjectAdminPermission'
+        schedule:
+          $ref: '#/components/schemas/SchedulePermission'
+    TestConfigurationVariablesPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+    UserResourceExtension:
+      type: object
+      properties:
+        links:
+          type: array
+          description: Link to resource
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        username:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Contact email of the User
+        password:
+          type: string
+          description: Password of the User
+        first_name:
+          type: string
+          example: Example
+          description: First name of the User
+        last_name:
+          type: string
+          example: User
+          description: Last name of the User
+        status:
+          type: integer
+          format: int32
+          example: 0
+          description: Status of the User
+        avatar:
+          type: string
+          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
+          description: Avatar URL of the User
+        external_username:
+          type: string
+          description: External username, could be LDAP username or SSO username
+        authentication_system:
+          type: string
+          description: Name of Login provider, could be LDAP or SSO
+        timezone_offset:
+          type: string
+        country_name:
+          type: string
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Profile
+        name:
+          type: string
+          example: Project Manager
+          description: Name of Profile
+    ProjectUsersProfile:
+      type: object
+      properties:
+        userProfileId:
+          type: integer
+          format: int64
+          example: 2
+          description: ID of user profile
+        userIds:
+          type: array
+          description: Array User ID
+          items:
+            type: integer
+            format: int64
+            example: 1
+    ProjectSettingPermission:
+      type: object
+      properties:
+        manage:
+          type: boolean
+          example: true
+          description: Can manage project setting or not
+    RequirementPermission:
       type: object
       properties:
         create:
           type: boolean
           example: true
-          description: Can create Test Cycle
+          description: Can create Requirement
         edit:
           type: boolean
           example: true
-          description: Can edit Test Cycle
+          description: Can edit Requirement
         delete:
           type: boolean
           example: true
-          description: Can edit Test Cycle
+          description: Can delete Requirement
         view:
           type: boolean
           example: true
-          description: Can view Test Cycle
-    BuildPermission:
-      type: object
-      properties:
-        create:
+          description: Can view Requirement
+        edit_assignment:
           type: boolean
           example: true
-          description: Can create Build
-        edit:
+          description: Can assign user to Requirement
+        export:
           type: boolean
           example: true
-          description: Can edit Build
-        delete:
-          type: boolean
-          example: false
-          description: Can delete Build
-        view:
+          description: Can export Requirement
+        import:
           type: boolean
           example: true
-          description: Can view Build
-    ProjectAdminPermission:
-      type: object
-      properties:
-        admin:
-          type: boolean
-          example: true
-          description: Is project admin or not
+          description: Can import Requirement
     AdminProfile:
       type: object
       properties:
@@ -258,13 +384,6 @@ components:
           type: boolean
         copilot_user:
           type: boolean
-    ProjectSettingPermission:
-      type: object
-      properties:
-        manage:
-          type: boolean
-          example: true
-          description: Can manage project setting or not
     TestConfigurationPermission:
       type: object
       properties:
@@ -278,40 +397,114 @@ components:
           type: boolean
         link_unlink:
           type: boolean
-    SiteUsersProfile:
-      type: object
-      properties:
-        userProfileId:
-          type: integer
-          format: int64
-          example: 2
-          description: ID of user profile
-        userIds:
-          type: array
-          description: Array User ID
-          items:
-            type: integer
-            format: int64
-            example: 1
-    ModulePermission:
+    TestCyclePermission:
       type: object
       properties:
         create:
           type: boolean
           example: true
-          description: Can create Module
+          description: Can create Test Cycle
         edit:
           type: boolean
           example: true
-          description: Can edit Module
+          description: Can edit Test Cycle
         delete:
           type: boolean
           example: true
-          description: Can delete Module
+          description: Can edit Test Cycle
         view:
           type: boolean
           example: true
-          description: Can view Module
+          description: Can view Test Cycle
+    ReleasePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Release
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Release
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Release
+        view:
+          type: boolean
+          example: true
+          description: Can view Release
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    DefectPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Defect
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Defect
+        delete:
+          type: boolean
+        view:
+          type: boolean
+          example: true
+          description: Can view Defect
+        export:
+          type: boolean
+          example: true
+          description: Can export Defect
+    SessionManagerPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Session
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Session
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Session
+        view:
+          type: boolean
+          example: true
+          description: Can view Session
+    BuildPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Build
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Build
+        delete:
+          type: boolean
+          example: false
+          description: Can delete Build
+        view:
+          type: boolean
+          example: true
+          description: Can view Build
     UserProfileResponse:
       type: object
       properties:
@@ -335,27 +528,25 @@ components:
           format: int32
           description: Total Admin Profile
           readOnly: true
-    DefectPermission:
+    TestSuitePermission:
       type: object
       properties:
         create:
           type: boolean
           example: true
-          description: Can create Defect
+          description: Can create Test Suite
         edit:
           type: boolean
           example: true
-          description: Can edit Defect
+          description: Can edit Test Suite
         delete:
           type: boolean
+          example: true
+          description: Can delete Test Suite
         view:
           type: boolean
           example: true
-          description: Can view Defect
-        export:
-          type: boolean
-          example: true
-          description: Can export Defect
+          description: Can view Test Suite
     SchedulePermission:
       type: object
       properties:
@@ -410,189 +601,28 @@ components:
           type: boolean
           example: true
           description: Can approve Test Case
-    ReleasePermission:
+    ProjectAdminPermission:
       type: object
       properties:
-        create:
+        admin:
           type: boolean
           example: true
-          description: Can create Release
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Release
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Release
-        view:
-          type: boolean
-          example: true
-          description: Can view Release
-    UserResourceExtension:
+          description: Is project admin or not
+    SiteUsersProfile:
       type: object
       properties:
-        links:
+        userProfileId:
+          type: integer
+          format: int64
+          example: 2
+          description: ID of user profile
+        userIds:
           type: array
-          description: Link to resource
-          readOnly: true
+          description: Array User ID
           items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        username:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Contact email of the User
-        password:
-          type: string
-          description: Password of the User
-        first_name:
-          type: string
-          example: Example
-          description: First name of the User
-        last_name:
-          type: string
-          example: User
-          description: Last name of the User
-        status:
-          type: integer
-          format: int32
-          example: 0
-          description: Status of the User
-        avatar:
-          type: string
-          example: https://apitryout.qtestnet.com/api/v3/users/1/avatar
-          description: Avatar URL of the User
-        external_username:
-          type: string
-          description: External username, could be LDAP username or SSO username
-        authentication_system:
-          type: string
-          description: Name of Login provider, could be LDAP or SSO
-        timezone_offset:
-          type: string
-        country_name:
-          type: string
-    UserProfile:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        project_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Project
-        release:
-          $ref: '#/components/schemas/ReleasePermission'
-        build:
-          $ref: '#/components/schemas/BuildPermission'
-        test_configuration:
-          $ref: '#/components/schemas/TestConfigurationPermission'
-        test_configuration_variables:
-          $ref: '#/components/schemas/TestConfigurationVariablesPermission'
-        module:
-          $ref: '#/components/schemas/ModulePermission'
-        requirement:
-          $ref: '#/components/schemas/RequirementPermission'
-        test_case:
-          $ref: '#/components/schemas/TestCasePermission'
-        test_cycle:
-          $ref: '#/components/schemas/TestCyclePermission'
-        test_suite:
-          $ref: '#/components/schemas/TestSuitePermission'
-        test_run:
-          $ref: '#/components/schemas/TestRunPermission'
-        defect:
-          $ref: '#/components/schemas/DefectPermission'
-        project_setting:
-          $ref: '#/components/schemas/ProjectSettingPermission'
-        session:
-          $ref: '#/components/schemas/SessionManagerPermission'
-        project:
-          $ref: '#/components/schemas/ProjectAdminPermission'
-        schedule:
-          $ref: '#/components/schemas/SchedulePermission'
-    RequirementPermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-          example: true
-          description: Can create Requirement
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Requirement
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Requirement
-        view:
-          type: boolean
-          example: true
-          description: Can view Requirement
-        edit_assignment:
-          type: boolean
-          example: true
-          description: Can assign user to Requirement
-        export:
-          type: boolean
-          example: true
-          description: Can export Requirement
-        import:
-          type: boolean
-          example: true
-          description: Can import Requirement
-    SessionManagerPermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-          example: true
-          description: Can create Session
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Session
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Session
-        view:
-          type: boolean
-          example: true
-          description: Can view Session
-    TestSuitePermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-          example: true
-          description: Can create Test Suite
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Test Suite
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Test Suite
-        view:
-          type: boolean
-          example: true
-          description: Can view Test Suite
+            type: integer
+            format: int64
+            example: 1
     TestRunPermission:
       type: object
       properties:
@@ -628,55 +658,25 @@ components:
           type: boolean
         modify_test_logs_by_others:
           type: boolean
-    ProjectUsersProfile:
-      type: object
-      properties:
-        userProfileId:
-          type: integer
-          format: int64
-          example: 2
-          description: ID of user profile
-        userIds:
-          type: array
-          description: Array User ID
-          items:
-            type: integer
-            format: int64
-            example: 1
-    TestConfigurationVariablesPermission:
+    ModulePermission:
       type: object
       properties:
         create:
           type: boolean
+          example: true
+          description: Can create Module
         edit:
           type: boolean
+          example: true
+          description: Can edit Module
         delete:
           type: boolean
+          example: true
+          description: Can delete Module
         view:
           type: boolean
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    Profile:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Profile
-        name:
-          type: string
-          example: Project Manager
-          description: Name of Profile
+          example: true
+          description: Can view Module
   securitySchemes:
     Authorization:
       type: apiKey

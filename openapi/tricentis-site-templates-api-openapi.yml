@@ -104,6 +104,152 @@ paths:
         required: true
 components:
   schemas:
+    UserProfile:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        project_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the Project
+        release:
+          $ref: '#/components/schemas/ReleasePermission'
+        build:
+          $ref: '#/components/schemas/BuildPermission'
+        test_configuration:
+          $ref: '#/components/schemas/TestConfigurationPermission'
+        test_configuration_variables:
+          $ref: '#/components/schemas/TestConfigurationVariablesPermission'
+        module:
+          $ref: '#/components/schemas/ModulePermission'
+        requirement:
+          $ref: '#/components/schemas/RequirementPermission'
+        test_case:
+          $ref: '#/components/schemas/TestCasePermission'
+        test_cycle:
+          $ref: '#/components/schemas/TestCyclePermission'
+        test_suite:
+          $ref: '#/components/schemas/TestSuitePermission'
+        test_run:
+          $ref: '#/components/schemas/TestRunPermission'
+        defect:
+          $ref: '#/components/schemas/DefectPermission'
+        project_setting:
+          $ref: '#/components/schemas/ProjectSettingPermission'
+        session:
+          $ref: '#/components/schemas/SessionManagerPermission'
+        project:
+          $ref: '#/components/schemas/ProjectAdminPermission'
+        schedule:
+          $ref: '#/components/schemas/SchedulePermission'
+    TestConfigurationVariablesPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+    DefectMapping:
+      type: object
+      properties:
+        type_id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        type_label:
+          type: string
+        project_id:
+          type: integer
+          format: int64
+        project:
+          type: string
+        project_label:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefectFieldMapping'
+    SiteTemplateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        template_id:
+          type: integer
+          format: int64
+    ApplyTemplateQueryObject:
+      type: object
+      properties:
+        project_ids:
+          type: array
+          uniqueItems: true
+          items:
+            type: integer
+            format: int64
+        create_new_site_field_values:
+          type: boolean
+          example: true
+    ProjectSettingPermission:
+      type: object
+      properties:
+        manage:
+          type: boolean
+          example: true
+          description: Can manage project setting or not
+    RequirementPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Requirement
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Requirement
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Requirement
+        view:
+          type: boolean
+          example: true
+          description: Can view Requirement
+        edit_assignment:
+          type: boolean
+          example: true
+          description: Can assign user to Requirement
+        export:
+          type: boolean
+          example: true
+          description: Can export Requirement
+        import:
+          type: boolean
+          example: true
+          description: Can import Requirement
+    TestConfigurationPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+        edit:
+          type: boolean
+        delete:
+          type: boolean
+        view:
+          type: boolean
+        link_unlink:
+          type: boolean
     TestCyclePermission:
       type: object
       properties:
@@ -123,6 +269,89 @@ components:
           type: boolean
           example: true
           description: Can view Test Cycle
+    ReleasePermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Release
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Release
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Release
+        view:
+          type: boolean
+          example: true
+          description: Can view Release
+    DefectFieldMapping:
+      type: object
+      properties:
+        field:
+          type: string
+          example: Priority
+          description: External tracker Defect's field
+        qtest_fields:
+          type: array
+          description: qTest Defect's field
+          items:
+            type: string
+            example: 101,102
+    DefectPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Defect
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Defect
+        delete:
+          type: boolean
+        view:
+          type: boolean
+          example: true
+          description: Can view Defect
+        export:
+          type: boolean
+          example: true
+          description: Can export Defect
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    SessionManagerPermission:
+      type: object
+      properties:
+        create:
+          type: boolean
+          example: true
+          description: Can create Session
+        edit:
+          type: boolean
+          example: true
+          description: Can edit Session
+        delete:
+          type: boolean
+          example: true
+          description: Can delete Session
+        view:
+          type: boolean
+          example: true
+          description: Can view Session
     BuildPermission:
       type: object
       properties:
@@ -142,38 +371,6 @@ components:
           type: boolean
           example: true
           description: Can view Build
-    ProjectAdminPermission:
-      type: object
-      properties:
-        admin:
-          type: boolean
-          example: true
-          description: Is project admin or not
-    ApplyTemplateQueryObject:
-      type: object
-      properties:
-        project_ids:
-          type: array
-          uniqueItems: true
-          items:
-            type: integer
-            format: int64
-        create_new_site_field_values:
-          type: boolean
-          example: true
-    DefectFieldMapping:
-      type: object
-      properties:
-        field:
-          type: string
-          example: Priority
-          description: External tracker Defect's field
-        qtest_fields:
-          type: array
-          description: qTest Defect's field
-          items:
-            type: string
-            example: 101,102
     ProjectResource:
       type: object
       properties:
@@ -252,66 +449,25 @@ components:
           type: string
           example: uuid
           description: UUID of the Project
-    ProjectSettingPermission:
-      type: object
-      properties:
-        manage:
-          type: boolean
-          example: true
-          description: Can manage project setting or not
-    TestConfigurationPermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-        edit:
-          type: boolean
-        delete:
-          type: boolean
-        view:
-          type: boolean
-        link_unlink:
-          type: boolean
-    ModulePermission:
+    TestSuitePermission:
       type: object
       properties:
         create:
           type: boolean
           example: true
-          description: Can create Module
+          description: Can create Test Suite
         edit:
           type: boolean
           example: true
-          description: Can edit Module
+          description: Can edit Test Suite
         delete:
           type: boolean
           example: true
-          description: Can delete Module
+          description: Can delete Test Suite
         view:
           type: boolean
           example: true
-          description: Can view Module
-    DefectPermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-          example: true
-          description: Can create Defect
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Defect
-        delete:
-          type: boolean
-        view:
-          type: boolean
-          example: true
-          description: Can view Defect
-        export:
-          type: boolean
-          example: true
-          description: Can export Defect
+          description: Can view Test Suite
     SchedulePermission:
       type: object
       properties:
@@ -366,137 +522,41 @@ components:
           type: boolean
           example: true
           description: Can approve Test Case
-    ReleasePermission:
+    DefectTrackingSystem:
       type: object
       properties:
-        create:
+        defect_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefectMapping'
+        connection_name:
+          type: string
+          example: Jira Cloud
+          description: Name of Integration Connection
+        url:
+          type: string
+          example: https://example.jira.com
+          description: URL to Integration Connection
+        system_name:
+          type: string
+          example: JIRA
+          description: System name of Integration Connection
+        active:
           type: boolean
           example: true
-          description: Can create Release
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Release
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Release
-        view:
-          type: boolean
-          example: true
-          description: Can view Release
-    UserProfile:
-      type: object
-      properties:
-        user_id:
+          description: Status of Integration Connection
+        id:
           type: integer
           format: int64
           example: 1
-          description: ID of the User
-        project_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the Project
-        release:
-          $ref: '#/components/schemas/ReleasePermission'
-        build:
-          $ref: '#/components/schemas/BuildPermission'
-        test_configuration:
-          $ref: '#/components/schemas/TestConfigurationPermission'
-        test_configuration_variables:
-          $ref: '#/components/schemas/TestConfigurationVariablesPermission'
-        module:
-          $ref: '#/components/schemas/ModulePermission'
-        requirement:
-          $ref: '#/components/schemas/RequirementPermission'
-        test_case:
-          $ref: '#/components/schemas/TestCasePermission'
-        test_cycle:
-          $ref: '#/components/schemas/TestCyclePermission'
-        test_suite:
-          $ref: '#/components/schemas/TestSuitePermission'
-        test_run:
-          $ref: '#/components/schemas/TestRunPermission'
-        defect:
-          $ref: '#/components/schemas/DefectPermission'
-        project_setting:
-          $ref: '#/components/schemas/ProjectSettingPermission'
-        session:
-          $ref: '#/components/schemas/SessionManagerPermission'
-        project:
-          $ref: '#/components/schemas/ProjectAdminPermission'
-        schedule:
-          $ref: '#/components/schemas/SchedulePermission'
-    RequirementPermission:
+          description: ID of Integration Connection
+    ProjectAdminPermission:
       type: object
       properties:
-        create:
+        admin:
           type: boolean
           example: true
-          description: Can create Requirement
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Requirement
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Requirement
-        view:
-          type: boolean
-          example: true
-          description: Can view Requirement
-        edit_assignment:
-          type: boolean
-          example: true
-          description: Can assign user to Requirement
-        export:
-          type: boolean
-          example: true
-          description: Can export Requirement
-        import:
-          type: boolean
-          example: true
-          description: Can import Requirement
-    SessionManagerPermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-          example: true
-          description: Can create Session
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Session
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Session
-        view:
-          type: boolean
-          example: true
-          description: Can view Session
-    TestSuitePermission:
-      type: object
-      properties:
-        create:
-          type: boolean
-          example: true
-          description: Can create Test Suite
-        edit:
-          type: boolean
-          example: true
-          description: Can edit Test Suite
-        delete:
-          type: boolean
-          example: true
-          description: Can delete Test Suite
-        view:
-          type: boolean
-          example: true
-          description: Can view Test Suite
+          description: Is project admin or not
     TestRunPermission:
       type: object
       properties:
@@ -532,85 +592,25 @@ components:
           type: boolean
         modify_test_logs_by_others:
           type: boolean
-    DefectTrackingSystem:
-      type: object
-      properties:
-        defect_mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/DefectMapping'
-        connection_name:
-          type: string
-          example: Jira Cloud
-          description: Name of Integration Connection
-        url:
-          type: string
-          example: https://example.jira.com
-          description: URL to Integration Connection
-        system_name:
-          type: string
-          example: JIRA
-          description: System name of Integration Connection
-        active:
-          type: boolean
-          example: true
-          description: Status of Integration Connection
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Integration Connection
-    TestConfigurationVariablesPermission:
+    ModulePermission:
       type: object
       properties:
         create:
           type: boolean
+          example: true
+          description: Can create Module
         edit:
           type: boolean
+          example: true
+          description: Can edit Module
         delete:
           type: boolean
+          example: true
+          description: Can delete Module
         view:
           type: boolean
-    DefectMapping:
-      type: object
-      properties:
-        type_id:
-          type: integer
-          format: int64
-        type:
-          type: string
-        type_label:
-          type: string
-        project_id:
-          type: integer
-          format: int64
-        project:
-          type: string
-        project_label:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DefectFieldMapping'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    SiteTemplateResponse:
-      type: object
-      properties:
-        name:
-          type: string
-        template_id:
-          type: integer
-          format: int64
+          example: true
+          description: Can view Module
   securitySchemes:
     Authorization:
       type: apiKey

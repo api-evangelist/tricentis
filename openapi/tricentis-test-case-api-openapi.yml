@@ -1181,28 +1181,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ParameterVM:
-      type: object
-      properties:
-        parameterId:
-          type: integer
-          format: int64
-        id:
-          type: string
-        startIndex:
-          type: integer
-          format: int32
-        endIndex:
-          type: integer
-          format: int32
-        startWithoutPrefixIndex:
-          type: integer
-          format: int32
-        endWithoutSuffixIndex:
-          type: integer
-          format: int32
-        parameterName:
-          type: string
     CommentResource:
       type: object
       properties:
@@ -1233,132 +1211,6 @@ components:
           type: string
           example: The comment's content
           description: Comment text
-    ParameterInfo:
-      type: object
-      properties:
-        parameter:
-          $ref: '#/components/schemas/ParameterVM'
-        info:
-          $ref: '#/components/schemas/TestParameter'
-        parameterValue:
-          $ref: '#/components/schemas/ParameterValueVM'
-    CustomFieldInfo:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        value:
-          type: string
-        objectId:
-          type: integer
-          format: int64
-        type:
-          type: string
-        name:
-          type: string
-        stripHTMLValue:
-          type: string
-        propertyEditorComponent:
-          type: boolean
-    PagedResourceCommentResource:
-      type: object
-      properties:
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        page:
-          type: integer
-          format: int32
-          example: 1
-          description: Current page
-        page_size:
-          type: integer
-          format: int32
-          example: 25
-          description: Current page size
-        total:
-          type: integer
-          format: int64
-          example: 100
-          description: Total record found
-        items:
-          type: array
-          description: Data of records
-          items:
-            $ref: '#/components/schemas/CommentResource'
-    AttachmentAuthor:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of the User
-        email:
-          type: string
-          example: example.user@qtest.com
-          description: Login username of the User
-        first_name:
-          type: string
-          example: First name of the User
-          description: First name of the User
-        last_name:
-          type: string
-          example: Last name of the User
-          description: Last name of the User
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: self
-          description: Relationship of link to object
-        href:
-          type: string
-          example: <link to object>
-          description: URL to the resource
-    PropertyResource:
-      type: object
-      required:
-      - field_id
-      properties:
-        field_id:
-          type: integer
-          format: int64
-          example: 1
-          description: ID of Field
-        field_name:
-          type: string
-          example: Field Name
-          description: Name of Field
-        field_value:
-          type: string
-          example: '1'
-          description: Value of Field
-        field_value_name:
-          type: string
-          example: '1'
-          description: Name Value of Field
-    TestParameter:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        active:
-          type: boolean
-        deleted:
-          type: boolean
-        clientId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
     ParameterizationText:
       type: object
       properties:
@@ -1380,83 +1232,6 @@ components:
             $ref: '#/components/schemas/ParameterInfo'
         plainValueText:
           type: string
-    TestStepInformationVM:
-      type: object
-      properties:
-        description:
-          type: string
-        descriptionInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        expectedResult:
-          type: string
-        actualResult:
-          type: string
-        expectedResultInfo:
-          $ref: '#/components/schemas/ParameterizationText'
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
-    TestStepResource:
-      type: object
-      required:
-      - description
-      - expected
-      properties:
-        customFieldInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldInfo'
-        links:
-          type: array
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Link'
-        id:
-          type: integer
-          format: int64
-          example: 111
-        description:
-          type: string
-          example: Test Step description
-        expected:
-          type: string
-          example: Test step expected result
-        order:
-          type: integer
-          format: int32
-          example: 1
-          minimum: 1
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          maxItems: 2147483647
-          minItems: 0
-        group:
-          type: integer
-          format: int32
-        called_test_case_name:
-          type: string
-        root_called_test_case_id:
-          type: integer
-          format: int64
-        called_test_case:
-          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
-        parent_test_step_id:
-          type: integer
-          format: int64
-        information:
-          $ref: '#/components/schemas/TestStepInformationVM'
-        plain_value_text:
-          type: string
-        parameter_values:
-          type: array
-          items:
-            type: string
-        called_test_case_id:
-          type: integer
-          format: int64
     ParameterValueVM:
       type: object
       properties:
@@ -1570,6 +1345,59 @@ components:
           type: string
         last_modified_date_utc:
           type: string
+    ParameterInfo:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ParameterVM'
+        info:
+          $ref: '#/components/schemas/TestParameter'
+        parameterValue:
+          $ref: '#/components/schemas/ParameterValueVM'
+    ParameterVM:
+      type: object
+      properties:
+        parameterId:
+          type: integer
+          format: int64
+        id:
+          type: string
+        startIndex:
+          type: integer
+          format: int32
+        endIndex:
+          type: integer
+          format: int32
+        startWithoutPrefixIndex:
+          type: integer
+          format: int32
+        endWithoutSuffixIndex:
+          type: integer
+          format: int32
+        parameterName:
+          type: string
+    PropertyResource:
+      type: object
+      required:
+      - field_id
+      properties:
+        field_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of Field
+        field_name:
+          type: string
+          example: Field Name
+          description: Name of Field
+        field_value:
+          type: string
+          example: '1'
+          description: Value of Field
+        field_value_name:
+          type: string
+          example: '1'
+          description: Name Value of Field
     AttachmentResource:
       type: object
       properties:
@@ -1611,6 +1439,178 @@ components:
           example: 1
           description: Artifact ID which Attachment linked to
           readOnly: true
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: self
+          description: Relationship of link to object
+        href:
+          type: string
+          example: <link to object>
+          description: URL to the resource
+    TestStepInformationVM:
+      type: object
+      properties:
+        description:
+          type: string
+        descriptionInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        expectedResult:
+          type: string
+        actualResult:
+          type: string
+        expectedResultInfo:
+          $ref: '#/components/schemas/ParameterizationText'
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+    CustomFieldInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        objectId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        stripHTMLValue:
+          type: string
+        propertyEditorComponent:
+          type: boolean
+    PagedResourceCommentResource:
+      type: object
+      properties:
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        page:
+          type: integer
+          format: int32
+          example: 1
+          description: Current page
+        page_size:
+          type: integer
+          format: int32
+          example: 25
+          description: Current page size
+        total:
+          type: integer
+          format: int64
+          example: 100
+          description: Total record found
+        items:
+          type: array
+          description: Data of records
+          items:
+            $ref: '#/components/schemas/CommentResource'
+    TestParameter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        deleted:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+    AttachmentAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID of the User
+        email:
+          type: string
+          example: example.user@qtest.com
+          description: Login username of the User
+        first_name:
+          type: string
+          example: First name of the User
+          description: First name of the User
+        last_name:
+          type: string
+          example: Last name of the User
+          description: Last name of the User
+    TestStepResource:
+      type: object
+      required:
+      - description
+      - expected
+      properties:
+        customFieldInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldInfo'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Link'
+        id:
+          type: integer
+          format: int64
+          example: 111
+        description:
+          type: string
+          example: Test Step description
+        expected:
+          type: string
+          example: Test step expected result
+        order:
+          type: integer
+          format: int32
+          example: 1
+          minimum: 1
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          maxItems: 2147483647
+          minItems: 0
+        group:
+          type: integer
+          format: int32
+        called_test_case_name:
+          type: string
+        root_called_test_case_id:
+          type: integer
+          format: int64
+        called_test_case:
+          $ref: '#/components/schemas/TestCaseWithCustomFieldResource'
+        parent_test_step_id:
+          type: integer
+          format: int64
+        information:
+          $ref: '#/components/schemas/TestStepInformationVM'
+        plain_value_text:
+          type: string
+        parameter_values:
+          type: array
+          items:
+            type: string
+        called_test_case_id:
+          type: integer
+          format: int64
   securitySchemes:
     Authorization:
       type: apiKey

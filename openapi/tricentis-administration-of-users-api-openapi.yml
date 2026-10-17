@@ -43,12 +43,12 @@ paths:
           $ref: '#/components/responses/error_500'
 components:
   responses:
-    error_500:
-      description: Internal server error
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/RateLimitError'
     error_400:
       description: An error occurred while processing the request. Please verify the parameters and try again.
       content:
@@ -67,12 +67,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+    error_500:
+      description: Internal server error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RateLimitError'
+            $ref: '#/components/schemas/Error'
     error_404:
       description: Resource not found. Please verify the parameters and try again.
       content:

@@ -231,12 +231,131 @@ paths:
         '500':
           $ref: '#/components/responses/error_500'
 components:
+  responses:
+    error_400:
+      description: An error occurred while processing the request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_401:
+      description: Unauthorized. You must provide an API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_403:
+      description: You are not allowed to process this request. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_429:
+      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    error_413:
+      description: Request entity too large.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    error_404:
+      description: Resource not found. Please verify the parameters and try again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    BenchDeletionSetting:
+      type: object
+      description: Delete by time or number
+      example:
+        retentionCount: 5
+      oneOf:
+      - $ref: '#/components/schemas/BenchDeletionSettingCount'
+      - $ref: '#/components/schemas/BenchDeletionSettingDurationDto'
+    RateLimitError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        retry-after:
+          type: integer
+    BenchDeletionFilterByProject:
+      type: object
+      properties:
+        projectName:
+          type: string
+        scenarioName:
+          type: string
+    BenchDeletionPolicyApiResponseDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+        id:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastModifiedUserName:
+          type: string
+        workspaceId:
+          type: string
+    BenchDeletionSettingDurationDto:
+      type: object
+      properties:
+        retentionDays:
+          type: integer
+          description: number of days before deletion
+          format: int32
     BenchDeletionFilterByResultName:
       type: object
       properties:
         resultNamePattern:
           type: string
+    BenchDeletionPolicyApiFullRequestDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+    BenchDeletionFilter:
+      type: object
+      description: filter to select element for deletion.
+      example:
+        resultNamePattern: toRemove.*
+      oneOf:
+      - $ref: '#/components/schemas/BenchDeletionFilterByProject'
+      - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
+      - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
+    BenchDeletionPolicyApiUpdateRequestDto:
+      type: object
+      properties:
+        deletionFilter:
+          $ref: '#/components/schemas/BenchDeletionFilter'
+        deletionSetting:
+          $ref: '#/components/schemas/BenchDeletionSetting'
+    BenchDeletionSettingCount:
+      type: object
+      properties:
+        retentionCount:
+          type: integer
+          format: int32
     Error:
       type: object
       properties:
@@ -497,131 +616,12 @@ components:
         - HTTP 413 | Message : Request Entity Too Large.
 
         '
-    BenchDeletionFilterByProject:
-      type: object
-      properties:
-        projectName:
-          type: string
-        scenarioName:
-          type: string
-    RateLimitError:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        retry-after:
-          type: integer
-    BenchDeletionPolicyApiResponseDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-        id:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        lastModifiedUserName:
-          type: string
-        workspaceId:
-          type: string
     BenchDeletionFilterByTestDto:
       type: object
       properties:
         testSettingsId:
           type: string
           example: '{"testSettingsId: d6385e46-353b-409f-a494-7ca892edeaa6"}'
-    BenchDeletionPolicyApiUpdateRequestDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-    BenchDeletionPolicyApiFullRequestDto:
-      type: object
-      properties:
-        deletionFilter:
-          $ref: '#/components/schemas/BenchDeletionFilter'
-        deletionSetting:
-          $ref: '#/components/schemas/BenchDeletionSetting'
-    BenchDeletionSetting:
-      type: object
-      description: Delete by time or number
-      example:
-        retentionCount: 5
-      oneOf:
-      - $ref: '#/components/schemas/BenchDeletionSettingCount'
-      - $ref: '#/components/schemas/BenchDeletionSettingDurationDto'
-    BenchDeletionFilter:
-      type: object
-      description: filter to select element for deletion.
-      example:
-        resultNamePattern: toRemove.*
-      oneOf:
-      - $ref: '#/components/schemas/BenchDeletionFilterByProject'
-      - $ref: '#/components/schemas/BenchDeletionFilterByTestDto'
-      - $ref: '#/components/schemas/BenchDeletionFilterByResultName'
-    BenchDeletionSettingCount:
-      type: object
-      properties:
-        retentionCount:
-          type: integer
-          format: int32
-    BenchDeletionSettingDurationDto:
-      type: object
-      properties:
-        retentionDays:
-          type: integer
-          description: number of days before deletion
-          format: int32
-  responses:
-    error_413:
-      description: Request entity too large.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_500:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_401:
-      description: Unauthorized. You must provide an API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_404:
-      description: Resource not found. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_429:
-      description: Too many requests. Your maximum number of requests per minute is reached. Try again soon.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-    error_400:
-      description: An error occurred while processing the request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    error_403:
-      description: You are not allowed to process this request. Please verify the parameters and try again.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     NeoloadAuthorizer:
       type: apiKey

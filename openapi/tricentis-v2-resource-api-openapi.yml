@@ -176,24 +176,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Resources:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        total:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
     Resource:
       type: object
       properties:
@@ -211,10 +193,28 @@ components:
           type: string
         modified_date:
           type: string
+    Resources:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        total:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
     Links:
       type: array
       items:
         $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
   securitySchemes:
     v2_auth:
       type: apiKey

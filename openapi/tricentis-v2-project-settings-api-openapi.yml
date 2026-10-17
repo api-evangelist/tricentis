@@ -132,34 +132,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NoteTimeType:
-      type: object
-      properties:
-        active:
-          type: boolean
-        category_id:
-          type: integer
-        category_name:
-          type: string
-        color:
-          type: string
-        ext_sys_id:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-    Link:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-    Links:
-      type: array
-      items:
-        $ref: '#/components/schemas/Link'
     ProjectSettingsV2:
       type: object
       properties:
@@ -177,6 +149,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NoteTimeType'
+    NoteTimeType:
+      type: object
+      properties:
+        active:
+          type: boolean
+        category_id:
+          type: integer
+        category_name:
+          type: string
+        color:
+          type: string
+        ext_sys_id:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
   securitySchemes:
     v2_auth:
       type: apiKey

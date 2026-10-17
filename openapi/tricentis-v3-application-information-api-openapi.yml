@@ -241,10 +241,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AppInfos:
-      type: array
-      items:
-        $ref: '#/components/schemas/AppInfo'
     AppInfo:
       type: object
       required:
@@ -285,6 +281,10 @@ components:
           type: string
         links:
           $ref: '#/components/schemas/Links'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
     Link:
       type: object
       properties:
@@ -292,10 +292,10 @@ components:
           type: string
         href:
           type: string
-    Links:
+    AppInfos:
       type: array
       items:
-        $ref: '#/components/schemas/Link'
+        $ref: '#/components/schemas/AppInfo'
   securitySchemes:
     v2_auth:
       type: apiKey

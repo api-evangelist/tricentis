@@ -70,10 +70,84 @@ paths:
       operationId: getExecutionsById
       x-operation-id-source: derived
 components:
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    ToQuery:
+      name: to
+      in: query
+      description: Timestamp of the begining of an execution in milliseconds
+      schema:
+        type: integer
+        format: int64
+    FirstQuery:
+      name: first
+      in: query
+      description: Return only the first N results
+      schema:
+        type: integer
+        format: int64
+    FromQuery:
+      name: from
+      in: query
+      description: Timestamp of the begining of an execution in milliseconds
+      schema:
+        type: integer
+        format: int64
+    ProjectIdQuery:
+      name: projectId
+      in: query
+      required: true
+      description: ID of the project
+      schema:
+        type: string
+    ActionIdQuery:
+      name: actionId
+      in: query
+      description: ID of the action in the project
+      schema:
+        type: string
+    OffsetQuery:
+      name: offset
+      in: query
+      description: Skip the first N results
+      schema:
+        type: integer
+        format: int64
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    BasicExecution:
+    Execution:
       allOf:
-      - $ref: '#/components/schemas/Doc'
+      - $ref: '#/components/schemas/BasicExecution'
       - required:
         - actionId
         - status
@@ -111,9 +185,15 @@ components:
       properties:
         message:
           type: string
-    Execution:
+    Doc:
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    BasicExecution:
       allOf:
-      - $ref: '#/components/schemas/BasicExecution'
+      - $ref: '#/components/schemas/Doc'
       - required:
         - actionId
         - status
@@ -145,86 +225,6 @@ components:
             type: string
           createAt:
             type: string
-    Doc:
-      required:
-      - id
-      properties:
-        id:
-          type: string
-  parameters:
-    ActionIdQuery:
-      name: actionId
-      in: query
-      description: ID of the action in the project
-      schema:
-        type: string
-    FromQuery:
-      name: from
-      in: query
-      description: Timestamp of the begining of an execution in milliseconds
-      schema:
-        type: integer
-        format: int64
-    OffsetQuery:
-      name: offset
-      in: query
-      description: Skip the first N results
-      schema:
-        type: integer
-        format: int64
-    ToQuery:
-      name: to
-      in: query
-      description: Timestamp of the begining of an execution in milliseconds
-      schema:
-        type: integer
-        format: int64
-    ProjectIdQuery:
-      name: projectId
-      in: query
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    IdPath:
-      name: id
-      in: path
-      required: true
-      description: ID of the project
-      schema:
-        type: string
-    FirstQuery:
-      name: first
-      in: query
-      description: Return only the first N results
-      schema:
-        type: integer
-        format: int64
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Default:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     qtestToken:
       type: apiKey
